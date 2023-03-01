@@ -32,9 +32,90 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>Логистик</string>
+   <string>Event</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
+   <item row="7" column="3">
+    <widget class="QLineEdit" name="event_city">
+     <property name="placeholderText">
+      <string>Город...</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="2" colspan="2">
+    <widget class="QLabel" name="label_username_login_role">
+     <property name="font">
+      <font>
+       <pointsize>11</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>username_login_role</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="1">
+    <widget class="QTimeEdit" name="event_time">
+     <property name="time">
+      <time>
+       <hour>10</hour>
+       <minute>0</minute>
+       <second>0</second>
+      </time>
+     </property>
+    </widget>
+   </item>
+   <item row="7" column="0">
+    <widget class="QLineEdit" name="lineEdit_type_event">
+     <property name="placeholderText">
+      <string>НИР</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="0" colspan="4">
+    <widget class="QLineEdit" name="event_theme">
+     <property name="placeholderText">
+      <string>Тема мероприятия...</string>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="3">
+    <widget class="QLineEdit" name="event_country">
+     <property name="placeholderText">
+      <string>Страна...</string>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="2">
+    <spacer name="horizontalSpacer">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>40</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="3" column="0" colspan="4">
+    <widget class="QLineEdit" name="event_name">
+     <property name="placeholderText">
+      <string>Наименование мероприятия...</string>
+     </property>
+    </widget>
+   </item>
+   <item row="9" column="0" colspan="4">
+    <widget class="QLineEdit" name="event_comment">
+     <property name="placeholderText">
+      <string>Комментарий...</string>
+     </property>
+    </widget>
+   </item>
    <item row="6" column="0">
     <widget class="QDateEdit" name="event_data">
      <property name="dateTime">
@@ -66,54 +147,6 @@
      </property>
     </widget>
    </item>
-   <item row="5" column="3">
-    <widget class="QPushButton" name="pushButton_select_organization">
-     <property name="text">
-      <string>Выбрать организацию</string>
-     </property>
-    </widget>
-   </item>
-   <item row="7" column="0">
-    <widget class="QLineEdit" name="lineEdit_type_event">
-     <property name="placeholderText">
-      <string>НИР</string>
-     </property>
-    </widget>
-   </item>
-   <item row="7" column="3">
-    <widget class="QLineEdit" name="event_city">
-     <property name="placeholderText">
-      <string>Город...</string>
-     </property>
-    </widget>
-   </item>
-   <item row="6" column="3">
-    <widget class="QLineEdit" name="event_country">
-     <property name="placeholderText">
-      <string>Страна...</string>
-     </property>
-    </widget>
-   </item>
-   <item row="6" column="2">
-    <spacer name="horizontalSpacer">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>40</width>
-       <height>20</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item row="3" column="0" colspan="4">
-    <widget class="QLineEdit" name="event_name">
-     <property name="placeholderText">
-      <string>Наименование мероприятия...</string>
-     </property>
-    </widget>
-   </item>
    <item row="5" column="0" colspan="2">
     <widget class="QLineEdit" name="lineEdit_selected_organization">
      <property name="placeholderText">
@@ -121,38 +154,10 @@
      </property>
     </widget>
    </item>
-   <item row="6" column="1">
-    <widget class="QTimeEdit" name="event_time">
-     <property name="time">
-      <time>
-       <hour>10</hour>
-       <minute>0</minute>
-       <second>0</second>
-      </time>
-     </property>
-    </widget>
-   </item>
-   <item row="10" column="3">
-    <widget class="QDialogButtonBox" name="buttonBox">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="standardButtons">
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Save</set>
-     </property>
-    </widget>
-   </item>
-   <item row="4" column="0" colspan="4">
-    <widget class="QLineEdit" name="event_theme">
-     <property name="placeholderText">
-      <string>Тема мероприятия...</string>
-     </property>
-    </widget>
-   </item>
-   <item row="9" column="0" colspan="4">
-    <widget class="QLineEdit" name="event_comment">
-     <property name="placeholderText">
-      <string>Комментарий...</string>
+   <item row="5" column="3">
+    <widget class="QPushButton" name="pushButton_select_organization">
+     <property name="text">
+      <string>Выбрать организацию</string>
      </property>
     </widget>
    </item>
@@ -171,18 +176,17 @@
      </property>
     </widget>
    </item>
-   <item row="0" column="2" colspan="2">
-    <widget class="QLabel" name="label_username_login_role">
-     <property name="font">
-      <font>
-       <pointsize>11</pointsize>
-      </font>
-     </property>
+   <item row="10" column="3">
+    <widget class="QPushButton" name="pushButton_Ok">
      <property name="text">
-      <string>username_login_role</string>
+      <string>Создать</string>
      </property>
-     <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </widget>
+   </item>
+   <item row="10" column="2">
+    <widget class="QPushButton" name="pushButton_Cancel">
+     <property name="text">
+      <string>Отмена</string>
      </property>
     </widget>
    </item>
@@ -203,34 +207,50 @@
  <resources/>
  <connections>
   <connection>
-   <sender>buttonBox</sender>
-   <signal>accepted()</signal>
+   <sender>pushButton_Ok</sender>
+   <signal>clicked()</signal>
    <receiver>Create_event</receiver>
-   <slot>accept()</slot>
+   <slot>show()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>248</x>
-     <y>254</y>
+     <x>406</x>
+     <y>260</y>
     </hint>
     <hint type="destinationlabel">
-     <x>157</x>
-     <y>274</y>
+     <x>249</x>
+     <y>140</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>buttonBox</sender>
-   <signal>rejected()</signal>
+   <sender>pushButton_Cancel</sender>
+   <signal>clicked()</signal>
    <receiver>Create_event</receiver>
-   <slot>reject()</slot>
+   <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>316</x>
+     <x>274</x>
      <y>260</y>
     </hint>
     <hint type="destinationlabel">
-     <x>286</x>
-     <y>274</y>
+     <x>249</x>
+     <y>140</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_select_organization</sender>
+   <signal>clicked()</signal>
+   <receiver>Create_event</receiver>
+   <slot>show()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>406</x>
+     <y>136</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>249</x>
+     <y>140</y>
     </hint>
    </hints>
   </connection>

@@ -1,22 +1,21 @@
-
 from db_config import host, port, user, password, db_name
 
 import pymysql
-import pymysql.cursors
+# import cursors
 
 class Mysql:
     """Подключение и работа с базой данных MqSql"""
     def __init__(self, host, port, user, password, db_name):
-        host = "127.0.0.1"
+        host =  "127.0.0.1"
         port = 3306
-        user = "root"
-        password = "root"
+        user = "admin"
+        password = "gnt6al47"
         db_name = "logistics_db"
         try:
-            self.connection = pymysql.connect(host=host, port=port, user=user, password=password, database=db_name, cursorclass=pymysql.cursors.DictCursor)
+            self.connection = pymysql.connect(host =host, port =port, user =user, password =password, database=db_name, cursorclass=pymysql.cursors.DictCursor)
             print("Соединение с базой данных успешно проведено")
         except Exception as ex:
-            print("Error connection to db")
+            print ("Error connection to db")
 
 
     def select_all_data(self, table_name):
@@ -33,7 +32,7 @@ class Mysql:
     def create_participant(self, phone_number, second_name, first_name, last_name, role, full_name, city, email, password, comment, disabled):
         """Добавление нового участника в базу данных MySql"""
         # Получаем role_id по role participant
-        select_role_id = f"SELECT role_id FROM roles WHERE  role_name = '{role}'"
+        select_role_id = f"SELECT role_id FROM roles WHERE role_name = '{role}'"
         with self.connection.cursor() as cursor:
             cursor.execute(select_role_id)
             result = cursor.fetchall()
@@ -42,7 +41,7 @@ class Mysql:
         role_id = result[0]['role_id']
 
         insert_query = f"INSERT INTO participants (phone_number, second_name, first_name, last_name, full_name, role_id, city, email, password, comment,disabled) \
-        VALUES('{phone_number}', '{second_name}', '{first_name}', '{last_name}', '{full_name}', {role_id}, '{city}', '{email}', '{password}', '{comment}',{disabled})"
+ VALUES('{phone_number}', '{second_name}', '{first_name}', '{last_name}', '{full_name}', {role_id}, '{city}', '{email}', '{password}', '{comment}',{disabled})"
 
         with self.connection.cursor() as cursor:
             cursor.execute(insert_query)
@@ -50,14 +49,14 @@ class Mysql:
 
     def create_user(self, new_user):
         """Добавление нового пользователя в базу данных MySql"""
-        select_role_id = f"SELECT role_id FROM roles WHERE  role_name = '{new_user['role']}'"
+        select_role_id = f"SELECT role_id FROM roles WHERE role_name = '{new_user['role']}'"
         with self.connection.cursor() as cursor:
             cursor.execute(select_role_id)
             result = cursor.fetchall()
             self.connection.commit()
 
         insert_query = f"INSERT INTO participant (phone_number, second_name, first_name, last_name, full_name, role_id, city, email, password, comment,disabled) \
-        VALUES(" \
+ VALUES(" \
                        f"'{new_user['phone_number']}'," \
                        f" '{new_user['second_name']}'," \
                        f" '{new_user['first_name']}'," \
@@ -119,7 +118,7 @@ class Mysql:
             cursor.execute(select_id)
             result = cursor.fetchall()
             self.connection.commit()
-        #print(result)
+        print(f'Sql-возврат запроса по участнику: {result}')
         result = result[0]['participant_id']
         return result
 
@@ -138,6 +137,7 @@ class Mysql:
         with self.connection.cursor() as cursor:
             cursor.execute(update_by_id)
             self.connection.commit()
+
     def delete_participant_by_id(self, id):
         """Удаление участника по id из таблицы participants"""
         delete_by_id = f"DELETE FROM participants WHERE participant_id = {id}"
@@ -145,9 +145,6 @@ class Mysql:
             cursor.execute(delete_by_id)
             self.connection.commit()
 
-
-
     def __del__(self):
         """Закрытие сессии соединения с базой данных"""
         self.connection.close()
-

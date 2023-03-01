@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Логистик</string>
+   <string>Event  (update 01.03.23)</string>
   </property>
   <widget class="QPushButton" name="pushButton_login">
    <property name="geometry">
@@ -74,7 +74,7 @@
     <item row="1" column="0">
      <widget class="QLineEdit" name="lineEdit_login">
       <property name="placeholderText">
-       <string>79265002010</string>
+       <string>89265002010</string>
       </property>
      </widget>
     </item>

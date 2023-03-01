@@ -4,13 +4,27 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="init">
+    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Соединение с базой реализовано из Access.">
+      <change afterPath="$PROJECT_DIR$/Ui_designer/Ui_Upload_docs.ui" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Logistics_project.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Logistics_project.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Class_Access.py" beforeDir="false" afterPath="$PROJECT_DIR$/Class_Access.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Class_Mysql.py" beforeDir="false" afterPath="$PROJECT_DIR$/Class_Mysql.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ui_Create_organization.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_Create_organization.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ui_List_organization.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_List_organization.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ui_Analisis_list.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_Analisis_list.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ui_designer/Ui_Accept_docs.ui" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_designer/Ui_Accept_docs.ui" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ui_designer/Ui_Add_participant.ui" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_designer/Ui_Add_participant.ui" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ui_designer/Ui_Analisis_list.ui" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_designer/Ui_Analisis_list.ui" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ui_designer/Ui_Create_event.ui" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_designer/Ui_Create_event.ui" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ui_designer/Ui_Create_inspector.ui" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_designer/Ui_Create_inspector.ui" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Ui_designer/Ui_Create_organization.ui" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_designer/Ui_Create_organization.ui" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ui_designer/Ui_Create_participant.ui" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_designer/Ui_Create_participant.ui" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ui_designer/Ui_Create_user.ui" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_designer/Ui_Create_user.ui" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ui_designer/Ui_Event.ui" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_designer/Ui_Event.ui" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ui_designer/Ui_Event_shedule.ui" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_designer/Ui_Event_shedule.ui" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Ui_designer/Ui_List_organization.ui" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_designer/Ui_List_organization.ui" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ui_designer/Ui_List_participants.ui" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_designer/Ui_List_participants.ui" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ui_designer/Ui_Login.ui" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_designer/Ui_Login.ui" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -51,14 +65,14 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "C:/Event/Ui_designer",
-    "settings.editor.selected.configurable": "preferences.externalTools"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/LogisticsV1&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
@@ -269,14 +283,7 @@
       <option name="project" value="LOCAL" />
       <updated>1677439442269</updated>
     </task>
-    <task id="LOCAL-00009" summary="init">
-      <created>1677526938926</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1677526938926</updated>
-    </task>
-    <option name="localTasksCounter" value="10" />
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -291,12 +298,12 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <MESSAGE value="init" />
     <MESSAGE value="Из List_participants убрана кнопка добавить. &#10;Связаны окна по кнопкам" />
     <MESSAGE value="Добавил окно создания пользователя. (Пока на кнопку Печать)" />
     <MESSAGE value="Сделал DocString ко всем классам и функциям main" />
     <MESSAGE value="Соединение с базой реализовано из Access." />
-    <MESSAGE value="init" />
-    <option name="LAST_COMMIT_MESSAGE" value="init" />
+    <option name="LAST_COMMIT_MESSAGE" value="Соединение с базой реализовано из Access." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -304,7 +311,7 @@
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
           <line>220</line>
-          <option name="timeStamp" value="5" />
+          <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

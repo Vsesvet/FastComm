@@ -31,6 +31,7 @@ class Access:
                     f'Не найден телефон в БД.')
         flag_access = 1
         db_user = 0
+        journal.log(f'Отключение от базы данных')
         return db_user, flag_access
 
     def get_username_and_role(self, user_login):

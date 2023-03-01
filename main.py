@@ -40,7 +40,6 @@ class Login(Ui_Login):
         self.pushButton_login.clicked.connect(self.check_access)
         self.lineEdit_password.returnPressed.connect(self.check_access)
 
-
     def check_access(self):
         """Обработка входящих логина и пароля"""
         global user_login
@@ -249,16 +248,14 @@ class Create_participant(Ui_Create_participant):
         self.db = Mysql(host, port, user, password, db_name)
         self.dialog.exec()
 
-
-
     def clicked_connect(self, dialog):
         """Обработка нажатий кнопок окна создание Участника"""
         self.pushButton_generate.clicked.connect(self.generate_password)
-        self.pushButton_save.clicked.connect(self.create_participant)
+        self.pushButton_save.clicked.connect(self.add_new_participant)
         self.pushButton_cancel.clicked.connect(dialog.close)
         # self.checkBox_disabled_participant.stateChanged['int'].connect(dialog.show)
 
-    def create_participant(self):
+    def add_new_participant(self):
         """Добавляет нового пользователя в базу данных"""
         phone_number = self.lineEdit_phone_number.text()
         second_name = self.lineEdit_second_name.text()
@@ -272,31 +269,37 @@ class Create_participant(Ui_Create_participant):
 
         role = "participant"
         full_name = second_name + " " + first_name + " " + last_name
-
-        #dict = {'phone_number': phone_number, 'second_name': second_name, 'first_name': first_name,
-        #        'last_name': last_name, 'role': role, 'full_name': full_name, 'email': email, 'city': city,
-        #        'password': password, 'comment': comment, 'disabled': disabled}
-        #table_name = "participants"
-
+        # Форматирование номера телефона
+        phone_number = self.formating_phone(phone_number)
         if len(phone_number) == 11:
             try:
-
-                self.db.create_participant(phone_number, second_name, first_name, last_name, role, full_name, email, city,
-                                    password, comment, disabled)
+                self.db.add_participant(phone_number, second_name, first_name, last_name, role, full_name, email, city,
+                                        password, comment, disabled)
                 self.dialog.close()
 
             except Exception as ex:
                 print("Error add new participant")
         else:
             self.lineEdit_phone_number.setPlaceholderText("ВВЕДИТЕ НОМЕР ТЕЛЕФОНА")
+
     def generate_password(self):
         """Генерация пароля по нажатию на кнопку"""
         passw = generate_password.generate()
         self.lineEdit_password.setText(f'{passw}')
 
+    def formating_phone(self, phone_number):
+        """Форматирование строки телефона"""
+        phone_number = phone_number.replace('+7', '8').strip()
+        symbols = ["-", "(", ")", " "]
+        for symbol in symbols:
+            if symbol in phone_number:
+                phone_number = phone_number.replace(symbol, '')
+        return phone_number
+
 
 class Edit_participant(Ui_Create_participant):
     """Окно редактирования Участника"""
+
     def __init__(self, id_from_db, current_values):
         username_login_role = access.get_username_and_role(user_login)
         self.dialog = QDialog()
@@ -317,7 +320,7 @@ class Edit_participant(Ui_Create_participant):
         self.pushButton_save.clicked.connect(self.update_user)
         self.pushButton_cancel.clicked.connect(dialog.close)
         # self.checkBox_disabled_participant.stateChanged['int'].connect(dialog.show)
-    
+
     def update_user(self):
         """Обновляет данные пользователя в базе данных"""
         values = []
@@ -326,7 +329,7 @@ class Edit_participant(Ui_Create_participant):
         values.append(self.lineEdit_first_name.text())
         values.append(self.lineEdit_last_name.text())
 
-        #Составление Full_name по полученным данным:
+        # Составление Full_name по полученным данным:
         values.append(values[1] + " " + values[2] + " " + values[3])
 
         values.append(self.lineEdit_city.text())
@@ -334,10 +337,11 @@ class Edit_participant(Ui_Create_participant):
         values.append(self.lineEdit_password.text())
         values.append(self.lineEdit_comment.text())
 
-        #print(values)
-        self.db.update_participant_by_id(self.id_from_db,values)
+        # print(values)
+        self.db.update_participant_by_id(self.id_from_db, values)
         self.dialog.close()
-        #print("updated")
+        # print("updated")
+
     def set_view(self):
         """Устанавливает в поля для ввода данные выбранного пользователя"""
         self.lineEdit_phone_number.setText(self.current_values[0])
@@ -348,6 +352,7 @@ class Edit_participant(Ui_Create_participant):
         self.lineEdit_city.setText(self.current_values[5])
         self.lineEdit_password.setText(self.current_values[6])
         self.lineEdit_comment.setText(self.current_values[7])
+
     def generate_password(self):
         """Генерация пароля в окне Редактирования Участника"""
         passw = generate_password.generate()
@@ -553,11 +558,11 @@ class List_participants(Ui_List_participants):
         try:
             item = self.tree_participants_list.currentItem()
             result_data = []
-            for i in range(0,8):
+            for i in range(0, 8):
                 item_string = item.text(i)
                 result_data.append(item_string)
             id_from_db = self.db.get_participant_id(result_data[0])
-            #print(id_from_db, result_data)
+            # print(id_from_db, result_data)
             Edit_participant(id_from_db, result_data)
         except Exception as ex:
             print("Error")
@@ -570,6 +575,7 @@ class List_participants(Ui_List_participants):
 
         self.db.delete_participant_by_id(id)
         self.update_tree()
+
     def update_tree(self):
         """Обновление общего списка участников (Аналогично функции set_view_of_all_participants, но с небольшими отличиями)"""
         self.tree_participants_list.clear()

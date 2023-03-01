@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Логистик  (update 23.02)</string>
+   <string>Event</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout_2">
@@ -321,7 +321,6 @@
   <tabstop>tree_event_shedule</tabstop>
   <tabstop>pushButton_export_xls</tabstop>
   <tabstop>pushButton_print</tabstop>
-  <tabstop>pushButton_exit</tabstop>
   <tabstop>lineEdit_find_event</tabstop>
   <tabstop>dateEdit_begin_event</tabstop>
   <tabstop>dateEdit_finish_event</tabstop>

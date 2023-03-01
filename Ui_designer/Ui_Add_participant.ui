@@ -11,16 +11,9 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Логистик</string>
+   <string>Event</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="6" column="3">
-    <widget class="QDialogButtonBox" name="buttonBox">
-     <property name="standardButtons">
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
-     </property>
-    </widget>
-   </item>
    <item row="2" column="0">
     <widget class="QLineEdit" name="lineEdit_number_phone_participant">
      <property name="placeholderText">
@@ -100,42 +93,33 @@
      </property>
     </widget>
    </item>
+   <item row="5" column="3">
+    <widget class="QPushButton" name="pushButton_ok">
+     <property name="text">
+      <string>ОК</string>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="2">
+    <widget class="QPushButton" name="pushButton_cancel">
+     <property name="text">
+      <string>Отмена</string>
+     </property>
+    </widget>
+   </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>lineEdit_number_phone_participant</tabstop>
+  <tabstop>lineEdit_second_name_participant</tabstop>
+  <tabstop>pushButton_find_participant</tabstop>
+  <tabstop>treeWidget</tabstop>
+  <tabstop>pushButton_add_selected_participant</tabstop>
+  <tabstop>pushButton_ok</tabstop>
+  <tabstop>pushButton_cancel</tabstop>
+ </tabstops>
  <resources/>
  <connections>
-  <connection>
-   <sender>buttonBox</sender>
-   <signal>accepted()</signal>
-   <receiver>Add_participant</receiver>
-   <slot>accept()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>514</x>
-     <y>354</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>303</x>
-     <y>187</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>buttonBox</sender>
-   <signal>rejected()</signal>
-   <receiver>Add_participant</receiver>
-   <slot>reject()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>514</x>
-     <y>354</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>303</x>
-     <y>187</y>
-    </hint>
-   </hints>
-  </connection>
   <connection>
    <sender>pushButton_add_selected_participant</sender>
    <signal>clicked()</signal>
@@ -145,6 +129,54 @@
     <hint type="sourcelabel">
      <x>92</x>
      <y>323</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>303</x>
+     <y>187</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_ok</sender>
+   <signal>clicked()</signal>
+   <receiver>Add_participant</receiver>
+   <slot>show()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>558</x>
+     <y>354</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>303</x>
+     <y>187</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_cancel</sender>
+   <signal>clicked()</signal>
+   <receiver>Add_participant</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>472</x>
+     <y>354</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>303</x>
+     <y>187</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_find_participant</sender>
+   <signal>clicked()</signal>
+   <receiver>Add_participant</receiver>
+   <slot>update()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>472</x>
+     <y>74</y>
     </hint>
     <hint type="destinationlabel">
      <x>303</x>
