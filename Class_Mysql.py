@@ -22,12 +22,15 @@ class Mysql:
     def select_all_data(self, table_name):
         """Получение всех строк из базы данных"""
         select_all_rows = f"SELECT * FROM {table_name}"
+
         with self.connection.cursor() as cursor:
             cursor.execute(select_all_rows)
             rows = cursor.fetchall()
+
             return rows
 
-    def add_participant(self, phone_number, second_name, first_name, last_name, role, full_name, city, email, password, comment, disabled):
+
+    def create_participant(self, phone_number, second_name, first_name, last_name, role, full_name, city, email, password, comment, disabled):
         """Добавление нового участника в базу данных MySql"""
         # Получаем role_id по role participant
         select_role_id = f"SELECT role_id FROM roles WHERE  role_name = '{role}'"
@@ -53,9 +56,7 @@ class Mysql:
             result = cursor.fetchall()
             self.connection.commit()
 
-        # role_id = result[0]['role_id']
-
-        insert_query = f"INSERT INTO participants (phone_number, second_name, first_name, last_name, full_name, role_id, city, email, password, comment,disabled) \
+        insert_query = f"INSERT INTO participant (phone_number, second_name, first_name, last_name, full_name, role_id, city, email, password, comment,disabled) \
         VALUES(" \
                        f"'{new_user['phone_number']}'," \
                        f" '{new_user['second_name']}'," \
@@ -73,6 +74,21 @@ class Mysql:
             cursor.execute(insert_query)
             self.connection.commit()
 
+    def create_organization(self, new_org):
+        print("here", new_org)
+        insert_query = f"INSERT INTO organizations (organization_name, organization_INN, organization_KPP, phone_number) \
+                VALUES(" \
+                       f"'{new_org['organization_name']}'," \
+                       f" '{new_org['organization_INN']}'," \
+                       f" '{new_org['organization_KPP']}'," \
+                       f" '{new_org['phone_number']}')"
+        try:
+            with self.connection.cursor() as cursor:
+                cursor.execute(insert_query)
+                self.connection.commit()
+                print("New org inserted into database successfully")
+        except Exception as ex:
+            print("Error to add new org into database")
 
     def select_all(self, table_name):
         """Выбор всех строк из таблицы. Возвращает все строки"""
@@ -110,7 +126,7 @@ class Mysql:
     def update_participant_by_id(self, id, values):
         """Обновление данных участника по id. (role_id по умолч. = 4)"""
         update_by_id = f"UPDATE participants SET phone_number = '{values[0]}' ,"  \
-                       f"                        second_name  = '{values[1]}' ,"   \
+                       f"                        second_name  = '{values[1]}' ,"  \
                        f"                        first_name   = '{values[2]}' ,"  \
                        f"                        last_name    = '{values[3]}' ,"  \
                        f"                        full_name    = '{values[4]}' ,"  \

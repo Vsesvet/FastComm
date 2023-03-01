@@ -29,31 +29,6 @@
    <string>Логистик</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="0" column="1" colspan="2">
-    <widget class="QLabel" name="label_username_login_role">
-     <property name="font">
-      <font>
-       <pointsize>11</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>username_login_role</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-     </property>
-    </widget>
-   </item>
-   <item row="6" column="2">
-    <widget class="QDialogButtonBox" name="buttonBox">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="standardButtons">
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
-     </property>
-    </widget>
-   </item>
    <item row="2" column="1">
     <spacer name="verticalSpacer">
      <property name="orientation">
@@ -67,34 +42,18 @@
      </property>
     </spacer>
    </item>
-   <item row="3" column="0" colspan="3">
-    <widget class="QLineEdit" name="lineEdit_organization_name">
+   <item row="0" column="1" colspan="2">
+    <widget class="QLabel" name="label_username_login_role">
+     <property name="font">
+      <font>
+       <pointsize>11</pointsize>
+      </font>
+     </property>
      <property name="text">
-      <string/>
+      <string>username_login_role</string>
      </property>
-     <property name="placeholderText">
-      <string>Наименование организации...</string>
-     </property>
-    </widget>
-   </item>
-   <item row="4" column="2">
-    <widget class="QLineEdit" name="lineEdit_phone_number">
-     <property name="placeholderText">
-      <string>Телефон...</string>
-     </property>
-    </widget>
-   </item>
-   <item row="4" column="0">
-    <widget class="QLineEdit" name="lineEdit_organization_inn">
-     <property name="placeholderText">
-      <string>ИНН</string>
-     </property>
-    </widget>
-   </item>
-   <item row="4" column="1">
-    <widget class="QLineEdit" name="lineEdit_organization_kpp">
-     <property name="placeholderText">
-      <string>КПП</string>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
     </widget>
    </item>
@@ -113,7 +72,38 @@
      </property>
     </widget>
    </item>
-   <item row="5" column="2">
+   <item row="4" column="0">
+    <widget class="QLineEdit" name="lineEdit_organization_inn">
+     <property name="placeholderText">
+      <string>ИНН</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0" colspan="3">
+    <widget class="QLineEdit" name="lineEdit_organization_name">
+     <property name="text">
+      <string/>
+     </property>
+     <property name="placeholderText">
+      <string>Наименование организации...</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="2">
+    <widget class="QLineEdit" name="lineEdit_phone_number">
+     <property name="placeholderText">
+      <string>Телефон...</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="1">
+    <widget class="QLineEdit" name="lineEdit_organization_kpp">
+     <property name="placeholderText">
+      <string>КПП</string>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="2">
     <spacer name="verticalSpacer_2">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
@@ -126,6 +116,20 @@
      </property>
     </spacer>
    </item>
+   <item row="5" column="2">
+    <widget class="QPushButton" name="pushButton_OK">
+     <property name="text">
+      <string>ОК</string>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="1">
+    <widget class="QPushButton" name="pushButton_Cancel">
+     <property name="text">
+      <string>Отмена</string>
+     </property>
+    </widget>
+   </item>
   </layout>
  </widget>
  <tabstops>
@@ -135,38 +139,5 @@
   <tabstop>lineEdit_phone_number</tabstop>
  </tabstops>
  <resources/>
- <connections>
-  <connection>
-   <sender>buttonBox</sender>
-   <signal>accepted()</signal>
-   <receiver>Create_organization</receiver>
-   <slot>accept()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>248</x>
-     <y>254</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>157</x>
-     <y>274</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>buttonBox</sender>
-   <signal>rejected()</signal>
-   <receiver>Create_organization</receiver>
-   <slot>reject()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>316</x>
-     <y>260</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>286</x>
-     <y>274</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>

@@ -254,11 +254,11 @@ class Create_participant(Ui_Create_participant):
     def clicked_connect(self, dialog):
         """Обработка нажатий кнопок окна создание Участника"""
         self.pushButton_generate.clicked.connect(self.generate_password)
-        self.pushButton_save.clicked.connect(self.add_new_participant)
+        self.pushButton_save.clicked.connect(self.create_participant)
         self.pushButton_cancel.clicked.connect(dialog.close)
         # self.checkBox_disabled_participant.stateChanged['int'].connect(dialog.show)
 
-    def add_new_participant(self):
+    def create_participant(self):
         """Добавляет нового пользователя в базу данных"""
         phone_number = self.lineEdit_phone_number.text()
         second_name = self.lineEdit_second_name.text()
@@ -269,12 +269,19 @@ class Create_participant(Ui_Create_participant):
         password = self.lineEdit_password.text()
         comment = self.lineEdit_comment.text()
         disabled = self.checkBox_disabled_participant.isChecked()
-        #print("add")
+
         role = "participant"
         full_name = second_name + " " + first_name + " " + last_name
+
+        #dict = {'phone_number': phone_number, 'second_name': second_name, 'first_name': first_name,
+        #        'last_name': last_name, 'role': role, 'full_name': full_name, 'email': email, 'city': city,
+        #        'password': password, 'comment': comment, 'disabled': disabled}
+        #table_name = "participants"
+
         if len(phone_number) == 11:
             try:
-                self.db.add_participant(phone_number, second_name, first_name, last_name, role, full_name, email, city,
+
+                self.db.create_participant(phone_number, second_name, first_name, last_name, role, full_name, email, city,
                                     password, comment, disabled)
                 self.dialog.close()
 
@@ -350,13 +357,71 @@ class Edit_participant(Ui_Create_participant):
 class Create_organization(Ui_Create_organization):
     """Окно создания новой организации"""
     def __init__(self):
-        dialog = QDialog()
-        super().setupUi(dialog)
+        self.dialog = QDialog()
+        super().setupUi(self.dialog)
         username_login_role = access.get_username_and_role(user_login)
         self.label_username_login_role.setText(f'{username_login_role}')
-        dialog.exec()
+        self.db = Mysql(host, port, user, password, db_name)
+        self.clicked_connect(self.dialog)
+        self.dialog.exec()
 
 
+    def clicked_connect(self, dialog):
+        """Обработка нажатий кнопок окна создание Участника"""
+        self.pushButton_OK.clicked.connect(self.create_organization)
+        self.pushButton_Cancel.clicked.connect(dialog.close)
+
+    def create_organization(self):
+        """Обработка нажатия кнопки создание новой организации"""
+
+        new_org = {}
+
+        new_org['organization_name'] = self.lineEdit_organization_name.text()
+        new_org['organization_INN'] = self.lineEdit_organization_inn.text()
+        new_org['organization_KPP'] = self.lineEdit_organization_kpp.text()
+        new_org['phone_number'] = self.lineEdit_phone_number.text()
+
+        self.write_organization_to_db(new_org)
+
+    def write_organization_to_db(self, new_org):
+        self.db.create_organization(new_org)
+        self.dialog.close()
+
+
+class Edit_organization(Ui_Create_organization):
+    def __init__(self, id_from_db, current_values):
+        self.dialog = QDialog()
+        super().setupUi(self.dialog)
+        username_login_role = access.get_username_and_role(user_login)
+        self.label_username_login_role.setText(f'{username_login_role}')
+        self.id_from_db = id_from_db
+        self.current_values = current_values
+        self.db = Mysql(host, port, user, password, db_name)
+        self.set_view()
+        self.dialog.exec()
+
+
+
+    def clicked_connect(self, dialog):
+        """Обработка нажатий кнопок окна создание Участника"""
+        self.pushButton_OK.clicked.connect(self.create_organization)
+        self.pushButton_Cancel.clicked.connect()
+
+    def create_organization(self):
+        """Обработка нажатия кнопки создание новой организации"""
+        new_org = {}
+        new_org['organization_name'] = self.lineEdit_organization_name.text()
+        new_org['organization_INN'] = self.lineEdit_organization_inn.text()
+        new_org['organization_KPP'] = self.lineEdit_first_name.text()
+        new_org['phone_number'] = self.lineEdit_last_name.text()
+
+        self.write_organization_to_db(new_org)
+
+    def write_organization_to_db(self, new_org):
+        self.db.create_organization(new_org)
+
+    def set_view(self):
+        print("set view")
 class Create_inspector(Ui_Create_inspector):
     """Окно создания инспектора"""
     def __init__(self):
@@ -381,20 +446,32 @@ class Create_inspector(Ui_Create_inspector):
 class List_organization(Ui_List_organization):
     """Окно выводит список всех Организаций"""
     def __init__(self):
-        dialog = QDialog()
-        super().setupUi(dialog)
+        self.dialog = QDialog()
+        super().setupUi(self.dialog)
         username_login_role = access.get_username_and_role(user_login)
         self.label_username_login_role.setText(f'{username_login_role}')
-
-        self.clicked_connect(dialog)
-        dialog.exec()
+        self.db = Mysql(host, port, user, password, db_name)
+        headers_names = ['Название Орг.', 'ИНН', 'КПП', 'Номер телефона']
+        self.set_headers(headers_names, self.tree_organizations_list)
+        self.set_view_of_all_organizations()
+        self.clicked_connect(self.dialog)
+        self.dialog.exec()
 
     def clicked_connect(self, dialog):
         """Обработка нажатий кнопок в окне List_organization"""
-        self.buttonBox.accepted.connect(dialog.accept)
-        self.buttonBox.rejected.connect(dialog.reject)
         self.pushButton_add_organization.clicked.connect(Create_organization)
+        self.pushButton_add_organization.clicked.connect(self.update_tree)
+        self.pushButton_edit_organization.clicked.connect(self.update_organization)
+        self.pushButton_delete_organization.clicked.connect(self.delete_organization)
+        self.pushButton_OK.clicked.connect(self.dialog.close)
+        self.pushButton_Cancel.clicked.connect(self.dialog.close)
 
+    def update_organization(self):
+        id_from_db = 0
+        current_values = 0
+        Edit_organization(id_from_db,current_values)
+    def delete_organization(self):
+        print("delete org")
     def set_headers(self, headers_names, tree):
         """Установка заголовков таблицы Списка Организаций"""
         tree.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.SizeAdjustPolicy.AdjustToContents)
@@ -402,6 +479,45 @@ class List_organization(Ui_List_organization):
         for header in headers_names:
             tree.headerItem().setText(headers_names.index(header), header)
 
+    def update_tree(self):
+        """Обновление общего списка участников (Аналогично функции set_view_of_all_participants, но с небольшими отличиями)"""
+        self.tree_organizations_list.clear()
+        try:
+            db = Mysql(host, port, user, password, db_name)
+        except Exception as ex:
+            print("Error update list participants")
+
+        keys = ['organization_name', 'organization_INN', 'organization_KPP', 'phone_number']
+        table_name = "organizations"
+        all_organizations = db.select_all_data(table_name)
+
+        value = []
+        for id in range(0, len(all_organizations)):
+            for key in keys:
+                value.append(all_organizations[id][key])
+            item = QTreeWidgetItem(value)
+            self.tree_organizations_list.addTopLevelItem(item)
+            value.clear()
+
+    def set_view_of_all_organizations(self):
+        keys = ['organization_name', 'organization_INN', 'organization_KPP', 'phone_number']
+        table_name = "organizations"
+        print(table_name)
+        all_organizations = self.db.select_all_data(table_name)
+        print(all_organizations)
+        value = []
+        for id in range(0, len(all_organizations)):
+            for key in keys:
+                value.append(all_organizations[id][key])
+            item = QTreeWidgetItem(value)
+            self.tree_organizations_list.addTopLevelItem(item)
+            value.clear()
+    def set_headers(self, headers_names, tree):
+        """Устанавливает заголовки колонок для Списка всех организаций"""
+        tree.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.SizeAdjustPolicy.AdjustToContents)
+
+        for header in headers_names:
+           tree.headerItem().setText(headers_names.index(header), header)
 
 class List_participants(Ui_List_participants):
     """Окно выводит список всех участников в БД, вне зависимости от мероприятий"""
