@@ -17,10 +17,6 @@ class Ui_Add_participant(object):
         Add_participant.resize(608, 376)
         self.gridLayout = QtWidgets.QGridLayout(Add_participant)
         self.gridLayout.setObjectName("gridLayout")
-        self.buttonBox = QtWidgets.QDialogButtonBox(Add_participant)
-        self.buttonBox.setStandardButtons(QtWidgets.QDialogButtonBox.Cancel|QtWidgets.QDialogButtonBox.Ok)
-        self.buttonBox.setObjectName("buttonBox")
-        self.gridLayout.addWidget(self.buttonBox, 6, 3, 1, 1)
         self.lineEdit_number_phone_participant = QtWidgets.QLineEdit(Add_participant)
         self.lineEdit_number_phone_participant.setObjectName("lineEdit_number_phone_participant")
         self.gridLayout.addWidget(self.lineEdit_number_phone_participant, 2, 0, 1, 1)
@@ -49,16 +45,29 @@ class Ui_Add_participant(object):
         self.pushButton_add_selected_participant = QtWidgets.QPushButton(Add_participant)
         self.pushButton_add_selected_participant.setObjectName("pushButton_add_selected_participant")
         self.gridLayout.addWidget(self.pushButton_add_selected_participant, 5, 0, 1, 1)
+        self.pushButton_ok = QtWidgets.QPushButton(Add_participant)
+        self.pushButton_ok.setObjectName("pushButton_ok")
+        self.gridLayout.addWidget(self.pushButton_ok, 5, 3, 1, 1)
+        self.pushButton_cancel = QtWidgets.QPushButton(Add_participant)
+        self.pushButton_cancel.setObjectName("pushButton_cancel")
+        self.gridLayout.addWidget(self.pushButton_cancel, 5, 2, 1, 1)
 
         self.retranslateUi(Add_participant)
-        self.buttonBox.accepted.connect(Add_participant.accept) # type: ignore
-        self.buttonBox.rejected.connect(Add_participant.reject) # type: ignore
         self.pushButton_add_selected_participant.clicked.connect(Add_participant.show) # type: ignore
+        self.pushButton_ok.clicked.connect(Add_participant.show) # type: ignore
+        self.pushButton_cancel.clicked.connect(Add_participant.close) # type: ignore
+        self.pushButton_find_participant.clicked.connect(Add_participant.update) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(Add_participant)
+        Add_participant.setTabOrder(self.lineEdit_number_phone_participant, self.lineEdit_second_name_participant)
+        Add_participant.setTabOrder(self.lineEdit_second_name_participant, self.pushButton_find_participant)
+        Add_participant.setTabOrder(self.pushButton_find_participant, self.treeWidget)
+        Add_participant.setTabOrder(self.treeWidget, self.pushButton_add_selected_participant)
+        Add_participant.setTabOrder(self.pushButton_add_selected_participant, self.pushButton_ok)
+        Add_participant.setTabOrder(self.pushButton_ok, self.pushButton_cancel)
 
     def retranslateUi(self, Add_participant):
         _translate = QtCore.QCoreApplication.translate
-        Add_participant.setWindowTitle(_translate("Add_participant", "Логистик"))
+        Add_participant.setWindowTitle(_translate("Add_participant", "Event"))
         self.lineEdit_number_phone_participant.setPlaceholderText(_translate("Add_participant", "Номер телефона..."))
         self.label_add_participant_event.setText(_translate("Add_participant", "Добавить участника мероприятия"))
         self.treeWidget.headerItem().setText(0, _translate("Add_participant", "Телефон"))
@@ -69,3 +78,5 @@ class Ui_Add_participant(object):
         self.lineEdit_second_name_participant.setPlaceholderText(_translate("Add_participant", "Фамилия..."))
         self.label_username_login_role.setText(_translate("Add_participant", "username_login_role"))
         self.pushButton_add_selected_participant.setText(_translate("Add_participant", "Добавить выбранного"))
+        self.pushButton_ok.setText(_translate("Add_participant", "ОК"))
+        self.pushButton_cancel.setText(_translate("Add_participant", "Отмена"))

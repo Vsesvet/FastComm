@@ -27,10 +27,6 @@ class Ui_Create_inspector(object):
         self.lineEdit = QtWidgets.QLineEdit(Create_inspector)
         self.lineEdit.setObjectName("lineEdit")
         self.gridLayout.addWidget(self.lineEdit, 4, 3, 1, 2)
-        self.buttonBox = QtWidgets.QDialogButtonBox(Create_inspector)
-        self.buttonBox.setStandardButtons(QtWidgets.QDialogButtonBox.Cancel|QtWidgets.QDialogButtonBox.Ok)
-        self.buttonBox.setObjectName("buttonBox")
-        self.gridLayout.addWidget(self.buttonBox, 12, 4, 1, 1)
         self.lineEdit_last_name = QtWidgets.QLineEdit(Create_inspector)
         self.lineEdit_last_name.setObjectName("lineEdit_last_name")
         self.gridLayout.addWidget(self.lineEdit_last_name, 6, 3, 1, 2)
@@ -76,13 +72,19 @@ class Ui_Create_inspector(object):
         self.gridLayout.addWidget(self.lineEdit_password, 8, 0, 1, 1)
         spacerItem1 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.gridLayout.addItem(spacerItem1, 5, 0, 1, 1)
+        self.pushButton_ok = QtWidgets.QPushButton(Create_inspector)
+        self.pushButton_ok.setObjectName("pushButton_ok")
+        self.gridLayout.addWidget(self.pushButton_ok, 12, 4, 1, 1)
+        self.pushButton_cancel = QtWidgets.QPushButton(Create_inspector)
+        self.pushButton_cancel.setObjectName("pushButton_cancel")
+        self.gridLayout.addWidget(self.pushButton_cancel, 12, 3, 1, 1)
 
         self.retranslateUi(Create_inspector)
-        self.buttonBox.accepted.connect(Create_inspector.accept) # type: ignore
-        self.buttonBox.rejected.connect(Create_inspector.reject) # type: ignore
-        self.pushButton_generate.clicked.connect(Create_inspector.show) # type: ignore
+        self.pushButton_generate.clicked.connect(Create_inspector.update) # type: ignore
         self.pushButton_select_organization.clicked.connect(Create_inspector.open) # type: ignore
-        self.checkBox_disabled_inspector.stateChanged['int'].connect(Create_inspector.showMaximized) # type: ignore
+        self.checkBox_disabled_inspector.stateChanged['int'].connect(Create_inspector.show) # type: ignore
+        self.pushButton_cancel.clicked.connect(Create_inspector.close) # type: ignore
+        self.pushButton_ok.clicked.connect(Create_inspector.show) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(Create_inspector)
         Create_inspector.setTabOrder(self.lineEdit_phone_number, self.pushButton_select_organization)
         Create_inspector.setTabOrder(self.pushButton_select_organization, self.lineEdit)
@@ -98,7 +100,7 @@ class Ui_Create_inspector(object):
 
     def retranslateUi(self, Create_inspector):
         _translate = QtCore.QCoreApplication.translate
-        Create_inspector.setWindowTitle(_translate("Create_inspector", "Логистик"))
+        Create_inspector.setWindowTitle(_translate("Create_inspector", "Event"))
         self.pushButton_select_organization.setText(_translate("Create_inspector", "Выбор организации"))
         self.lineEdit.setPlaceholderText(_translate("Create_inspector", "Организация..."))
         self.lineEdit_last_name.setPlaceholderText(_translate("Create_inspector", "Отчество..."))
@@ -113,3 +115,5 @@ class Ui_Create_inspector(object):
         self.lineEdit_city.setPlaceholderText(_translate("Create_inspector", "Город..."))
         self.lineEdit_phone_number.setPlaceholderText(_translate("Create_inspector", "79265001020"))
         self.lineEdit_password.setPlaceholderText(_translate("Create_inspector", "Пароль..."))
+        self.pushButton_ok.setText(_translate("Create_inspector", "OK"))
+        self.pushButton_cancel.setText(_translate("Create_inspector", "Отмена"))

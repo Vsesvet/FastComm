@@ -26,6 +26,8 @@ class Login(Ui_Login):
     def __init__(self):
         dialog = QDialog()
         super().setupUi(dialog)
+        self.label_bad_password.setText('')
+        self.label_user_not_found.setText('')
         self.clicked_connect(dialog)
         dialog.show()
         app.exit(app.exec())
@@ -207,8 +209,8 @@ class Create_user(Ui_Create_user):
 
     def clicked_connect(self, dialog):
         self.pushButton_generate.clicked.connect(self.generate_password)
-        self.pushButton_save.clicked.connect(self.read_field)
-        self.pushButton_save.clicked.connect(dialog.close)
+        self.pushButton_ok.clicked.connect(self.read_field)
+        self.pushButton_ok.clicked.connect(dialog.close)
         self.pushButton_cancel.clicked.connect(dialog.close)
         # self.checkBox_disabled_participant.stateChanged['int'].connect(dialog.show)
 

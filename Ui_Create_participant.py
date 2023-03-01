@@ -74,7 +74,7 @@ class Ui_Create_participant(object):
         self.pushButton_generate.clicked.connect(self.lineEdit_password.selectAll) # type: ignore
         self.pushButton_save.clicked.connect(Create_participant.show) # type: ignore
         self.pushButton_cancel.clicked.connect(Create_participant.close) # type: ignore
-        self.checkBox_disabled_participant.stateChanged['int'].connect(Create_participant.show)
+        self.checkBox_disabled_participant.stateChanged['int'].connect(Create_participant.show) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(Create_participant)
         Create_participant.setTabOrder(self.lineEdit_second_name, self.lineEdit_first_name)
         Create_participant.setTabOrder(self.lineEdit_first_name, self.lineEdit_last_name)
@@ -90,7 +90,7 @@ class Ui_Create_participant(object):
 
     def retranslateUi(self, Create_participant):
         _translate = QtCore.QCoreApplication.translate
-        Create_participant.setWindowTitle(_translate("Create_participant", "Логистик"))
+        Create_participant.setWindowTitle(_translate("Create_participant", "Event"))
         self.lineEdit_phone_number.setPlaceholderText(_translate("Create_participant", "79265001020"))
         self.pushButton_cancel.setText(_translate("Create_participant", "Отмена"))
         self.pushButton_generate.setText(_translate("Create_participant", "Сгенерировать"))
@@ -99,7 +99,7 @@ class Ui_Create_participant(object):
         self.checkBox_disabled_participant.setText(_translate("Create_participant", "Отключить учетную запись"))
         self.label_create_participant.setText(_translate("Create_participant", "Создание нового участника"))
         self.lineEdit_last_name.setPlaceholderText(_translate("Create_participant", "Отчество..."))
-        self.pushButton_save.setText(_translate("Create_participant", "Сохранить"))
+        self.pushButton_save.setText(_translate("Create_participant", "OK"))
         self.lineEdit_email.setPlaceholderText(_translate("Create_participant", "e-mail..."))
         self.lineEdit_comment.setPlaceholderText(_translate("Create_participant", "Комментарий..."))
         self.lineEdit_password.setPlaceholderText(_translate("Create_participant", "Пароль..."))
