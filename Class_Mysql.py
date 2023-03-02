@@ -8,8 +8,8 @@ class Mysql:
     def __init__(self, host, port, user, password, db_name):
         host =  "127.0.0.1"
         port = 3306
-        user = "admin"
-        password = "gnt6al47"
+        user = "root"
+        password = "root"
         db_name = "logistics_db"
         try:
             self.connection = pymysql.connect(host =host, port =port, user =user, password =password, database=db_name, cursorclass=pymysql.cursors.DictCursor)
@@ -41,7 +41,7 @@ class Mysql:
         role_id = result[0]['role_id']
 
         insert_query = f"INSERT INTO participants (phone_number, second_name, first_name, last_name, full_name, role_id, city, email, password, comment,disabled) \
- VALUES('{phone_number}', '{second_name}', '{first_name}', '{last_name}', '{full_name}', {role_id}, '{city}', '{email}', '{password}', '{comment}',{disabled})"
+        VALUES('{phone_number}', '{second_name}', '{first_name}', '{last_name}', '{full_name}', {role_id}, '{city}', '{email}', '{password}', '{comment}',{disabled})"
 
         with self.connection.cursor() as cursor:
             cursor.execute(insert_query)
@@ -56,7 +56,7 @@ class Mysql:
             self.connection.commit()
 
         insert_query = f"INSERT INTO participant (phone_number, second_name, first_name, last_name, full_name, role_id, city, email, password, comment,disabled) \
- VALUES(" \
+        VALUES(" \
                        f"'{new_user['phone_number']}'," \
                        f" '{new_user['second_name']}'," \
                        f" '{new_user['first_name']}'," \
@@ -109,6 +109,57 @@ class Mysql:
         for i in result:
             role_name = i.get('role_name')
         return role_name
+
+    def get_value_by_arg(self, value_request, dict, table_name):
+        """(value_request - запрашиваемое значение, dict - словарь).
+        Универсальная функция получения одного значения из row"""
+        for key, value in dict.items():
+            ls = key
+            rs = value
+        request = f"SELECT {value_request} FROM {table_name} WHERE {ls} = '{rs}'"
+        print(request)
+        with self.connection.cursor() as cursor:
+            cursor.execute(request)
+            responce = cursor.fetchall()
+            self.connection.commit()
+        for item in responce:
+            value2 = item.get(value_request)
+        return value2
+
+    def delete_row_by_arg(self, dict, table_name):
+        """(dict - словарь, table_name - название таблицы).
+        Универсальная функция удаления строки из таблицы"""
+        for key, value in dict.items():
+            ls = key
+            rs = value
+        request = f"DELETE FROM {table_name} WHERE {ls} = '{rs}'"
+        print(request)
+        with self.connection.cursor() as cursor:
+            cursor.execute(request)
+            responce = cursor.fetchall()
+            self.connection.commit()
+
+    def update_row_by_arg(self, value, check, table_name):
+        """(value - словарь устанавливаемых значений; структура:
+            {"наименование колонки": устанавливаемое значение},
+            check - словарь проверяемого значения; структура:
+            {"наименование колонки проверяемого значения": проверяемое значение}
+            table_name - название таблицы).
+            !!!ВНУТРИ КАЖДОГО СЛОВАРЯ НЕ БОЛЕЕ 1 ЭЛЕМЕНТА!!!
+            Универсальная функция обновления строки в таблице"""
+        for key, value in value.items():
+            lsv = key
+            rsv = value
+
+        for key, value in check.items():
+            ls = key
+            rs = value
+
+        request = f"UPDATE {table_name} SET {lsv} = '{rsv}' where {ls} = '{rs}'"
+
+        with self.connection.cursor() as cursor:
+            cursor.execute(request)
+            self.connection.commit()
 
 
     def get_participant_id(self, phone_number):

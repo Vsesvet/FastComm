@@ -273,9 +273,10 @@ class Create_participant(Ui_Create_participant):
         full_name = second_name + " " + first_name + " " + last_name
         # Форматирование номера телефона
         phone_number = self.formating_phone(phone_number)
+        print(phone_number)
         if len(phone_number) == 11:
             try:
-                self.db.add_participant(phone_number, second_name, first_name, last_name, role, full_name, email, city,
+                self.db.create_participant(phone_number, second_name, first_name, last_name, role, full_name, email, city,
                                         password, comment, disabled)
                 self.dialog.close()
 
@@ -405,30 +406,50 @@ class Edit_organization(Ui_Create_organization):
         self.current_values = current_values
         self.db = Mysql(host, port, user, password, db_name)
         self.set_view()
+        self.clicked_connect(self.dialog)
         self.dialog.exec()
 
 
 
     def clicked_connect(self, dialog):
-        """Обработка нажатий кнопок окна создание Участника"""
+        """Обработка нажатий кнопок окна создание организации"""
         self.pushButton_OK.clicked.connect(self.create_organization)
-        self.pushButton_Cancel.clicked.connect()
+        self.pushButton_Cancel.clicked.connect(self.dialog.close)
 
     def create_organization(self):
-        """Обработка нажатия кнопки создание новой организации"""
-        new_org = {}
-        new_org['organization_name'] = self.lineEdit_organization_name.text()
-        new_org['organization_INN'] = self.lineEdit_organization_inn.text()
-        new_org['organization_KPP'] = self.lineEdit_first_name.text()
-        new_org['phone_number'] = self.lineEdit_last_name.text()
+        """Обработка нажатия кнопки ОК (Подтверждение обновлений)"""
+        new_org_data = {}
+        new_org_data['organization_name'] = self.lineEdit_organization_name.text()
+        new_org_data['organization_INN'] = self.lineEdit_organization_inn.text()
+        new_org_data['organization_KPP'] = self.lineEdit_organization_kpp.text()
+        new_org_data['phone_number'] = self.lineEdit_phone_number.text()
 
-        self.write_organization_to_db(new_org)
+        self.update_organization(new_org_data)
 
-    def write_organization_to_db(self, new_org):
-        self.db.create_organization(new_org)
+    def update_organization(self, new_org_data):
+        keys = list(new_org_data.keys())
+        values = list(new_org_data.values())
+        check = {f"organization_id": self.id_from_db}
+        table_name = "organizations"
+
+        for i in range(0, len(keys)):
+            try:
+                value = {f"{keys[i]}": values[i]}
+                print(value, check)
+                self.db.update_row_by_arg(value, check, table_name)
+            except Exception as ex:
+                "Error"
+        self.dialog.close()
+
+
 
     def set_view(self):
-        print("set view")
+        """Устанавливает в поля для ввода данные выбранной организации"""
+        self.lineEdit_organization_name.setText(self.current_values[0])
+        self.lineEdit_organization_inn.setText(self.current_values[1])
+        self.lineEdit_organization_kpp.setText(self.current_values[2])
+        self.lineEdit_phone_number.setText(self.current_values[3])
+
 class Create_inspector(Ui_Create_inspector):
     """Окно создания инспектора"""
     def __init__(self):
@@ -469,16 +490,51 @@ class List_organization(Ui_List_organization):
         self.pushButton_add_organization.clicked.connect(Create_organization)
         self.pushButton_add_organization.clicked.connect(self.update_tree)
         self.pushButton_edit_organization.clicked.connect(self.update_organization)
+        self.pushButton_edit_organization.clicked.connect(self.update_tree)
         self.pushButton_delete_organization.clicked.connect(self.delete_organization)
         self.pushButton_OK.clicked.connect(self.dialog.close)
         self.pushButton_Cancel.clicked.connect(self.dialog.close)
 
     def update_organization(self):
-        id_from_db = 0
-        current_values = 0
-        Edit_organization(id_from_db,current_values)
+        """Открытие окна редактирования организации + получение данных по выбранной в QTreeWidget организации в виде списка"""
+        try:
+            item = self.tree_organizations_list.currentItem()
+            result_data = []
+            for i in range(0, 4):
+                item_string = item.text(i)
+                print(item_string)
+                result_data.append(item_string)
+
+            value_request = "organization_id"
+            arg = {'phone_number': result_data[3]}
+            table_name = "organizations"
+            id_from_db = self.db.get_value_by_arg(value_request, arg, table_name)
+            #id_from_db = self.db.get_participant_id(result_data[0])
+
+            Edit_organization(id_from_db, result_data)
+
+        except Exception as ex:
+            print("Error")
+
     def delete_organization(self):
-        print("delete org")
+        """Удаление выделенной организации"""
+        try:
+            item = self.tree_organizations_list.currentItem()
+            phone_number = item.text(3)
+
+            value_request = "organization_id"
+            arg = {'phone_number': phone_number}
+            table_name = "organizations"
+
+            id = self.db.get_value_by_arg(value_request, arg, table_name)
+
+            arg = {'organization_id': id}
+
+            self.db.delete_row_by_arg(arg, table_name)
+            self.update_tree()
+        except Exception as ex:
+            "Error"
+
     def set_headers(self, headers_names, tree):
         """Установка заголовков таблицы Списка Организаций"""
         tree.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.SizeAdjustPolicy.AdjustToContents)
@@ -525,7 +581,6 @@ class List_organization(Ui_List_organization):
 
         for header in headers_names:
            tree.headerItem().setText(headers_names.index(header), header)
-
 class List_participants(Ui_List_participants):
     """Окно выводит список всех участников в БД, вне зависимости от мероприятий"""
     def __init__(self):
@@ -573,9 +628,17 @@ class List_participants(Ui_List_participants):
         """Удаление выделенного участника"""
         item = self.tree_participants_list.currentItem()
         phone_number = item.text(0)
-        id = self.db.get_participant_id(phone_number)
 
-        self.db.delete_participant_by_id(id)
+        value_request = "participant_id"
+        arg = {'phone_number': phone_number}
+        table_name = "participants"
+
+        id = self.db.get_value_by_arg(value_request, arg, table_name)
+
+        arg = {'participant_id': id}
+
+        self.db.delete_row_by_arg(arg, table_name)
+
         self.update_tree()
 
     def update_tree(self):
@@ -621,6 +684,20 @@ class List_participants(Ui_List_participants):
             self.tree_participants_list.addTopLevelItem(item)
             value.clear()
 
+
+class Pair():
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+        self.make_pair(self.x,self.y)
+    def make_pair(self, x, y):
+        return lambda n: x if n == 0 else y
+
+    def first(self, p):
+        return p(0)
+
+    def second(self,p):
+        return p(1)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

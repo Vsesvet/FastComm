@@ -4,22 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Универсальные функции.">
+    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="init">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ui_Accept_docs.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_Accept_docs.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ui_Add_participant.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_Add_participant.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ui_Analisis_list.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_Analisis_list.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ui_Create_event.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_Create_event.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ui_Create_inspector.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_Create_inspector.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ui_Create_organization.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_Create_organization.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ui_Create_participant.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_Create_participant.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ui_Create_user.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_Create_user.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ui_Event.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_Event.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ui_Event_shedule.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_Event_shedule.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ui_List_organization.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_List_organization.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ui_List_participants.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_List_participants.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ui_Login.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_Login.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ui_designer/Ui_List_participants.ui" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_designer/Ui_List_participants.ui" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Class_Mysql.py" beforeDir="false" afterPath="$PROJECT_DIR$/Class_Mysql.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -60,18 +47,15 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "/home/vsesvet/PycharmProjects/Event",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Event/Ui_designer&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.externalTools&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/../Logistics_New" />
@@ -122,27 +106,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="Ui_Accept_docs" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Logistics_project" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Ui_Accept_docs.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="Ui_Create_event_F" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="Logistics_project" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -156,6 +119,27 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/probniki/Ui_Create_event_F.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Ui_List_participants_F" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Logistics_project" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../Logistics_New" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../Logistics_New/Ui_List_participants_F.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -210,9 +194,9 @@
       <list>
         <item itemvalue="Python.main" />
         <item itemvalue="Python.Class_Access" />
-        <item itemvalue="Python.Ui_Accept_docs" />
         <item itemvalue="Python.Class_Mysql" />
         <item itemvalue="Python.main (1)" />
+        <item itemvalue="Python.Ui_List_participants_F" />
       </list>
     </recent_temporary>
   </component>
@@ -281,21 +265,14 @@
       <option name="project" value="LOCAL" />
       <updated>1677439442269</updated>
     </task>
-    <task id="LOCAL-00009" summary="Обновил весь Ui. (кнопки Ok, Отмена)">
-      <created>1677703834290</created>
+    <task id="LOCAL-00009" summary="init">
+      <created>1677526938926</created>
       <option name="number" value="00009" />
       <option name="presentableId" value="LOCAL-00009" />
       <option name="project" value="LOCAL" />
-      <updated>1677703834290</updated>
+      <updated>1677526938926</updated>
     </task>
-    <task id="LOCAL-00010" summary="Универсальные функции.">
-      <created>1677703916625</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1677703916625</updated>
-    </task>
-    <option name="localTasksCounter" value="11" />
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -310,22 +287,20 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="init" />
     <MESSAGE value="Из List_participants убрана кнопка добавить. &#10;Связаны окна по кнопкам" />
     <MESSAGE value="Добавил окно создания пользователя. (Пока на кнопку Печать)" />
     <MESSAGE value="Сделал DocString ко всем классам и функциям main" />
     <MESSAGE value="Соединение с базой реализовано из Access." />
-    <MESSAGE value="Обновил весь Ui. (кнопки Ok, Отмена)" />
-    <MESSAGE value="Универсальные функции." />
-    <option name="LAST_COMMIT_MESSAGE" value="Универсальные функции." />
+    <MESSAGE value="init" />
+    <option name="LAST_COMMIT_MESSAGE" value="init" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>222</line>
-          <option name="timeStamp" value="2" />
+          <line>220</line>
+          <option name="timeStamp" value="7" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
