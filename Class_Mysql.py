@@ -8,8 +8,8 @@ class Mysql:
     def __init__(self, host, port, user, password, db_name):
         host =  "127.0.0.1"
         port = 3306
-        user = "admin"
-        password = "gnt6al47"
+        user = "root"
+        password = "root"
         db_name = "logistics_db"
         try:
             self.connection = pymysql.connect(host =host, port =port, user =user, password =password, database=db_name, cursorclass=pymysql.cursors.DictCursor)
@@ -139,14 +139,9 @@ class Mysql:
             responce = cursor.fetchall()
             self.connection.commit()
 
+
     def update_row_by_arg(self, value, check, table_name):
-        """(value - словарь устанавливаемых значений; структура:
-            {"наименование колонки": устанавливаемое значение},
-            check - словарь проверяемого значения; структура:
-            {"наименование колонки проверяемого значения": проверяемое значение}
-            table_name - название таблицы).
-            !!!ВНУТРИ КАЖДОГО СЛОВАРЯ НЕ БОЛЕЕ 1 ЭЛЕМЕНТА!!!
-            Универсальная функция обновления строки в таблице"""
+        """СТАРАЯ ВЕРСИЯ ОБНОВЛЕНИЯ СТРОКИ"""
         for key, value in value.items():
             lsv = key
             rsv = value
@@ -160,6 +155,42 @@ class Mysql:
         with self.connection.cursor() as cursor:
             cursor.execute(request)
             self.connection.commit()
+
+    def update_row_by_id(self, id, dict, table_name):
+        """Функция обновления строки в таблице.
+           id - значения первичного ключа строки, которую надо обновить,
+           dict - устанавливаемые значения,
+           table_name - наименование таблицы, в которой необходимо произвести изменения"""
+
+        id_name_request = f"SELECT KU.table_name as TABLENAME,column_name as PRIMARYKEYCOLUMN " \
+                          f"FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS AS TC INNER JOIN INFORMATION_SCHEMA.KEY_COLUMN_USAGE AS KU " \
+                          f"ON TC.CONSTRAINT_TYPE = 'PRIMARY KEY'  " \
+                          f"AND TC.CONSTRAINT_NAME = KU.CONSTRAINT_NAME  " \
+                          f"AND KU.table_name='{table_name}'"
+
+        with self.connection.cursor() as cursor:
+            cursor.execute(id_name_request)
+            id_name = cursor.fetchone()
+            self.connection.commit()
+
+        id_name = id_name['PRIMARYKEYCOLUMN']
+
+        content = ""
+
+        for i in dict:
+            content += i
+            content += " = "
+            content += "'" + dict[f'{i}'] + "'" + ","
+        reversed = content[::-1]
+        reversed = reversed.replace(',', ' ', 1)
+        content = reversed[::-1]
+
+        request = f"UPDATE {table_name} SET {content} WHERE {id_name} = '{id}'"
+
+        with self.connection.cursor() as cursor:
+            cursor.execute(request)
+            self.connection.commit()
+
 
 
     def get_participant_id(self, phone_number):

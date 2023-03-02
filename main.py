@@ -427,19 +427,24 @@ class Edit_organization(Ui_Create_organization):
         self.update_organization(new_org_data)
 
     def update_organization(self, new_org_data):
-        keys = list(new_org_data.keys())
-        values = list(new_org_data.values())
-        check = {f"organization_id": self.id_from_db}
         table_name = "organizations"
+        self.db.update_row_by_id(self.id_from_db, new_org_data, table_name)
 
-        for i in range(0, len(keys)):
-            try:
-                value = {f"{keys[i]}": values[i]}
-                print(value, check)
-                self.db.update_row_by_arg(value, check, table_name)
-            except Exception as ex:
-                "Error"
         self.dialog.close()
+
+        # keys = list(new_org_data.keys())
+        # values = list(new_org_data.values())
+        # check = {f"organization_id": self.id_from_db}
+        # table_name = "organizations"
+        #
+        # for i in range(0, len(keys)):
+        #     try:
+        #         value = {f"{keys[i]}": values[i]}
+        #         print(value, check)
+        #         self.db.update_row_by_arg(value, check, table_name)
+        #     except Exception as ex:
+        #         "Error"
+        #self.dialog.close()
 
 
 

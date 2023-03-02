@@ -62,11 +62,33 @@ def get_value_by_args(value1, args, table_name):
         value2 = item.get(value1)
     return value2
 
+def update_row_by_id(id,dict, table_name):
+    id_name_request = f"SELECT KU.table_name as TABLENAME,column_name as PRIMARYKEYCOLUMN " \
+              f"FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS AS TC " \
+              f"INNER JOIN INFORMATION_SCHEMA.KEY_COLUMN_USAGE AS KU" \
+              f"ON TC.CONSTRAINT_TYPE = 'PRIMARY KEY'" \
+              f"AND TC.CONSTRAINT_NAME = KU.CONSTRAINT_NAME" \
+              f"AND KU.table_name='{table_name}'"
+
+    with self.connection.cursor() as cursor:
+        cursor.execute(id_name_request)
+        id_name = cursor.fetchone()
+        self.connection.commit()
+
+    print(id_name)
+    content = ""
+
+    for i in dict:
+        i.replace("'", "",2)
+        i.replace(':','=')
+        content += i
+
+    request = f"update {table_name} set {content} where {id_name} = '{id}'"
 
 #рассматриваем получение role из role_id по пользователю
 arg1 = 'role_name'
 table_name = 'roles'
 args = {'role_id': '1'}
 
-get_value_by_args(arg1, args, table_name)
-print(get_value_by_args.__doc__)
+#get_value_by_args(arg1, args, table_name)
+#print(get_value_by_args.__doc__)
