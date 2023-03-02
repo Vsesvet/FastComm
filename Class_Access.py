@@ -11,7 +11,6 @@ class Access:
         datadb = Mysql(host, port, user, password, db_name)
         table_name = "users"
         db = datadb.select_all(table_name)
-
         for db_user in db:
             # Не верный пароль flag_access == 2.
             if db_user['phone_number'] == input_phone and db_user['password'] != input_password:

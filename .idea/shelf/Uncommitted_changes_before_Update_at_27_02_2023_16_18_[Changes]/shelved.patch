@@ -1,0 +1,255 @@
+Index: Class_Access.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Class_Access.py b/Class_Access.py
+--- a/Class_Access.py	
++++ b/Class_Access.py	
+@@ -1,10 +1,20 @@
+ import sys
+ from Class_Journal import *
+-
++from db_config import host, port, user, password, db_name
++from Class_Mysql import*
+ class Access:
+     """Access module. Проверка данных Входа и роли пользователя, для совершения действия"""
++
+     def login(self, phone_number, password):
+         """Сверяет данные логина и пароля"""
++        try:
++            self.db = Mysql(host, port, user, password, db_name)
++        except Exception as ex:
++            print("Error connection to database")
++
++        table_name = "users"
++        db = self.db.select_all_data(table_name)
++
+         for db_user in db:
+             # Если телефон и пароль верные то flag_access == 0.
+             if db_user['phone_number'] == phone_number and db_user['password'] == password:
+Index: db_config.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/db_config.py b/db_config.py
+--- a/db_config.py	
++++ b/db_config.py	
+@@ -1,5 +1,5 @@
+ host = "127.0.0.1"
+-user = "admin"
++user = "root"
+ port = 3306
+-password = "gnt6al47"
+-db_name = "logistics_db"
+\ No newline at end of file
++password = "root"
++db_name = "logistics_db"
+Index: Class_Mysql.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Class_Mysql.py b/Class_Mysql.py
+--- a/Class_Mysql.py	
++++ b/Class_Mysql.py	
+@@ -6,7 +6,7 @@
+         try:
+             self.connection = pymysql.connect(
+                 host=host,
+-                port=port,
++                port=3306,
+                 user=user,
+                 password=password,
+                 database=db_name,
+@@ -14,16 +14,17 @@
+         except Exception as ex:
+             print("Error connection to db")
+ 
+-    def select_all_data(self):
++    def select_all_data(self,table_name):
+         """Получение всех строк из базы данных"""
+-        select_all_rows = f"SELECT * FROM 'users'"
++        select_all_rows = f"SELECT * FROM '{table_name}'"
+         with self.connection.cursor() as cursor:
+             cursor.execute(select_all_rows)
+             rows = cursor.fetchall()
+             return rows
+ 
+-    def add_participant(self, phone_number, second_name, first_name, last_name, role, full_name, city, email, password, comment, disabled):
++    def add_participant(self, phone_number, second_name, first_name, last_name, role, full_name, city, email, password, comment,disabled):
+         """Добавление нового пользователя в базу данных MySql"""
++
+         select_role_id = f"SELECT role_id FROM roles WHERE  role_name = '{role}'"
+         with self.connection.cursor() as cursor:
+             cursor.execute(select_role_id)
+@@ -40,7 +41,7 @@
+             self.connection.commit()
+ 
+     def select_all(self, table_name):
+-        """Выбор всех строк из таблицы. Возвращает все строки"""
++        """Выбор всех строк из таблицы. Возвращает ? """
+         select_all = f"SELECT * FROM {table_name}"
+         with self.connection.cursor() as cursor:
+             cursor.execute(select_all)
+@@ -49,8 +50,11 @@
+         print(result)
+         return result
+ 
++    def insert_row_into_table(self, table_name, dict):
++        columns  = "SELECT column_name from . . ."
++        values = dict.values()
++        insert_query = f"INSERT INTO {table_name} VALUES{dict.values()}"
+     def get_participant_id(self, phone_number):
+-        """Получение ID участника по номеру телефона"""
+         select_id = f"SELECT participant_id FROM participants WHERE phone_number = {phone_number}"
+         with self.connection.cursor() as cursor:
+             cursor.execute(select_id)
+@@ -58,7 +62,6 @@
+             self.connection.commit()
+         print(result)
+         return result
+-
+     def delete_participant(self, id):
+         """Удаление пользователя из БД MySql по id"""
+         delete_quere = f"DELETE FROM participants WHERE participant_id = {id}"
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+--- a/.idea/misc.xml	
++++ b/.idea/misc.xml	
+@@ -1,4 +1,4 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+-  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.8 (pythonProject)" project-jdk-type="Python SDK" />
++  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.7 (LogisticsV1)" project-jdk-type="Python SDK" />
+ </project>
+\ No newline at end of file
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	
++++ b/.idea/workspace.xml	
+@@ -4,9 +4,13 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Добавил окно создания пользователя. (Пока на кнопку Печать)">
++    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="init">
++      <change beforePath="$PROJECT_DIR$/.idea/Logistics_project.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Logistics_project.iml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Class_Access.py" beforeDir="false" afterPath="$PROJECT_DIR$/Class_Access.py" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Class_Mysql.py" beforeDir="false" afterPath="$PROJECT_DIR$/Class_Mysql.py" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/db_config.py" beforeDir="false" afterPath="$PROJECT_DIR$/db_config.py" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -45,18 +49,18 @@
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+   </component>
+-  <component name="PropertiesComponent"><![CDATA[{
+-  "keyToString": {
+-    "RunOnceActivity.OpenProjectViewOnStart": "true",
+-    "RunOnceActivity.ShowReadmeOnStart": "true",
+-    "last_opened_file_path": "/home/vsesvet/PycharmProjects/Logistics",
+-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
++  <component name="PropertiesComponent">{
++  &quot;keyToString&quot;: {
++    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
++    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
++    &quot;last_opened_file_path&quot;: &quot;C:/pythonProject5&quot;,
++    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
+   }
+-}]]></component>
++}</component>
+   <component name="RecentsManager">
+     <key name="MoveFile.RECENT_KEYS">
+-      <recent name="$PROJECT_DIR$" />
+       <recent name="$PROJECT_DIR$/../Logistics_New" />
++      <recent name="$PROJECT_DIR$" />
+       <recent name="$PROJECT_DIR$/probniki" />
+       <recent name="$PROJECT_DIR$/Ui_designer" />
+     </key>
+@@ -214,42 +218,7 @@
+       <option name="project" value="LOCAL" />
+       <updated>1677277489285</updated>
+     </task>
+-    <task id="LOCAL-00002" summary="init">
+-      <created>1677351413173</created>
+-      <option name="number" value="00002" />
+-      <option name="presentableId" value="LOCAL-00002" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1677351413173</updated>
+-    </task>
+-    <task id="LOCAL-00003" summary="init">
+-      <created>1677351526406</created>
+-      <option name="number" value="00003" />
+-      <option name="presentableId" value="LOCAL-00003" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1677351526406</updated>
+-    </task>
+-    <task id="LOCAL-00004" summary="Из List_participants убрана кнопка добавить. &#10;Связаны окна по кнопкам">
+-      <created>1677359379039</created>
+-      <option name="number" value="00004" />
+-      <option name="presentableId" value="LOCAL-00004" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1677359379039</updated>
+-    </task>
+-    <task id="LOCAL-00005" summary="Из List_participants убрана кнопка добавить. &#10;Связаны окна по кнопкам">
+-      <created>1677359397443</created>
+-      <option name="number" value="00005" />
+-      <option name="presentableId" value="LOCAL-00005" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1677359397443</updated>
+-    </task>
+-    <task id="LOCAL-00006" summary="Добавил окно создания пользователя. (Пока на кнопку Печать)">
+-      <created>1677365136668</created>
+-      <option name="number" value="00006" />
+-      <option name="presentableId" value="LOCAL-00006" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1677365136668</updated>
+-    </task>
+-    <option name="localTasksCounter" value="7" />
++    <option name="localTasksCounter" value="2" />
+     <servers />
+   </component>
+   <component name="Vcs.Log.Tabs.Properties">
+@@ -265,8 +234,6 @@
+   </component>
+   <component name="VcsManagerConfiguration">
+     <MESSAGE value="init" />
+-    <MESSAGE value="Из List_participants убрана кнопка добавить. &#10;Связаны окна по кнопкам" />
+-    <MESSAGE value="Добавил окно создания пользователя. (Пока на кнопку Печать)" />
+-    <option name="LAST_COMMIT_MESSAGE" value="Добавил окно создания пользователя. (Пока на кнопку Печать)" />
++    <option name="LAST_COMMIT_MESSAGE" value="init" />
+   </component>
+ </project>
+\ No newline at end of file
+Index: .idea/Logistics_project.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/Logistics_project.iml b/.idea/Logistics_project.iml
+--- a/.idea/Logistics_project.iml	
++++ b/.idea/Logistics_project.iml	
+@@ -1,7 +1,7 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <module version="4">
+   <component name="NewModuleRootManager">
+-    <orderEntry type="jdk" jdkName="Python 3.8 (pythonProject)" jdkType="Python SDK" />
++    <orderEntry type="jdk" jdkName="Python 3.7 (LogisticsV1)" jdkType="Python SDK" />
+     <orderEntry type="sourceFolder" forTests="false" />
+   </component>
+ </module>
+\ No newline at end of file

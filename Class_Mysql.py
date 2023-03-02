@@ -177,7 +177,7 @@ class Mysql:
            id - значения первичного ключа строки, которую надо обновить,
            dict - устанавливаемые значения,
            table_name - наименование таблицы, в которой необходимо произвести изменения"""
-        id_name = get_PK_by_table_name(table_name)
+        id_name = self.get_PK_by_table_name(table_name)
         content = ""
 
         for i in dict:
@@ -189,7 +189,7 @@ class Mysql:
         content = reversed[::-1]
 
         request = f"UPDATE {table_name} SET {content} WHERE {id_name} = '{id}'"
-
+        print(request)
         with self.connection.cursor() as cursor:
             cursor.execute(request)
             self.connection.commit()
