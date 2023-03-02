@@ -8,8 +8,8 @@ class Mysql:
     def __init__(self, host, port, user, password, db_name):
         host =  "127.0.0.1"
         port = 3306
-        user = "root"
-        password = "root"
+        user = "admin"
+        password = "gnt6al47"
         db_name = "logistics_db"
         try:
             self.connection = pymysql.connect(host =host, port =port, user =user, password =password, database=db_name, cursorclass=pymysql.cursors.DictCursor)
@@ -123,7 +123,9 @@ class Mysql:
             responce = cursor.fetchall()
             self.connection.commit()
         for item in responce:
+            # value2 = item
             value2 = item.get(value_request)
+            print(f'Возвращаемое значение функции get_value_by_arg: {value2}')
         return value2
 
     def delete_row_by_arg(self, dict, table_name):
@@ -170,8 +172,8 @@ class Mysql:
             self.connection.commit()
 
         id_name = id_name['PRIMARYKEYCOLUMN']
-
         return id_name
+
     def update_row_by_id(self, id, dict, table_name):
         """Функция обновления строки в таблице.
            id - значения первичного ключа строки, которую надо обновить,
@@ -180,20 +182,16 @@ class Mysql:
         id_name = self.get_PK_by_table_name(table_name)
         content = ""
 
-        for i in dict:
+        for key, value in dict.items():
+            i = f"{key} = '{value}', "
             content += i
-            content += " = "
-            content += "'" + dict[f'{i}'] + "'" + ","
-        reversed = content[::-1]
-        reversed = reversed.replace(',', ' ', 1)
-        content = reversed[::-1]
+        content = content[:-2] # срез последнего пробела и запятой
 
         request = f"UPDATE {table_name} SET {content} WHERE {id_name} = '{id}'"
         print(request)
         with self.connection.cursor() as cursor:
             cursor.execute(request)
             self.connection.commit()
-
 
 
     def get_participant_id(self, phone_number):
