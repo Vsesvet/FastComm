@@ -156,12 +156,8 @@ class Mysql:
             cursor.execute(request)
             self.connection.commit()
 
-    def update_row_by_id(self, id, dict, table_name):
-        """Функция обновления строки в таблице.
-           id - значения первичного ключа строки, которую надо обновить,
-           dict - устанавливаемые значения,
-           table_name - наименование таблицы, в которой необходимо произвести изменения"""
-
+    def get_PK_by_table_name(self, table_name):
+        """Функция возвращающая наименование первичного ключа по наименованию таблицы"""
         id_name_request = f"SELECT KU.table_name as TABLENAME,column_name as PRIMARYKEYCOLUMN " \
                           f"FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS AS TC INNER JOIN INFORMATION_SCHEMA.KEY_COLUMN_USAGE AS KU " \
                           f"ON TC.CONSTRAINT_TYPE = 'PRIMARY KEY'  " \
@@ -175,6 +171,13 @@ class Mysql:
 
         id_name = id_name['PRIMARYKEYCOLUMN']
 
+        return id_name
+    def update_row_by_id(self, id, dict, table_name):
+        """Функция обновления строки в таблице.
+           id - значения первичного ключа строки, которую надо обновить,
+           dict - устанавливаемые значения,
+           table_name - наименование таблицы, в которой необходимо произвести изменения"""
+        id_name = get_PK_by_table_name(table_name)
         content = ""
 
         for i in dict:
