@@ -8,8 +8,8 @@ class Mysql:
     def __init__(self, host, port, user, password, db_name):
         host =  "127.0.0.1"
         port = 3306
-        user = "root"
-        password = "root"
+        user = "admin"
+        password = "gnt6al47"
         db_name = "logistics_db"
         try:
             self.connection = pymysql.connect(host =host, port =port, user =user, password =password, database=db_name, cursorclass=pymysql.cursors.DictCursor)
