@@ -34,9 +34,9 @@ def insert_row_to_table(dictionary, table_name):
     insert_query = f"INSERT INTO {table_name}{column} VALUES{content};"
     print(insert_query)
 
-    with self.connection.cursor() as cursor:
-        cursor.execute(insert_query)
-        self.connection.commit()
+    # with self.connection.cursor() as cursor:
+    #     cursor.execute(insert_query)
+    #     self.connection.commit()
 
 
 slovar = {'phone_number': '89777194310', 'second_name': 'Ефремов', 'first_name': 'Максим', 'last_name': 'Георгиевич'}
@@ -59,6 +59,7 @@ def get_value_by_args(value1, args, table_name):
         responce = cursor.fetchall()
         self.connection.commit()
     for item in responce:
+        print(item)
         value2 = item.get(value1)
     return value2
 

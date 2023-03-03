@@ -533,9 +533,10 @@ class List_organization(Ui_List_organization):
 
             id = self.db.get_value_by_arg(value_request, arg, table_name)
 
-            arg = {'organization_id': id}
+            # arg = {'organization_id': id}
 
-            self.db.delete_row_by_arg(arg, table_name)
+            # self.db.delete_row_by_arg(arg, table_name)
+            self.db.delete_row_by_arg(id, table_name)
             self.update_tree()
         except Exception as ex:
             "Error"

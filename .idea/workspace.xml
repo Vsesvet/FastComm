@@ -4,16 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="init">
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_02_03_2023_12_49_[Changes]/shelved.patch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_02_03_2023_12_49__Changes_.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_26_02_2023_16_38_[Changes]/shelved.patch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_26_02_2023_16_38__Changes_.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_27_02_2023_16_18_[Changes]/shelved.patch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_27_02_2023_16_18_[Changes]1/shelved.patch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_27_02_2023_16_18__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Class_Access.py" beforeDir="false" afterPath="$PROJECT_DIR$/Class_Access.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Class_Mysql.py" beforeDir="false" afterPath="$PROJECT_DIR$/Class_Mysql.py" afterDir="false" />
+    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="get_value_by_arg (предложение)&#10;update_row_by_id (упрощение)">
+      <change beforePath="$PROJECT_DIR$/.idea/Logistics_project.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Logistics_project.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/universal_function.py" beforeDir="false" afterPath="$PROJECT_DIR$/universal_function.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,7 +65,7 @@
       <recent name="$PROJECT_DIR$/Ui_designer" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.main">
+  <component name="RunManager" selected="Python.formating_phone">
     <configuration name="Class_Access" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Logistics_project" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -133,7 +129,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="Ui_List_participants_F" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="formating_phone" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Logistics_project" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -141,11 +137,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../Logistics_New" />
-      <option name="IS_MODULE_SDK" value="true" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../Logistics_New/Ui_List_participants_F.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/formating_phone.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -198,11 +194,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.formating_phone" />
         <item itemvalue="Python.main" />
-        <item itemvalue="Python.Class_Access" />
         <item itemvalue="Python.Class_Mysql" />
+        <item itemvalue="Python.Class_Access" />
         <item itemvalue="Python.main (1)" />
-        <item itemvalue="Python.Ui_List_participants_F" />
       </list>
     </recent_temporary>
   </component>
@@ -292,21 +288,14 @@
       <option name="project" value="LOCAL" />
       <updated>1677766534457</updated>
     </task>
-    <task id="LOCAL-00012" summary="init">
-      <created>1677774379231</created>
+    <task id="LOCAL-00012" summary="get_value_by_arg (предложение)&#10;update_row_by_id (упрощение)">
+      <created>1677794639252</created>
       <option name="number" value="00012" />
       <option name="presentableId" value="LOCAL-00012" />
       <option name="project" value="LOCAL" />
-      <updated>1677774379231</updated>
+      <updated>1677794639252</updated>
     </task>
-    <task id="LOCAL-00013" summary="init">
-      <created>1677776606527</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1677776606527</updated>
-    </task>
-    <option name="localTasksCounter" value="14" />
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -326,7 +315,8 @@
     <MESSAGE value="Сделал DocString ко всем классам и функциям main" />
     <MESSAGE value="Соединение с базой реализовано из Access." />
     <MESSAGE value="init" />
-    <option name="LAST_COMMIT_MESSAGE" value="init" />
+    <MESSAGE value="get_value_by_arg (предложение)&#10;update_row_by_id (упрощение)" />
+    <option name="LAST_COMMIT_MESSAGE" value="get_value_by_arg (предложение)&#10;update_row_by_id (упрощение)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -335,6 +325,11 @@
           <url>file://$PROJECT_DIR$/main.py</url>
           <line>220</line>
           <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/formating_phone.py</url>
+          <line>5</line>
+          <option name="timeStamp" value="10" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
