@@ -1,7 +1,6 @@
 from PyQt5.QtWidgets import QApplication, QMainWindow, QDialog, QTreeWidgetItem
 import time
 import pymysql
-from db_config import *
 import generate_password
 from Class_Mysql import *
 from Class_User import *
@@ -20,7 +19,6 @@ from Ui_Create_user import *
 from Ui_List_organization import *
 from Ui_List_participants import *
 
-
 class Login(Ui_Login):
     """Класс работы с окном Вход в программу"""
     def __init__(self):
@@ -28,41 +26,41 @@ class Login(Ui_Login):
         super().setupUi(dialog)
         self.label_bad_password.setText('')
         self.label_user_not_found.setText('')
-        self.clicked_connect(dialog)
+        self.clicked_connect()
         dialog.show()
         app.exit(app.exec())
 
-    def close_app(self):
-        """Выход из программы по Закрытию окна"""
-        journal.close_login()
-        sys.exit(4)
-
-    def clicked_connect(self, dialog):
+    def clicked_connect(self):
         """Обработка нажатий кнопки Логин в окне 'Вход в программу'"""
         self.pushButton_login.clicked.connect(self.check_access)
-        self.lineEdit_password.returnPressed.connect(self.check_access)
+
 
     def check_access(self):
         """Обработка входящих логина и пароля"""
         global user_login
-        access = Access()
-        phone_number = f'{self.lineEdit_login.text()}'
-        password = f'{self.lineEdit_password.text()}'
+        login = {}
+        table_name = 'users'
         self.label_bad_password.setText('')
         self.label_user_not_found.setText('')
-        user_login, flag_access = access.login(phone_number, password)
+        login['phone_number'] = self.lineEdit_login.text().strip()
+        login['password'] = self.lineEdit_password.text().strip()
+        journal.log(f'Попытка входа с учетными данными: {login}')
+        user_login = Mysql().find_selected(login, table_name)
+        print(f'Полученный user_login: {user_login}')
 
+
+        # if user_login = None
         # Вход, если логин и пароль верные
-        if flag_access == 0:
-            app.exit()
-            return user_login
-        # Номер телефона не найден в БД.
-        elif flag_access == 1:
-            self.label_user_not_found.setText("не найден")
-        # Не верный пароль
-        elif flag_access == 2:
-            self.label_bad_password.setText("не верный")
-            print(user_login['second_name'], user_login['first_name'], flag_access)
+        # if flag_access == 0:
+        #     app.exit()
+        #     return user_login
+        # # Номер телефона не найден в БД.
+        # elif flag_access == 1:
+        #     self.label_user_not_found.setText("не найден")
+        # # Не верный пароль
+        # elif flag_access == 2:
+        #     self.label_bad_password.setText("не верный")
+        #     print(user_login['second_name'], user_login['first_name'], flag_access)
 
 
 class Event_shedule(Ui_Event_shedule):
@@ -234,7 +232,7 @@ class Create_user(Ui_Create_user):
         self.write_user_to_db(new_user)
 
     def write_user_to_db(self, new_user):
-        sql = Mysql(host = "127.0.0.1", user = "admin", port = 3306, password = "gnt6al47", db_name = "logistics_db")
+        sql = Mysql()
         sql.create_user(new_user)
 
 
@@ -247,7 +245,7 @@ class Create_participant(Ui_Create_participant):
         self.label_username_login_role.setText(f'{username_login_role}')
         self.checkBox_disabled_participant.setText("")
         self.clicked_connect(self.dialog)
-        self.db = Mysql(host, port, user, password, db_name)
+        self.db = Mysql()
         self.dialog.exec()
 
     def clicked_connect(self, dialog):
@@ -260,13 +258,13 @@ class Create_participant(Ui_Create_participant):
     def add_new_participant(self):
         """Добавляет нового пользователя в базу данных"""
         phone_number = self.lineEdit_phone_number.text()
-        second_name = self.lineEdit_second_name.text()
-        first_name = self.lineEdit_first_name.text()
-        last_name = self.lineEdit_last_name.text()
-        email = self.lineEdit_email.text()
-        city = self.lineEdit_city.text()
+        second_name = self.lineEdit_second_name.text().strip()
+        first_name = self.lineEdit_first_name.text().strip()
+        last_name = self.lineEdit_last_name.text().strip()
+        email = self.lineEdit_email.text().strip()
+        city = self.lineEdit_city.text().strip()
         password = self.lineEdit_password.text()
-        comment = self.lineEdit_comment.text()
+        comment = self.lineEdit_comment.text().strip()
         disabled = self.checkBox_disabled_participant.isChecked()
 
         role = "participant"
@@ -293,11 +291,17 @@ class Create_participant(Ui_Create_participant):
     def formating_phone(self, phone_number):
         """Форматирование строки телефона"""
         phone_number = phone_number.replace('+7', '8').strip()
-        symbols = ["-", "(", ")", " "]
-        for symbol in symbols:
-            if symbol in phone_number:
-                phone_number = phone_number.replace(symbol, '')
-        return phone_number
+        if phone_number.isdigit():
+            return phone_number
+        else:
+            symbols = ["-", "(", ")", " "]
+            for symbol in symbols:
+                if symbol in phone_number:
+                    phone_number = phone_number.replace(symbol, '')
+            if phone_number.isdigit():
+                return phone_number
+            else:
+                return f'Не верный формат'
 
 
 class Edit_participant(Ui_Create_participant):
@@ -311,7 +315,7 @@ class Edit_participant(Ui_Create_participant):
         self.label_username_login_role.setText(f'{username_login_role}')
         self.id_from_db = id_from_db
         self.current_values = current_values
-        self.db = Mysql(host, port, user, password, db_name)
+        self.db = Mysql()
         self.set_view()
 
         self.clicked_connect(self.dialog)
@@ -331,12 +335,10 @@ class Edit_participant(Ui_Create_participant):
         values.append(self.lineEdit_second_name.text())
         values.append(self.lineEdit_first_name.text())
         values.append(self.lineEdit_last_name.text())
-
         # Составление Full_name по полученным данным:
         values.append(values[1] + " " + values[2] + " " + values[3])
-
-        values.append(self.lineEdit_city.text())
         values.append(self.lineEdit_email.text())
+        values.append(self.lineEdit_city.text())
         values.append(self.lineEdit_password.text())
         values.append(self.lineEdit_comment.text())
 
@@ -351,8 +353,8 @@ class Edit_participant(Ui_Create_participant):
         self.lineEdit_second_name.setText(self.current_values[1])
         self.lineEdit_first_name.setText(self.current_values[2])
         self.lineEdit_last_name.setText(self.current_values[3])
-        self.lineEdit_email.setText(self.current_values[4])
-        self.lineEdit_city.setText(self.current_values[5])
+        self.lineEdit_email.setText(self.current_values[5])
+        self.lineEdit_city.setText(self.current_values[4])
         self.lineEdit_password.setText(self.current_values[6])
         self.lineEdit_comment.setText(self.current_values[7])
 
@@ -369,7 +371,7 @@ class Create_organization(Ui_Create_organization):
         super().setupUi(self.dialog)
         username_login_role = access.get_username_and_role(user_login)
         self.label_username_login_role.setText(f'{username_login_role}')
-        self.db = Mysql(host, port, user, password, db_name)
+        self.db = Mysql()
         self.clicked_connect(self.dialog)
         self.dialog.exec()
 
@@ -404,7 +406,7 @@ class Edit_organization(Ui_Create_organization):
         self.label_username_login_role.setText(f'{username_login_role}')
         self.id_from_db = id_from_db
         self.current_values = current_values
-        self.db = Mysql(host, port, user, password, db_name)
+        self.db = Mysql()
         self.set_view()
         self.clicked_connect(self.dialog)
         self.dialog.exec()
@@ -483,7 +485,7 @@ class List_organization(Ui_List_organization):
         super().setupUi(self.dialog)
         username_login_role = access.get_username_and_role(user_login)
         self.label_username_login_role.setText(f'{username_login_role}')
-        self.db = Mysql(host, port, user, password, db_name)
+        self.db = Mysql()
         headers_names = ['Название Орг.', 'ИНН', 'КПП', 'Номер телефона']
         self.set_headers(headers_names, self.tree_organizations_list)
         self.set_view_of_all_organizations()
@@ -552,7 +554,7 @@ class List_organization(Ui_List_organization):
         """Обновление общего списка участников (Аналогично функции set_view_of_all_participants, но с небольшими отличиями)"""
         self.tree_organizations_list.clear()
         try:
-            db = Mysql(host, port, user, password, db_name)
+            db = Mysql()
         except Exception as ex:
             print("Error update list participants")
 
@@ -587,6 +589,8 @@ class List_organization(Ui_List_organization):
 
         for header in headers_names:
            tree.headerItem().setText(headers_names.index(header), header)
+
+
 class List_participants(Ui_List_participants):
     """Окно выводит список всех участников в БД, вне зависимости от мероприятий"""
     def __init__(self):
@@ -594,7 +598,7 @@ class List_participants(Ui_List_participants):
         super().setupUi(dialog)
         self.set_username_login_role()
         # Установка соеденения с БД
-        self.db = Mysql(host, port, user, password, db_name)
+        self.db = Mysql()
         # Установка заголовков для колонок  treeWidget
         headers_names = ['Телефон', 'Фамилия', 'Имя', 'Отчетство', 'Город', 'e-mail', 'Пароль', 'Комментарий']
         self.set_headers(headers_names, self.tree_participants_list)
@@ -651,7 +655,7 @@ class List_participants(Ui_List_participants):
         """Обновление общего списка участников (Аналогично функции set_view_of_all_participants, но с небольшими отличиями)"""
         self.tree_participants_list.clear()
         try:
-            db = Mysql(host, port, user, password, db_name)
+            db = Mysql()
         except Exception as ex:
             print("Error update list participants")
 
@@ -707,11 +711,17 @@ class Pair():
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    user_login = {}
     journal = Journal()
+    user_login = {}
+    Login()
+    if user_login == None:
+        sys.exit(f'Неверный логин или пароль')
+    elif user_login == {}:
+        journal.close_login()
+        sys.exit(f'Окно Логин закрыто пользователем')
+    journal.log(f"Пользователь {user_login['second_name']} {user_login['first_name']}, вошел в систему")
     processing = Processing()
     access = Access()
     user = User()
-    Login()
     Event_shedule()
     sys.exit(app.exec())
