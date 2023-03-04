@@ -16,7 +16,8 @@ class List_participants(Ui_List_participants):
         self.label_username_login_role.setText(f'{username_login_role}')
 
         # # Установка соеденения с БД
-        self.db = Mysql(host, port, user, password, db_name)
+        # Убрать постоянную передачу данных host, port, user, password, db_name
+        self.db = Mysql()
 
         # Установка заголовков для колонок  treeWidget
         headers_names = ['Телефон', 'Фамилия', 'Имя', 'Отчетство', 'Город', 'e-mail', 'Пароль', 'Комментарий']
@@ -32,7 +33,7 @@ class List_participants(Ui_List_participants):
         self.pushButton_create_participant.clicked.connect(Create_participant)
 
     def set_headers(self, headers_names, tree):
-        tree.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.SizeAdjustPolicy.AdjustToContents)
+        # tree.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.SizeAdjustPolicy.AdjustToContents)
 
         for header in headers_names:
             tree.headerItem().setText(headers_names.index(header), header)
