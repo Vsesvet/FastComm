@@ -1,21 +1,15 @@
-from db_config import host, port, user, password, db_name
-
+from db_config import *
 import pymysql
-# import cursors
+
 
 class Mysql:
     """Подключение и работа с базой данных MqSql"""
-    def __init__(self, host, port, user, password, db_name):
-        host =  "127.0.0.1"
-        port = 3306
-        user = "admin"
-        password = "gnt6al47"
-        db_name = "logistics_db"
+    def __init__(self):
         try:
-            self.connection = pymysql.connect(host =host, port =port, user =user, password =password, database=db_name, cursorclass=pymysql.cursors.DictCursor)
-            print("Соединение с базой данных успешно проведено")
+            self.connection = pymysql.connect(host=host, port=port, user=user, password=password, database=db_name, cursorclass=pymysql.cursors.DictCursor)
+            print("Соединение с базой данных: Статус OK")
         except Exception as ex:
-            print ("Error connection to db")
+            print("Error connection to db")
 
 
     def select_all_data(self, table_name):
@@ -27,6 +21,33 @@ class Mysql:
             rows = cursor.fetchall()
 
             return rows
+
+    def find_selected(self, dct, table_name):
+        """Находим строку (или несколько) по переданным параметрам в dct. На входе: {}, ''. На выходе [{}, {}, ...]"""
+        content = ''
+        for key, value in dct.items():
+            i = f"{key} = '{value}' AND "
+            content += i
+        content = content[:-5]
+
+        select_query = f'SELECT * FROM {table_name} WHERE {content}'
+        with self.connection.cursor() as cursor:
+            cursor.execute(select_query)
+            find_list = cursor.fetchone()
+        return find_list
+
+
+    def select_one_value(self, value1, dct, table_name):
+        """Получение одного значения из row. На входе: '', {}, ''. На выходе: {} из row с одним значением"""
+        for key, value in dct.items():
+            column = key
+            content = value
+        request = f"SELECT {value1} FROM {table_name} WHERE {column} = {content}"
+        with self.connection.cursor() as cursor:
+            cursor.execute(request)
+            selected_value = cursor.fetchone()
+            self.connection.commit()
+        return selected_value
 
 
     def create_participant(self, phone_number, second_name, first_name, last_name, role, full_name, city, email, password, comment, disabled):
@@ -55,7 +76,7 @@ class Mysql:
             result = cursor.fetchall()
             self.connection.commit()
 
-        insert_query = f"INSERT INTO participant (phone_number, second_name, first_name, last_name, full_name, role_id, city, email, password, comment,disabled) \
+        insert_query = f"INSERT INTO users (phone_number, second_name, first_name, last_name, full_name, role_id, city, email, password, comment,disabled) \
         VALUES(" \
                        f"'{new_user['phone_number']}'," \
                        f" '{new_user['second_name']}'," \
@@ -104,11 +125,10 @@ class Mysql:
         select_role_name = f"SELECT role_name FROM roles WHERE role_id = {role_id}"
         with self.connection.cursor() as cursor:
             cursor.execute(select_role_name)
-            result = cursor.fetchall()
+            result = cursor.fetchone()
             self.connection.commit()
-        for i in result:
-            role_name = i.get('role_name')
-        return role_name
+        return result.get('role_name')
+
 
     def get_value_by_arg(self, value_request, dict, table_name):
         """(value_request - запрашиваемое значение, dict - словарь).
