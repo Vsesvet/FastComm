@@ -1,22 +1,25 @@
 # Универсальные функции
-# 1. Считать все строки из таблицы: select_all_row(table) +
-# 2. Добавить новую строку в таблицу: insert_row_to_table(table, dict) +
-# 3. Найти и вернуть строку: find_string(table_name, column, content) +
-# 4. Найти и вернуть строку с ID! : get_id(table, column, content) +
-# 5. Заменить строку: update_row(table_name, content) +-
-# 6. Удалить строку: delete_row_from_table(table_name, id) (сначала пункт 4) +
-
-# Table: Users, Participans, Participants_data, Participants_data_for certain event
-
 
 # INSERT INTO users (name, age) VALUES ('Сергей', '25');
 
-# INSERT INTO {table_name}{column} VALUES{content};
+
 # SELECT {value1} FROM {table_name} WHERE {column} = {content}
 # UPDATE {table_name} SET {
 # UPDATE users SET age = '18' WHERE id = '3';
-# UPDATE users SET age = '18', country = 'Россия' WHERE id = '3';
+
 # DELETE FROM users WHERE id = '10';
+
+
+
+
+def select_all_data(self, table_name):
+    """Получение всех строк из базы данных. На входе: {}. На выходе [{}, {}, {}]"""
+    select_all_rows = f"SELECT * FROM {table_name}"
+
+    with self.connection.cursor() as cursor:
+        cursor.execute(select_all_rows)
+        rows = cursor.fetchall()
+        return rows
 
 
 
@@ -44,9 +47,6 @@ table_name = 'users'
 insert_row_to_table(slovar, table_name)
 
 
-# ====================================================================
-
-
 
 def get_value_by_args(value1, args, table_name):
     """(value1 - строка, args - словарь). Универсальная функция получения одного значения из row"""
@@ -63,7 +63,7 @@ def get_value_by_args(value1, args, table_name):
         value2 = item.get(value1)
     return value2
 
-def update_row_by_id(id,dict, table_name):
+def update_row_by_id(id, dict, table_name):
     id_name_request = f"SELECT KU.table_name as TABLENAME,column_name as PRIMARYKEYCOLUMN " \
               f"FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS AS TC " \
               f"INNER JOIN INFORMATION_SCHEMA.KEY_COLUMN_USAGE AS KU" \

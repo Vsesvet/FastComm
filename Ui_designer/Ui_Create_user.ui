@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>500</width>
-    <height>349</height>
+    <height>327</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -33,6 +33,9 @@
     <widget class="QCheckBox" name="checkBox_disabled_user">
      <property name="text">
       <string>Отключить учетную запись</string>
+     </property>
+     <property name="checked">
+      <bool>true</bool>
      </property>
     </widget>
    </item>
