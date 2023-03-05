@@ -37,6 +37,22 @@ class Mysql:
             self.connection.commit()
         return find_dict
 
+    def find_several(self, dct, table_name):
+        """Находим строку (или несколько) по переданным параметрам в dct. На входе: {}, ''. На выходе [{}]"""
+        content = ''
+        for key, value in dct.items():
+            i = f"{key} = '{value}' OR "
+            content += i
+        content = content[:-4]
+
+        select_query = f'SELECT * FROM {table_name} WHERE {content}'
+        print(select_query)
+        with self.connection.cursor() as cursor:
+            cursor.execute(select_query)
+            find_dict = cursor.fetchall()
+            self.connection.commit()
+        return find_dict
+
     def select_one_value(self, value1, dct, table_name):
         """Получение одного значения из row. На входе: '', {}, ''. На выходе: {} из row с одним значением"""
         for key, value in dct.items():
