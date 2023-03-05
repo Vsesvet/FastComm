@@ -28,8 +28,7 @@ class Login(Ui_Login):
         self.label_user_not_found.setText('')
 
         # disabled after debug
-        self.lineEdit_login.setText('89777194310')
-        self.lineEdit_password.setText('gnt6al47')
+
 
         self.clicked_connect()
         dialog.show()
