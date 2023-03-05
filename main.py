@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QApplication, QMainWindow, QDialog, QTreeWidgetItem
+from PyQt5.QtWidgets import QApplication, QMainWindow, QDialog, QTreeWidgetItem, QHeaderView
 import time
 import pymysql
 import generate_password
@@ -76,6 +76,9 @@ class Event_shedule(Ui_Event_shedule):
         super().setupUi(window)
         self.username_login_role = access.get_username_and_role(user_login)
         self.label_username_login_role.setText(f'{self.username_login_role}')
+        # Установка ResizeToContents для tree_event
+        self.tree_event_shedule.header().setStretchLastSection(False)
+        self.tree_event_shedule.header().setSectionResizeMode(QHeaderView.ResizeToContents)
         self.adjust_tree(self.tree_event_shedule)
         self.move_to_centre(window)
         self.clicked_connect(window)
@@ -132,12 +135,16 @@ class Event(Ui_Event):
         dialog = QDialog()
         super().setupUi(dialog)
         self.label_username_login_role.setText(f'{username_login_role}')
+        # Установка ResizeToContents для treeWidget_list_participance
+        self.tree_event_list_participants.header().setStretchLastSection(False)
+        self.tree_event_list_participants.header().setSectionResizeMode(QHeaderView.ResizeToContents)
+
         self.clicked_connect()
         dialog.exec()
 
     def clicked_connect(self):
         """Обработка нажатий кнопок"""
-        self.pushButton_add_participance.clicked.connect(Add_participant)
+        self.pushButton_add_event_participance.clicked.connect(Add_participant)
         self.pushButton_analisis_doc.clicked.connect(Analisis_list)
 
 
@@ -182,6 +189,7 @@ class Add_participant(Ui_Add_participant):
         username_login_role = access.get_username_and_role(user_login)
         dialog = QDialog()
         super().setupUi(dialog)
+
         self.label_username_login_role.setText(f'{username_login_role}')
         # self.clicked_connect()
         dialog.exec()
@@ -541,8 +549,11 @@ class List_organization(Ui_List_organization):
         super().setupUi(self.dialog)
         username_login_role = access.get_username_and_role(user_login)
         self.label_username_login_role.setText(f'{username_login_role}')
+        self.tree_organizations_list.header().setStretchLastSection(False)
+        self.tree_organizations_list.header().setSectionResizeMode(QHeaderView.ResizeToContents)
+
         self.db = Mysql()
-        headers_names = ['Название Орг.', 'ИНН', 'КПП', 'Номер телефона']
+        headers_names = ['Наименование Организации', 'ИНН', 'КПП', 'Номер телефона']
         self.set_headers(headers_names, self.tree_organizations_list)
         self.set_view_of_all_organizations()
         self.clicked_connect(self.dialog)
@@ -655,6 +666,9 @@ class List_participants(Ui_List_participants):
         self.set_username_login_role()
         # Установка соеденения с БД
         self.db = Mysql()
+        # Установка размеров под текст.
+        self.tree_participants_list.header().setStretchLastSection(False)
+        self.tree_participants_list.header().setSectionResizeMode(QHeaderView.ResizeToContents)
         # Установка заголовков для колонок  treeWidget
         headers_names = ['Телефон', 'Фамилия', 'Имя', 'Отчество', 'e-mail', 'Город', 'Пароль', 'Комментарий']
         self.set_headers(headers_names, self.tree_participants_list)
@@ -775,19 +789,21 @@ class List_participants(Ui_List_participants):
         elif phone.isdigit():
             dct.setdefault('phone_number', phone)
         else:
-            self.lineEdit_find_by_phone.setText('Не корретно')
+            self.lineEdit_find_by_phone.setText('Не корректно')
+
         if len(second_name) == 0:
             pass
         elif second_name.isalpha():
             dct.setdefault('second_name', second_name)
         else:
-            self.lineEdit_find_by_second_name.setText('Не корретно')
+            self.lineEdit_find_by_second_name.setText('Не корректно')
+
         if len(email) == 0:
             pass
-        elif email.find('@'):
+        elif "@" in email:
             dct.setdefault('email', email)
         else:
-            self.lineEdit_find_by_email.setText('Не корретно')
+            self.lineEdit_find_by_email.setText('Не корректно')
         return dct
 
     def reset_search(self):

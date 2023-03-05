@@ -31,6 +31,8 @@ class Ui_List_organization(object):
         self.tree_organizations_list = QtWidgets.QTreeWidget(List_organization)
         self.tree_organizations_list.setObjectName("tree_organizations_list")
         self.tree_organizations_list.headerItem().setText(0, "1")
+        self.tree_organizations_list.header().setDefaultSectionSize(170)
+        self.tree_organizations_list.header().setStretchLastSection(False)
         self.gridLayout.addWidget(self.tree_organizations_list, 2, 0, 1, 4)
         self.label = QtWidgets.QLabel(List_organization)
         font = QtGui.QFont()

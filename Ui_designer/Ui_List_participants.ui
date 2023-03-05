@@ -16,6 +16,12 @@
   <layout class="QGridLayout" name="gridLayout_3">
    <item row="6" column="0" colspan="7">
     <widget class="QTreeWidget" name="tree_participants_list">
+     <attribute name="headerDefaultSectionSize">
+      <number>130</number>
+     </attribute>
+     <attribute name="headerStretchLastSection">
+      <bool>false</bool>
+     </attribute>
      <column>
       <property name="text">
        <string notr="true">1</string>

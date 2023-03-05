@@ -15,7 +15,7 @@
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="2" column="0">
-    <widget class="QLineEdit" name="lineEdit_number_phone_participant">
+    <widget class="QLineEdit" name="lineEdit_phone_number_participant">
      <property name="placeholderText">
       <string>Номер телефона...</string>
      </property>
@@ -39,7 +39,13 @@
     </widget>
    </item>
    <item row="4" column="0" colspan="4">
-    <widget class="QTreeWidget" name="treeWidget">
+    <widget class="QTreeWidget" name="tree_add_participant_to_event">
+     <attribute name="headerDefaultSectionSize">
+      <number>147</number>
+     </attribute>
+     <attribute name="headerStretchLastSection">
+      <bool>false</bool>
+     </attribute>
      <column>
       <property name="text">
        <string>Телефон</string>
@@ -110,10 +116,10 @@
   </layout>
  </widget>
  <tabstops>
-  <tabstop>lineEdit_number_phone_participant</tabstop>
+  <tabstop>lineEdit_phone_number_participant</tabstop>
   <tabstop>lineEdit_second_name_participant</tabstop>
   <tabstop>pushButton_find_participant</tabstop>
-  <tabstop>treeWidget</tabstop>
+  <tabstop>tree_add_participant_to_event</tabstop>
   <tabstop>pushButton_add_selected_participant</tabstop>
   <tabstop>pushButton_ok</tabstop>
   <tabstop>pushButton_cancel</tabstop>

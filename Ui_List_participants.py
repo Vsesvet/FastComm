@@ -20,6 +20,8 @@ class Ui_List_participants(object):
         self.tree_participants_list = QtWidgets.QTreeWidget(List_participants)
         self.tree_participants_list.setObjectName("tree_participants_list")
         self.tree_participants_list.headerItem().setText(0, "1")
+        self.tree_participants_list.header().setDefaultSectionSize(130)
+        self.tree_participants_list.header().setStretchLastSection(False)
         self.gridLayout_3.addWidget(self.tree_participants_list, 6, 0, 1, 7)
         self.pushButton_delete_participant = QtWidgets.QPushButton(List_participants)
         self.pushButton_delete_participant.setObjectName("pushButton_delete_participant")

@@ -14,28 +14,30 @@
    <string>Event</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="5" column="5">
-    <widget class="QPushButton" name="pushButton_open_access">
+   <item row="11" column="5">
+    <widget class="QLabel" name="label_total_participants">
      <property name="text">
-      <string>Открыть доступ для организации</string>
+      <string>Кол-во участников ___</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
      </property>
     </widget>
    </item>
-   <item row="7" column="1">
-    <widget class="QTimeEdit" name="event_time">
-     <property name="time">
-      <time>
-       <hour>10</hour>
-       <minute>0</minute>
-       <second>0</second>
-      </time>
+   <item row="20" column="7">
+    <widget class="QPushButton" name="pushButton_ok">
+     <property name="text">
+      <string>OK</string>
      </property>
     </widget>
    </item>
-   <item row="9" column="3">
-    <widget class="QLineEdit" name="event_city">
-     <property name="placeholderText">
-      <string>Город...</string>
+   <item row="19" column="3">
+    <widget class="QPushButton" name="pushButton_load_xls">
+     <property name="whatsThis">
+      <string>Активна только если участников = 0</string>
+     </property>
+     <property name="text">
+      <string>Загрузить файл с участниками (*.xls)</string>
      </property>
     </widget>
    </item>
@@ -77,20 +79,10 @@
      </property>
     </widget>
    </item>
-   <item row="11" column="2" colspan="3">
-    <widget class="QLabel" name="label_list_members">
-     <property name="font">
-      <font>
-       <pointsize>16</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
+   <item row="19" column="0">
+    <widget class="QPushButton" name="pushButton_add_event_participance">
      <property name="text">
-      <string>Список участников</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
+      <string>Добавить участника</string>
      </property>
     </widget>
    </item>
@@ -101,52 +93,28 @@
      </property>
     </widget>
    </item>
-   <item row="19" column="3">
-    <widget class="QPushButton" name="pushButton_load_xls">
-     <property name="whatsThis">
-      <string>Активна только если участников = 0</string>
-     </property>
-     <property name="text">
-      <string>Загрузить файл с участниками (*.xls)</string>
-     </property>
-    </widget>
-   </item>
-   <item row="19" column="0">
-    <widget class="QPushButton" name="pushButton_add_participance">
-     <property name="text">
-      <string>Добавить участника</string>
+   <item row="7" column="1">
+    <widget class="QTimeEdit" name="event_time">
+     <property name="time">
+      <time>
+       <hour>10</hour>
+       <minute>0</minute>
+       <second>0</second>
+      </time>
      </property>
     </widget>
    </item>
-   <item row="9" column="0">
-    <widget class="QLineEdit" name="lineEdit_organization">
+   <item row="20" column="0">
+    <widget class="QPushButton" name="pushButton_del_event_participance">
+     <property name="text">
+      <string>Удалить участника</string>
+     </property>
+    </widget>
+   </item>
+   <item row="7" column="3">
+    <widget class="QLineEdit" name="event_country">
      <property name="placeholderText">
-      <string>Организация</string>
-     </property>
-    </widget>
-   </item>
-   <item row="6" column="5">
-    <widget class="QPushButton" name="pushButton_close_access">
-     <property name="text">
-      <string>Закрыть доступ для организации</string>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="2" colspan="3">
-    <widget class="QLabel" name="label_open_event">
-     <property name="font">
-      <font>
-       <pointsize>18</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
-       <kerning>true</kerning>
-      </font>
-     </property>
-     <property name="text">
-      <string>Мероприятие</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
+      <string>Страна...</string>
      </property>
     </widget>
    </item>
@@ -164,10 +132,10 @@
      </property>
     </widget>
    </item>
-   <item row="20" column="0">
-    <widget class="QPushButton" name="pushButton_del_participance">
+   <item row="6" column="5">
+    <widget class="QPushButton" name="pushButton_close_access">
      <property name="text">
-      <string>Удалить участника</string>
+      <string>Закрыть доступ для организации</string>
      </property>
     </widget>
    </item>
@@ -178,48 +146,10 @@
      </property>
     </widget>
    </item>
-   <item row="9" column="1">
-    <widget class="QComboBox" name="event_type">
-     <item>
-      <property name="text">
-       <string>НИР</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Кадавр</string>
-      </property>
-     </item>
-    </widget>
-   </item>
-   <item row="5" column="0" colspan="4">
-    <widget class="QLineEdit" name="event_name">
+   <item row="9" column="0">
+    <widget class="QLineEdit" name="lineEdit_organization">
      <property name="placeholderText">
-      <string>Наименование мероприятия...</string>
-     </property>
-    </widget>
-   </item>
-   <item row="14" column="7">
-    <widget class="QPushButton" name="pushButton_email">
-     <property name="text">
-      <string>e-mail</string>
-     </property>
-    </widget>
-   </item>
-   <item row="13" column="7">
-    <widget class="QPushButton" name="pushButton_send_sms">
-     <property name="text">
-      <string>SMS</string>
-     </property>
-    </widget>
-   </item>
-   <item row="11" column="5">
-    <widget class="QLabel" name="label_total_participant">
-     <property name="text">
-      <string>Кол-во участников ___</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
+      <string>Организация</string>
      </property>
     </widget>
    </item>
@@ -248,20 +178,35 @@
      </property>
     </widget>
    </item>
-   <item row="7" column="3">
-    <widget class="QLineEdit" name="event_country">
-     <property name="placeholderText">
-      <string>Страна...</string>
+   <item row="11" column="2" colspan="3">
+    <widget class="QLabel" name="label_list_members">
+     <property name="font">
+      <font>
+       <pointsize>16</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Список участников</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
      </property>
     </widget>
    </item>
-   <item row="12" column="0" rowspan="7" colspan="7">
-    <widget class="QTreeWidget" name="treeWidget_list_participance">
-     <column>
-      <property name="text">
-       <string>1</string>
-      </property>
-     </column>
+   <item row="5" column="0" colspan="4">
+    <widget class="QLineEdit" name="event_name">
+     <property name="placeholderText">
+      <string>Наименование мероприятия...</string>
+     </property>
+    </widget>
+   </item>
+   <item row="9" column="3">
+    <widget class="QLineEdit" name="event_city">
+     <property name="placeholderText">
+      <string>Город...</string>
+     </property>
     </widget>
    </item>
    <item row="20" column="6">
@@ -271,10 +216,107 @@
      </property>
     </widget>
    </item>
-   <item row="20" column="7">
-    <widget class="QPushButton" name="pushButton_ok">
+   <item row="5" column="5">
+    <widget class="QPushButton" name="pushButton_open_access">
      <property name="text">
-      <string>OK</string>
+      <string>Открыть доступ для организации</string>
+     </property>
+    </widget>
+   </item>
+   <item row="14" column="7">
+    <widget class="QPushButton" name="pushButton_email">
+     <property name="text">
+      <string>e-mail</string>
+     </property>
+    </widget>
+   </item>
+   <item row="13" column="7">
+    <widget class="QPushButton" name="pushButton_send_sms">
+     <property name="text">
+      <string>SMS</string>
+     </property>
+    </widget>
+   </item>
+   <item row="9" column="1">
+    <widget class="QComboBox" name="event_type">
+     <item>
+      <property name="text">
+       <string>НИР</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Кадавр</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item row="12" column="0" rowspan="7" colspan="7">
+    <widget class="QTreeWidget" name="tree_event_list_participants">
+     <property name="columnCount">
+      <number>7</number>
+     </property>
+     <attribute name="headerDefaultSectionSize">
+      <number>120</number>
+     </attribute>
+     <attribute name="headerHighlightSections">
+      <bool>true</bool>
+     </attribute>
+     <attribute name="headerStretchLastSection">
+      <bool>false</bool>
+     </attribute>
+     <column>
+      <property name="text">
+       <string>1</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string notr="true">2</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string notr="true">3</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string notr="true">4</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string notr="true">5</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string notr="true">6</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string notr="true">7</string>
+      </property>
+     </column>
+    </widget>
+   </item>
+   <item row="1" column="2" colspan="3">
+    <widget class="QLabel" name="label_open_event">
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+       <kerning>true</kerning>
+      </font>
+     </property>
+     <property name="text">
+      <string>Мероприятие</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
      </property>
     </widget>
    </item>
@@ -290,9 +332,9 @@
   <tabstop>event_type</tabstop>
   <tabstop>event_city</tabstop>
   <tabstop>pushButton_analisis_doc</tabstop>
-  <tabstop>treeWidget_list_participance</tabstop>
-  <tabstop>pushButton_add_participance</tabstop>
-  <tabstop>pushButton_del_participance</tabstop>
+  <tabstop>tree_event_list_participants</tabstop>
+  <tabstop>pushButton_add_event_participance</tabstop>
+  <tabstop>pushButton_del_event_participance</tabstop>
   <tabstop>pushButton_load_xls</tabstop>
   <tabstop>pushButton_send_sms</tabstop>
   <tabstop>pushButton_email</tabstop>
@@ -303,7 +345,7 @@
  <resources/>
  <connections>
   <connection>
-   <sender>pushButton_add_participance</sender>
+   <sender>pushButton_add_event_participance</sender>
    <signal>clicked()</signal>
    <receiver>Event</receiver>
    <slot>show()</slot>
@@ -338,7 +380,7 @@
    <sender>pushButton_close_access</sender>
    <signal>clicked()</signal>
    <receiver>Event</receiver>
-   <slot>raise()</slot>
+   <slot>show()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>751</x>
@@ -351,18 +393,18 @@
    </hints>
   </connection>
   <connection>
-   <sender>pushButton_del_participance</sender>
+   <sender>pushButton_del_event_participance</sender>
    <signal>clicked()</signal>
-   <receiver>Event</receiver>
-   <slot>show()</slot>
+   <receiver>tree_event_list_participants</receiver>
+   <slot>update()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>130</x>
      <y>633</y>
     </hint>
     <hint type="destinationlabel">
-     <x>484</x>
-     <y>327</y>
+     <x>446</x>
+     <y>425</y>
     </hint>
    </hints>
   </connection>
@@ -385,16 +427,16 @@
   <connection>
    <sender>pushButton_load_xls</sender>
    <signal>clicked()</signal>
-   <receiver>Event</receiver>
-   <slot>show()</slot>
+   <receiver>tree_event_list_participants</receiver>
+   <slot>clear()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>482</x>
      <y>602</y>
     </hint>
     <hint type="destinationlabel">
-     <x>484</x>
-     <y>327</y>
+     <x>446</x>
+     <y>425</y>
     </hint>
    </hints>
   </connection>
