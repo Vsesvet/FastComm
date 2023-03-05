@@ -4,19 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Убран db_config.py&#10;Переработан Login&#10;Форматирование new_participant&#10;Форматирование Phone_number">
-      <change afterPath="$PROJECT_DIR$/SQL_universal_querys.py" afterDir="false" />
+    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Обновлено">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Class_Access.py" beforeDir="false" afterPath="$PROJECT_DIR$/Class_Access.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Class_Journal.py" beforeDir="false" afterPath="$PROJECT_DIR$/Class_Journal.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Class_Mysql.py" beforeDir="false" afterPath="$PROJECT_DIR$/Class_Mysql.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ui_Create_inspector.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_Create_inspector.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ui_Create_participant.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_Create_participant.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ui_Create_user.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_Create_user.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ui_List_participants_F.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_List_participants_F.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ui_designer/Ui_Create_inspector.ui" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_designer/Ui_Create_inspector.ui" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ui_designer/Ui_Create_participant.ui" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_designer/Ui_Create_participant.ui" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ui_designer/Ui_Create_user.ui" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_designer/Ui_Create_user.ui" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db_config.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/universal_function.py" beforeDir="false" afterPath="$PROJECT_DIR$/universal_function.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -33,7 +25,6 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
@@ -95,6 +86,27 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="Class_Mysql" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Logistics_project" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Class_Mysql.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="Ui_Create_event_F" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="Logistics_project" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -108,27 +120,6 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/probniki/Ui_Create_event_F.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="Ui_Create_participant" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Logistics_project" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Ui_Create_participant.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -158,27 +149,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="formating_phone" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Logistics_project" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/formating_phone.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Logistics_project" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -200,13 +170,34 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="universal_function" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Logistics_project" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/universal_function.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Python.main" />
+        <item itemvalue="Python.Class_Mysql" />
         <item itemvalue="Python.Ui_Create_participant_F" />
+        <item itemvalue="Python.universal_function" />
         <item itemvalue="Python.Class_Access" />
-        <item itemvalue="Python.formating_phone" />
-        <item itemvalue="Python.Ui_Create_participant" />
       </list>
     </recent_temporary>
   </component>
@@ -317,7 +308,49 @@
       <option name="project" value="LOCAL" />
       <updated>1677955640301</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Переработан Login">
+      <created>1677955736399</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1677955736399</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Дописаны:&#10;find_selected&#10;select_one_value">
+      <created>1677955860031</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1677955860031</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Дописано, переработано.">
+      <created>1677955935086</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1677955935086</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Добавлен full_name">
+      <created>1677956037716</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1677956037716</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Обновлено">
+      <created>1677956154322</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1677956154322</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Обновлено">
+      <created>1677956234528</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1677956234528</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -340,22 +373,11 @@
     <MESSAGE value="get_value_by_arg (предложение)&#10;update_row_by_id (упрощение)" />
     <MESSAGE value="update_row_by_id (упрощение)" />
     <MESSAGE value="Убран db_config.py&#10;Переработан Login&#10;Форматирование new_participant&#10;Форматирование Phone_number" />
-    <option name="LAST_COMMIT_MESSAGE" value="Убран db_config.py&#10;Переработан Login&#10;Форматирование new_participant&#10;Форматирование Phone_number" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Class_Mysql.py</url>
-          <line>41</line>
-          <option name="timeStamp" value="22" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Class_Mysql.py</url>
-          <line>127</line>
-          <option name="timeStamp" value="23" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="Переработан Login" />
+    <MESSAGE value="Дописаны:&#10;find_selected&#10;select_one_value" />
+    <MESSAGE value="Дописано, переработано." />
+    <MESSAGE value="Добавлен full_name" />
+    <MESSAGE value="Обновлено" />
+    <option name="LAST_COMMIT_MESSAGE" value="Обновлено" />
   </component>
 </project>

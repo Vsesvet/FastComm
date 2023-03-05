@@ -26,6 +26,11 @@ class Login(Ui_Login):
         super().setupUi(dialog)
         self.label_bad_password.setText('')
         self.label_user_not_found.setText('')
+
+        # disabled after debug
+        self.lineEdit_login.setText('89777194310')
+        self.lineEdit_password.setText('gnt6al47')
+
         self.clicked_connect()
         dialog.show()
         app.exit(app.exec())
@@ -46,7 +51,7 @@ class Login(Ui_Login):
         login['password'] = self.lineEdit_password.text().strip()
         journal.log(f'Попытка входа с учетными данными: {login}')
         user_login = Mysql().find_selected(login, table_name)
-        print(f'Полученный user_login: {user_login}')
+        journal.log(f"Пользователь: {user_login['second_name']} {user_login['first_name']} вошел в систему")
 
 
         # if user_login = None
@@ -243,6 +248,11 @@ class Create_participant(Ui_Create_participant):
         self.dialog = QDialog()
         super().setupUi(self.dialog)
         self.label_username_login_role.setText(f'{username_login_role}')
+
+        # disabled after debug
+        self.lineEdit_full_name.setText(' Ефремов Максим Георгиевич ')
+        self.lineEdit_phone_number.setText('89859925870')
+
         self.checkBox_disabled_participant.setText("")
         self.clicked_connect(self.dialog)
         self.db = Mysql()
@@ -257,31 +267,59 @@ class Create_participant(Ui_Create_participant):
 
     def add_new_participant(self):
         """Добавляет нового пользователя в базу данных"""
-        phone_number = self.lineEdit_phone_number.text()
-        second_name = self.lineEdit_second_name.text().strip()
-        first_name = self.lineEdit_first_name.text().strip()
-        last_name = self.lineEdit_last_name.text().strip()
-        email = self.lineEdit_email.text().strip()
-        city = self.lineEdit_city.text().strip()
-        password = self.lineEdit_password.text()
-        comment = self.lineEdit_comment.text().strip()
-        disabled = self.checkBox_disabled_participant.isChecked()
+        # phone_number = self.lineEdit_phone_number.text()
+        # second_name = self.lineEdit_second_name.text().strip()
+        # first_name = self.lineEdit_first_name.text().strip()
+        # last_name = self.lineEdit_last_name.text().strip()
+        # email = self.lineEdit_email.text().strip()
+        # city = self.lineEdit_city.text().strip()
+        # password = self.lineEdit_password.text()
+        # comment = self.lineEdit_comment.text().strip()
+        # disabled = self.checkBox_disabled_participant.isChecked()
+        #
+        # role = "participant"
+        # full_name = second_name + " " + first_name + " " + last_name
+        # # Форматирование номера телефона
+        # phone_number = self.formating_phone(phone_number)
+        # print(phone_number)
+        # if len(phone_number) == 11:
+        #     try:
+        #         self.db.create_participant(phone_number, second_name, first_name, last_name, role, full_name, email, city,
+        #                                 password, comment, disabled)
+        #         self.dialog.close()
+        #
+        #     except Exception as ex:
+        #         print("Error add new participant")
+        # else:
+        #     self.lineEdit_phone_number.setPlaceholderText("ВВЕДИТЕ НОМЕР ТЕЛЕФОНА")
 
-        role = "participant"
-        full_name = second_name + " " + first_name + " " + last_name
-        # Форматирование номера телефона
-        phone_number = self.formating_phone(phone_number)
-        print(phone_number)
-        if len(phone_number) == 11:
-            try:
-                self.db.create_participant(phone_number, second_name, first_name, last_name, role, full_name, email, city,
-                                        password, comment, disabled)
-                self.dialog.close()
+        """Считывание данных из Ui в {}"""
+        dct = {}
+        dct['phone_number'] = self.lineEdit_phone_number.text().strip().replace(' ', '')
+        dct['second_name'] = self.lineEdit_second_name.text().strip()
+        dct['first_name'] = self.lineEdit_first_name.text().strip()
+        dct['last_name'] = self.lineEdit_last_name.text().strip()
+        dct['full_name'] = self.lineEdit_full_name.text().strip()
+        dct['role_id'] = '4'
+        dct['email'] = self.lineEdit_email.text().strip()
+        dct['city'] = self.lineEdit_city.text().strip()
+        dct['password'] = self.lineEdit_password.text().strip()
+        dct['comment'] = self.lineEdit_comment.text().strip()
+        dct['disabled'] = self.checkBox_disabled_participant.isChecked()
+        self.split_full_name(dct, dct['full_name'])
+        # role = "participant"
+        # full_name = second_name + " " + first_name + " " + last_name
+        # # Форматирование номера телефона
+        # phone_number = self.formating_phone(phone_number)
 
-            except Exception as ex:
-                print("Error add new participant")
-        else:
-            self.lineEdit_phone_number.setPlaceholderText("ВВЕДИТЕ НОМЕР ТЕЛЕФОНА")
+        # Запись в БД
+        table_name = 'participants'
+        try:
+            self.db.insert_row_to_table(dct, table_name)
+            self.dialog.close()
+        except Exception as ex:
+            print('Ошибка создания Участника')
+            journal.log(f"Ошибка создания Участника: {dct['second_name']}")
 
     def generate_password(self):
         """Генерация пароля по нажатию на кнопку"""
@@ -303,19 +341,35 @@ class Create_participant(Ui_Create_participant):
             else:
                 return f'Не верный формат'
 
+    def split_full_name(self, dct, full_name):
+        """Разделение full_name и запись ФИО в second, first, last name"""
+        if len(full_name) > 12:
+            split = full_name.split()
+            dct['second_name'] = split[0]
+            dct['first_name'] = split[1]
+            dct['last_name'] = split[2]
+
+        # self.lineEdit_second_name.setText(split_full[0])
+        # self.lineEdit_first_name.setText(split_full[1])
+        # self.lineEdit_last_name.setText()
+
 
 class Edit_participant(Ui_Create_participant):
     """Окно редактирования Участника"""
 
-    def __init__(self, id_from_db, current_values):
+    def __init__(self, participant_id):
+        self.db = Mysql()
+        self.table_name = 'participants'
+        dct = {}
+        dct['participant_id'] = participant_id
+        self.participant = self.db.find_selected(dct, self.table_name)
+        print(dct)
         username_login_role = access.get_username_and_role(user_login)
         self.dialog = QDialog()
         super().setupUi(self.dialog)
         self.label_create_participant.setText("Редактирование участника")
         self.label_username_login_role.setText(f'{username_login_role}')
-        self.id_from_db = id_from_db
-        self.current_values = current_values
-        self.db = Mysql()
+
         self.set_view()
 
         self.clicked_connect(self.dialog)
@@ -324,39 +378,40 @@ class Edit_participant(Ui_Create_participant):
     def clicked_connect(self, dialog):
         """Обработка нажатий кнопок окна Редактирование участника"""
         self.pushButton_generate.clicked.connect(self.generate_password)
-        self.pushButton_save.clicked.connect(self.update_user)
+        self.pushButton_save.clicked.connect(self.update_participant)
         self.pushButton_cancel.clicked.connect(dialog.close)
         # self.checkBox_disabled_participant.stateChanged['int'].connect(dialog.show)
 
-    def update_user(self):
-        """Обновляет данные пользователя в базе данных"""
-        values = []
-        values.append(self.lineEdit_phone_number.text())
-        values.append(self.lineEdit_second_name.text())
-        values.append(self.lineEdit_first_name.text())
-        values.append(self.lineEdit_last_name.text())
-        # Составление Full_name по полученным данным:
-        values.append(values[1] + " " + values[2] + " " + values[3])
-        values.append(self.lineEdit_email.text())
-        values.append(self.lineEdit_city.text())
-        values.append(self.lineEdit_password.text())
-        values.append(self.lineEdit_comment.text())
+    def update_participant(self):
+        """Считывает данные с полей и обновляет данные пользователя в базе данных"""
+        dct = {}
+        dct['phone_number'] = self.lineEdit_phone_number.text().strip().replace(' ', '')
+        dct['second_name'] = self.lineEdit_second_name.text().strip()
+        dct['first_name'] = self.lineEdit_first_name.text().strip()
+        dct['last_name'] = self.lineEdit_last_name.text().strip()
+        dct['full_name'] = self.lineEdit_full_name.text().strip()
+        dct['email'] = self.lineEdit_email.text().strip()
+        dct['city'] = self.lineEdit_city.text().strip()
+        dct['password'] = self.lineEdit_password.text().strip()
+        dct['comment'] = self.lineEdit_comment.text().strip()
+        # dct['disabled'] = self.checkBox_disabled_participant.isChecked()
 
-        # print(values)
-        self.db.update_participant_by_id(self.id_from_db, values)
+        # Update-запись в БД.
+        self.db.update_row_by_id(self.participant['participant_id'], dct, self.table_name)
         self.dialog.close()
-        # print("updated")
+        journal.log(f"Обновлены данные участника: {dct['second_name']} {dct['first_name']}")
 
     def set_view(self):
         """Устанавливает в поля для ввода данные выбранного пользователя"""
-        self.lineEdit_phone_number.setText(self.current_values[0])
-        self.lineEdit_second_name.setText(self.current_values[1])
-        self.lineEdit_first_name.setText(self.current_values[2])
-        self.lineEdit_last_name.setText(self.current_values[3])
-        self.lineEdit_email.setText(self.current_values[5])
-        self.lineEdit_city.setText(self.current_values[4])
-        self.lineEdit_password.setText(self.current_values[6])
-        self.lineEdit_comment.setText(self.current_values[7])
+        self.lineEdit_phone_number.setText(self.participant['phone_number'])
+        self.lineEdit_second_name.setText(self.participant['second_name'])
+        self.lineEdit_first_name.setText(self.participant['first_name'])
+        self.lineEdit_last_name.setText(self.participant['last_name'])
+        self.lineEdit_full_name.setText(self.participant['full_name'])
+        self.lineEdit_email.setText(self.participant['email'])
+        self.lineEdit_city.setText(self.participant['city'])
+        self.lineEdit_password.setText(self.participant['password'])
+        self.lineEdit_comment.setText(self.participant['comment'])
 
     def generate_password(self):
         """Генерация пароля в окне Редактирования Участника"""
@@ -600,7 +655,7 @@ class List_participants(Ui_List_participants):
         # Установка соеденения с БД
         self.db = Mysql()
         # Установка заголовков для колонок  treeWidget
-        headers_names = ['Телефон', 'Фамилия', 'Имя', 'Отчетство', 'Город', 'e-mail', 'Пароль', 'Комментарий']
+        headers_names = ['Телефон', 'Фамилия', 'Имя', 'Отчество', 'e-mail', 'Город', 'Пароль', 'Комментарий']
         self.set_headers(headers_names, self.tree_participants_list)
         # Инициализация функции вывода списка всех участников
         self.set_view_of_all_participants()
@@ -617,22 +672,22 @@ class List_participants(Ui_List_participants):
         self.pushButton_create_participant.clicked.connect(Create_participant)
         self.pushButton_create_participant.clicked.connect(self.update_tree)
         self.pushButton_edit_participant.clicked.connect(self.edit_participant)
+        self.tree_participants_list.itemDoubleClicked.connect(self.edit_participant)
+        self.tree_participants_list.itemDoubleClicked.connect(self.update_tree)
         self.pushButton_edit_participant.clicked.connect(self.update_tree)
         self.pushButton_delete_participant.clicked.connect(self.delete_participant)
 
     def edit_participant(self):
         """Открытие окна редактирования пользователя + получение данных по выбранному в QTreeWidget пользователю в виде списка"""
         try:
+            dct = {}
+            table_name = 'participants'
             item = self.tree_participants_list.currentItem()
-            result_data = []
-            for i in range(0, 8):
-                item_string = item.text(i)
-                result_data.append(item_string)
-            id_from_db = self.db.get_participant_id(result_data[0])
-            # print(id_from_db, result_data)
-            Edit_participant(id_from_db, result_data)
-        except Exception as ex:
-            print("Error")
+            dct['phone_number'] = item.text(0)
+            participant = self.db.find_selected(dct, table_name)
+            Edit_participant(participant['participant_id'])
+        except Exception as ex:\
+            print("Не выделен ни один объект в дереве")
 
     def delete_participant(self):
         """Удаление выделенного участника"""
@@ -670,7 +725,6 @@ class List_participants(Ui_List_participants):
             item = QTreeWidgetItem(value)
             self.tree_participants_list.addTopLevelItem(item)
             value.clear()
-
 
     def set_headers(self, headers_names, tree):
         """Устанавливает заголовки колонок для Списка всех участников"""
@@ -712,6 +766,7 @@ class Pair():
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     journal = Journal()
+    journal.start_log()
     user_login = {}
     Login()
     if user_login == None:

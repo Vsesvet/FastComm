@@ -23,7 +23,7 @@ class Mysql:
             return rows
 
     def find_selected(self, dct, table_name):
-        """Находим строку (или несколько) по переданным параметрам в dct. На входе: {}, ''. На выходе [{}, {}, ...]"""
+        """Находим строку (или несколько) по переданным параметрам в dct. На входе: {}, ''. На выходе [{}]"""
         content = ''
         for key, value in dct.items():
             i = f"{key} = '{value}' AND "
@@ -33,9 +33,9 @@ class Mysql:
         select_query = f'SELECT * FROM {table_name} WHERE {content}'
         with self.connection.cursor() as cursor:
             cursor.execute(select_query)
-            find_list = cursor.fetchone()
-        return find_list
-
+            find_dict = cursor.fetchone()
+            self.connection.commit()
+        return find_dict
 
     def select_one_value(self, value1, dct, table_name):
         """Получение одного значения из row. На входе: '', {}, ''. На выходе: {} из row с одним значением"""
@@ -49,6 +49,20 @@ class Mysql:
             self.connection.commit()
         return selected_value
 
+    def insert_row_to_table(self, dictionary, table_name):
+        """Добавление row в таблицу. На входе: {}, ''. Выход без возврата"""
+        column = []
+        content = []
+        for key, value in dictionary.items():
+            column.append(key)
+            content.append(value)
+        column = str(tuple(column)).replace("'", "")
+        content = tuple(content)
+        insert_query = f"INSERT INTO {table_name}{column} VALUES{content}"
+        print(insert_query)
+        with self.connection.cursor() as cursor:
+            cursor.execute(insert_query)
+            self.connection.commit()
 
     def create_participant(self, phone_number, second_name, first_name, last_name, role, full_name, city, email, password, comment, disabled):
         """Добавление нового участника в базу данных MySql"""

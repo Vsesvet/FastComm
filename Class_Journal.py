@@ -45,6 +45,10 @@ class Journal:
             file.write(f"{self.dt_now[:-7]} {info_dir} \n")
             file.write(f"{self.dt_now[:-7]} {info_file} \n")
 
+    def start_log(self):
+        """Запись в лог строки о старте программы"""
+        self.log(f'---------------Program START---------------')
+
     def close_login(self):
         """Завершение программы по нажатию на кнопку 'крестик' из окна Логина """
         self.log(f'Пользователь закрыл окно программы')
