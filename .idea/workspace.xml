@@ -4,11 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Добавлен double_click Tree">
+    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="реализован поиск в list_participants">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Class_Mysql.py" beforeDir="false" afterPath="$PROJECT_DIR$/Class_Mysql.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ui_List_participants.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_List_participants.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ui_designer/Ui_List_participants.ui" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_designer/Ui_List_participants.ui" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -371,7 +368,28 @@
       <option name="project" value="LOCAL" />
       <updated>1678029833589</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="дописана функция Find_several">
+      <created>1678041203668</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1678041203668</updated>
+    </task>
+    <task id="LOCAL-00025" summary="+ фильтры поиска и кнопки поиска">
+      <created>1678041254475</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1678041254475</updated>
+    </task>
+    <task id="LOCAL-00026" summary="реализован поиск в list_participants">
+      <created>1678041334021</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1678041334021</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -401,7 +419,10 @@
     <MESSAGE value="Обновлено" />
     <MESSAGE value="Убраны персональные данные" />
     <MESSAGE value="Добавлен double_click Tree" />
-    <option name="LAST_COMMIT_MESSAGE" value="Добавлен double_click Tree" />
+    <MESSAGE value="дописана функция Find_several" />
+    <MESSAGE value="+ фильтры поиска и кнопки поиска" />
+    <MESSAGE value="реализован поиск в list_participants" />
+    <option name="LAST_COMMIT_MESSAGE" value="реализован поиск в list_participants" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
