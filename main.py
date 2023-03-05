@@ -2,6 +2,7 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QDialog, QTreeWidgetItem
 import time
 import pymysql
 import generate_password
+from db_config import *
 from Class_Mysql import *
 from Class_User import *
 from Class_Processing import *
@@ -28,7 +29,8 @@ class Login(Ui_Login):
         self.label_user_not_found.setText('')
 
         # disabled after debug
-
+        self.lineEdit_login.setText(login_name)
+        self.lineEdit_password.setText(login_password)
 
         self.clicked_connect()
         dialog.show()
