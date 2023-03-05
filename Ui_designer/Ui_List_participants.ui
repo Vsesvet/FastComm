@@ -30,24 +30,6 @@
      </property>
     </widget>
    </item>
-   <item row="8" column="0" colspan="2">
-    <layout class="QGridLayout" name="gridLayout_2">
-     <item row="0" column="2">
-      <widget class="QPushButton" name="pushButton_find_participant">
-       <property name="text">
-        <string>Найти</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="0" colspan="2">
-      <widget class="QLineEdit" name="lineEdit_find_participant">
-       <property name="placeholderText">
-        <string>Поиск участника</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
    <item row="3" column="0">
     <widget class="QPushButton" name="pushButton_create_participant">
      <property name="text">
@@ -73,13 +55,6 @@
     <widget class="QPushButton" name="pushButton_close">
      <property name="text">
       <string>Закрыть</string>
-     </property>
-    </widget>
-   </item>
-   <item row="7" column="0" colspan="2">
-    <widget class="QLabel" name="label_find_event">
-     <property name="text">
-      <string>Фильтры поиска участника:</string>
      </property>
     </widget>
    </item>
@@ -116,9 +91,69 @@
     </widget>
    </item>
    <item row="3" column="3" colspan="4">
-    <widget class="QLabel" name="label">
+    <widget class="QLabel" name="label_attention">
      <property name="text">
       <string>Внимание! Удаление участника повлечет удаление всех его документов из БД.</string>
+     </property>
+    </widget>
+   </item>
+   <item row="8" column="0" colspan="3">
+    <layout class="QGridLayout" name="gridLayout_2">
+     <item row="0" column="0">
+      <widget class="QLineEdit" name="lineEdit_find_by_phone">
+       <property name="placeholderText">
+        <string>Номер телефона</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="2">
+      <widget class="QLineEdit" name="lineEdit_find_by_second_name">
+       <property name="placeholderText">
+        <string>Фамилия...</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="4">
+      <widget class="QLineEdit" name="lineEdit_find_by_email">
+       <property name="placeholderText">
+        <string>e-mail...</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLabel" name="label_or1">
+       <property name="text">
+        <string>или</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="5">
+      <widget class="QPushButton" name="pushButton_find">
+       <property name="text">
+        <string>Найти</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="3">
+      <widget class="QLabel" name="label_or2">
+       <property name="text">
+        <string>или</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="7" column="2">
+    <widget class="QPushButton" name="pushButton_reset_search">
+     <property name="text">
+      <string>Сброс фильтров поиска</string>
+     </property>
+    </widget>
+   </item>
+   <item row="7" column="0" colspan="2">
+    <widget class="QLabel" name="label_find_event">
+     <property name="text">
+      <string>Фильтры поиска участника:</string>
      </property>
     </widget>
    </item>
@@ -128,8 +163,8 @@
   <tabstop>tree_participants_list</tabstop>
   <tabstop>pushButton_create_participant</tabstop>
   <tabstop>pushButton_edit_participant</tabstop>
-  <tabstop>lineEdit_find_participant</tabstop>
-  <tabstop>pushButton_find_participant</tabstop>
+  <tabstop>lineEdit_find_by_phone</tabstop>
+  <tabstop>pushButton_find</tabstop>
   <tabstop>pushButton_export_xls</tabstop>
   <tabstop>pushButton_close</tabstop>
   <tabstop>pushButton_delete_participant</tabstop>
@@ -185,7 +220,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>pushButton_find_participant</sender>
+   <sender>pushButton_find</sender>
    <signal>clicked()</signal>
    <receiver>tree_participants_list</receiver>
    <slot>expandAll()</slot>
