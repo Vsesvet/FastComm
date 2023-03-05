@@ -659,7 +659,9 @@ class List_participants(Ui_List_participants):
         headers_names = ['Телефон', 'Фамилия', 'Имя', 'Отчество', 'e-mail', 'Город', 'Пароль', 'Комментарий']
         self.set_headers(headers_names, self.tree_participants_list)
         # Инициализация функции вывода списка всех участников
-        self.set_view_of_all_participants()
+        table_name = 'participants'
+        all_participants = self.db.select_all_data(table_name)
+        self.set_view_of_all_participants(all_participants)
         self.clicked_connect()
         dialog.exec()
 
@@ -677,6 +679,9 @@ class List_participants(Ui_List_participants):
         self.tree_participants_list.itemDoubleClicked.connect(self.update_tree)
         self.pushButton_edit_participant.clicked.connect(self.update_tree)
         self.pushButton_delete_participant.clicked.connect(self.delete_participant)
+        self.pushButton_find.clicked.connect(self.find_participant)
+        self.pushButton_reset_search.clicked.connect(self.reset_search)
+
 
     def edit_participant(self):
         """Открытие окна редактирования пользователя + получение данных по выбранному в QTreeWidget пользователю в виде списка"""
@@ -734,12 +739,11 @@ class List_participants(Ui_List_participants):
         for header in headers_names:
             tree.headerItem().setText(headers_names.index(header), header)
 
-    def set_view_of_all_participants(self):
+    def set_view_of_all_participants(self, all_participants):
         """Отображение данных по всем участникам"""
         print("set_view отработала")
+        self.tree_participants_list.clear()
         keys = ['phone_number', 'second_name', 'first_name', 'last_name', 'email', 'city', 'password', 'comment']
-        table_name = "participants"
-        all_participants = self.db.select_all_data(table_name)
 
         value = []
         for id in range(0, len(all_participants)):
@@ -749,6 +753,48 @@ class List_participants(Ui_List_participants):
             self.tree_participants_list.addTopLevelItem(item)
             value.clear()
 
+    def find_participant(self):
+        """Поиск участника по телефону или фамилии или email"""
+        table_name = 'participants'
+        phone = self.lineEdit_find_by_phone.text()
+        second_name = self.lineEdit_find_by_second_name.text()
+        email = self.lineEdit_find_by_email.text()
+        dct = self.check_find_request(phone, second_name, email)
+        print(dct)
+        if dct == {}:
+            return
+        find_result = self.db.find_several(dct, table_name)
+        self.set_view_of_all_participants(find_result)
+        print(find_result)
+
+    def check_find_request(self, phone, second_name, email):
+        """Проверка введенных пользователем данных для поиска"""
+        dct = {}
+        if len(phone) == 0:
+            pass
+        elif phone.isdigit():
+            dct.setdefault('phone_number', phone)
+        else:
+            self.lineEdit_find_by_phone.setText('Не корретно')
+        if len(second_name) == 0:
+            pass
+        elif second_name.isalpha():
+            dct.setdefault('second_name', second_name)
+        else:
+            self.lineEdit_find_by_second_name.setText('Не корретно')
+        if len(email) == 0:
+            pass
+        elif email.find('@'):
+            dct.setdefault('email', email)
+        else:
+            self.lineEdit_find_by_email.setText('Не корретно')
+        return dct
+
+    def reset_search(self):
+        self.lineEdit_find_by_phone.setText('')
+        self.lineEdit_find_by_second_name.setText('')
+        self.lineEdit_find_by_email.setText('')
+        self.update_tree()
 
 class Pair():
     def __init__(self, x, y):
