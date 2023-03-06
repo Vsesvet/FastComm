@@ -4,18 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="реализован поиск в list_participants">
+    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="ResizeToContents">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ui_Add_participant.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_Add_participant.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ui_Event.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_Event.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ui_Event_shedule.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_Event_shedule.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ui_List_organization.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_List_organization.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ui_List_participants.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_List_participants.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ui_designer/Ui_Add_participant.ui" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_designer/Ui_Add_participant.ui" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ui_designer/Ui_Event.ui" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_designer/Ui_Event.ui" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ui_designer/Ui_Event_shedule.ui" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_designer/Ui_Event_shedule.ui" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ui_designer/Ui_List_organization.ui" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_designer/Ui_List_organization.ui" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ui_designer/Ui_List_participants.ui" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_designer/Ui_List_participants.ui" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -55,14 +45,14 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "/home/vsesvet/PycharmProjects/Event",
-    "settings.editor.selected.configurable": "preferences.externalTools"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/vsesvet/PycharmProjects/Event&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.externalTools&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
@@ -430,7 +420,14 @@
       <option name="project" value="LOCAL" />
       <updated>1678047589545</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="ResizeToContents">
+      <created>1678054104072</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1678054104072</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -463,7 +460,8 @@
     <MESSAGE value="дописана функция Find_several" />
     <MESSAGE value="+ фильтры поиска и кнопки поиска" />
     <MESSAGE value="реализован поиск в list_participants" />
-    <option name="LAST_COMMIT_MESSAGE" value="реализован поиск в list_participants" />
+    <MESSAGE value="ResizeToContents" />
+    <option name="LAST_COMMIT_MESSAGE" value="ResizeToContents" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

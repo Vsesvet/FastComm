@@ -565,6 +565,8 @@ class List_organization(Ui_List_organization):
         self.pushButton_add_organization.clicked.connect(self.update_tree)
         self.pushButton_edit_organization.clicked.connect(self.update_organization)
         self.pushButton_edit_organization.clicked.connect(self.update_tree)
+        self.tree_organizations_list.itemDoubleClicked.connect(self.update_organization)
+        self.tree_organizations_list.itemDoubleClicked.connect(self.update_tree)
         self.pushButton_delete_organization.clicked.connect(self.delete_organization)
         self.pushButton_OK.clicked.connect(self.dialog.close)
         self.pushButton_Cancel.clicked.connect(self.dialog.close)
