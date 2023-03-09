@@ -471,49 +471,33 @@
  <connections>
   <connection>
    <sender>checkBox_reject_passport</sender>
-   <signal>stateChanged(int)</signal>
-   <receiver>Accept_docs</receiver>
-   <slot>show()</slot>
+   <signal>clicked(bool)</signal>
+   <receiver>checkBox_accept_passport</receiver>
+   <slot>setDisabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
      <x>258</x>
      <y>95</y>
     </hint>
     <hint type="destinationlabel">
-     <x>349</x>
-     <y>236</y>
+     <x>156</x>
+     <y>118</y>
     </hint>
    </hints>
   </connection>
   <connection>
    <sender>checkBox_accept_passport</sender>
-   <signal>stateChanged(int)</signal>
-   <receiver>Accept_docs</receiver>
-   <slot>show()</slot>
+   <signal>clicked(bool)</signal>
+   <receiver>checkBox_reject_passport</receiver>
+   <slot>setDisabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
      <x>156</x>
      <y>95</y>
     </hint>
     <hint type="destinationlabel">
-     <x>349</x>
-     <y>236</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>lineEdit_passport_comment</sender>
-   <signal>textChanged(QString)</signal>
-   <receiver>Accept_docs</receiver>
-   <slot>show()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>503</x>
-     <y>95</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>349</x>
-     <y>236</y>
+     <x>258</x>
+     <y>118</y>
     </hint>
    </hints>
   </connection>
@@ -537,7 +521,7 @@
    <sender>pushButton_Ok</sender>
    <signal>clicked()</signal>
    <receiver>Accept_docs</receiver>
-   <slot>show()</slot>
+   <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>650</x>
@@ -569,7 +553,7 @@
    <sender>pushButton_upload_docs</sender>
    <signal>clicked()</signal>
    <receiver>Accept_docs</receiver>
-   <slot>show()</slot>
+   <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>211</x>
@@ -578,6 +562,486 @@
     <hint type="destinationlabel">
      <x>357</x>
      <y>243</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_accept_registration</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>checkBox_reject_registration</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>156</x>
+     <y>149</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>258</x>
+     <y>149</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_reject_registration</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>checkBox_accept_registration</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>258</x>
+     <y>149</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>156</x>
+     <y>149</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_accept_act</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>checkBox_reject_act</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>156</x>
+     <y>397</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>258</x>
+     <y>397</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_accept_sertificate</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>checkBox_reject_sertificate</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>156</x>
+     <y>273</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>258</x>
+     <y>273</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_accept_report</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>checkBox_reject_report</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>156</x>
+     <y>428</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>258</x>
+     <y>428</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_accept_inn</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>checkBox_reject_inn</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>156</x>
+     <y>180</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>258</x>
+     <y>180</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_accept_diploma</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>checkBox_reject_diploma</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>156</x>
+     <y>242</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>258</x>
+     <y>242</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_accept_contract</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>checkBox_reject_contract</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>156</x>
+     <y>366</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>258</x>
+     <y>366</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_accept_agree</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>checkBox_reject_agree</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>156</x>
+     <y>304</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>258</x>
+     <y>304</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_accept_survey</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>checkBox_reject_survey</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>156</x>
+     <y>335</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>258</x>
+     <y>335</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_accept_snils</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>checkBox_reject_snils</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>156</x>
+     <y>211</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>258</x>
+     <y>211</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_reject_act</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>checkBox_accept_act</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>258</x>
+     <y>397</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>156</x>
+     <y>397</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_reject_agree</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>checkBox_accept_agree</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>258</x>
+     <y>304</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>156</x>
+     <y>304</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_reject_contract</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>checkBox_accept_contract</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>258</x>
+     <y>366</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>156</x>
+     <y>366</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_reject_diploma</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>checkBox_accept_diploma</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>258</x>
+     <y>242</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>156</x>
+     <y>242</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_reject_inn</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>checkBox_accept_inn</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>258</x>
+     <y>180</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>156</x>
+     <y>180</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_reject_report</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>checkBox_accept_report</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>258</x>
+     <y>428</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>156</x>
+     <y>428</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_reject_sertificate</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>checkBox_accept_sertificate</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>258</x>
+     <y>273</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>156</x>
+     <y>273</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_reject_snils</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>checkBox_accept_snils</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>258</x>
+     <y>211</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>156</x>
+     <y>211</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_reject_survey</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>checkBox_accept_survey</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>258</x>
+     <y>335</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>156</x>
+     <y>335</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_open_agree</sender>
+   <signal>clicked()</signal>
+   <receiver>Accept_docs</receiver>
+   <slot>show()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>57</x>
+     <y>304</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>357</x>
+     <y>251</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_open_act</sender>
+   <signal>clicked()</signal>
+   <receiver>Accept_docs</receiver>
+   <slot>show()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>57</x>
+     <y>397</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>357</x>
+     <y>251</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_open_contract</sender>
+   <signal>clicked()</signal>
+   <receiver>Accept_docs</receiver>
+   <slot>show()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>57</x>
+     <y>366</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>357</x>
+     <y>251</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_open_diploma</sender>
+   <signal>clicked()</signal>
+   <receiver>Accept_docs</receiver>
+   <slot>show()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>57</x>
+     <y>242</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>357</x>
+     <y>251</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_open_inn</sender>
+   <signal>clicked()</signal>
+   <receiver>Accept_docs</receiver>
+   <slot>show()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>57</x>
+     <y>180</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>357</x>
+     <y>251</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_open_registration</sender>
+   <signal>clicked()</signal>
+   <receiver>Accept_docs</receiver>
+   <slot>show()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>57</x>
+     <y>149</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>357</x>
+     <y>251</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_open_report</sender>
+   <signal>clicked()</signal>
+   <receiver>Accept_docs</receiver>
+   <slot>show()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>57</x>
+     <y>428</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>357</x>
+     <y>251</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_open_sertificate</sender>
+   <signal>clicked()</signal>
+   <receiver>Accept_docs</receiver>
+   <slot>show()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>57</x>
+     <y>273</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>357</x>
+     <y>251</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_open_snils</sender>
+   <signal>clicked()</signal>
+   <receiver>Accept_docs</receiver>
+   <slot>show()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>57</x>
+     <y>211</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>357</x>
+     <y>251</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_open_survey</sender>
+   <signal>clicked()</signal>
+   <receiver>Accept_docs</receiver>
+   <slot>show()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>57</x>
+     <y>335</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>357</x>
+     <y>251</y>
     </hint>
    </hints>
   </connection>

@@ -1,6 +1,8 @@
 from PyQt5.QtWidgets import QApplication, QMainWindow, QDialog, QTreeWidgetItem, QHeaderView
 import time
 import pymysql
+import paramiko
+import ssh_config
 import generate_password
 from db_config import *
 from Class_Mysql import *
@@ -257,6 +259,7 @@ class Create_participant(Ui_Create_participant):
         self.dialog = QDialog()
         super().setupUi(self.dialog)
         self.label_username_login_role.setText(f'{username_login_role}')
+        self.table_name = 'participants'
 
         # disabled after debug
         self.lineEdit_full_name.setText(' Ефремов Максим Георгиевич ')
@@ -276,18 +279,6 @@ class Create_participant(Ui_Create_participant):
 
     def add_new_participant(self):
         """Добавляет нового пользователя в базу данных"""
-        # phone_number = self.lineEdit_phone_number.text()
-        # second_name = self.lineEdit_second_name.text().strip()
-        # first_name = self.lineEdit_first_name.text().strip()
-        # last_name = self.lineEdit_last_name.text().strip()
-        # email = self.lineEdit_email.text().strip()
-        # city = self.lineEdit_city.text().strip()
-        # password = self.lineEdit_password.text()
-        # comment = self.lineEdit_comment.text().strip()
-        # disabled = self.checkBox_disabled_participant.isChecked()
-        #
-        # role = "participant"
-        # full_name = second_name + " " + first_name + " " + last_name
         # # Форматирование номера телефона
         # phone_number = self.formating_phone(phone_number)
         # print(phone_number)
@@ -316,19 +307,18 @@ class Create_participant(Ui_Create_participant):
         dct['comment'] = self.lineEdit_comment.text().strip()
         dct['disabled'] = self.checkBox_disabled_participant.isChecked()
         self.split_full_name(dct, dct['full_name'])
-        # role = "participant"
-        # full_name = second_name + " " + first_name + " " + last_name
-        # # Форматирование номера телефона
-        # phone_number = self.formating_phone(phone_number)
+        self.create_profile(dct)
 
         # Запись в БД
-        table_name = 'participants'
         try:
-            self.db.insert_row_to_table(dct, table_name)
+            self.db.insert_row_to_table(dct, self.table_name)
             self.dialog.close()
         except Exception as ex:
             print('Ошибка создания Участника')
             journal.log(f"Ошибка создания Участника: {dct['second_name']}")
+
+        # Функция создания профиля участника
+        self.create_profile(dct)
 
     def generate_password(self):
         """Генерация пароля по нажатию на кнопку"""
@@ -361,6 +351,20 @@ class Create_participant(Ui_Create_participant):
         # self.lineEdit_second_name.setText(split_full[0])
         # self.lineEdit_first_name.setText(split_full[1])
         # self.lineEdit_last_name.setText()
+
+    def create_profile(self, dct):
+        """Создание профиля - директории для хранения файлов личных документов участника"""
+        host, login, secret = ssh_config.host, ssh_config.login, ssh_config.secret
+        profile_name = f"{dct['second_name']}_{dct['first_name']}_{dct['last_name']}_{dct['phone_number']}"
+        directory_path = f"/home/event/participants_data/{profile_name}"
+
+        event = paramiko.client.SSHClient()
+        event.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+        event.connect(host, username=login, password=secret)
+        stdin, stdout, stderr = event.exec_command(f"mkdir -p {directory_path}")
+        print(stdout.read().decode())
+        stdin.close()
+        event.close()
 
 
 class Edit_participant(Ui_Create_participant):
@@ -719,14 +723,11 @@ class List_participants(Ui_List_participants):
         value_request = "participant_id"
         arg = {'phone_number': phone_number}
         table_name = "participants"
-
         id = self.db.get_value_by_arg(value_request, arg, table_name)
-
         arg = {'participant_id': id}
-
         self.db.delete_row_by_arg(arg, table_name)
-
         self.update_tree()
+        self.delete_profile_participants(phone_number)
 
     def update_tree(self):
         """Обновление общего списка участников (Аналогично функции set_view_of_all_participants, но с небольшими отличиями)"""
@@ -809,10 +810,16 @@ class List_participants(Ui_List_participants):
         return dct
 
     def reset_search(self):
+        """Сброс полей поиска по участнику в общем списке участников и обновление списка"""
         self.lineEdit_find_by_phone.setText('')
         self.lineEdit_find_by_second_name.setText('')
         self.lineEdit_find_by_email.setText('')
         self.update_tree()
+
+    def delete_profile_participant(self, phone_number):
+        """Полное Удаление профиля участника вместе с документами"""
+        
+        pass
 
 class Pair():
     def __init__(self, x, y):

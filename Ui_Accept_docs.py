@@ -185,13 +185,42 @@ class Ui_Accept_docs(object):
         self.gridLayout.addWidget(self.label_comment, 3, 3, 1, 1)
 
         self.retranslateUi(Accept_docs)
-        self.checkBox_reject_passport.stateChanged['int'].connect(Accept_docs.show) # type: ignore
-        self.checkBox_accept_passport.stateChanged['int'].connect(Accept_docs.show) # type: ignore
-        self.lineEdit_passport_comment.textChanged['QString'].connect(Accept_docs.show) # type: ignore
+        self.checkBox_reject_passport.clicked['bool'].connect(self.checkBox_accept_passport.setDisabled) # type: ignore
+        self.checkBox_accept_passport.clicked['bool'].connect(self.checkBox_reject_passport.setDisabled) # type: ignore
         self.pushButton_open_passport.clicked.connect(Accept_docs.show) # type: ignore
-        self.pushButton_Ok.clicked.connect(Accept_docs.show) # type: ignore
+        self.pushButton_Ok.clicked.connect(Accept_docs.close) # type: ignore
         self.pushButton_Cancel.clicked.connect(Accept_docs.close) # type: ignore
-        self.pushButton_upload_docs.clicked.connect(Accept_docs.show) # type: ignore
+        self.pushButton_upload_docs.clicked.connect(Accept_docs.accept) # type: ignore
+        self.checkBox_accept_registration.clicked['bool'].connect(self.checkBox_reject_registration.setDisabled) # type: ignore
+        self.checkBox_reject_registration.clicked['bool'].connect(self.checkBox_accept_registration.setDisabled) # type: ignore
+        self.checkBox_accept_act.clicked['bool'].connect(self.checkBox_reject_act.setDisabled) # type: ignore
+        self.checkBox_accept_sertificate.clicked['bool'].connect(self.checkBox_reject_sertificate.setDisabled) # type: ignore
+        self.checkBox_accept_report.clicked['bool'].connect(self.checkBox_reject_report.setDisabled) # type: ignore
+        self.checkBox_accept_inn.clicked['bool'].connect(self.checkBox_reject_inn.setDisabled) # type: ignore
+        self.checkBox_accept_diploma.clicked['bool'].connect(self.checkBox_reject_diploma.setDisabled) # type: ignore
+        self.checkBox_accept_contract.clicked['bool'].connect(self.checkBox_reject_contract.setDisabled) # type: ignore
+        self.checkBox_accept_agree.clicked['bool'].connect(self.checkBox_reject_agree.setDisabled) # type: ignore
+        self.checkBox_accept_survey.clicked['bool'].connect(self.checkBox_reject_survey.setDisabled) # type: ignore
+        self.checkBox_accept_snils.clicked['bool'].connect(self.checkBox_reject_snils.setDisabled) # type: ignore
+        self.checkBox_reject_act.clicked['bool'].connect(self.checkBox_accept_act.setDisabled) # type: ignore
+        self.checkBox_reject_agree.clicked['bool'].connect(self.checkBox_accept_agree.setDisabled) # type: ignore
+        self.checkBox_reject_contract.clicked['bool'].connect(self.checkBox_accept_contract.setDisabled) # type: ignore
+        self.checkBox_reject_diploma.clicked['bool'].connect(self.checkBox_accept_diploma.setDisabled) # type: ignore
+        self.checkBox_reject_inn.clicked['bool'].connect(self.checkBox_accept_inn.setDisabled) # type: ignore
+        self.checkBox_reject_report.clicked['bool'].connect(self.checkBox_accept_report.setDisabled) # type: ignore
+        self.checkBox_reject_sertificate.clicked['bool'].connect(self.checkBox_accept_sertificate.setDisabled) # type: ignore
+        self.checkBox_reject_snils.clicked['bool'].connect(self.checkBox_accept_snils.setDisabled) # type: ignore
+        self.checkBox_reject_survey.clicked['bool'].connect(self.checkBox_accept_survey.setDisabled) # type: ignore
+        self.pushButton_open_agree.clicked.connect(Accept_docs.show) # type: ignore
+        self.pushButton_open_act.clicked.connect(Accept_docs.show) # type: ignore
+        self.pushButton_open_contract.clicked.connect(Accept_docs.show) # type: ignore
+        self.pushButton_open_diploma.clicked.connect(Accept_docs.show) # type: ignore
+        self.pushButton_open_inn.clicked.connect(Accept_docs.show) # type: ignore
+        self.pushButton_open_registration.clicked.connect(Accept_docs.show) # type: ignore
+        self.pushButton_open_report.clicked.connect(Accept_docs.show) # type: ignore
+        self.pushButton_open_sertificate.clicked.connect(Accept_docs.show) # type: ignore
+        self.pushButton_open_snils.clicked.connect(Accept_docs.show) # type: ignore
+        self.pushButton_open_survey.clicked.connect(Accept_docs.show) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(Accept_docs)
         Accept_docs.setTabOrder(self.pushButton_open_passport, self.checkBox_accept_passport)
         Accept_docs.setTabOrder(self.checkBox_accept_passport, self.checkBox_reject_passport)
