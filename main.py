@@ -21,6 +21,7 @@ from Ui_Create_inspector import *
 from Ui_Create_user import *
 from Ui_List_organization import *
 from Ui_List_participants import *
+from Ui_Choose_organization import *
 
 class Login(Ui_Login):
     """Класс работы с окном Вход в программу"""
@@ -29,6 +30,9 @@ class Login(Ui_Login):
         super().setupUi(dialog)
         self.label_bad_password.setText('')
         self.label_user_not_found.setText('')
+
+        login_name = '89772752194'
+        login_password  = 'gnt6al47'
 
         # disabled after debug
         self.lineEdit_login.setText(login_name)
@@ -208,7 +212,7 @@ class Create_Event(Ui_Create_event):
         dialog.exec()
 
     def clicked_connect(self):
-        self.pushButton_select_organization.clicked.connect(List_organization)
+        self.pushButton_select_organization.clicked.connect(Choose_organization)
 
 
 class Create_user(Ui_Create_user):
@@ -572,6 +576,7 @@ class List_organization(Ui_List_organization):
         self.tree_organizations_list.itemDoubleClicked.connect(self.update_organization)
         self.tree_organizations_list.itemDoubleClicked.connect(self.update_tree)
         self.pushButton_delete_organization.clicked.connect(self.delete_organization)
+        self.pushButton_delete_organization.clicked.connect(self.update_tree)
         self.pushButton_OK.clicked.connect(self.dialog.close)
         self.pushButton_Cancel.clicked.connect(self.dialog.close)
 
@@ -607,12 +612,10 @@ class List_organization(Ui_List_organization):
             table_name = "organizations"
 
             id = self.db.get_value_by_arg(value_request, arg, table_name)
-
-            # arg = {'organization_id': id}
-
-            # self.db.delete_row_by_arg(arg, table_name)
-            self.db.delete_row_by_arg(id, table_name)
+            dict = {'organization_id': id}
+            self.db.delete_row_by_arg(dict, table_name)
             self.update_tree()
+
         except Exception as ex:
             "Error"
 
@@ -634,6 +637,8 @@ class List_organization(Ui_List_organization):
         keys = ['organization_name', 'organization_INN', 'organization_KPP', 'phone_number']
         table_name = "organizations"
         all_organizations = db.select_all_data(table_name)
+
+        print(all_organizations)
 
         value = []
         for id in range(0, len(all_organizations)):
@@ -663,6 +668,45 @@ class List_organization(Ui_List_organization):
         for header in headers_names:
            tree.headerItem().setText(headers_names.index(header), header)
 
+class Choose_organization(Ui_Choose_organization):
+    def __init__(self):
+        self.dialog = QDialog()
+        super().setupUi(self.dialog)
+        username_login_role = access.get_username_and_role(user_login)
+        self.label_username_login_role.setText(f'{username_login_role}')
+        self.tree_organizations_list.header().setStretchLastSection(False)
+        self.tree_organizations_list.header().setSectionResizeMode(QHeaderView.ResizeToContents)
+
+        self.db = Mysql()
+        headers_names = ['Наименование Организации', 'ИНН', 'КПП', 'Номер телефона']
+        self.set_headers(headers_names, self.tree_organizations_list)
+        self.set_view_of_all_organizations()
+        self.clicked_connect(self.dialog)
+        self.dialog.exec()
+
+    def clicked_connect(self, dialog):
+        print("babl")
+
+    def set_headers(self, headers_names, tree):
+        """Установка заголовков таблицы Списка Организаций"""
+        tree.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.SizeAdjustPolicy.AdjustToContents)
+
+        for header in headers_names:
+            tree.headerItem().setText(headers_names.index(header), header)
+
+    def set_view_of_all_organizations(self):
+        keys = ['organization_name', 'organization_INN', 'organization_KPP', 'phone_number']
+        table_name = "organizations"
+        print(table_name)
+        all_organizations = self.db.select_all_data(table_name)
+        print(all_organizations)
+        value = []
+        for id in range(0, len(all_organizations)):
+            for key in keys:
+                value.append(all_organizations[id][key])
+            item = QTreeWidgetItem(value)
+            self.tree_organizations_list.addTopLevelItem(item)
+            value.clear()
 
 class List_participants(Ui_List_participants):
     """Окно выводит список всех участников в БД, вне зависимости от мероприятий"""
