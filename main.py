@@ -31,9 +31,6 @@ class Login(Ui_Login):
         self.label_bad_password.setText('')
         self.label_user_not_found.setText('')
 
-        login_name = '89772752194'
-        login_password  = 'gnt6al47'
-
         # disabled after debug
         self.lineEdit_login.setText(login_name)
         self.lineEdit_password.setText(login_password)
@@ -351,10 +348,7 @@ class Create_participant(Ui_Create_participant):
             dct['second_name'] = split[0]
             dct['first_name'] = split[1]
             dct['last_name'] = split[2]
-
-        # self.lineEdit_second_name.setText(split_full[0])
-        # self.lineEdit_first_name.setText(split_full[1])
-        # self.lineEdit_last_name.setText()
+        return dct
 
     def create_profile(self, dct):
         """Создание профиля - директории для хранения файлов личных документов участника"""
