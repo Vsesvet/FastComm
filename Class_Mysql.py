@@ -1,4 +1,4 @@
-from db_config import *
+#from db_config import *
 import pymysql
 
 
@@ -6,7 +6,12 @@ class Mysql:
     """Подключение и работа с базой данных MqSql"""
     def __init__(self):
         try:
-            self.connection = pymysql.connect(host=host, port=port, user=user, password=password, database=db_name, cursorclass=pymysql.cursors.DictCursor)
+            self.connection = pymysql.connect(host='127.0.0.1',
+                                              port=3306,
+                                              user='root',
+                                              password='root',
+                                              database='logistics_db',
+                                              cursorclass=pymysql.cursors.DictCursor)
             print("Соединение с базой данных: Статус OK")
         except Exception as ex:
             print("Error connection to db")
@@ -181,6 +186,7 @@ class Mysql:
     def delete_row_by_arg(self, dict, table_name):
         """(dict - словарь, table_name - название таблицы).
         Универсальная функция удаления строки из таблицы"""
+        print(dict)
         for key, value in dict.items():
             ls = key
             rs = value
@@ -280,4 +286,7 @@ class Mysql:
 
     def __del__(self):
         """Закрытие сессии соединения с базой данных"""
-        self.connection.close()
+        try:
+            self.connection.close()
+        except Exception as ex:
+            print("Can not close connection due to absence openning connection")
