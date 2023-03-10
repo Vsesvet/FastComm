@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="ResizeToContents">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="init">
+      <change beforePath="$PROJECT_DIR$/Class_Mysql.py" beforeDir="false" afterPath="$PROJECT_DIR$/Class_Mysql.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -427,7 +426,14 @@
       <option name="project" value="LOCAL" />
       <updated>1678054104072</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="init">
+      <created>1678449078560</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1678449078560</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -446,7 +452,6 @@
     <MESSAGE value="Добавил окно создания пользователя. (Пока на кнопку Печать)" />
     <MESSAGE value="Сделал DocString ко всем классам и функциям main" />
     <MESSAGE value="Соединение с базой реализовано из Access." />
-    <MESSAGE value="init" />
     <MESSAGE value="get_value_by_arg (предложение)&#10;update_row_by_id (упрощение)" />
     <MESSAGE value="update_row_by_id (упрощение)" />
     <MESSAGE value="Убран db_config.py&#10;Переработан Login&#10;Форматирование new_participant&#10;Форматирование Phone_number" />
@@ -461,7 +466,8 @@
     <MESSAGE value="+ фильтры поиска и кнопки поиска" />
     <MESSAGE value="реализован поиск в list_participants" />
     <MESSAGE value="ResizeToContents" />
-    <option name="LAST_COMMIT_MESSAGE" value="ResizeToContents" />
+    <MESSAGE value="init" />
+    <option name="LAST_COMMIT_MESSAGE" value="init" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

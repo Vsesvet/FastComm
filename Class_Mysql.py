@@ -6,11 +6,11 @@ class Mysql:
     """Подключение и работа с базой данных MqSql"""
     def __init__(self):
         try:
-            self.connection = pymysql.connect(host='127.0.0.1',
-                                              port=3306,
-                                              user='root',
-                                              password='root',
-                                              database='logistics_db',
+            self.connection = pymysql.connect(host=host,
+                                              port=port,
+                                              user=user,
+                                              password=password,
+                                              database=database,
                                               cursorclass=pymysql.cursors.DictCursor)
             print("Соединение с базой данных: Статус OK")
         except Exception as ex:
