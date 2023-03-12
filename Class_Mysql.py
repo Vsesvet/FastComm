@@ -1,10 +1,11 @@
-#from db_config import *
+from db_config import *
 import pymysql
 
 
 class Mysql:
     """Подключение и работа с базой данных MqSql"""
     def __init__(self):
+        """Подключение к базе данных."""
         try:
             self.connection = pymysql.connect(host=host,
                                               port=port,
@@ -28,7 +29,7 @@ class Mysql:
             return rows
 
     def find_selected(self, dct, table_name):
-        """Находим строку (или несколько) по переданным параметрам в dct. На входе: {}, ''. На выходе [{}]"""
+        """Находим строку (или несколько) по переданным параметрам в dct. На входе: {}, ''. На выходе {}"""
         content = ''
         for key, value in dct.items():
             i = f"{key} = '{value}' AND "
@@ -84,6 +85,7 @@ class Mysql:
         with self.connection.cursor() as cursor:
             cursor.execute(insert_query)
             self.connection.commit()
+        journal.log(f"В таблицу {table_name} добавлена новая запись {content}")
 
     def create_participant(self, phone_number, second_name, first_name, last_name, role, full_name, city, email, password, comment, disabled):
         """Добавление нового участника в базу данных MySql"""
@@ -152,7 +154,6 @@ class Mysql:
             cursor.execute(select_all)
             result = cursor.fetchall()
             self.connection.commit()
-        #print(result)
         return result
 
     def get_role_by_role_id(self, role_id):
