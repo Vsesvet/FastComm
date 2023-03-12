@@ -48,12 +48,13 @@ class Ui_Choose_organization(object):
         self.gridLayout.addLayout(self.horizontalLayout, 4, 1, 1, 1)
 
         self.retranslateUi(Choose_organization)
+        self.pushButton_Cancel.clicked.connect(Choose_organization.close)
         QtCore.QMetaObject.connectSlotsByName(Choose_organization)
 
     def retranslateUi(self, Choose_organization):
         _translate = QtCore.QCoreApplication.translate
         Choose_organization.setWindowTitle(_translate("Choose_organization", "Dialog"))
         self.label_username_login_role.setText(_translate("Choose_organization", "username_login_role"))
-        self.label.setText(_translate("Choose_organization", "Список организаций"))
+        self.label.setText(_translate("Choose_organization", "Выбор организации"))
         self.pushButton_Cancel.setText(_translate("Choose_organization", "Отмена"))
         self.pushButton_OK.setText(_translate("Choose_organization", "Добавить"))
