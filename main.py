@@ -23,6 +23,7 @@ from Ui_List_organization import *
 from Ui_List_participants import *
 from Ui_Choose_organization import *
 
+
 class Login(Ui_Login):
     """Класс работы с окном Вход в программу"""
     def __init__(self):
@@ -43,7 +44,6 @@ class Login(Ui_Login):
         """Обработка нажатий кнопки Логин в окне 'Вход в программу'"""
         self.pushButton_login.clicked.connect(self.check_access)
 
-
     def check_access(self):
         """Обработка входящих логина и пароля"""
         global user_login
@@ -56,20 +56,6 @@ class Login(Ui_Login):
         journal.log(f'Попытка входа с учетными данными: {login}')
         user_login = Mysql().find_selected(login, table_name)
         journal.log(f"Пользователь: {user_login['second_name']} {user_login['first_name']} вошел в систему")
-
-
-        # if user_login = None
-        # Вход, если логин и пароль верные
-        # if flag_access == 0:
-        #     app.exit()
-        #     return user_login
-        # # Номер телефона не найден в БД.
-        # elif flag_access == 1:
-        #     self.label_user_not_found.setText("не найден")
-        # # Не верный пароль
-        # elif flag_access == 2:
-        #     self.label_bad_password.setText("не верный")
-        #     print(user_login['second_name'], user_login['first_name'], flag_access)
 
 
 class Event_shedule(Ui_Event_shedule):
@@ -97,16 +83,15 @@ class Event_shedule(Ui_Event_shedule):
         y = (desktop.height() - window.height()) // 2
         window.move(x, y)
 
-    def close_app(self):
-        """Выход из программы по Закрытию окна"""
-        # разобраться, пока не работает
-        journal.close_login()
-        sys.exit(4)
+    # def close_app(self):
+    #     """Выход из программы по Закрытию окна"""
+    #     # разобраться, пока не работает
+    #     journal.close_login()
+    #     sys.exit(4)
 
     def adjust_tree(self, tree):
         """Установка наименований для колонок Tree"""
         columns_names = ['Мероприятие', 'Дата', 'Страна', 'Город', 'Участников', 'Организация', 'Статус']
-        # tree.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.SizeAdjustPolicy.AdjustToContents)
         for i in columns_names:
             tree.headerItem().setText(columns_names.index(i), i)
 
@@ -124,7 +109,6 @@ class Event_shedule(Ui_Event_shedule):
         self.pushButton_export_xls.clicked.connect(window.showMaximized)
         self.pushButton_print.clicked.connect(Create_user)
         # self.pushButton_find_event.clicked.connect(self.tree_event_shedule.clear)
-        # self.comboBox_event_status.currentIndexChanged['QString'].connect(self.tree_event_shedule.expandAll)
 
     def close_shedule(self):
         """Запись лога выхода, по нажатию на кнопку Выход"""
@@ -164,7 +148,6 @@ class Analisis_list(Ui_Analisis_docs):
     def adjust_tree(self, tree):
         """Установка наименований для колонок Tree"""
         columns_names = ['Телефон', 'Фамилия', 'Имя', 'Отчество', 'Паспорт', 'Прописка', 'ИНН', 'СНИЛС', 'Диплом', 'Сертификат', 'Согласие', 'Анкета', 'Договор', 'Акт', 'Отчет']
-        # tree.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.SizeAdjustPolicy.AdjustToContents)
         for name in columns_names:
             tree.headerItem().setText(columns_names.index(name), name)
 
@@ -209,6 +192,7 @@ class Create_Event(Ui_Create_event):
         dialog.exec()
 
     def clicked_connect(self):
+        """Обработка нажатий на кнопки в окне Создание Мероприятия"""
         self.pushButton_select_organization.clicked.connect(Choose_organization)
 
 
@@ -223,6 +207,7 @@ class Create_user(Ui_Create_user):
         dialog.exec()
 
     def clicked_connect(self, dialog):
+        """Обработка нажатий на кнопки в окне Создание Пользователя"""
         self.pushButton_generate.clicked.connect(self.generate_password)
         self.pushButton_ok.clicked.connect(self.read_field)
         self.pushButton_ok.clicked.connect(dialog.close)
@@ -264,7 +249,7 @@ class Create_participant(Ui_Create_participant):
 
         # disabled after debug
         self.lineEdit_full_name.setText(' Ефремов Максим Георгиевич ')
-        self.lineEdit_phone_number.setText('89859925870')
+        self.lineEdit_phone_number.setText('89889925875')
 
         self.checkBox_disabled_participant.setText("")
         self.clicked_connect(self.dialog)
@@ -355,11 +340,11 @@ class Create_participant(Ui_Create_participant):
         host, login, secret = ssh_config.host, ssh_config.login, ssh_config.secret
         profile_name = f"{dct['second_name']}_{dct['first_name']}_{dct['last_name']}_{dct['phone_number']}"
         directory_path = f"/home/event/participants_data/{profile_name}"
-
         event = paramiko.client.SSHClient()
         event.set_missing_host_key_policy(paramiko.AutoAddPolicy())
         event.connect(host, username=login, password=secret)
         stdin, stdout, stderr = event.exec_command(f"mkdir -p {directory_path}")
+        journal.log(f"Создан профиль нового участника {profile_name}")
         print(stdout.read().decode())
         stdin.close()
         event.close()
@@ -391,7 +376,6 @@ class Edit_participant(Ui_Create_participant):
         self.pushButton_generate.clicked.connect(self.generate_password)
         self.pushButton_save.clicked.connect(self.update_participant)
         self.pushButton_cancel.clicked.connect(dialog.close)
-        # self.checkBox_disabled_participant.stateChanged['int'].connect(dialog.show)
 
     def update_participant(self):
         """Считывает данные с полей и обновляет данные пользователя в базе данных"""
@@ -522,6 +506,7 @@ class Edit_organization(Ui_Create_organization):
         self.lineEdit_organization_inn.setText(self.current_values[1])
         self.lineEdit_organization_kpp.setText(self.current_values[2])
         self.lineEdit_phone_number.setText(self.current_values[3])
+
 
 class Create_inspector(Ui_Create_inspector):
     """Окно создания инспектора"""
@@ -662,6 +647,7 @@ class List_organization(Ui_List_organization):
         for header in headers_names:
            tree.headerItem().setText(headers_names.index(header), header)
 
+
 class Choose_organization(Ui_Choose_organization):
     def __init__(self):
         self.dialog = QDialog()
@@ -701,6 +687,7 @@ class Choose_organization(Ui_Choose_organization):
             item = QTreeWidgetItem(value)
             self.tree_organizations_list.addTopLevelItem(item)
             value.clear()
+
 
 class List_participants(Ui_List_participants):
     """Окно выводит список всех участников в БД, вне зависимости от мероприятий"""
@@ -765,7 +752,7 @@ class List_participants(Ui_List_participants):
         arg = {'participant_id': id}
         self.db.delete_row_by_arg(arg, table_name)
         self.update_tree()
-        self.delete_profile_participants(phone_number)
+        self.delete_profile_participant(phone_number)
 
     def update_tree(self):
         """Обновление общего списка участников (Аналогично функции set_view_of_all_participants, но с небольшими отличиями)"""
@@ -789,8 +776,7 @@ class List_participants(Ui_List_participants):
 
     def set_headers(self, headers_names, tree):
         """Устанавливает заголовки колонок для Списка всех участников"""
-        tree.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.SizeAdjustPolicy.AdjustToContents)
-
+        # tree.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.SizeAdjustPolicy.AdjustToContents)
         for header in headers_names:
             tree.headerItem().setText(headers_names.index(header), header)
 
@@ -856,7 +842,6 @@ class List_participants(Ui_List_participants):
 
     def delete_profile_participant(self, phone_number):
         """Полное Удаление профиля участника вместе с документами"""
-        
         pass
 
 class Pair():
