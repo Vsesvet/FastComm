@@ -1,5 +1,6 @@
 from db_config import *
 import pymysql
+from Class_Journal import *
 
 
 class Mysql:
@@ -291,3 +292,5 @@ class Mysql:
             self.connection.close()
         except Exception as ex:
             print("Can not close connection due to absence openning connection")
+
+journal = Journal()
