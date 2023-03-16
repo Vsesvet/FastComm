@@ -54,6 +54,7 @@ class Ui_Create_participant(object):
         self.pushButton_save.setObjectName("pushButton_save")
         self.gridLayout.addWidget(self.pushButton_save, 14, 4, 1, 1)
         self.lineEdit_full_name = QtWidgets.QLineEdit(Create_participant)
+        self.lineEdit_full_name.setReadOnly(True)
         self.lineEdit_full_name.setObjectName("lineEdit_full_name")
         self.gridLayout.addWidget(self.lineEdit_full_name, 8, 0, 1, 5)
         self.label_create_participant = QtWidgets.QLabel(Create_participant)

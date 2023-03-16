@@ -4,12 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="убрал личные данные )">
-      <change beforePath="$PROJECT_DIR$/.idea/Logistics_project.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Logistics_project.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Принятие изменений">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Class_Mysql.py" beforeDir="false" afterPath="$PROJECT_DIR$/Class_Mysql.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ui_Choose_organization.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_Choose_organization.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ui_Create_participant.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_Create_participant.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ui_designer/Ui_Create_participant.ui" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_designer/Ui_Create_participant.ui" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -445,7 +444,42 @@
       <option name="project" value="LOCAL" />
       <updated>1678390556329</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="Поправлены мелкие недочеты">
+      <created>1678656132270</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1678656132270</updated>
+    </task>
+    <task id="LOCAL-00035" summary="Поправлены мелкие недочеты">
+      <created>1678656142578</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1678656142578</updated>
+    </task>
+    <task id="LOCAL-00036" summary="Поправлены незначительные мелочи">
+      <created>1678656270593</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1678656270593</updated>
+    </task>
+    <task id="LOCAL-00037" summary="добавил close по кнопке Cancel">
+      <created>1678656301457</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1678656301457</updated>
+    </task>
+    <task id="LOCAL-00038" summary="Принятие изменений">
+      <created>1678656317016</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1678656317016</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -492,6 +526,21 @@
     <MESSAGE value="ResizeToContents" />
     <MESSAGE value="Добавлено открытие организации по doubleClicked из списка организаций" />
     <MESSAGE value="изменены триггеры Accept_docs" />
-    <option name="LAST_COMMIT_MESSAGE" value="изменены триггеры Accept_docs" />
+    <MESSAGE value="Поправлены мелкие недочеты" />
+    <MESSAGE value="Поправлены незначительные мелочи" />
+    <MESSAGE value="добавил close по кнопке Cancel" />
+    <MESSAGE value="Принятие изменений" />
+    <option name="LAST_COMMIT_MESSAGE" value="Принятие изменений" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>378</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

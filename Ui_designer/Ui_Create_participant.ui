@@ -110,6 +110,9 @@
    </item>
    <item row="8" column="0" colspan="5">
     <widget class="QLineEdit" name="lineEdit_full_name">
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
      <property name="placeholderText">
       <string>Полное ФИО...</string>
      </property>
