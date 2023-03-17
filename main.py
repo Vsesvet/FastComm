@@ -267,20 +267,6 @@ class Create_participant(Ui_Create_participant):
 
     def add_new_participant(self):
         """Добавляет нового пользователя в базу данных"""
-        # # Форматирование номера телефона
-        # phone_number = self.formating_phone(phone_number)
-        # print(phone_number)
-        # if len(phone_number) == 11:
-        #     try:
-        #         self.db.create_participant(phone_number, second_name, first_name, last_name, role, full_name, email, city,
-        #                                 password, comment, disabled)
-        #         self.dialog.close()
-        #
-        #     except Exception as ex:
-        #         print("Error add new participant")
-        # else:
-        #     self.lineEdit_phone_number.setPlaceholderText("ВВЕДИТЕ НОМЕР ТЕЛЕФОНА")
-
         """Считывание данных из Ui в {}"""
         dct = {}
         dct['phone_number'] = self.lineEdit_phone_number.text().strip()
