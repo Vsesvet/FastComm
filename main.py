@@ -417,11 +417,13 @@ class Edit_participant(Ui_Create_participant):
             pass
         else:
             self.update_profile(dct)
+            self.update_db_participants_data(dct)
+
 
         # Update-запись в БД.
         self.db.update_row_by_id(self.participant['participant_id'], dct, self.table_name)
         self.dialog.close()
-        journal.log(f"Обновлены данные участника: {dct['second_name']} {dct['first_name']}")
+        journal.log(f"Обновлены данные участника в таблице 'participants': {dct['second_name']} {dct['first_name']}")
 
     def set_view(self):
         """Устанавливает в поля для ввода данные выбранного пользователя"""
@@ -454,6 +456,22 @@ class Edit_participant(Ui_Create_participant):
         print(stdout.read().decode())
         stdin.close()
         event.close()
+
+    def update_db_participants_data(self, dct):
+        """Обновление записи в таблице: 'participants_data' при изменении профиля"""
+        table_name = "participants_data"
+        dct_new = {}
+        dct_new['participant_id'] = self.participant['participant_id']
+
+        # Забираем row по participant_id из таблицы participants_data
+        dct_new = self.db.find_selected(dct_new, table_name)
+
+        # Обновляем данные в таблице participants_data
+        dct_new['full_name'] = dct["full_name"]
+        self.db.update_row_to_table(dct_new, table_name)
+        journal.log(f"Данные в таблице {table_name} обновлены '{dct_new['participant_id']} {dct_new['full_name']}'")
+
+
 
     def formating_phone(self, phone_number):
         """Форматирование строки телефона"""
