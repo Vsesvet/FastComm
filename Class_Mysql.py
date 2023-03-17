@@ -88,6 +88,19 @@ class Mysql:
             self.connection.commit()
         journal.log(f"В таблицу {table_name} добавлена новая запись {content}")
 
+    def update_row_to_table(self, dct, table_name):
+        content = ""
+        for key, value in dct.items():
+            i = f"{key} = '{value}', "
+            content += i
+        content = content[:-2] # срез последнего пробела и запятой
+
+        request = f"UPDATE {table_name} SET {content} WHERE participant_id = '{dct['participant_id']}'"
+        print(request)
+        with self.connection.cursor() as cursor:
+            cursor.execute(request)
+            self.connection.commit()
+
     def create_participant(self, phone_number, second_name, first_name, last_name, role, full_name, city, email, password, comment, disabled):
         """Добавление нового участника в базу данных MySql"""
         # Получаем role_id по role participant
