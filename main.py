@@ -469,7 +469,7 @@ class Edit_participant(Ui_Create_participant):
         # Обновляем данные в таблице participants_data
         dct_new['full_name'] = dct["full_name"]
         self.db.update_row_to_table(dct_new, table_name)
-        journal.log(f"Данные в таблице {table_name} обновлены '{dct_new['participant_id']} {dct_new['full_name']}'")
+        journal.log(f"Данные в таблице {table_name} обновлены для '{dct_new['participant_id']} {dct_new['full_name']}'")
 
 
 
