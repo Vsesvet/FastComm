@@ -488,6 +488,7 @@ class Edit_participant(Ui_Create_participant):
             else:
                 return f'Не верный формат'
 
+
 class Create_organization(Ui_Create_organization):
     """Окно создания новой организации"""
     def __init__(self):
