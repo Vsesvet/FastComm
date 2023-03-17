@@ -4,11 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Принятие изменений">
+    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Поле full_name перевел в режим только чтение (заполняется из полей Фамилия, Имя, Отчество)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Class_Mysql.py" beforeDir="false" afterPath="$PROJECT_DIR$/Class_Mysql.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ui_Create_participant.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_Create_participant.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ui_designer/Ui_Create_participant.ui" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_designer/Ui_Create_participant.ui" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -48,14 +45,14 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "/home/vsesvet/PycharmProjects/Event",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/vsesvet/PycharmProjects/Event&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
@@ -479,7 +476,28 @@
       <option name="project" value="LOCAL" />
       <updated>1678656317016</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="Добавлен Journal">
+      <created>1678998848306</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1678998848306</updated>
+    </task>
+    <task id="LOCAL-00040" summary="Реализовано создание профильных папок участника и удаление при удалении участника">
+      <created>1678998899749</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1678998899749</updated>
+    </task>
+    <task id="LOCAL-00041" summary="Поле full_name перевел в режим только чтение (заполняется из полей Фамилия, Имя, Отчество)">
+      <created>1678998969885</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1678998969885</updated>
+    </task>
+    <option name="localTasksCounter" value="42" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -505,9 +523,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Из List_participants убрана кнопка добавить. &#10;Связаны окна по кнопкам" />
-    <MESSAGE value="Добавил окно создания пользователя. (Пока на кнопку Печать)" />
-    <MESSAGE value="Сделал DocString ко всем классам и функциям main" />
     <MESSAGE value="Соединение с базой реализовано из Access." />
     <MESSAGE value="init" />
     <MESSAGE value="get_value_by_arg (предложение)&#10;update_row_by_id (упрощение)" />
@@ -530,15 +545,23 @@
     <MESSAGE value="Поправлены незначительные мелочи" />
     <MESSAGE value="добавил close по кнопке Cancel" />
     <MESSAGE value="Принятие изменений" />
-    <option name="LAST_COMMIT_MESSAGE" value="Принятие изменений" />
+    <MESSAGE value="Добавлен Journal" />
+    <MESSAGE value="Реализовано создание профильных папок участника и удаление при удалении участника" />
+    <MESSAGE value="Поле full_name перевел в режим только чтение (заполняется из полей Фамилия, Имя, Отчество)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Поле full_name перевел в режим только чтение (заполняется из полей Фамилия, Имя, Отчество)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>378</line>
+          <line>379</line>
           <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>781</line>
+          <option name="timeStamp" value="7" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

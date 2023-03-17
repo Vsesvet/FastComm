@@ -283,7 +283,8 @@ class Create_participant(Ui_Create_participant):
 
         """Считывание данных из Ui в {}"""
         dct = {}
-        dct['phone_number'] = self.lineEdit_phone_number.text().strip().replace(' ', '')
+        dct['phone_number'] = self.lineEdit_phone_number.text().strip()
+        dct['phone_number'] = self.formating_phone(dct['phone_number'])
         dct['second_name'] = self.lineEdit_second_name.text().strip()
         dct['first_name'] = self.lineEdit_first_name.text().strip()
         dct['last_name'] = self.lineEdit_last_name.text().strip()
@@ -294,7 +295,7 @@ class Create_participant(Ui_Create_participant):
         dct['password'] = self.lineEdit_password.text().strip()
         dct['comment'] = self.lineEdit_comment.text().strip()
         dct['disabled'] = self.checkBox_disabled_participant.isChecked()
-        # self.split_full_name(dct, dct['full_name'])
+
 
         # Запись в БД
         try:
@@ -887,7 +888,7 @@ class List_participants(Ui_List_participants):
         event.set_missing_host_key_policy(paramiko.AutoAddPolicy())
         event.connect(host, username=login, password=secret)
         stdin, stdout, stderr = event.exec_command(f"rm -rf {directory_path}")
-        journal.log(f"Удален профиль участника {profile['full_name']}")
+        journal.log(f"Удален профиль участника {participant_id} {profile['full_name']}")
         print(stdout.read().decode())
         stdin.close()
         event.close()
