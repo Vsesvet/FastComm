@@ -295,6 +295,7 @@ class Create_participant(Ui_Create_participant):
         dct = self.db.find_selected(dct, self.table_name)
         self.create_profile(dct)
         self.create_profile_to_db(dct)
+        journal.log(f"Создан участник {dct['participant_id']}_{dct['second_name']} {dct['first_name']} {dct['last_name']}")
 
     def generate_password(self):
         """Генерация пароля по нажатию на кнопку"""
@@ -377,7 +378,6 @@ class Edit_participant(Ui_Create_participant):
         dct = {}
         dct['participant_id'] = participant_id
         self.participant = self.db.find_selected(dct, self.table_name)
-        print(dct)
         username_login_role = access.get_username_and_role(user_login)
         self.dialog = QDialog()
         super().setupUi(self.dialog)
@@ -397,17 +397,26 @@ class Edit_participant(Ui_Create_participant):
 
     def update_participant(self):
         """Считывает данные с полей и обновляет данные пользователя в базе данных"""
+        print(f"Данные участника до обновления: {self.participant}")
         dct = {}
-        dct['phone_number'] = self.lineEdit_phone_number.text().strip().replace(' ', '')
+        dct['phone_number'] = self.lineEdit_phone_number.text().strip()
+        dct['phone_number'] = self.formating_phone(dct['phone_number'])
         dct['second_name'] = self.lineEdit_second_name.text().strip()
         dct['first_name'] = self.lineEdit_first_name.text().strip()
         dct['last_name'] = self.lineEdit_last_name.text().strip()
-        dct['full_name'] = self.lineEdit_full_name.text().strip()
+        dct['full_name'] = f"{dct['second_name']} {dct['first_name']} {dct['last_name']}"
         dct['email'] = self.lineEdit_email.text().strip()
         dct['city'] = self.lineEdit_city.text().strip()
         dct['password'] = self.lineEdit_password.text().strip()
         dct['comment'] = self.lineEdit_comment.text().strip()
         # dct['disabled'] = self.checkBox_disabled_participant.isChecked()
+
+
+        # Проверяем изменились ли данные для обновления профиля участника
+        if dct['second_name'] == self.participant['second_name'] and dct['first_name'] == self.participant['first_name'] and dct['last_name'] == self.participant['last_name']:
+            pass
+        else:
+            self.update_profile(dct)
 
         # Update-запись в БД.
         self.db.update_row_by_id(self.participant['participant_id'], dct, self.table_name)
@@ -431,6 +440,35 @@ class Edit_participant(Ui_Create_participant):
         passw = generate_password.generate()
         self.lineEdit_password.setText(f'{passw}')
 
+    def update_profile(self, dct):
+        """Изменение профиля участника - директории для хранения файлов личных документов участника"""
+        host, login, secret = ssh_config.host, ssh_config.login, ssh_config.secret
+        old_profile_name = f"{self.participant['participant_id']}_{self.participant['second_name']}_{self.participant['first_name']}_{self.participant['last_name']}"
+        actual_profile_name = f"{self.participant['participant_id']}_{dct['second_name']}_{dct['first_name']}_{dct['last_name']}"
+        self.directory_path = f"/home/event/participants_data/"
+        event = paramiko.client.SSHClient()
+        event.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+        event.connect(host, username=login, password=secret)
+        stdin, stdout, stderr = event.exec_command(f"mv '{self.directory_path}{old_profile_name}' '{self.directory_path}{actual_profile_name}'")
+        journal.log(f"Переименован профиль участника {self.directory_path}{actual_profile_name}")
+        print(stdout.read().decode())
+        stdin.close()
+        event.close()
+
+    def formating_phone(self, phone_number):
+        """Форматирование строки телефона"""
+        phone_number = phone_number.replace('+7', '8').strip()
+        if phone_number.isdigit():
+            return phone_number
+        else:
+            symbols = ["-", "(", ")", " "]
+            for symbol in symbols:
+                if symbol in phone_number:
+                    phone_number = phone_number.replace(symbol, '')
+            if phone_number.isdigit():
+                return phone_number
+            else:
+                return f'Не верный формат'
 
 class Create_organization(Ui_Create_organization):
     """Окно создания новой организации"""
