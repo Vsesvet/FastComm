@@ -22,6 +22,7 @@ from Ui_Create_user import *
 from Ui_List_organization import *
 from Ui_List_participants import *
 from Ui_Choose_organization import *
+from Ui_Upload_docs import *
 
 
 class Login(Ui_Login):
@@ -165,8 +166,49 @@ class Accept_docs(Ui_Accept_docs):
         dialog = QDialog()
         super().setupUi(dialog)
         self.label_username_login_role.setText(f'{username_login_role}')
-        # self.clicked_connect()
+        self.clicked_connect()
         dialog.exec()
+
+    def clicked_connect(self):
+        """Обработка нажатий на кнопки в окне Принятия или отклонения документов"""
+        # Кнопки основных действий
+        self.pushButton_upload_docs.clicked.connect(Upload_docs)
+        # self.pushButton_Ok.clicked.connect(Accept_docs.close)
+        # self.pushButton_Cancel.clicked.connect(Accept_docs.close)
+        # # Кнопки открытия документов для просмотра
+        # self.pushButton_open_agree.clicked.connect(Accept_docs.close)
+        # self.pushButton_open_act.clicked.connect(Accept_docs.close)
+        # self.pushButton_open_contract.clicked.connect(Accept_docs.close)
+        # self.pushButton_open_diploma.clicked.connect(Accept_docs.close)
+        # self.pushButton_open_inn.clicked.connect(Accept_docs.close)
+        # self.pushButton_open_registration.clicked.connect(Accept_docs.close)
+        # self.pushButton_open_report.clicked.connect(Accept_docs.close)
+        # self.pushButton_open_sertificate.clicked.connect(Accept_docs.close)
+        # self.pushButton_open_snils.clicked.connect(Accept_docs.close)
+        # self.pushButton_open_survey.clicked.connect(Accept_docs.close)
+        # Кнопки Принятия / Отклонения
+        self.checkBox_reject_passport.clicked['bool'].connect(self.checkBox_accept_passport.setDisabled)
+        self.checkBox_accept_passport.clicked['bool'].connect(self.checkBox_reject_passport.setDisabled)
+        self.checkBox_accept_registration.clicked['bool'].connect(self.checkBox_reject_registration.setDisabled)
+        self.checkBox_reject_registration.clicked['bool'].connect(self.checkBox_accept_registration.setDisabled)
+        self.checkBox_accept_act.clicked['bool'].connect(self.checkBox_reject_act.setDisabled)
+        self.checkBox_accept_sertificate.clicked['bool'].connect(self.checkBox_reject_sertificate.setDisabled)
+        self.checkBox_accept_report.clicked['bool'].connect(self.checkBox_reject_report.setDisabled)
+        self.checkBox_accept_inn.clicked['bool'].connect(self.checkBox_reject_inn.setDisabled)
+        self.checkBox_accept_diploma.clicked['bool'].connect(self.checkBox_reject_diploma.setDisabled)
+        self.checkBox_accept_contract.clicked['bool'].connect(self.checkBox_reject_contract.setDisabled)
+        self.checkBox_accept_agree.clicked['bool'].connect(self.checkBox_reject_agree.setDisabled)
+        self.checkBox_accept_survey.clicked['bool'].connect(self.checkBox_reject_survey.setDisabled)
+        self.checkBox_accept_snils.clicked['bool'].connect(self.checkBox_reject_snils.setDisabled)
+        self.checkBox_reject_act.clicked['bool'].connect(self.checkBox_accept_act.setDisabled)
+        self.checkBox_reject_agree.clicked['bool'].connect(self.checkBox_accept_agree.setDisabled)
+        self.checkBox_reject_contract.clicked['bool'].connect(self.checkBox_accept_contract.setDisabled)
+        self.checkBox_reject_diploma.clicked['bool'].connect(self.checkBox_accept_diploma.setDisabled)
+        self.checkBox_reject_inn.clicked['bool'].connect(self.checkBox_accept_inn.setDisabled)
+        self.checkBox_reject_report.clicked['bool'].connect(self.checkBox_accept_report.setDisabled)
+        self.checkBox_reject_sertificate.clicked['bool'].connect(self.checkBox_accept_sertificate.setDisabled)
+        self.checkBox_reject_snils.clicked['bool'].connect(self.checkBox_accept_snils.setDisabled)
+        self.checkBox_reject_survey.clicked['bool'].connect(self.checkBox_accept_survey.setDisabled)
 
 
 class Add_participant(Ui_Add_participant):
@@ -470,7 +512,6 @@ class Edit_participant(Ui_Create_participant):
         dct_new['full_name'] = dct["full_name"]
         self.db.update_row_to_table(dct_new, table_name)
         journal.log(f"Данные в таблице {table_name} обновлены для '{dct_new['participant_id']} {dct_new['full_name']}'")
-
 
 
     def formating_phone(self, phone_number):
@@ -935,6 +976,32 @@ class List_participants(Ui_List_participants):
         print(stdout.read().decode())
         stdin.close()
         event.close()
+
+
+class Upload_docs(Ui_Upload_docs):
+    def __init__(self):
+        username_login_role = access.get_username_and_role(user_login)
+        dialog = QDialog()
+        super().setupUi(dialog)
+        self.label_username_login_role.setText(f'{username_login_role}')
+        self.clicked_connect()
+        dialog.exec()
+
+    def clicked_connect(self):
+        """Обработка нажатий кнопок"""
+        pass
+        # self.pushButton_ok.clicked.connect(Upload_docs.show)
+        # self.pushButton_upload_passport.clicked.connect(Upload_docs.show)
+        # self.pushButton_upload_registration.clicked.connect(Upload_docs.show)
+        # self.pushButton_upload_inn.clicked.connect(Upload_docs.show)
+        # self.pushButton_upload_snils.clicked.connect(Upload_docs.show)
+        # self.pushButton_upload_diploma.clicked.connect(Upload_docs.show)
+        # self.pushButton_upload_sertificate.clicked.connect(Upload_docs.show)
+        # self.pushButton_upload_survey.clicked.connect(Upload_docs.show)
+        # self.pushButton_upload_agree.clicked.connect(Upload_docs.show)
+        # self.pushButton_upload_contract.clicked.connect(Upload_docs.show)
+        # self.pushButton_upload_act.clicked.connect(Upload_docs.show)
+        # self.pushButton_upload_report.clicked.connect(Upload_docs.show)
 
 
 class Pair():
