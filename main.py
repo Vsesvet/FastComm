@@ -985,45 +985,65 @@ class Upload_docs(Ui_Upload_docs):
         dialog = QDialog()
         super().setupUi(dialog)
         self.label_username_login_role.setText(f'{username_login_role}')
+        docs = ['passport', 'registration', 'inn', 'snils', 'diploma', 'sertificate']
+        self.dict_all_docs = dict.fromkeys(docs)
         self.path_file_passport = ''
         self.path_file_registration = ''
         self.path_file_inn = ''
         self.path_file_snils = ''
         self.path_file_diploma = ''
         self.path_file_sertificate = ''
-        self.clicked_connect()
+        self.fname = None
+        
+
+        self.clicked_connect(dialog)
         dialog.exec()
 
-    def clicked_connect(self):
+    def clicked_connect(self, dialog):
         """Обработка нажатий кнопок"""
-        # self.pushButton_ok.clicked.connect(Upload_docs.show)
-        self.pushButton_upload_passport.clicked.connect(lambda: self.open_file(self.path_file_passport, self.label_passport_upload))
-        self.pushButton_upload_registration.clicked.connect(lambda: self.open_file(self.path_file_registration, self.label_registration_upload))
-        self.pushButton_upload_inn.clicked.connect(lambda: self.open_file(self.path_file_inn, self.label_inn_upload))
-        self.pushButton_upload_snils.clicked.connect(lambda: self.open_file(self.path_file_snils, self.label_snils_upload))
-        self.pushButton_upload_diploma.clicked.connect(lambda: self.open_file(self.path_file_diploma, self.label_diploma_upload))
-        self.pushButton_upload_sertificate.clicked.connect(lambda: self.open_file(self.path_file_sertificate, self.label_sertificate))
+        self.pushButton_upload_passport.clicked.connect(
+            lambda: self.open_file(self.label_passport_upload, 'passport'))
+        self.pushButton_upload_registration.clicked.connect(
+            lambda: self.open_file( self.label_registration_upload, 'registration'))
+        self.pushButton_upload_inn.clicked.connect(
+            lambda: self.open_file(self.label_inn_upload, 'inn'))
+        self.pushButton_upload_snils.clicked.connect(
+            lambda: self.open_file( self.label_snils_upload, 'snils'))
+        self.pushButton_upload_diploma.clicked.connect(
+            lambda: self.open_file( self.label_diploma_upload, 'diploma'))
+        self.pushButton_upload_sertificate.clicked.connect(
+            lambda: self.open_file(self.label_sertificate_upload, 'sertificate'))
+
+        self.pushButton_ok.clicked.connect(lambda: self.press_ok(dialog))
+
         # self.pushButton_upload_survey.clicked.connect(Upload_docs.show)
         # self.pushButton_upload_agree.clicked.connect(Upload_docs.show)
         # self.pushButton_upload_contract.clicked.connect(Upload_docs.show)
         # self.pushButton_upload_act.clicked.connect(Upload_docs.show)
         # self.pushButton_upload_report.clicked.connect(Upload_docs.show)
 
-    def open_file(self, path_file_document, label):
-        """Функция выбора файла из окна проводника"""
+
+    def open_file(self, label, docs_name):
+        """Функция выбора файла из окна проводника и присвоение словарю путей откуда будут копироваться файлы"""
         self.fname = QFileDialog.getOpenFileName(None, 'Выберите файл', '/home', "Image files (*.jpg *.gif)")
-        label.setText('Файл выбран')
-        path_file_document = self.fname[0]
-        print(f"Для документа {label} выбран путь к файлу: {path_file_document}")
-
-    def press_ok(self, Dialog):
-        """Копирование выбранных документов в профиль участника на сервере"""
+        print(self.fname)
         if self.fname == ('', ''):
-            self.label_file_name.setText("Файл не выбран")
-
+            label.setText('Не выбран файл')
         else:
-            print(f"Путь откуда будет грузиться файл: {self.fname[0]}")
-            Dialog.close()
+            label.setText('Файл выбран')
+        path_file_document = self.fname[0]
+        print(f"Выбран путь к файлу {docs_name}: {path_file_document}")
+        self.dict_all_docs[docs_name] = path_file_document
+
+    def press_ok(self, dialog):
+        """Копирование выбранных документов в профиль участника на сервере"""
+        if self.fname == None:
+            print('Не выбрано ни одного документа')
+        else:
+            print(f"Выбраные для загузки следующие документы: {self.dict_all_docs}")
+            # вызов ssh.client и копирование файлов из self.path_file_documents в participants_data path/documents
+            # Установка флага: Exist для переданного документа в True
+            dialog.close()
             return
 
 class Pair():
