@@ -1010,10 +1010,21 @@ class Upload_docs(Ui_Upload_docs):
         # self.pushButton_upload_report.clicked.connect(Upload_docs.show)
 
     def open_file(self, path_file_document, label):
+        """Функция выбора файла из окна проводника"""
         self.fname = QFileDialog.getOpenFileName(None, 'Выберите файл', '/home', "Image files (*.jpg *.gif)")
         label.setText('Файл выбран')
         path_file_document = self.fname[0]
         print(f"Для документа {label} выбран путь к файлу: {path_file_document}")
+
+    def press_ok(self, Dialog):
+        """Копирование выбранных документов в профиль участника на сервере"""
+        if self.fname == ('', ''):
+            self.label_file_name.setText("Файл не выбран")
+
+        else:
+            print(f"Путь откуда будет грузиться файл: {self.fname[0]}")
+            Dialog.close()
+            return
 
 class Pair():
     def __init__(self, x, y):
