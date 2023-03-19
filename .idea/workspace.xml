@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Реализовано указание организации">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ui_Create_event.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_Create_event.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ui_designer/Ui_Create_event.ui" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_designer/Ui_Create_event.ui" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-    </list>
+    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Реализовано Создание Мероприятия (надо разобраться с передачей DateTime в SQL)" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -211,13 +206,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1676999725137</updated>
-    </task>
-    <task id="LOCAL-00008" summary="Соединение с базой реализовано из Access.">
-      <created>1677439442269</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1677439442269</updated>
     </task>
     <task id="LOCAL-00009" summary="init">
       <created>1677526938926</created>
@@ -555,7 +543,14 @@
       <option name="project" value="LOCAL" />
       <updated>1679249964889</updated>
     </task>
-    <option name="localTasksCounter" value="57" />
+    <task id="LOCAL-00057" summary="Реализовано Создание Мероприятия (надо разобраться с передачей DateTime в SQL)">
+      <created>1679257340008</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1679257340008</updated>
+    </task>
+    <option name="localTasksCounter" value="58" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -581,7 +576,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Обновлено" />
     <MESSAGE value="Убраны персональные данные" />
     <MESSAGE value="Добавлен double_click Tree" />
     <MESSAGE value="дописана функция Find_several" />
@@ -606,7 +600,8 @@
     <MESSAGE value="Реализован выбор файлов для загрузки через окно Upload_docs" />
     <MESSAGE value="Поправлены неточности при диалоге в время выбора файлов Uploads_docs" />
     <MESSAGE value="Реализовано указание организации" />
-    <option name="LAST_COMMIT_MESSAGE" value="Реализовано указание организации" />
+    <MESSAGE value="Реализовано Создание Мероприятия (надо разобраться с передачей DateTime в SQL)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Реализовано Создание Мероприятия (надо разобраться с передачей DateTime в SQL)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
