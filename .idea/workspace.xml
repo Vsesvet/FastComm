@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Написана функция обновления update_db_participants_data">
+    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Добавлено окно Upload_docs">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ui_Upload_docs.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_Upload_docs.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -547,7 +546,14 @@
       <option name="project" value="LOCAL" />
       <updated>1679096976178</updated>
     </task>
-    <option name="localTasksCounter" value="49" />
+    <task id="LOCAL-00049" summary="Добавлено окно Upload_docs">
+      <created>1679159115813</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1679159115813</updated>
+    </task>
+    <option name="localTasksCounter" value="50" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -573,7 +579,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Переработан Login" />
     <MESSAGE value="Дописаны:&#10;find_selected&#10;select_one_value" />
     <MESSAGE value="Дописано, переработано." />
     <MESSAGE value="Добавлен full_name" />
@@ -598,6 +603,7 @@
     <MESSAGE value="Реализовано изменение таблицы participants_data после переименование профиля" />
     <MESSAGE value="Написана функция обновления update_row_to_table(self, dct, table_name)" />
     <MESSAGE value="Написана функция обновления update_db_participants_data" />
-    <option name="LAST_COMMIT_MESSAGE" value="Написана функция обновления update_db_participants_data" />
+    <MESSAGE value="Добавлено окно Upload_docs" />
+    <option name="LAST_COMMIT_MESSAGE" value="Добавлено окно Upload_docs" />
   </component>
 </project>

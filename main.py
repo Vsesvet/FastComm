@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QApplication, QMainWindow, QDialog, QTreeWidgetItem, QHeaderView
+from PyQt5.QtWidgets import QApplication, QMainWindow, QDialog, QTreeWidgetItem, QHeaderView, QFileDialog
 import time
 import pymysql
 import paramiko
@@ -175,6 +175,7 @@ class Accept_docs(Ui_Accept_docs):
         self.pushButton_upload_docs.clicked.connect(Upload_docs)
         # self.pushButton_Ok.clicked.connect(Accept_docs.close)
         # self.pushButton_Cancel.clicked.connect(Accept_docs.close)
+
         # # Кнопки открытия документов для просмотра
         # self.pushButton_open_agree.clicked.connect(Accept_docs.close)
         # self.pushButton_open_act.clicked.connect(Accept_docs.close)
@@ -984,25 +985,35 @@ class Upload_docs(Ui_Upload_docs):
         dialog = QDialog()
         super().setupUi(dialog)
         self.label_username_login_role.setText(f'{username_login_role}')
+        self.path_file_passport = ''
+        self.path_file_registration = ''
+        self.path_file_inn = ''
+        self.path_file_snils = ''
+        self.path_file_diploma = ''
+        self.path_file_sertificate = ''
         self.clicked_connect()
         dialog.exec()
 
     def clicked_connect(self):
         """Обработка нажатий кнопок"""
-        pass
         # self.pushButton_ok.clicked.connect(Upload_docs.show)
-        # self.pushButton_upload_passport.clicked.connect(Upload_docs.show)
-        # self.pushButton_upload_registration.clicked.connect(Upload_docs.show)
-        # self.pushButton_upload_inn.clicked.connect(Upload_docs.show)
-        # self.pushButton_upload_snils.clicked.connect(Upload_docs.show)
-        # self.pushButton_upload_diploma.clicked.connect(Upload_docs.show)
-        # self.pushButton_upload_sertificate.clicked.connect(Upload_docs.show)
+        self.pushButton_upload_passport.clicked.connect(lambda: self.open_file(self.path_file_passport, self.label_passport_upload))
+        self.pushButton_upload_registration.clicked.connect(lambda: self.open_file(self.path_file_registration, self.label_registration_upload))
+        self.pushButton_upload_inn.clicked.connect(lambda: self.open_file(self.path_file_inn, self.label_inn_upload))
+        self.pushButton_upload_snils.clicked.connect(lambda: self.open_file(self.path_file_snils, self.label_snils_upload))
+        self.pushButton_upload_diploma.clicked.connect(lambda: self.open_file(self.path_file_diploma, self.label_diploma_upload))
+        self.pushButton_upload_sertificate.clicked.connect(lambda: self.open_file(self.path_file_sertificate, self.label_sertificate))
         # self.pushButton_upload_survey.clicked.connect(Upload_docs.show)
         # self.pushButton_upload_agree.clicked.connect(Upload_docs.show)
         # self.pushButton_upload_contract.clicked.connect(Upload_docs.show)
         # self.pushButton_upload_act.clicked.connect(Upload_docs.show)
         # self.pushButton_upload_report.clicked.connect(Upload_docs.show)
 
+    def open_file(self, path_file_document, label):
+        self.fname = QFileDialog.getOpenFileName(None, 'Выберете файл', '/home', "Image files (*.jpg *.gif)")
+        label.setText('Файл выбран')
+        path_file_document = self.fname[0]
+        print(f"Для документа {label} выбран путь к файлу: {path_file_document}")
 
 class Pair():
     def __init__(self, x, y):
