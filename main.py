@@ -237,6 +237,13 @@ class Create_Event(Ui_Create_event):
     def clicked_connect(self):
         """Обработка нажатий на кнопки в окне Создание Мероприятия"""
         self.pushButton_select_organization.clicked.connect(Choose_organization)
+        self.pushButton_select_organization.clicked.connect(self.set_organization)
+
+    def set_organization(self):
+        global organization_dct
+        print(f"Вывод словаря организации после указания организации: {organization_dct}")
+        self.lineEdit_selected_organization.setText(organization_dct['organization_name'])
+
 
 
 class Create_user(Ui_Create_user):
@@ -773,29 +780,31 @@ class Choose_organization(Ui_Choose_organization):
         self.label_username_login_role.setText(f'{username_login_role}')
         self.tree_organizations_list.header().setStretchLastSection(False)
         self.tree_organizations_list.header().setSectionResizeMode(QHeaderView.ResizeToContents)
-
+        self.table_name = 'organizations'
         self.db = Mysql()
         headers_names = ['Наименование Организации', 'ИНН', 'КПП', 'Номер телефона']
         self.set_headers(headers_names, self.tree_organizations_list)
         self.set_view_of_all_organizations()
-        self.clicked_connect(self.dialog)
+        self.clicked_connect()
         self.dialog.exec()
 
-    def clicked_connect(self, dialog):
-        print("babl")
+    def clicked_connect(self):
+        self.pushButton_add.clicked.connect(self.select_organization)
+        self.pushButton_add.clicked.connect(self.dialog.close)
+
+        pass
+
 
     def set_headers(self, headers_names, tree):
         """Установка заголовков таблицы Списка Организаций"""
-        tree.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.SizeAdjustPolicy.AdjustToContents)
-
         for header in headers_names:
             tree.headerItem().setText(headers_names.index(header), header)
 
     def set_view_of_all_organizations(self):
         keys = ['organization_name', 'organization_INN', 'organization_KPP', 'phone_number']
-        table_name = "organizations"
-        print(table_name)
-        all_organizations = self.db.select_all_data(table_name)
+        # table_name = "organizations"
+        print(self.table_name)
+        all_organizations = self.db.select_all_data(self.table_name)
         print(all_organizations)
         value = []
         for id in range(0, len(all_organizations)):
@@ -804,6 +813,17 @@ class Choose_organization(Ui_Choose_organization):
             item = QTreeWidgetItem(value)
             self.tree_organizations_list.addTopLevelItem(item)
             value.clear()
+
+    def select_organization(self):
+        try:
+            # dct = {}
+            global organization_dct
+            item = self.tree_organizations_list.currentItem()
+            organization_dct['organization_name'] = item.text(0)
+            print(f"Организация в select organization {organization_dct}")
+
+        except Exception as ex:\
+            print("Не выделен ни один объект в дереве")
 
 
 class List_participants(Ui_List_participants):
@@ -1075,5 +1095,7 @@ if __name__ == '__main__':
     processing = Processing()
     access = Access()
     user = User()
+    organization_dct = {}
+    organization_dct['organization_name'] = None
     Event_shedule()
     sys.exit(app.exec())
