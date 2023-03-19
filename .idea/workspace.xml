@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Добавлено окно Upload_docs">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-    </list>
+    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Реализован выбор файлов для загрузки через окно Upload_docs" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -209,13 +206,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1676999725137</updated>
-    </task>
-    <task id="LOCAL-00001" summary="init">
-      <created>1677277489285</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1677277489285</updated>
     </task>
     <task id="LOCAL-00002" summary="init">
       <created>1677351413173</created>
@@ -553,7 +543,14 @@
       <option name="project" value="LOCAL" />
       <updated>1679159115813</updated>
     </task>
-    <option name="localTasksCounter" value="50" />
+    <task id="LOCAL-00050" summary="Реализован выбор файлов для загрузки через окно Upload_docs">
+      <created>1679228524674</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1679228524675</updated>
+    </task>
+    <option name="localTasksCounter" value="51" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -579,7 +576,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Дописаны:&#10;find_selected&#10;select_one_value" />
     <MESSAGE value="Дописано, переработано." />
     <MESSAGE value="Добавлен full_name" />
     <MESSAGE value="Обновлено" />
@@ -604,6 +600,18 @@
     <MESSAGE value="Написана функция обновления update_row_to_table(self, dct, table_name)" />
     <MESSAGE value="Написана функция обновления update_db_participants_data" />
     <MESSAGE value="Добавлено окно Upload_docs" />
-    <option name="LAST_COMMIT_MESSAGE" value="Добавлено окно Upload_docs" />
+    <MESSAGE value="Реализован выбор файлов для загрузки через окно Upload_docs" />
+    <option name="LAST_COMMIT_MESSAGE" value="Реализован выбор файлов для загрузки через окно Upload_docs" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>999</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
