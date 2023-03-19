@@ -35,10 +35,31 @@
    <string>Event</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="7" column="3">
-    <widget class="QLineEdit" name="event_city">
+   <item row="3" column="0" colspan="4">
+    <widget class="QLineEdit" name="lineEdit_event_name">
      <property name="placeholderText">
-      <string>Город...</string>
+      <string>Наименование мероприятия...</string>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="3">
+    <widget class="QPushButton" name="pushButton_select_organization">
+     <property name="text">
+      <string>Выбрать организацию</string>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="3">
+    <widget class="QLineEdit" name="lineEdit_event_country">
+     <property name="placeholderText">
+      <string>Страна...</string>
+     </property>
+    </widget>
+   </item>
+   <item row="10" column="0" colspan="4">
+    <widget class="QLineEdit" name="lineEdit_event_comment">
+     <property name="placeholderText">
+      <string>Комментарий...</string>
      </property>
     </widget>
    </item>
@@ -57,107 +78,17 @@
      </property>
     </widget>
    </item>
-   <item row="6" column="1">
-    <widget class="QTimeEdit" name="event_time">
-     <property name="time">
-      <time>
-       <hour>10</hour>
-       <minute>0</minute>
-       <second>0</second>
-      </time>
-     </property>
-    </widget>
-   </item>
-   <item row="7" column="0">
-    <widget class="QLineEdit" name="lineEdit_type_event">
+   <item row="8" column="3">
+    <widget class="QLineEdit" name="lineEdit_event_city">
      <property name="placeholderText">
-      <string>НИР</string>
+      <string>Город...</string>
      </property>
     </widget>
    </item>
    <item row="4" column="0" colspan="4">
-    <widget class="QLineEdit" name="event_theme">
+    <widget class="QLineEdit" name="lineEdit_event_theme">
      <property name="placeholderText">
       <string>Тема мероприятия...</string>
-     </property>
-    </widget>
-   </item>
-   <item row="6" column="3">
-    <widget class="QLineEdit" name="event_country">
-     <property name="placeholderText">
-      <string>Страна...</string>
-     </property>
-    </widget>
-   </item>
-   <item row="6" column="2">
-    <spacer name="horizontalSpacer">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>40</width>
-       <height>20</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item row="3" column="0" colspan="4">
-    <widget class="QLineEdit" name="event_name">
-     <property name="placeholderText">
-      <string>Наименование мероприятия...</string>
-     </property>
-    </widget>
-   </item>
-   <item row="9" column="0" colspan="4">
-    <widget class="QLineEdit" name="event_comment">
-     <property name="placeholderText">
-      <string>Комментарий...</string>
-     </property>
-    </widget>
-   </item>
-   <item row="6" column="0">
-    <widget class="QDateEdit" name="event_data">
-     <property name="dateTime">
-      <datetime>
-       <hour>0</hour>
-       <minute>0</minute>
-       <second>0</second>
-       <year>2023</year>
-       <month>1</month>
-       <day>1</day>
-      </datetime>
-     </property>
-     <property name="maximumDateTime">
-      <datetime>
-       <hour>23</hour>
-       <minute>59</minute>
-       <second>59</second>
-       <year>2050</year>
-       <month>12</month>
-       <day>30</day>
-      </datetime>
-     </property>
-     <property name="minimumDate">
-      <date>
-       <year>1752</year>
-       <month>9</month>
-       <day>15</day>
-      </date>
-     </property>
-    </widget>
-   </item>
-   <item row="5" column="0" colspan="2">
-    <widget class="QLineEdit" name="lineEdit_selected_organization">
-     <property name="placeholderText">
-      <string>Организация...</string>
-     </property>
-    </widget>
-   </item>
-   <item row="5" column="3">
-    <widget class="QPushButton" name="pushButton_select_organization">
-     <property name="text">
-      <string>Выбрать организацию</string>
      </property>
     </widget>
    </item>
@@ -176,38 +107,84 @@
      </property>
     </widget>
    </item>
-   <item row="10" column="3">
-    <widget class="QPushButton" name="pushButton_Ok">
+   <item row="11" column="2">
+    <widget class="QPushButton" name="pushButton_cancel">
      <property name="text">
-      <string>Создать</string>
+      <string>Отмена</string>
      </property>
     </widget>
    </item>
-   <item row="10" column="2">
-    <widget class="QPushButton" name="pushButton_Cancel">
+   <item row="11" column="3">
+    <widget class="QPushButton" name="pushButton_ok">
      <property name="text">
-      <string>Отмена</string>
+      <string>OK</string>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="2">
+    <spacer name="horizontalSpacer">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>40</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="8" column="0">
+    <widget class="QLineEdit" name="lineEdit_type_event">
+     <property name="placeholderText">
+      <string>НИР</string>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="0" colspan="2">
+    <widget class="QLineEdit" name="lineEdit_selected_organization">
+     <property name="placeholderText">
+      <string>Организация...</string>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="0">
+    <widget class="QDateTimeEdit" name="event_dateTime">
+     <property name="dateTime">
+      <datetime>
+       <hour>9</hour>
+       <minute>30</minute>
+       <second>0</second>
+       <year>2023</year>
+       <month>3</month>
+       <day>20</day>
+      </datetime>
+     </property>
+     <property name="date">
+      <date>
+       <year>2023</year>
+       <month>3</month>
+       <day>20</day>
+      </date>
      </property>
     </widget>
    </item>
   </layout>
  </widget>
  <tabstops>
-  <tabstop>event_name</tabstop>
-  <tabstop>event_theme</tabstop>
+  <tabstop>lineEdit_event_name</tabstop>
+  <tabstop>lineEdit_event_theme</tabstop>
   <tabstop>lineEdit_selected_organization</tabstop>
   <tabstop>pushButton_select_organization</tabstop>
-  <tabstop>event_data</tabstop>
-  <tabstop>event_time</tabstop>
   <tabstop>lineEdit_type_event</tabstop>
-  <tabstop>event_country</tabstop>
-  <tabstop>event_city</tabstop>
-  <tabstop>event_comment</tabstop>
+  <tabstop>lineEdit_event_country</tabstop>
+  <tabstop>lineEdit_event_city</tabstop>
+  <tabstop>lineEdit_event_comment</tabstop>
  </tabstops>
  <resources/>
  <connections>
   <connection>
-   <sender>pushButton_Ok</sender>
+   <sender>pushButton_ok</sender>
    <signal>clicked()</signal>
    <receiver>Create_event</receiver>
    <slot>show()</slot>
@@ -223,7 +200,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>pushButton_Cancel</sender>
+   <sender>pushButton_cancel</sender>
    <signal>clicked()</signal>
    <receiver>Create_event</receiver>
    <slot>close()</slot>

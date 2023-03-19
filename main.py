@@ -231,19 +231,42 @@ class Create_Event(Ui_Create_event):
         dialog = QDialog()
         super().setupUi(dialog)
         self.label_username_login_role.setText(f'{username_login_role}')
-        self.clicked_connect()
+        self.table_name = 'events'
+        self.clicked_connect(dialog)
         dialog.exec()
 
-    def clicked_connect(self):
+    def clicked_connect(self, dialog):
         """Обработка нажатий на кнопки в окне Создание Мероприятия"""
         self.pushButton_select_organization.clicked.connect(Choose_organization)
         self.pushButton_select_organization.clicked.connect(self.set_organization)
+        self.pushButton_ok.clicked.connect(self.get_event_data)
+        self.pushButton_ok.clicked.connect(self.write_event_to_db)
+        self.pushButton_ok.clicked.connect(dialog.close)
 
     def set_organization(self):
         global organization_dct
         print(f"Вывод словаря организации после указания организации: {organization_dct}")
         self.lineEdit_selected_organization.setText(organization_dct['organization_name'])
 
+    def get_event_data(self):
+        """Считывание данных из полей Мероприятия, введенных пользователем"""
+        self.dct_event = {}
+        self.dct_event['event_name'] = self.lineEdit_event_name.text()
+        self.dct_event['event_theme'] = self.lineEdit_event_theme.text()
+        self.dct_event['organization'] = self.lineEdit_selected_organization.text()
+        # self.dct_event['date_time'] = self.dataEdit_event_date.dateTime()
+        self.dct_event['country'] = self.lineEdit_event_country.text()
+        self.dct_event['city'] = self.lineEdit_event_city.text()
+        self.dct_event['type'] = self.lineEdit_type_event.text()
+        self.dct_event['comment'] = self.lineEdit_event_comment.text()
+        self.dct_event['status'] = True
+        self.dct_event['access'] = False
+        self.dct_event['count'] = 0
+        print(f"Вывод данных введенной организации: {self.dct_event}")
+
+    def write_event_to_db(self):
+        sql = Mysql()
+        sql.insert_row_to_table(self.dct_event, self.table_name)
 
 
 class Create_user(Ui_Create_user):
@@ -790,10 +813,8 @@ class Choose_organization(Ui_Choose_organization):
 
     def clicked_connect(self):
         self.pushButton_add.clicked.connect(self.select_organization)
+        self.tree_organizations_list.itemDoubleClicked.connect(self.select_organization)
         self.pushButton_add.clicked.connect(self.dialog.close)
-
-        pass
-
 
     def set_headers(self, headers_names, tree):
         """Установка заголовков таблицы Списка Организаций"""
@@ -802,8 +823,6 @@ class Choose_organization(Ui_Choose_organization):
 
     def set_view_of_all_organizations(self):
         keys = ['organization_name', 'organization_INN', 'organization_KPP', 'phone_number']
-        # table_name = "organizations"
-        print(self.table_name)
         all_organizations = self.db.select_all_data(self.table_name)
         print(all_organizations)
         value = []
@@ -816,11 +835,9 @@ class Choose_organization(Ui_Choose_organization):
 
     def select_organization(self):
         try:
-            # dct = {}
             global organization_dct
             item = self.tree_organizations_list.currentItem()
             organization_dct['organization_name'] = item.text(0)
-            print(f"Организация в select organization {organization_dct}")
 
         except Exception as ex:\
             print("Не выделен ни один объект в дереве")
