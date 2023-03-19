@@ -1010,7 +1010,7 @@ class Upload_docs(Ui_Upload_docs):
         # self.pushButton_upload_report.clicked.connect(Upload_docs.show)
 
     def open_file(self, path_file_document, label):
-        self.fname = QFileDialog.getOpenFileName(None, 'Выберете файл', '/home', "Image files (*.jpg *.gif)")
+        self.fname = QFileDialog.getOpenFileName(None, 'Выберите файл', '/home', "Image files (*.jpg *.gif)")
         label.setText('Файл выбран')
         path_file_document = self.fname[0]
         print(f"Для документа {label} выбран путь к файлу: {path_file_document}")
