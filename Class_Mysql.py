@@ -82,7 +82,7 @@ class Mysql:
         column = str(tuple(column)).replace("'", "")
         content = tuple(content)
         insert_query = f"INSERT INTO {table_name}{column} VALUES{content}"
-        print(insert_query)
+        # print(insert_query)
         with self.connection.cursor() as cursor:
             cursor.execute(insert_query)
             self.connection.commit()

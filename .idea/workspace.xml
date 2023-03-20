@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Реализовано Создание Мероприятия (надо разобраться с передачей DateTime в SQL)">
+    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Реализовал Event_Shedule. Первоначальное и обновление после добавления Мероприятия.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Class_Mysql.py" beforeDir="false" afterPath="$PROJECT_DIR$/Class_Mysql.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Ui_Create_event.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_Create_event.py" afterDir="false" />
@@ -212,13 +212,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1676999725137</updated>
-    </task>
-    <task id="LOCAL-00010" summary="init">
-      <created>1677766511290</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1677766511290</updated>
     </task>
     <task id="LOCAL-00011" summary="init">
       <created>1677766534457</created>
@@ -556,7 +549,14 @@
       <option name="project" value="LOCAL" />
       <updated>1679257592823</updated>
     </task>
-    <option name="localTasksCounter" value="59" />
+    <task id="LOCAL-00059" summary="Реализовал Event_Shedule. Первоначальное и обновление после добавления Мероприятия.">
+      <created>1679344682691</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1679344682692</updated>
+    </task>
+    <option name="localTasksCounter" value="60" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -582,7 +582,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Убраны персональные данные" />
     <MESSAGE value="Добавлен double_click Tree" />
     <MESSAGE value="дописана функция Find_several" />
     <MESSAGE value="+ фильтры поиска и кнопки поиска" />
@@ -607,7 +606,8 @@
     <MESSAGE value="Поправлены неточности при диалоге в время выбора файлов Uploads_docs" />
     <MESSAGE value="Реализовано указание организации" />
     <MESSAGE value="Реализовано Создание Мероприятия (надо разобраться с передачей DateTime в SQL)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Реализовано Создание Мероприятия (надо разобраться с передачей DateTime в SQL)" />
+    <MESSAGE value="Реализовал Event_Shedule. Первоначальное и обновление после добавления Мероприятия." />
+    <option name="LAST_COMMIT_MESSAGE" value="Реализовал Event_Shedule. Первоначальное и обновление после добавления Мероприятия." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
