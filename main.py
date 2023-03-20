@@ -69,8 +69,15 @@ class Event_shedule(Ui_Event_shedule):
         # Установка ResizeToContents для tree_event
         self.tree_event_shedule.header().setStretchLastSection(False)
         self.tree_event_shedule.header().setSectionResizeMode(QHeaderView.ResizeToContents)
+        # Установка наименований столбцов и центрирование открываемого окна
         self.adjust_tree(self.tree_event_shedule)
         self.move_to_centre(window)
+        # Чтение мероприятий из базы данных
+        self.db = Mysql()
+        self.table_name = 'events'
+        self.all_events = self.db.select_all_data(self.table_name)
+        # Формирование расписания мероприятий
+        self.form_events_shedule()
         self.clicked_connect(window)
         window.showMaximized()
         window.show()
@@ -84,12 +91,6 @@ class Event_shedule(Ui_Event_shedule):
         y = (desktop.height() - window.height()) // 2
         window.move(x, y)
 
-    # def close_app(self):
-    #     """Выход из программы по Закрытию окна"""
-    #     # разобраться, пока не работает
-    #     journal.close_login()
-    #     sys.exit(4)
-
     def adjust_tree(self, tree):
         """Установка наименований для колонок Tree"""
         columns_names = ['Мероприятие', 'Дата', 'Страна', 'Город', 'Участников', 'Организация', 'Статус']
@@ -101,6 +102,7 @@ class Event_shedule(Ui_Event_shedule):
         self.pushButton_exit.clicked.connect(self.close_shedule)
         self.pushButton_exit.clicked.connect(window.close)
         self.pushButton_create_event.clicked.connect(Create_Event)
+        self.pushButton_create_event.clicked.connect(self.update_events_shedule)
         self.pushButton_create_participant.clicked.connect(Create_participant)
         self.pushButton_create_organization.clicked.connect(Create_organization)
         self.pushButton_create_inspector.clicked.connect(Create_inspector)
@@ -110,6 +112,27 @@ class Event_shedule(Ui_Event_shedule):
         self.pushButton_export_xls.clicked.connect(window.showMaximized)
         self.pushButton_print.clicked.connect(Create_user)
         # self.pushButton_find_event.clicked.connect(self.tree_event_shedule.clear)
+
+    def form_events_shedule(self):
+        event_string = []
+        for dct in self.all_events:
+            event_string.append(dct['event_name'])
+            event_string.append(dct['date_time'].strftime('%d-%m-%Y %H:%M'))
+            event_string.append(dct['country'])
+            event_string.append(dct['city'])
+            event_string.append(str(dct['count']))
+            event_string.append(dct['organization'])
+            event_string.append(str(dct['status']))
+            item = QTreeWidgetItem(event_string)
+            self.tree_event_shedule.addTopLevelItem(item)
+            event_string.clear()
+
+    def update_events_shedule(self):
+        self.tree_event_shedule.clear()
+        self.db = Mysql()
+        update_events = self.db.select_all_data(self.table_name)
+        self.all_events = update_events
+        self.form_events_shedule()
 
     def close_shedule(self):
         """Запись лога выхода, по нажатию на кнопку Выход"""
@@ -245,7 +268,6 @@ class Create_Event(Ui_Create_event):
 
     def set_organization(self):
         global organization_dct
-        print(f"Вывод словаря организации после указания организации: {organization_dct}")
         self.lineEdit_selected_organization.setText(organization_dct['organization_name'])
 
     def get_event_data(self):
@@ -254,12 +276,12 @@ class Create_Event(Ui_Create_event):
         self.dct_event['event_name'] = self.lineEdit_event_name.text()
         self.dct_event['event_theme'] = self.lineEdit_event_theme.text()
         self.dct_event['organization'] = self.lineEdit_selected_organization.text()
-        # self.dct_event['date_time'] = self.dataEdit_event_date.dateTime()
+        self.dct_event['date_time'] = self.event_dateTime.dateTime().toString("yyyy-MM-dd hh:mm")
         self.dct_event['country'] = self.lineEdit_event_country.text()
         self.dct_event['city'] = self.lineEdit_event_city.text()
         self.dct_event['type'] = self.lineEdit_type_event.text()
         self.dct_event['comment'] = self.lineEdit_event_comment.text()
-        self.dct_event['status'] = True
+        self.dct_event['status'] = 'Запланировано'
         self.dct_event['access'] = False
         self.dct_event['count'] = 0
         print(f"Вывод данных введенной организации: {self.dct_event}")
@@ -267,6 +289,8 @@ class Create_Event(Ui_Create_event):
     def write_event_to_db(self):
         sql = Mysql()
         sql.insert_row_to_table(self.dct_event, self.table_name)
+
+        # sql.insert_row_to_table()
 
 
 class Create_user(Ui_Create_user):
@@ -787,6 +811,7 @@ class List_organization(Ui_List_organization):
             item = QTreeWidgetItem(value)
             self.tree_organizations_list.addTopLevelItem(item)
             value.clear()
+
     def set_headers(self, headers_names, tree):
         """Устанавливает заголовки колонок для Списка всех организаций"""
         tree.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.SizeAdjustPolicy.AdjustToContents)
