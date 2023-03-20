@@ -79,7 +79,7 @@ class Event_shedule(Ui_Event_shedule):
         # Формирование расписания мероприятий
         self.form_events_shedule()
         self.clicked_connect(window)
-        window.showMaximized()
+        # window.showMaximized()
         window.show()
         sys.exit(app.exec())
 
@@ -126,6 +126,7 @@ class Event_shedule(Ui_Event_shedule):
             item = QTreeWidgetItem(event_string)
             self.tree_event_shedule.addTopLevelItem(item)
             event_string.clear()
+        self.label_total_completed_events.setText(f"Всего в списке {len(self.all_events)} мероприятий")
 
     def update_events_shedule(self):
         self.tree_event_shedule.clear()
