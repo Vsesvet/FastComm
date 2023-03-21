@@ -187,7 +187,7 @@ class Event(Ui_Event):
         # self.dct_event['access'] = False
         # self.dct_event['count'] = 0
 
-    def check_event_status(self):
+    def comboBox(self):
         pass
         # combo_box.findText(текст) - поиск элемента по тексту в выпадающем списке. Возвращает int
         # ui.comboBox.currentText() - получение значения из QComboBox. Возвращает строку
