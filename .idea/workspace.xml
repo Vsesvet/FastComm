@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Добавлены комментарии по работе с comboBox">
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-    </list>
+    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="удалены лишние print-ы отладки" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -208,13 +206,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1676999725137</updated>
-    </task>
-    <task id="LOCAL-00017" summary="Дописано, переработано.">
-      <created>1677955935086</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1677955935086</updated>
     </task>
     <task id="LOCAL-00018" summary="Добавлен full_name">
       <created>1677956037716</created>
@@ -552,7 +543,14 @@
       <option name="project" value="LOCAL" />
       <updated>1679432271996</updated>
     </task>
-    <option name="localTasksCounter" value="66" />
+    <task id="LOCAL-00066" summary="удалены лишние print-ы отладки">
+      <created>1679432369247</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1679432369248</updated>
+    </task>
+    <option name="localTasksCounter" value="67" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -578,7 +576,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="изменены триггеры Accept_docs" />
     <MESSAGE value="Поправлены мелкие недочеты" />
     <MESSAGE value="Поправлены незначительные мелочи" />
     <MESSAGE value="добавил close по кнопке Cancel" />
@@ -603,7 +600,8 @@
     <MESSAGE value="Доработано окно Event Shedule." />
     <MESSAGE value="Добавлены поля в Event. Уменьшен размер колонок tree по умолчанию." />
     <MESSAGE value="Добавлены комментарии по работе с comboBox" />
-    <option name="LAST_COMMIT_MESSAGE" value="Добавлены комментарии по работе с comboBox" />
+    <MESSAGE value="удалены лишние print-ы отладки" />
+    <option name="LAST_COMMIT_MESSAGE" value="удалены лишние print-ы отладки" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
