@@ -28,51 +28,55 @@
        <enum>QAbstractScrollArea::AdjustToContents</enum>
       </property>
       <property name="columnCount">
-       <number>6</number>
+       <number>8</number>
       </property>
       <attribute name="headerMinimumSectionSize">
-       <number>50</number>
+       <number>20</number>
       </attribute>
       <attribute name="headerDefaultSectionSize">
-       <number>160</number>
-      </attribute>
-      <attribute name="headerHighlightSections">
-       <bool>true</bool>
-      </attribute>
-      <attribute name="headerShowSortIndicator" stdset="0">
-       <bool>false</bool>
+       <number>20</number>
       </attribute>
       <attribute name="headerStretchLastSection">
        <bool>false</bool>
       </attribute>
       <column>
        <property name="text">
-        <string>1</string>
+        <string>id</string>
        </property>
       </column>
       <column>
        <property name="text">
-        <string notr="true">2</string>
+        <string notr="true">event_name</string>
        </property>
       </column>
       <column>
        <property name="text">
-        <string notr="true">3</string>
+        <string notr="true">date_time</string>
        </property>
       </column>
       <column>
        <property name="text">
-        <string notr="true">4</string>
+        <string notr="true">country</string>
        </property>
       </column>
       <column>
        <property name="text">
-        <string notr="true">5</string>
+        <string notr="true">city</string>
        </property>
       </column>
       <column>
        <property name="text">
-        <string notr="true">6</string>
+        <string notr="true">count</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>organization</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>status</string>
        </property>
       </column>
      </widget>
@@ -91,13 +95,6 @@
       </property>
       <property name="alignment">
        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-      </property>
-     </widget>
-    </item>
-    <item row="3" column="3">
-     <widget class="QPushButton" name="pushButton_open_event">
-      <property name="text">
-       <string>Мероприятие</string>
       </property>
      </widget>
     </item>
@@ -449,22 +446,6 @@
     <hint type="destinationlabel">
      <x>539</x>
      <y>313</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pushButton_open_event</sender>
-   <signal>clicked()</signal>
-   <receiver>Event_shedule</receiver>
-   <slot>show()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>687</x>
-     <y>131</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>539</x>
-     <y>309</y>
     </hint>
    </hints>
   </connection>

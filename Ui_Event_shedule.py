@@ -24,17 +24,15 @@ class Ui_Event_shedule(object):
         self.gridLayout_2.addWidget(self.label_find_event, 6, 0, 1, 2)
         self.tree_event_shedule = QtWidgets.QTreeWidget(self.centralwidget)
         self.tree_event_shedule.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.AdjustToContents)
-        self.tree_event_shedule.setColumnCount(6)
+        self.tree_event_shedule.setColumnCount(8)
         self.tree_event_shedule.setObjectName("tree_event_shedule")
-        self.tree_event_shedule.headerItem().setText(1, "2")
-        self.tree_event_shedule.headerItem().setText(2, "3")
-        self.tree_event_shedule.headerItem().setText(3, "4")
-        self.tree_event_shedule.headerItem().setText(4, "5")
-        self.tree_event_shedule.headerItem().setText(5, "6")
-        self.tree_event_shedule.header().setDefaultSectionSize(160)
-        self.tree_event_shedule.header().setHighlightSections(True)
-        self.tree_event_shedule.header().setMinimumSectionSize(50)
-        self.tree_event_shedule.header().setSortIndicatorShown(False)
+        self.tree_event_shedule.headerItem().setText(1, "event_name")
+        self.tree_event_shedule.headerItem().setText(2, "date_time")
+        self.tree_event_shedule.headerItem().setText(3, "country")
+        self.tree_event_shedule.headerItem().setText(4, "city")
+        self.tree_event_shedule.headerItem().setText(5, "count")
+        self.tree_event_shedule.header().setDefaultSectionSize(20)
+        self.tree_event_shedule.header().setMinimumSectionSize(20)
         self.tree_event_shedule.header().setStretchLastSection(False)
         self.gridLayout_2.addWidget(self.tree_event_shedule, 4, 0, 1, 6)
         self.pushButton_create_participant = QtWidgets.QPushButton(self.centralwidget)
@@ -44,9 +42,6 @@ class Ui_Event_shedule(object):
         self.label_total_completed_events.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
         self.label_total_completed_events.setObjectName("label_total_completed_events")
         self.gridLayout_2.addWidget(self.label_total_completed_events, 5, 3, 1, 3)
-        self.pushButton_open_event = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_open_event.setObjectName("pushButton_open_event")
-        self.gridLayout_2.addWidget(self.pushButton_open_event, 3, 3, 1, 1)
         self.pushButton_create_inspector = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_create_inspector.setObjectName("pushButton_create_inspector")
         self.gridLayout_2.addWidget(self.pushButton_create_inspector, 3, 1, 1, 1)
@@ -139,7 +134,6 @@ class Ui_Event_shedule(object):
         self.pushButton_print.clicked.connect(Event_shedule.show) # type: ignore
         self.pushButton_find_event.clicked.connect(self.tree_event_shedule.clear) # type: ignore
         self.comboBox_event_status.currentIndexChanged['QString'].connect(self.tree_event_shedule.expandAll) # type: ignore
-        self.pushButton_open_event.clicked.connect(Event_shedule.show) # type: ignore
         self.pushButton_select_organization.clicked.connect(Event_shedule.show) # type: ignore
         self.pushButton_exit.clicked.connect(Event_shedule.close) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(Event_shedule)
@@ -158,10 +152,11 @@ class Ui_Event_shedule(object):
         _translate = QtCore.QCoreApplication.translate
         Event_shedule.setWindowTitle(_translate("Event_shedule", "Event"))
         self.label_find_event.setText(_translate("Event_shedule", "Фильтры поиска мероприятия:"))
-        self.tree_event_shedule.headerItem().setText(0, _translate("Event_shedule", "1"))
+        self.tree_event_shedule.headerItem().setText(0, _translate("Event_shedule", "id"))
+        self.tree_event_shedule.headerItem().setText(6, _translate("Event_shedule", "organization"))
+        self.tree_event_shedule.headerItem().setText(7, _translate("Event_shedule", "status"))
         self.pushButton_create_participant.setText(_translate("Event_shedule", "Создать участника"))
         self.label_total_completed_events.setText(_translate("Event_shedule", "Всего проведено ___ мероприятия"))
-        self.pushButton_open_event.setText(_translate("Event_shedule", "Мероприятие"))
         self.pushButton_create_inspector.setText(_translate("Event_shedule", "Создать инспектора"))
         self.label_username_login_role.setText(_translate("Event_shedule", "username_login_role"))
         self.label_event_shedule.setText(_translate("Event_shedule", "Расписание мероприятий"))

@@ -4,11 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Внесены переименования в Ui_Event">
+    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Переделал окно Create_event">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Ui_Event.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_Event.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ui_designer/Ui_Accept_docs.ui" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_designer/Ui_Accept_docs.ui" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ui_Event_shedule.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_Event_shedule.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Ui_designer/Ui_Event.ui" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_designer/Ui_Event.ui" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ui_designer/Ui_Event_shedule.ui" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_designer/Ui_Event_shedule.ui" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -212,27 +213,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1676999725137</updated>
-    </task>
-    <task id="LOCAL-00010" summary="init">
-      <created>1677766511290</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1677766511290</updated>
-    </task>
-    <task id="LOCAL-00011" summary="init">
-      <created>1677766534457</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1677766534457</updated>
-    </task>
-    <task id="LOCAL-00012" summary="get_value_by_arg (предложение)&#10;update_row_by_id (упрощение)">
-      <created>1677794639252</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1677794639252</updated>
     </task>
     <task id="LOCAL-00013" summary="update_row_by_id (упрощение)">
       <created>1677869857961</created>
@@ -549,14 +529,35 @@
       <option name="project" value="LOCAL" />
       <updated>1679257340008</updated>
     </task>
-    <task id="LOCAL-00058" summary="Внесены переименования в Ui_Event">
-      <created>1679401308806</created>
+    <task id="LOCAL-00058" summary="Реализовано Создание Мероприятия (надо разобраться с передачей DateTime в SQL)">
+      <created>1679257592823</created>
       <option name="number" value="00058" />
       <option name="presentableId" value="LOCAL-00058" />
       <option name="project" value="LOCAL" />
-      <updated>1679401308808</updated>
+      <updated>1679257592823</updated>
     </task>
-    <option name="localTasksCounter" value="59" />
+    <task id="LOCAL-00059" summary="Реализовал Event_Shedule. Первоначальное и обновление после добавления Мероприятия.">
+      <created>1679344682691</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1679344682692</updated>
+    </task>
+    <task id="LOCAL-00060" summary="Убрал один принт">
+      <created>1679344760151</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1679344760151</updated>
+    </task>
+    <task id="LOCAL-00061" summary="Переделал окно Create_event">
+      <created>1679344801158</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1679344801158</updated>
+    </task>
+    <option name="localTasksCounter" value="62" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -582,8 +583,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Добавлен double_click Tree" />
-    <MESSAGE value="дописана функция Find_several" />
     <MESSAGE value="+ фильтры поиска и кнопки поиска" />
     <MESSAGE value="реализован поиск в list_participants" />
     <MESSAGE value="ResizeToContents" />
@@ -606,8 +605,10 @@
     <MESSAGE value="Поправлены неточности при диалоге в время выбора файлов Uploads_docs" />
     <MESSAGE value="Реализовано указание организации" />
     <MESSAGE value="Реализовано Создание Мероприятия (надо разобраться с передачей DateTime в SQL)" />
-    <MESSAGE value="Внесены переименования в Ui_Event" />
-    <option name="LAST_COMMIT_MESSAGE" value="Внесены переименования в Ui_Event" />
+    <MESSAGE value="Реализовал Event_Shedule. Первоначальное и обновление после добавления Мероприятия." />
+    <MESSAGE value="Убрал один принт" />
+    <MESSAGE value="Переделал окно Create_event" />
+    <option name="LAST_COMMIT_MESSAGE" value="Переделал окно Create_event" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -619,8 +620,8 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>171</line>
-          <option name="timeStamp" value="8" />
+          <line>181</line>
+          <option name="timeStamp" value="11" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
