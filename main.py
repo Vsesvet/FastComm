@@ -148,15 +148,15 @@ class Event(Ui_Event):
         super().setupUi(dialog)
         self.label_username_login_role.setText(f'{username_login_role}')
         # Установка ResizeToContents для treeWidget_list_participance
-        self.tree_event_list_participants.header().setStretchLastSection(False)
-        self.tree_event_list_participants.header().setSectionResizeMode(QHeaderView.ResizeToContents)
+        self.tree_event_participants_list.header().setStretchLastSection(False)
+        self.tree_event_participants_list.header().setSectionResizeMode(QHeaderView.ResizeToContents)
 
         self.clicked_connect()
         dialog.exec()
 
     def clicked_connect(self):
         """Обработка нажатий кнопок"""
-        self.pushButton_add_event_participance.clicked.connect(Add_participant)
+        self.pushButton_add_event_participant.clicked.connect(Add_participant)
         self.pushButton_analisis_doc.clicked.connect(Analisis_list)
 
 
