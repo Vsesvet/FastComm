@@ -99,6 +99,7 @@ class Event_shedule(Ui_Event_shedule):
 
     def clicked_connect(self, window):
         """Обращения к классам окон по клику мыши"""
+        self.tree_event_shedule.itemDoubleClicked.connect(self.open_event)
         self.pushButton_exit.clicked.connect(self.close_shedule)
         self.pushButton_exit.clicked.connect(window.close)
         self.pushButton_create_event.clicked.connect(Create_Event)
@@ -112,6 +113,17 @@ class Event_shedule(Ui_Event_shedule):
         self.pushButton_export_xls.clicked.connect(window.showMaximized)
         self.pushButton_print.clicked.connect(Create_user)
         # self.pushButton_find_event.clicked.connect(self.tree_event_shedule.clear)
+
+    def open_event(self):
+        try:
+            dct = {}
+            item = self.tree_event_shedule.currentItem()
+            print(item)
+            dct['event_name'] = item.text(0)
+            dct_event = self.db.find_selected(dct, self.table_name)
+            Event(dct_event)
+        except Exception as ex:\
+            print("Не выделен ни один объект в дереве")
 
     def form_events_shedule(self):
         event_string = []
@@ -142,7 +154,8 @@ class Event_shedule(Ui_Event_shedule):
 
 class Event(Ui_Event):
     """Работа с окном Мероприятие"""
-    def __init__(self):
+    def __init__(self, dct_event):
+        self.dct_event = dct_event
         username_login_role = access.get_username_and_role(user_login)
         dialog = QDialog()
         super().setupUi(dialog)
@@ -150,9 +163,27 @@ class Event(Ui_Event):
         # Установка ResizeToContents для treeWidget_list_participance
         self.tree_event_participants_list.header().setStretchLastSection(False)
         self.tree_event_participants_list.header().setSectionResizeMode(QHeaderView.ResizeToContents)
-
+        self.set_view()
         self.clicked_connect()
         dialog.exec()
+
+    def set_view(self):
+        """Заполняем поля данных Мероприятия из полученного словаря dct_event"""
+        self.lineEdit_event_name.setText(self.dct_event['event_name'])
+        self.lineEdit_event_theme.setText(self.dct_event['event_theme'])
+        self.lineEdit_selected_organization.setText(self.dct_event['organization'])
+
+        # Остановился здесь!
+
+        # self.event_dateTime.dateTime().toString("yyyy-MM-dd hh:mm")
+        #
+        # self.lineEdit_event_country.text(self.dct_event['country'])
+        # self.lineEdit_event_city.text(self.dct_event['city'])
+        # self.lineEdit_type_event.text(self.dct_event['type'])
+        # self.lineEdit_event_comment.text(self.dct_event['comment'])
+        # self.lineEdit_event_status.texts(elf.dct_event['status'])
+        # self.dct_event['access'] = False
+        # self.dct_event['count'] = 0
 
     def clicked_connect(self):
         """Обработка нажатий кнопок"""

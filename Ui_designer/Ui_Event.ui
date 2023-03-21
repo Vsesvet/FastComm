@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1029</width>
-    <height>538</height>
+    <height>587</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -42,24 +42,6 @@
     <widget class="QLabel" name="label_total_participants">
      <property name="text">
       <string>Кол-во участников ___</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="1" colspan="3">
-    <widget class="QLabel" name="label_Event">
-     <property name="font">
-      <font>
-       <pointsize>18</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
-       <kerning>true</kerning>
-      </font>
-     </property>
-     <property name="text">
-      <string>Мероприятие</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -274,6 +256,31 @@
      </property>
      <property name="text">
       <string>Загрузить файл с участниками (*.xls)</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1" colspan="2">
+    <widget class="QLabel" name="label_Event">
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+       <kerning>true</kerning>
+      </font>
+     </property>
+     <property name="text">
+      <string>Мероприятие</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QLineEdit" name="lineEdit_event_status">
+     <property name="placeholderText">
+      <string>Статус мероприятия</string>
      </property>
     </widget>
    </item>
