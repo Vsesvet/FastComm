@@ -1,5 +1,6 @@
 from PyQt5.QtWidgets import QApplication, QMainWindow, QDialog, QTreeWidgetItem, QHeaderView, QFileDialog
 import time
+import datetime
 import pymysql
 import paramiko
 import ssh_config
@@ -93,7 +94,7 @@ class Event_shedule(Ui_Event_shedule):
 
     def adjust_tree(self, tree):
         """Установка наименований для колонок Tree"""
-        columns_names = ['Мероприятие', 'Дата', 'Страна', 'Город', 'Участников', 'Организация', 'Статус']
+        columns_names = ['__№__', 'Мероприятие', 'Дата и время', 'Страна', 'Город', 'Участников', 'Организация', 'Статус']
         for i in columns_names:
             tree.headerItem().setText(columns_names.index(i), i)
 
@@ -109,7 +110,7 @@ class Event_shedule(Ui_Event_shedule):
         self.pushButton_create_inspector.clicked.connect(Create_inspector)
         self.pushButton_list_organization.clicked.connect(List_organization)
         self.pushButton_list_of_all_participants.clicked.connect(List_participants)
-        self.pushButton_open_event.clicked.connect(Event)
+        # self.pushButton_open_event.clicked.connect(Event)
         self.pushButton_export_xls.clicked.connect(window.showMaximized)
         self.pushButton_print.clicked.connect(Create_user)
         # self.pushButton_find_event.clicked.connect(self.tree_event_shedule.clear)
@@ -119,7 +120,7 @@ class Event_shedule(Ui_Event_shedule):
             dct = {}
             item = self.tree_event_shedule.currentItem()
             print(item)
-            dct['event_name'] = item.text(0)
+            dct['event_id'] = item.text(0)
             dct_event = self.db.find_selected(dct, self.table_name)
             Event(dct_event)
         except Exception as ex:\
@@ -128,6 +129,7 @@ class Event_shedule(Ui_Event_shedule):
     def form_events_shedule(self):
         event_string = []
         for dct in self.all_events:
+            event_string.append(str(dct['event_id']))
             event_string.append(dct['event_name'])
             event_string.append(dct['date_time'].strftime('%d-%m-%Y %H:%M'))
             event_string.append(dct['country'])
@@ -156,6 +158,7 @@ class Event(Ui_Event):
     """Работа с окном Мероприятие"""
     def __init__(self, dct_event):
         self.dct_event = dct_event
+        print(f"Объект из базы данных: {self.dct_event}")
         username_login_role = access.get_username_and_role(user_login)
         dialog = QDialog()
         super().setupUi(dialog)
@@ -169,21 +172,27 @@ class Event(Ui_Event):
 
     def set_view(self):
         """Заполняем поля данных Мероприятия из полученного словаря dct_event"""
+        self.label_Event.setText(f"Мероприятие  № {self.dct_event['event_id']}")
+        # self.lineEdit_event_id.setText(self.dct_event['event_id'])
         self.lineEdit_event_name.setText(self.dct_event['event_name'])
         self.lineEdit_event_theme.setText(self.dct_event['event_theme'])
         self.lineEdit_selected_organization.setText(self.dct_event['organization'])
-
-        # Остановился здесь!
-
-        # self.event_dateTime.dateTime().toString("yyyy-MM-dd hh:mm")
-        #
-        # self.lineEdit_event_country.text(self.dct_event['country'])
-        # self.lineEdit_event_city.text(self.dct_event['city'])
-        # self.lineEdit_type_event.text(self.dct_event['type'])
-        # self.lineEdit_event_comment.text(self.dct_event['comment'])
-        # self.lineEdit_event_status.texts(elf.dct_event['status'])
+        self.event_dateTime.setDateTime(self.dct_event['date_time'])
+        self.lineEdit_event_country.setText(self.dct_event['country'])
+        self.lineEdit_event_city.setText(self.dct_event['city'])
+        self.lineEdit_type_event.setText(self.dct_event['type'])
+        self.lineEdit_event_comment.setText(self.dct_event['comment'])
+        status = self.comboBox_event_status.findText(self.dct_event['status'])
+        self.comboBox_event_status.setCurrentIndex(status)
         # self.dct_event['access'] = False
         # self.dct_event['count'] = 0
+
+    def check_event_status(self):
+        pass
+        # combo_box.findText(текст) - поиск элемента по тексту в выпадающем списке. Возвращает int
+        # ui.comboBox.currentText() - получение значения из QComboBox. Возвращает строку
+        # combo_box.currentIndex() - возвращает целое число, т.е. Индекс выбранного элемента
+        # combo_box.setCurrentIndex(индекс) - он установит элемент с заданным индексом
 
     def clicked_connect(self):
         """Обработка нажатий кнопок"""
