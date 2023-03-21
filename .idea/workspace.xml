@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Переделал окно Create_event">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ui_Event.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_Event.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ui_Event_shedule.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_Event_shedule.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ui_designer/Ui_Event.ui" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_designer/Ui_Event.ui" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ui_designer/Ui_Event_shedule.ui" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_designer/Ui_Event_shedule.ui" afterDir="false" />
+    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Добавлены комментарии по работе с comboBox">
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -213,34 +208,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1676999725137</updated>
-    </task>
-    <task id="LOCAL-00013" summary="update_row_by_id (упрощение)">
-      <created>1677869857961</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1677869857961</updated>
-    </task>
-    <task id="LOCAL-00014" summary="Убран db_config.py&#10;Переработан Login&#10;Форматирование new_participant&#10;Форматирование Phone_number">
-      <created>1677955640301</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1677955640301</updated>
-    </task>
-    <task id="LOCAL-00015" summary="Переработан Login">
-      <created>1677955736399</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1677955736399</updated>
-    </task>
-    <task id="LOCAL-00016" summary="Дописаны:&#10;find_selected&#10;select_one_value">
-      <created>1677955860031</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1677955860031</updated>
     </task>
     <task id="LOCAL-00017" summary="Дописано, переработано.">
       <created>1677955935086</created>
@@ -557,7 +524,35 @@
       <option name="project" value="LOCAL" />
       <updated>1679344801158</updated>
     </task>
-    <option name="localTasksCounter" value="62" />
+    <task id="LOCAL-00062" summary="Реализовано открытие Event по double click из Event Shedule.">
+      <created>1679432109915</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1679432109916</updated>
+    </task>
+    <task id="LOCAL-00063" summary="Доработано окно Event Shedule.">
+      <created>1679432144080</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1679432144080</updated>
+    </task>
+    <task id="LOCAL-00064" summary="Добавлены поля в Event. Уменьшен размер колонок tree по умолчанию.">
+      <created>1679432191877</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1679432191877</updated>
+    </task>
+    <task id="LOCAL-00065" summary="Добавлены комментарии по работе с comboBox">
+      <created>1679432271996</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1679432271996</updated>
+    </task>
+    <option name="localTasksCounter" value="66" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -583,10 +578,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="+ фильтры поиска и кнопки поиска" />
-    <MESSAGE value="реализован поиск в list_participants" />
-    <MESSAGE value="ResizeToContents" />
-    <MESSAGE value="Добавлено открытие организации по doubleClicked из списка организаций" />
     <MESSAGE value="изменены триггеры Accept_docs" />
     <MESSAGE value="Поправлены мелкие недочеты" />
     <MESSAGE value="Поправлены незначительные мелочи" />
@@ -608,7 +599,11 @@
     <MESSAGE value="Реализовал Event_Shedule. Первоначальное и обновление после добавления Мероприятия." />
     <MESSAGE value="Убрал один принт" />
     <MESSAGE value="Переделал окно Create_event" />
-    <option name="LAST_COMMIT_MESSAGE" value="Переделал окно Create_event" />
+    <MESSAGE value="Реализовано открытие Event по double click из Event Shedule." />
+    <MESSAGE value="Доработано окно Event Shedule." />
+    <MESSAGE value="Добавлены поля в Event. Уменьшен размер колонок tree по умолчанию." />
+    <MESSAGE value="Добавлены комментарии по работе с comboBox" />
+    <option name="LAST_COMMIT_MESSAGE" value="Добавлены комментарии по работе с comboBox" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -617,11 +612,6 @@
           <url>file://$PROJECT_DIR$/Class_Mysql.py</url>
           <line>76</line>
           <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/main.py</url>
-          <line>181</line>
-          <option name="timeStamp" value="11" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

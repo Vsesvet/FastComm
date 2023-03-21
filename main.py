@@ -173,7 +173,6 @@ class Event(Ui_Event):
     def set_view(self):
         """Заполняем поля данных Мероприятия из полученного словаря dct_event"""
         self.label_Event.setText(f"Мероприятие  № {self.dct_event['event_id']}")
-        # self.lineEdit_event_id.setText(self.dct_event['event_id'])
         self.lineEdit_event_name.setText(self.dct_event['event_name'])
         self.lineEdit_event_theme.setText(self.dct_event['event_theme'])
         self.lineEdit_selected_organization.setText(self.dct_event['organization'])
