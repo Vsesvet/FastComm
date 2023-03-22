@@ -18,7 +18,6 @@ class Mysql:
         except Exception as ex:
             print("Error connection to db")
 
-
     def select_all_data(self, table_name):
         """Получение всех строк из базы данных"""
         select_all_rows = f"SELECT * FROM {table_name}"
@@ -60,18 +59,6 @@ class Mysql:
             self.connection.commit()
         return find_dict
 
-    def select_one_value(self, value1, dct, table_name):
-        """Получение одного значения из row. На входе: '', {}, ''. На выходе: {} из row с одним значением"""
-        for key, value in dct.items():
-            column = key
-            content = value
-        request = f"SELECT {value1} FROM {table_name} WHERE {column} = {content}"
-        with self.connection.cursor() as cursor:
-            cursor.execute(request)
-            selected_value = cursor.fetchone()
-            self.connection.commit()
-        return selected_value
-
     def insert_row_to_table(self, dictionary, table_name):
         """Добавление row в таблицу. На входе: {}, ''. Выход без возврата"""
         column = []
@@ -82,13 +69,27 @@ class Mysql:
         column = str(tuple(column)).replace("'", "")
         content = tuple(content)
         insert_query = f"INSERT INTO {table_name}{column} VALUES{content}"
-        # print(insert_query)
         with self.connection.cursor() as cursor:
             cursor.execute(insert_query)
             self.connection.commit()
         journal.log(f"В таблицу {table_name} добавлена новая запись {content}")
 
     def update_row_to_table(self, dct, table_name):
+        """Новая универсальная функция UPDATE ROW"""
+        content = ""
+        for key, value in dct.items():
+            i = f"{key} = '{value}', "
+            content += i
+        content = content[:-2] # срез последнего пробела и запятой
+
+        request = f"UPDATE {table_name} SET {content} WHERE id = '{dct['id']}'"
+        print(request)
+        with self.connection.cursor() as cursor:
+            cursor.execute(request)
+            self.connection.commit()
+
+    def update_participant(self, dct, table_name):
+        """Старая функция Используется 1 раз"""
         content = ""
         for key, value in dct.items():
             i = f"{key} = '{value}', "
@@ -99,24 +100,6 @@ class Mysql:
         print(request)
         with self.connection.cursor() as cursor:
             cursor.execute(request)
-            self.connection.commit()
-
-    def create_participant(self, phone_number, second_name, first_name, last_name, role, full_name, city, email, password, comment, disabled):
-        """Добавление нового участника в базу данных MySql"""
-        # Получаем role_id по role participant
-        select_role_id = f"SELECT role_id FROM roles WHERE role_name = '{role}'"
-        with self.connection.cursor() as cursor:
-            cursor.execute(select_role_id)
-            result = cursor.fetchall()
-            self.connection.commit()
-
-        role_id = result[0]['role_id']
-
-        insert_query = f"INSERT INTO participants (phone_number, second_name, first_name, last_name, full_name, role_id, city, email, password, comment,disabled) \
-        VALUES('{phone_number}', '{second_name}', '{first_name}', '{last_name}', '{full_name}', {role_id}, '{city}', '{email}', '{password}', '{comment}',{disabled})"
-
-        with self.connection.cursor() as cursor:
-            cursor.execute(insert_query)
             self.connection.commit()
 
     def create_user(self, new_user):
@@ -145,31 +128,6 @@ class Mysql:
             cursor.execute(insert_query)
             self.connection.commit()
 
-    def create_organization(self, new_org):
-        print("here", new_org)
-        insert_query = f"INSERT INTO organizations (organization_name, organization_INN, organization_KPP, phone_number) \
-                VALUES(" \
-                       f"'{new_org['organization_name']}'," \
-                       f" '{new_org['organization_INN']}'," \
-                       f" '{new_org['organization_KPP']}'," \
-                       f" '{new_org['phone_number']}')"
-        try:
-            with self.connection.cursor() as cursor:
-                cursor.execute(insert_query)
-                self.connection.commit()
-                print("New org inserted into database successfully")
-        except Exception as ex:
-            print("Error to add new org into database")
-
-    def select_all(self, table_name):
-        """Выбор всех строк из таблицы. Возвращает все строки"""
-        select_all = f"SELECT * FROM {table_name};"
-        with self.connection.cursor() as cursor:
-            cursor.execute(select_all)
-            result = cursor.fetchall()
-            self.connection.commit()
-        return result
-
     def get_role_by_role_id(self, role_id):
         """Получение Роли по id"""
         select_role_name = f"SELECT role_name FROM roles WHERE role_id = {role_id}"
@@ -178,7 +136,6 @@ class Mysql:
             result = cursor.fetchone()
             self.connection.commit()
         return result.get('role_name')
-
 
     def get_value_by_arg(self, value_request, dict, table_name):
         """(value_request - запрашиваемое значение, dict - словарь).
@@ -210,23 +167,6 @@ class Mysql:
         with self.connection.cursor() as cursor:
             cursor.execute(request)
             responce = cursor.fetchall()
-            self.connection.commit()
-
-
-    def update_row_by_arg(self, value, check, table_name):
-        """СТАРАЯ ВЕРСИЯ ОБНОВЛЕНИЯ СТРОКИ"""
-        for key, value in value.items():
-            lsv = key
-            rsv = value
-
-        for key, value in check.items():
-            ls = key
-            rs = value
-
-        request = f"UPDATE {table_name} SET {lsv} = '{rsv}' where {ls} = '{rs}'"
-
-        with self.connection.cursor() as cursor:
-            cursor.execute(request)
             self.connection.commit()
 
     def get_PK_by_table_name(self, table_name):
@@ -262,41 +202,6 @@ class Mysql:
         print(request)
         with self.connection.cursor() as cursor:
             cursor.execute(request)
-            self.connection.commit()
-
-
-    def get_participant_id(self, phone_number):
-        """Получение ID участника по номеру телефона"""
-        select_id = f"SELECT participant_id FROM participants WHERE phone_number = {phone_number}"
-        with self.connection.cursor() as cursor:
-            cursor.execute(select_id)
-            result = cursor.fetchall()
-            self.connection.commit()
-        print(f'Sql-возврат запроса по участнику: {result}')
-        result = result[0]['participant_id']
-        return result
-
-    def update_participant_by_id(self, id, values):
-        """Обновление данных участника по id. (role_id по умолч. = 4)"""
-        update_by_id = f"UPDATE participants SET phone_number = '{values[0]}' ,"  \
-                       f"                        second_name  = '{values[1]}' ,"  \
-                       f"                        first_name   = '{values[2]}' ,"  \
-                       f"                        last_name    = '{values[3]}' ,"  \
-                       f"                        full_name    = '{values[4]}' ,"  \
-                       f"                        role_id      = '4'           ,"  \
-                       f"                        email        = '{values[5]}' ,"  \
-                       f"                        city         = '{values[6]}' ,"  \
-                       f"                        password     = '{values[7]}' ,"  \
-                       f"                        comment      = '{values[8]}'  WHERE participant_id = {id}"
-        with self.connection.cursor() as cursor:
-            cursor.execute(update_by_id)
-            self.connection.commit()
-
-    def delete_participant_by_id(self, id):
-        """Удаление участника по id из таблицы participants"""
-        delete_by_id = f"DELETE FROM participants WHERE participant_id = {id}"
-        with self.connection.cursor() as cursor:
-            cursor.execute(delete_by_id)
             self.connection.commit()
 
     def __del__(self):

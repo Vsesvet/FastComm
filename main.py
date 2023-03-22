@@ -330,8 +330,6 @@ class Create_Event(Ui_Create_event):
         sql = Mysql()
         sql.insert_row_to_table(self.dct_event, self.table_name)
 
-        # sql.insert_row_to_table()
-
 
 class Create_user(Ui_Create_user):
     """Окно создания Пользователя"""
@@ -339,6 +337,7 @@ class Create_user(Ui_Create_user):
         username_login_role = access.get_username_and_role(user_login)
         dialog = QDialog()
         super().setupUi(dialog)
+        self.table_name = 'users'
         self.label_username_login_role.setText(f'{username_login_role}')
         self.clicked_connect(dialog)
         dialog.exec()
@@ -456,7 +455,7 @@ class Create_participant(Ui_Create_participant):
 
     def split_full_name(self, dct, full_name):
         """Разделение full_name и запись ФИО в second, first, last name"""
-        if len(full_name) > 12:
+        if len(full_name) > 10:
             split = full_name.split()
             dct['second_name'] = split[0]
             dct['first_name'] = split[1]
@@ -605,7 +604,7 @@ class Edit_participant(Ui_Create_participant):
 
         # Обновляем данные в таблице participants_data
         dct_new['full_name'] = dct["full_name"]
-        self.db.update_row_to_table(dct_new, table_name)
+        self.db.update_participant(dct_new, table_name)
         journal.log(f"Данные в таблице {table_name} обновлены для '{dct_new['participant_id']} {dct_new['full_name']}'")
 
 
@@ -632,6 +631,7 @@ class Create_organization(Ui_Create_organization):
         super().setupUi(self.dialog)
         username_login_role = access.get_username_and_role(user_login)
         self.label_username_login_role.setText(f'{username_login_role}')
+        self.table_name = 'organizations'
         self.db = Mysql()
         self.clicked_connect(self.dialog)
         self.dialog.exec()
@@ -644,18 +644,16 @@ class Create_organization(Ui_Create_organization):
 
     def create_organization(self):
         """Обработка нажатия кнопки создание новой организации"""
+        self.new_org = {}
+        self.new_org['organization_name'] = self.lineEdit_organization_name.text()
+        self.new_org['organization_INN'] = self.lineEdit_organization_inn.text()
+        self.new_org['organization_KPP'] = self.lineEdit_organization_kpp.text()
+        self.new_org['phone_number'] = self.lineEdit_phone_number.text()
 
-        new_org = {}
+        self.insert_to_db()
 
-        new_org['organization_name'] = self.lineEdit_organization_name.text()
-        new_org['organization_INN'] = self.lineEdit_organization_inn.text()
-        new_org['organization_KPP'] = self.lineEdit_organization_kpp.text()
-        new_org['phone_number'] = self.lineEdit_phone_number.text()
-
-        self.write_organization_to_db(new_org)
-
-    def write_organization_to_db(self, new_org):
-        self.db.create_organization(new_org)
+    def insert_to_db(self):
+        self.db.insert_row_to_table(self.new_org, self.table_name)
         self.dialog.close()
 
 
@@ -694,21 +692,6 @@ class Edit_organization(Ui_Create_organization):
         self.db.update_row_by_id(self.id_from_db, new_org_data, table_name)
 
         self.dialog.close()
-
-        # keys = list(new_org_data.keys())
-        # values = list(new_org_data.values())
-        # check = {f"organization_id": self.id_from_db}
-        # table_name = "organizations"
-        #
-        # for i in range(0, len(keys)):
-        #     try:
-        #         value = {f"{keys[i]}": values[i]}
-        #         print(value, check)
-        #         self.db.update_row_by_arg(value, check, table_name)
-        #     except Exception as ex:
-        #         "Error"
-        #self.dialog.close()
-
 
 
     def set_view(self):
@@ -784,7 +767,6 @@ class List_organization(Ui_List_organization):
             arg = {'phone_number': result_data[3]}
             table_name = "organizations"
             id_from_db = self.db.get_value_by_arg(value_request, arg, table_name)
-            #id_from_db = self.db.get_participant_id(result_data[0])
 
             Edit_organization(id_from_db, result_data)
 
