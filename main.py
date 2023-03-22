@@ -192,6 +192,8 @@ class Event(Ui_Event):
         self.pushButton_analisis_doc.clicked.connect(Analisis_list)
         self.pushButton_open_access.clicked.connect(self.open_access)
         self.pushButton_close_access.clicked.connect(self.close_access)
+        self.pushButton_select_organization.clicked.connect(Choose_organization)
+        self.pushButton_select_organization.clicked.connect(self.set_organization)
 
     def set_view(self):
         """Заполняем поля данных Мероприятия из полученного словаря dct_event"""
@@ -239,13 +241,16 @@ class Event(Ui_Event):
         self.pushButton_open_access.setText("Открыть доступ для организации")
         print(f"Доступ для организации {self.dct_event['access']}")
 
+    def set_organization(self):
+        global organization_dct
+        self.lineEdit_selected_organization.setText(organization_dct['organization_name'])
+
     def comboBox(self):
         pass
         # combo_box.findText(текст) - поиск элемента по тексту в выпадающем списке. Возвращает int
         # ui.comboBox.currentText() - получение значения из QComboBox. Возвращает строку
         # combo_box.currentIndex() - возвращает целое число, т.е. Индекс выбранного элемента
         # combo_box.setCurrentIndex(индекс) - он установит элемент с заданным индексом
-
 
 
 class Analisis_list(Ui_Analisis_docs):

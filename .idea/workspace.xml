@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="удалены неиспользуемые функции">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Class_Mysql.py" beforeDir="false" afterPath="$PROJECT_DIR$/Class_Mysql.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ui_Event.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_Event.py" afterDir="false" />
+    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Реализовано обновление Мероприятия (Event + Events Shedule)">
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -211,13 +208,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1676999725137</updated>
-    </task>
-    <task id="LOCAL-00020" summary="Обновлено">
-      <created>1677956234528</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1677956234528</updated>
     </task>
     <task id="LOCAL-00021" summary="Обновлено">
       <created>1678028254280</created>
@@ -555,7 +545,14 @@
       <option name="project" value="LOCAL" />
       <updated>1679510824070</updated>
     </task>
-    <option name="localTasksCounter" value="69" />
+    <task id="LOCAL-00069" summary="Реализовано обновление Мероприятия (Event + Events Shedule)">
+      <created>1679518176837</created>
+      <option name="number" value="00069" />
+      <option name="presentableId" value="LOCAL-00069" />
+      <option name="project" value="LOCAL" />
+      <updated>1679518176837</updated>
+    </task>
+    <option name="localTasksCounter" value="70" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -581,7 +578,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Поправлены незначительные мелочи" />
     <MESSAGE value="добавил close по кнопке Cancel" />
     <MESSAGE value="Принятие изменений" />
     <MESSAGE value="Добавлен Journal" />
@@ -606,6 +602,7 @@
     <MESSAGE value="Добавлены комментарии по работе с comboBox" />
     <MESSAGE value="удалены лишние print-ы отладки" />
     <MESSAGE value="удалены неиспользуемые функции" />
-    <option name="LAST_COMMIT_MESSAGE" value="удалены неиспользуемые функции" />
+    <MESSAGE value="Реализовано обновление Мероприятия (Event + Events Shedule)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Реализовано обновление Мероприятия (Event + Events Shedule)" />
   </component>
 </project>
