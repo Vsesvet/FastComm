@@ -208,7 +208,11 @@ class Event(Ui_Event):
         self.lineEdit_event_comment.setText(self.dct_event['comment'])
         status = self.comboBox_event_status.findText(self.dct_event['status'])
         self.comboBox_event_status.setCurrentIndex(status)
-
+        access = self.dct_event['access']
+        if access == 1:
+            self.pushButton_open_access.setText("Открыт")
+        else:
+            self.pushButton_close_access.setText('Закрыт')
 
     def update_event(self):
         self.dct_event['event_name'] = self.lineEdit_event_name.text()
