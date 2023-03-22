@@ -4,8 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Реализован выбор Организации в Мероприятии">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Добавлены отражения состояния Открыт или закрыт доступ для организации к Мероприятию">
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -209,13 +208,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1676999725137</updated>
-    </task>
-    <task id="LOCAL-00022" summary="Убраны персональные данные">
-      <created>1678028363081</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
-      <option name="project" value="LOCAL" />
-      <updated>1678028363081</updated>
     </task>
     <task id="LOCAL-00023" summary="Добавлен double_click Tree">
       <created>1678029833589</created>
@@ -553,7 +545,14 @@
       <option name="project" value="LOCAL" />
       <updated>1679518447632</updated>
     </task>
-    <option name="localTasksCounter" value="71" />
+    <task id="LOCAL-00071" summary="Добавлены отражения состояния Открыт или закрыт доступ для организации к Мероприятию">
+      <created>1679519428469</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1679519428469</updated>
+    </task>
+    <option name="localTasksCounter" value="72" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -579,7 +578,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Принятие изменений" />
     <MESSAGE value="Добавлен Journal" />
     <MESSAGE value="Реализовано создание профильных папок участника и удаление при удалении участника" />
     <MESSAGE value="Поле full_name перевел в режим только чтение (заполняется из полей Фамилия, Имя, Отчество)" />
@@ -604,6 +602,7 @@
     <MESSAGE value="удалены неиспользуемые функции" />
     <MESSAGE value="Реализовано обновление Мероприятия (Event + Events Shedule)" />
     <MESSAGE value="Реализован выбор Организации в Мероприятии" />
-    <option name="LAST_COMMIT_MESSAGE" value="Реализован выбор Организации в Мероприятии" />
+    <MESSAGE value="Добавлены отражения состояния Открыт или закрыт доступ для организации к Мероприятию" />
+    <option name="LAST_COMMIT_MESSAGE" value="Добавлены отражения состояния Открыт или закрыт доступ для организации к Мероприятию" />
   </component>
 </project>

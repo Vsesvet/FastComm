@@ -178,7 +178,7 @@ class Event(Ui_Event):
         dialog.exec()
 
     def adjust_tree(self):
-        """Установка наименований для колонок Tree"""
+        """Установка наименований для колонок списка"""
         columns_names = ['id', '№_', 'Фамилия', 'Имя', 'Отчество', 'Город', 'Телефон', 'e-mail', 'Пароль']
         for i in columns_names:
             self.tree_event_participants_list.headerItem().setText(columns_names.index(i), i)
@@ -224,9 +224,7 @@ class Event(Ui_Event):
         self.dct_event['type'] = self.lineEdit_type_event.text()
         self.dct_event['comment'] = self.lineEdit_event_comment.text()
         self.dct_event['status'] = self.comboBox_event_status.currentText()
-        # self.dct_event['access'] = False
         # self.dct_event['count'] = 0
-        # print(f"Строка для update_in_db: {self.dct_event}")
         self.update_in_db()
 
     def update_in_db(self):
@@ -822,9 +820,9 @@ class List_organization(Ui_List_organization):
                 result_data.append(item_string)
 
             value_request = "organization_id"
-            arg = {'phone_number': result_data[3]}
+            dct = {'phone_number': result_data[3]}
             table_name = "organizations"
-            id_from_db = self.db.get_value_by_arg(value_request, arg, table_name)
+            id_from_db = self.db.get_value_by_arg(value_request, dct, table_name)
 
             Edit_organization(id_from_db, result_data)
 

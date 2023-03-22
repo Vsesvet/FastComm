@@ -60,4 +60,4 @@ class Ui_Choose_organization(object):
         self.label_username_login_role.setText(_translate("Choose_organization", "username_login_role"))
         self.label_main.setText(_translate("Choose_organization", "Список организаций"))
         self.pushButton_cancel.setText(_translate("Choose_organization", "Отмена"))
-        self.pushButton_add.setText(_translate("Choose_organization", "Добавить"))
+        self.pushButton_add.setText(_translate("Choose_organization", "OK"))
