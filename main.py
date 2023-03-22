@@ -78,7 +78,7 @@ class Event_shedule(Ui_Event_shedule):
         self.table_name = 'events'
         self.all_events = self.db.select_all_data(self.table_name)
         # Формирование расписания мероприятий
-        self.form_events_shedule()
+        self.events_list()
         self.clicked_connect(window)
         # window.showMaximized()
         window.show()
@@ -94,13 +94,15 @@ class Event_shedule(Ui_Event_shedule):
 
     def adjust_tree(self, tree):
         """Установка наименований для колонок Tree"""
-        columns_names = ['__№__', 'Мероприятие', 'Дата и время', 'Страна', 'Город', 'Участников', 'Организация', 'Статус']
+        columns_names = ['id', '№_', 'Мероприятие', 'Дата и время', 'Страна', 'Город', 'Участников', 'Организация', 'Статус']
         for i in columns_names:
             tree.headerItem().setText(columns_names.index(i), i)
+        self.tree_event_shedule.setColumnHidden(0, True)
 
     def clicked_connect(self, window):
         """Обращения к классам окон по клику мыши"""
         self.tree_event_shedule.itemDoubleClicked.connect(self.open_event)
+        self.tree_event_shedule.itemDoubleClicked.connect(self.update_events_shedule)
         self.pushButton_exit.clicked.connect(self.close_shedule)
         self.pushButton_exit.clicked.connect(window.close)
         self.pushButton_create_event.clicked.connect(Create_Event)
@@ -119,17 +121,19 @@ class Event_shedule(Ui_Event_shedule):
         try:
             dct = {}
             item = self.tree_event_shedule.currentItem()
-            print(item)
+            print(f'Выбрана строка для открытия {item}')
             dct['event_id'] = item.text(0)
             dct_event = self.db.find_selected(dct, self.table_name)
             Event(dct_event)
         except Exception as ex:\
             print("Не выделен ни один объект в дереве")
 
-    def form_events_shedule(self):
+    def events_list(self):
         event_string = []
+        number = 1
         for dct in self.all_events:
             event_string.append(str(dct['event_id']))
+            event_string.append(str(number))
             event_string.append(dct['event_name'])
             event_string.append(dct['date_time'].strftime('%d-%m-%Y %H:%M'))
             event_string.append(dct['country'])
@@ -140,14 +144,15 @@ class Event_shedule(Ui_Event_shedule):
             item = QTreeWidgetItem(event_string)
             self.tree_event_shedule.addTopLevelItem(item)
             event_string.clear()
+            number += 1
         self.label_total_completed_events.setText(f"Всего в списке {len(self.all_events)} мероприятий")
 
     def update_events_shedule(self):
         self.tree_event_shedule.clear()
-        self.db = Mysql()
-        update_events = self.db.select_all_data(self.table_name)
+        db = Mysql()
+        update_events = db.select_all_data(self.table_name)
         self.all_events = update_events
-        self.form_events_shedule()
+        self.events_list()
 
     def close_shedule(self):
         """Запись лога выхода, по нажатию на кнопку Выход"""
@@ -158,6 +163,7 @@ class Event(Ui_Event):
     """Работа с окном Мероприятие"""
     def __init__(self, dct_event):
         self.dct_event = dct_event
+        self.table_name = 'events'
         print(f"Объект из базы данных: {self.dct_event}")
         username_login_role = access.get_username_and_role(user_login)
         dialog = QDialog()
@@ -166,13 +172,30 @@ class Event(Ui_Event):
         # Установка ResizeToContents для treeWidget_list_participance
         self.tree_event_participants_list.header().setStretchLastSection(False)
         self.tree_event_participants_list.header().setSectionResizeMode(QHeaderView.ResizeToContents)
+        self.adjust_tree()
         self.set_view()
-        self.clicked_connect()
+        self.clicked_connect(dialog)
         dialog.exec()
+
+    def adjust_tree(self):
+        """Установка наименований для колонок Tree"""
+        columns_names = ['id', '№_', 'Фамилия', 'Имя', 'Отчество', 'Город', 'Телефон', 'e-mail', 'Пароль']
+        for i in columns_names:
+            self.tree_event_participants_list.headerItem().setText(columns_names.index(i), i)
+        self.tree_event_participants_list.setColumnHidden(0, True)
+
+    def clicked_connect(self, dialog):
+        """Обработка нажатий кнопок"""
+        self.pushButton_ok.clicked.connect(self.update_event)
+        self.pushButton_ok.clicked.connect(dialog.close)
+        self.pushButton_add_event_participant.clicked.connect(Add_participant)
+        self.pushButton_analisis_doc.clicked.connect(Analisis_list)
+        self.pushButton_open_access.clicked.connect(self.open_access)
+        self.pushButton_close_access.clicked.connect(self.close_access)
 
     def set_view(self):
         """Заполняем поля данных Мероприятия из полученного словаря dct_event"""
-        self.label_Event.setText(f"Мероприятие  № {self.dct_event['event_id']}")
+        # self.label_Event.setText(f"Мероприятие  № {self.dct_event['event_id']}")
         self.lineEdit_event_name.setText(self.dct_event['event_name'])
         self.lineEdit_event_theme.setText(self.dct_event['event_theme'])
         self.lineEdit_selected_organization.setText(self.dct_event['organization'])
@@ -183,8 +206,38 @@ class Event(Ui_Event):
         self.lineEdit_event_comment.setText(self.dct_event['comment'])
         status = self.comboBox_event_status.findText(self.dct_event['status'])
         self.comboBox_event_status.setCurrentIndex(status)
+
+
+    def update_event(self):
+        self.dct_event['event_name'] = self.lineEdit_event_name.text()
+        self.dct_event['event_theme'] = self.lineEdit_event_theme.text()
+        self.dct_event['organization'] = self.lineEdit_selected_organization.text()
+        self.dct_event['date_time'] = self.event_dateTime.dateTime().toString("yyyy-MM-dd hh:mm")
+        self.dct_event['country'] = self.lineEdit_event_country.text()
+        self.dct_event['city'] = self.lineEdit_event_city.text()
+        self.dct_event['type'] = self.lineEdit_type_event.text()
+        self.dct_event['comment'] = self.lineEdit_event_comment.text()
+        self.dct_event['status'] = self.comboBox_event_status.currentText()
         # self.dct_event['access'] = False
         # self.dct_event['count'] = 0
+        # print(f"Строка для update_in_db: {self.dct_event}")
+        self.update_in_db()
+
+    def update_in_db(self):
+        sql = Mysql()
+        sql.update_event(self.dct_event, self.table_name)
+
+    def open_access(self):
+        self.dct_event['access'] = 1
+        self.pushButton_open_access.setText("Открыт")
+        self.pushButton_close_access.setText('Закрыть доступ для организации')
+        print(f"Доступ для организации {self.dct_event['access']}")
+
+    def close_access(self):
+        self.dct_event['access'] = 0
+        self.pushButton_close_access.setText('Закрыт')
+        self.pushButton_open_access.setText("Открыть доступ для организации")
+        print(f"Доступ для организации {self.dct_event['access']}")
 
     def comboBox(self):
         pass
@@ -193,10 +246,6 @@ class Event(Ui_Event):
         # combo_box.currentIndex() - возвращает целое число, т.е. Индекс выбранного элемента
         # combo_box.setCurrentIndex(индекс) - он установит элемент с заданным индексом
 
-    def clicked_connect(self):
-        """Обработка нажатий кнопок"""
-        self.pushButton_add_event_participant.clicked.connect(Add_participant)
-        self.pushButton_analisis_doc.clicked.connect(Analisis_list)
 
 
 class Analisis_list(Ui_Analisis_docs):

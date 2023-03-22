@@ -74,15 +74,15 @@ class Mysql:
             self.connection.commit()
         journal.log(f"В таблицу {table_name} добавлена новая запись {content}")
 
-    def update_row_to_table(self, dct, table_name):
-        """Новая универсальная функция UPDATE ROW"""
+    def update_event(self, dct, table_name):
+        """Функция обновления row в Events"""
         content = ""
         for key, value in dct.items():
             i = f"{key} = '{value}', "
             content += i
         content = content[:-2] # срез последнего пробела и запятой
 
-        request = f"UPDATE {table_name} SET {content} WHERE id = '{dct['id']}'"
+        request = f"UPDATE {table_name} SET {content} WHERE event_id = '{dct['event_id']}'"
         print(request)
         with self.connection.cursor() as cursor:
             cursor.execute(request)

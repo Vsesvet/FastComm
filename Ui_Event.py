@@ -177,7 +177,7 @@ class Ui_Event(object):
         _translate = QtCore.QCoreApplication.translate
         Event.setWindowTitle(_translate("Event", "Event"))
         self.pushButton_sms.setText(_translate("Event", "SMS"))
-        self.label_Event.setText(_translate("Event", "Мероприятие  №"))
+        self.label_Event.setText(_translate("Event", "Мероприятие"))
         self.pushButton_ok.setText(_translate("Event", "OK"))
         self.lineEdit_event_name.setPlaceholderText(_translate("Event", "Наименование мероприятия..."))
         self.lineEdit_selected_organization.setPlaceholderText(_translate("Event", "Организация..."))
