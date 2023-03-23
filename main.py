@@ -122,7 +122,7 @@ class Event_shedule(Ui_Event_shedule):
             dct = {}
             item = self.tree_event_shedule.currentItem()
             print(f'Выбрана строка для открытия {item}')
-            dct['event_id'] = item.text(0)
+            dct['id'] = item.text(0)
             dct_event = self.db.find_selected(dct, self.table_name)
             Event(dct_event)
         except Exception as ex:\
@@ -132,7 +132,7 @@ class Event_shedule(Ui_Event_shedule):
         event_string = []
         number = 1
         for dct in self.all_events:
-            event_string.append(str(dct['event_id']))
+            event_string.append(str(dct['id']))
             event_string.append(str(number))
             event_string.append(dct['event_name'])
             event_string.append(dct['date_time'].strftime('%d-%m-%Y %H:%M'))
@@ -197,7 +197,7 @@ class Event(Ui_Event):
 
     def set_view(self):
         """Заполняем поля данных Мероприятия из полученного словаря dct_event"""
-        # self.label_Event.setText(f"Мероприятие  № {self.dct_event['event_id']}")
+        # self.label_Event.setText(f"Мероприятие  № {self.dct_event['id']}")
         self.lineEdit_event_name.setText(self.dct_event['event_name'])
         self.lineEdit_event_theme.setText(self.dct_event['event_theme'])
         self.lineEdit_selected_organization.setText(self.dct_event['organization'])
@@ -591,6 +591,7 @@ class Edit_participant(Ui_Create_participant):
         """Считывает данные с полей и обновляет данные пользователя в базе данных"""
         print(f"Данные участника до обновления: {self.participant}")
         dct = {}
+        dct['id'] = self.participant['id']
         dct['phone_number'] = self.lineEdit_phone_number.text().strip()
         dct['phone_number'] = self.formating_phone(dct['phone_number'])
         dct['second_name'] = self.lineEdit_second_name.text().strip()
