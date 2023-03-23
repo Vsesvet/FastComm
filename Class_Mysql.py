@@ -155,11 +155,11 @@ class Mysql:
             print(f'Возвращаемое значение функции get_value_by_arg: {value2}')
         return value2
 
-    def delete_row_by_arg(self, dict, table_name):
+    def delete_row_by_arg(self, dct, table_name):
         """(dict - словарь, table_name - название таблицы).
         Универсальная функция удаления строки из таблицы"""
-        print(dict)
-        for key, value in dict.items():
+        print(dct)
+        for key, value in dct.items():
             ls = key
             rs = value
         request = f"DELETE FROM {table_name} WHERE {ls} = '{rs}'"
@@ -168,6 +168,7 @@ class Mysql:
             cursor.execute(request)
             responce = cursor.fetchall()
             self.connection.commit()
+            print(f"Удален{responce}")
 
     def get_PK_by_table_name(self, table_name):
         """Функция возвращающая наименование первичного ключа по наименованию таблицы"""

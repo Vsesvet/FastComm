@@ -998,23 +998,7 @@ class List_participants(Ui_List_participants):
         except Exception as ex:\
             print("Не выделен ни один объект в дереве")
 
-    def delete_participant(self):
-        """Полное Удаление выделенного участника вместе с профильной папкой"""
-        item = self.tree_participants_list.currentItem()
-        phone_number = item.text(0)
 
-        value_request = "id"
-        arg = {'phone_number': phone_number}
-        table_name = "participants"
-        id = self.db.get_value_by_arg(value_request, arg, table_name)
-        arg = {'id': id}
-        # Удаление профиля участника
-        self.delete_profile_participant(id)
-        # Удаление участника из таблицы participants_data
-        self.db.delete_row_by_arg(arg, 'participants_data')
-        # Удаление участника из таблицы participants
-        self.db.delete_row_by_arg(arg, table_name)
-        self.update_tree()
 
     def update_tree(self):
         """Обновление общего списка участников (Аналогично функции set_view_of_all_participants, но с небольшими отличиями)"""
@@ -1105,20 +1089,30 @@ class List_participants(Ui_List_participants):
         self.lineEdit_find_by_email.setText('')
         self.update_tree()
 
-    def delete_profile_participant(self, id):
-        """Полное Удаление профиля участника вместе с документами"""
+    def delete_participant(self):
+        """Полное Удаление выделенного участника вместе с профильной папкой"""
+        item = self.tree_participants_list.currentItem()
+        dct_id = {} # id для таблицы participants
+        dct_id['id'] = int(item.text(0))
+        part_id = {} # id для таблицы participants_data
+        part_id['participant_id'] = int(item.text(0))
+        # Удаление профиля участника
+        self.delete_profile_participant(part_id)
+        # Удаление участника из таблицы participants
+        self.db.delete_row_by_arg(dct_id, 'participants')
+        self.update_tree()
+
+    def delete_profile_participant(self, part_id):
+        """Удаление профиля участника с документами"""
         # Забираем данные о профильной папке из БД
-        table_name = "participants_data"
-        dct = {}
-        dct['participant_id'] = id
-        profile = self.db.find_selected(dct, table_name)
+        profile = self.db.find_selected(part_id, "participants_data")
         directory_path = profile['profile_path']
         host, login, secret = ssh_config.host, ssh_config.login, ssh_config.secret
         event = paramiko.client.SSHClient()
         event.set_missing_host_key_policy(paramiko.AutoAddPolicy())
         event.connect(host, username=login, password=secret)
         stdin, stdout, stderr = event.exec_command(f"rm -rf {directory_path}")
-        journal.log(f"Удален профиль участника {dct['participant_id']} {profile['full_name']}")
+        journal.log(f"Удален профиль участника {part_id['participant_id']} {profile['full_name']}")
         print(stdout.read().decode())
         stdin.close()
         event.close()
