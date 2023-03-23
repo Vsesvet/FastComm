@@ -487,7 +487,7 @@ class Create_participant(Ui_Create_participant):
         dct = self.db.find_selected(dct, self.table_name)
         self.create_profile(dct)
         self.create_profile_to_db(dct)
-        journal.log(f"Создан участник {dct['participant_id']}_{dct['second_name']} {dct['first_name']} {dct['last_name']}")
+        journal.log(f"Создан участник {dct['id']}_{dct['second_name']} {dct['first_name']} {dct['last_name']}")
 
     def generate_password(self):
         """Генерация пароля по нажатию на кнопку"""
@@ -521,7 +521,7 @@ class Create_participant(Ui_Create_participant):
     def create_profile(self, dct):
         """Создание профиля - директории для хранения файлов личных документов участника"""
         host, login, secret = ssh_config.host, ssh_config.login, ssh_config.secret
-        profile_name = f"{dct['participant_id']}_{dct['second_name']}_{dct['first_name']}_{dct['last_name']}"
+        profile_name = f"{dct['id']}_{dct['second_name']}_{dct['first_name']}_{dct['last_name']}"
         self.directory_path = f"/home/event/participants_data/{profile_name}"
         event = paramiko.client.SSHClient()
         event.set_missing_host_key_policy(paramiko.AutoAddPolicy())
@@ -536,15 +536,15 @@ class Create_participant(Ui_Create_participant):
         """Создание записи в таблице: 'participants_data' о новом профиле"""
         table_name = "participants_data"
         dct1 = {}
-        dct1['participant_id'] = dct['participant_id']
+        dct1['participant_id'] = dct['id']
         dct1['full_name'] = dct["full_name"]
         dct1['profile_path'] = self.directory_path
-        dct1['passport'] = f"{dct['participant_id']}_passport.jpg"
-        dct1['registration'] = f"{dct['participant_id']}_registration.jpg"
-        dct1['inn'] = f"{dct['participant_id']}_inn.jpg"
-        dct1['snils'] = f"{dct['participant_id']}_snils.jpg"
-        dct1['diploma'] = f"{dct['participant_id']}_diploma.jpg"
-        dct1['sertificate'] = f"{dct['participant_id']}_sertificate.jpg"
+        dct1['passport'] = f"{dct['id']}_passport.jpg"
+        dct1['registration'] = f"{dct['id']}_registration.jpg"
+        dct1['inn'] = f"{dct['id']}_inn.jpg"
+        dct1['snils'] = f"{dct['id']}_snils.jpg"
+        dct1['diploma'] = f"{dct['id']}_diploma.jpg"
+        dct1['sertificate'] = f"{dct['id']}_sertificate.jpg"
         dct1['passport_exist'] = False
         dct1['passport_accept'] = False
         dct1['registration_exist'] = False
@@ -564,11 +564,11 @@ class Create_participant(Ui_Create_participant):
 class Edit_participant(Ui_Create_participant):
     """Окно редактирования Участника"""
 
-    def __init__(self, participant_id):
+    def __init__(self, id):
         self.db = Mysql()
         self.table_name = 'participants'
         dct = {}
-        dct['participant_id'] = participant_id
+        dct['id'] = id
         self.participant = self.db.find_selected(dct, self.table_name)
         username_login_role = access.get_username_and_role(user_login)
         self.dialog = QDialog()
@@ -613,7 +613,7 @@ class Edit_participant(Ui_Create_participant):
 
 
         # Update-запись в БД.
-        self.db.update_row_by_id(self.participant['participant_id'], dct, self.table_name)
+        self.db.update_row_by_id(self.participant['id'], dct, self.table_name)
         self.dialog.close()
         journal.log(f"Обновлены данные участника в таблице 'participants': {dct['second_name']} {dct['first_name']}")
 
@@ -637,8 +637,8 @@ class Edit_participant(Ui_Create_participant):
     def update_profile(self, dct):
         """Изменение профиля участника - директории для хранения файлов личных документов участника"""
         host, login, secret = ssh_config.host, ssh_config.login, ssh_config.secret
-        old_profile_name = f"{self.participant['participant_id']}_{self.participant['second_name']}_{self.participant['first_name']}_{self.participant['last_name']}"
-        actual_profile_name = f"{self.participant['participant_id']}_{dct['second_name']}_{dct['first_name']}_{dct['last_name']}"
+        old_profile_name = f"{self.participant['id']}_{self.participant['second_name']}_{self.participant['first_name']}_{self.participant['last_name']}"
+        actual_profile_name = f"{self.participant['id']}_{dct['second_name']}_{dct['first_name']}_{dct['last_name']}"
         self.directory_path = f"/home/event/participants_data/"
         event = paramiko.client.SSHClient()
         event.set_missing_host_key_policy(paramiko.AutoAddPolicy())
@@ -653,7 +653,7 @@ class Edit_participant(Ui_Create_participant):
         """Обновление записи в таблице: 'participants_data' при изменении профиля"""
         table_name = "participants_data"
         dct_new = {}
-        dct_new['participant_id'] = self.participant['participant_id']
+        dct_new['participant_id'] = self.participant['id']
 
         # Забираем row по participant_id из таблицы participants_data
         dct_new = self.db.find_selected(dct_new, table_name)
@@ -819,7 +819,7 @@ class List_organization(Ui_List_organization):
                 print(item_string)
                 result_data.append(item_string)
 
-            value_request = "organization_id"
+            value_request = "id"
             dct = {'phone_number': result_data[3]}
             table_name = "organizations"
             id_from_db = self.db.get_value_by_arg(value_request, dct, table_name)
@@ -835,12 +835,12 @@ class List_organization(Ui_List_organization):
             item = self.tree_organizations_list.currentItem()
             phone_number = item.text(3)
 
-            value_request = "organization_id"
+            value_request = "id"
             arg = {'phone_number': phone_number}
             table_name = "organizations"
 
             id = self.db.get_value_by_arg(value_request, arg, table_name)
-            dict = {'organization_id': id}
+            dict = {'id': id}
             self.db.delete_row_by_arg(dict, table_name)
             self.update_tree()
 
@@ -958,12 +958,14 @@ class List_participants(Ui_List_participants):
         self.tree_participants_list.header().setStretchLastSection(False)
         self.tree_participants_list.header().setSectionResizeMode(QHeaderView.ResizeToContents)
         # Установка заголовков для колонок  treeWidget
-        headers_names = ['Телефон', 'Фамилия', 'Имя', 'Отчество', 'e-mail', 'Город', 'Пароль', 'Комментарий']
+        headers_names = ['id', '№', 'Телефон', 'Фамилия', 'Имя', 'Отчество', 'e-mail', 'Город', 'Пароль', 'Комментарий']
+
         self.set_headers(headers_names, self.tree_participants_list)
         # Инициализация функции вывода списка всех участников
         table_name = 'participants'
-        all_participants = self.db.select_all_data(table_name)
-        self.set_view_of_all_participants(all_participants)
+        participants = self.db.select_all_data(table_name)
+        print(participants)
+        self.set_view_of_all_participants(participants)
         self.clicked_connect()
         dialog.exec()
 
@@ -990,9 +992,9 @@ class List_participants(Ui_List_participants):
             dct = {}
             table_name = 'participants'
             item = self.tree_participants_list.currentItem()
-            dct['phone_number'] = item.text(0)
+            dct['id'] = item.text(0)
             participant = self.db.find_selected(dct, table_name)
-            Edit_participant(participant['participant_id'])
+            Edit_participant(participant['id'])
         except Exception as ex:\
             print("Не выделен ни один объект в дереве")
 
@@ -1001,11 +1003,11 @@ class List_participants(Ui_List_participants):
         item = self.tree_participants_list.currentItem()
         phone_number = item.text(0)
 
-        value_request = "participant_id"
+        value_request = "id"
         arg = {'phone_number': phone_number}
         table_name = "participants"
         id = self.db.get_value_by_arg(value_request, arg, table_name)
-        arg = {'participant_id': id}
+        arg = {'id': id}
         # Удаление профиля участника
         self.delete_profile_participant(id)
         # Удаление участника из таблицы participants_data
@@ -1022,37 +1024,40 @@ class List_participants(Ui_List_participants):
         except Exception as ex:
             print("Error update list participants")
 
-        keys = ['phone_number', 'second_name', 'first_name', 'last_name', 'email', 'city', 'password', 'comment']
         table_name = "participants"
-        all_participants = db.select_all_data(table_name)
+        participants = db.select_all_data(table_name)
+        self. set_view_of_all_participants(participants)
 
-        value = []
-        for id in range(0, len(all_participants)):
-            for key in keys:
-                value.append(all_participants[id][key])
-            item = QTreeWidgetItem(value)
-            self.tree_participants_list.addTopLevelItem(item)
-            value.clear()
 
     def set_headers(self, headers_names, tree):
         """Устанавливает заголовки колонок для Списка всех участников"""
         # tree.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.SizeAdjustPolicy.AdjustToContents)
         for header in headers_names:
             tree.headerItem().setText(headers_names.index(header), header)
+        tree.setColumnHidden(0, True)
 
-    def set_view_of_all_participants(self, all_participants):
+    def set_view_of_all_participants(self, participants):
         """Отображение данных по всем участникам"""
-        print("set_view отработала")
         self.tree_participants_list.clear()
-        keys = ['phone_number', 'second_name', 'first_name', 'last_name', 'email', 'city', 'password', 'comment']
-
-        value = []
-        for id in range(0, len(all_participants)):
-            for key in keys:
-                value.append(all_participants[id][key])
-            item = QTreeWidgetItem(value)
+        participant_string = []
+        number = 1
+        # ( id, №__, phone_number, second_name, first_name, last_name, email, city, password, comment)
+        for dct in participants:
+            participant_string.append(str(dct['id']))
+            participant_string.append(str(number))
+            participant_string.append(dct['phone_number'])
+            participant_string.append(dct['second_name'])
+            participant_string.append(dct['first_name'])
+            participant_string.append(dct['last_name'])
+            participant_string.append(dct['email'])
+            participant_string.append(dct['city'])
+            participant_string.append(dct['password'])
+            participant_string.append(dct['comment'])
+            item = QTreeWidgetItem(participant_string)
             self.tree_participants_list.addTopLevelItem(item)
-            value.clear()
+            participant_string.clear()
+            number += 1
+        # self.label_total_participants.setText(f"Всего в списке {len(participant_string)} участников")
 
     def find_participant(self):
         """Поиск участника по телефону или фамилии или email"""
@@ -1100,12 +1105,12 @@ class List_participants(Ui_List_participants):
         self.lineEdit_find_by_email.setText('')
         self.update_tree()
 
-    def delete_profile_participant(self, participant_id):
+    def delete_profile_participant(self, id):
         """Полное Удаление профиля участника вместе с документами"""
         # Забираем данные о профильной папке из БД
         table_name = "participants_data"
         dct = {}
-        dct['participant_id'] = participant_id
+        dct['participant_id'] = id
         profile = self.db.find_selected(dct, table_name)
         directory_path = profile['profile_path']
         host, login, secret = ssh_config.host, ssh_config.login, ssh_config.secret
@@ -1113,7 +1118,7 @@ class List_participants(Ui_List_participants):
         event.set_missing_host_key_policy(paramiko.AutoAddPolicy())
         event.connect(host, username=login, password=secret)
         stdin, stdout, stderr = event.exec_command(f"rm -rf {directory_path}")
-        journal.log(f"Удален профиль участника {participant_id} {profile['full_name']}")
+        journal.log(f"Удален профиль участника {dct['participant_id']} {profile['full_name']}")
         print(stdout.read().decode())
         stdin.close()
         event.close()

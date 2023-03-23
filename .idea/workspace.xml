@@ -4,8 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="удалены лишние print-ы отладки">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Event">
+      <change beforePath="$PROJECT_DIR$/Ui_designer/Ui_Accept_docs.ui" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_designer/Ui_Accept_docs.ui" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ui_designer/Ui_Event.ui" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_designer/Ui_Event.ui" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -208,13 +210,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1676999725137</updated>
-    </task>
-    <task id="LOCAL-00018" summary="Добавлен full_name">
-      <created>1677956037716</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1677956037716</updated>
     </task>
     <task id="LOCAL-00019" summary="Обновлено">
       <created>1677956154322</created>
@@ -552,7 +547,14 @@
       <option name="project" value="LOCAL" />
       <updated>1679432369248</updated>
     </task>
-    <option name="localTasksCounter" value="67" />
+    <task id="LOCAL-00067" summary="Event">
+      <created>1679553730639</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1679553730641</updated>
+    </task>
+    <option name="localTasksCounter" value="68" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -578,7 +580,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Поправлены мелкие недочеты" />
     <MESSAGE value="Поправлены незначительные мелочи" />
     <MESSAGE value="добавил close по кнопке Cancel" />
     <MESSAGE value="Принятие изменений" />
@@ -603,7 +604,8 @@
     <MESSAGE value="Добавлены поля в Event. Уменьшен размер колонок tree по умолчанию." />
     <MESSAGE value="Добавлены комментарии по работе с comboBox" />
     <MESSAGE value="удалены лишние print-ы отладки" />
-    <option name="LAST_COMMIT_MESSAGE" value="удалены лишние print-ы отладки" />
+    <MESSAGE value="Event" />
+    <option name="LAST_COMMIT_MESSAGE" value="Event" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

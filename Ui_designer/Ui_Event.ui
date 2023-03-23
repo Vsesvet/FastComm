@@ -253,11 +253,14 @@
    </item>
    <item row="15" column="0" rowspan="7" colspan="6">
     <widget class="QTreeWidget" name="tree_event_participants_list">
+     <property name="headerHidden">
+      <bool>false</bool>
+     </property>
      <property name="columnCount">
-      <number>7</number>
+      <number>9</number>
      </property>
      <attribute name="headerMinimumSectionSize">
-      <number>15</number>
+      <number>20</number>
      </attribute>
      <attribute name="headerDefaultSectionSize">
       <number>20</number>
@@ -270,37 +273,47 @@
      </attribute>
      <column>
       <property name="text">
-       <string>1</string>
+       <string>id</string>
       </property>
      </column>
      <column>
       <property name="text">
-       <string notr="true">2</string>
+       <string notr="true">№</string>
       </property>
      </column>
      <column>
       <property name="text">
-       <string notr="true">3</string>
+       <string notr="true">Фамилия</string>
       </property>
      </column>
      <column>
       <property name="text">
-       <string notr="true">4</string>
+       <string notr="true">Имя</string>
       </property>
      </column>
      <column>
       <property name="text">
-       <string notr="true">5</string>
+       <string notr="true">Отчество</string>
       </property>
      </column>
      <column>
       <property name="text">
-       <string notr="true">6</string>
+       <string notr="true">Город</string>
       </property>
      </column>
      <column>
       <property name="text">
-       <string notr="true">7</string>
+       <string notr="true">Телефон</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>e-mail</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Пароль</string>
       </property>
      </column>
     </widget>
