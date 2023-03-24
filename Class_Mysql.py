@@ -18,17 +18,7 @@ class Mysql:
         except Exception as ex:
             print("Error connection to db")
 
-    def select_all_data(self, table_name):
-        """Получение всех строк из базы данных"""
-        select_all_rows = f"SELECT * FROM {table_name}"
-
-        with self.connection.cursor() as cursor:
-            cursor.execute(select_all_rows)
-            rows = cursor.fetchall()
-
-            return rows
-
-    def find_selected(self, dct, table_name):
+    def select_one(self, dct, table_name):
         """Находим строку (или несколько) по переданным параметрам в dct. На входе: {}, ''. На выходе {}"""
         content = ''
         for key, value in dct.items():
@@ -43,7 +33,7 @@ class Mysql:
             self.connection.commit()
         return find_dict
 
-    def find_several(self, dct, table_name):
+    def select_every(self, dct, table_name):
         """Находим строку (или несколько) по переданным параметрам в dct. На входе: {}, ''. На выходе [{}]"""
         content = ''
         for key, value in dct.items():
@@ -58,6 +48,16 @@ class Mysql:
             find_dict = cursor.fetchall()
             self.connection.commit()
         return find_dict
+
+    def select_all(self, table_name):
+        """Получение всех строк из базы данных"""
+        select_all_rows = f"SELECT * FROM {table_name}"
+
+        with self.connection.cursor() as cursor:
+            cursor.execute(select_all_rows)
+            rows = cursor.fetchall()
+
+            return rows
 
     def insert_row_to_table(self, dictionary, table_name):
         """Добавление row в таблицу. На входе: {}, ''. Выход без возврата"""
@@ -74,15 +74,15 @@ class Mysql:
             self.connection.commit()
         journal.log(f"В таблицу {table_name} добавлена новая запись {content}")
 
-    def update_event(self, dct, table_name):
-        """Функция обновления row в Events"""
+    def update_row(self, dct, table_name):
+        """Универсальная функция обновления row в таблице"""
         content = ""
         for key, value in dct.items():
             i = f"{key} = '{value}', "
             content += i
         content = content[:-2] # срез последнего пробела и запятой
 
-        request = f"UPDATE {table_name} SET {content} WHERE event_id = '{dct['event_id']}'"
+        request = f"UPDATE {table_name} SET {content} WHERE id = '{dct['id']}'"
         print(request)
         with self.connection.cursor() as cursor:
             cursor.execute(request)

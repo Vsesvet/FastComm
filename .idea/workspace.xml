@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Изменение персонализировынных id в таблицах Organizations и Participants">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Class_Access.py" beforeDir="false" afterPath="$PROJECT_DIR$/Class_Access.py" afterDir="false" />
+    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="в БД role_id и user_id заменены на id. Изменения в коде соответствующие.">
       <change beforePath="$PROJECT_DIR$/Class_Mysql.py" beforeDir="false" afterPath="$PROJECT_DIR$/Class_Mysql.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
@@ -196,8 +194,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.main" />
-        <item itemvalue="Python.Class_Access" />
         <item itemvalue="Python.Class_Mysql" />
+        <item itemvalue="Python.Class_Access" />
         <item itemvalue="Python.db_config" />
         <item itemvalue="Python.ssh_connect" />
       </list>
@@ -211,13 +209,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1676999725137</updated>
-    </task>
-    <task id="LOCAL-00021" summary="Обновлено">
-      <created>1678028254280</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1678028254280</updated>
     </task>
     <task id="LOCAL-00022" summary="Убраны персональные данные">
       <created>1678028363081</created>
@@ -555,7 +546,14 @@
       <option name="project" value="LOCAL" />
       <updated>1679575097858</updated>
     </task>
-    <option name="localTasksCounter" value="70" />
+    <task id="LOCAL-00070" summary="в БД role_id и user_id заменены на id. Изменения в коде соответствующие.">
+      <created>1679650011289</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1679650011289</updated>
+    </task>
+    <option name="localTasksCounter" value="71" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -581,7 +579,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="добавил close по кнопке Cancel" />
     <MESSAGE value="Принятие изменений" />
     <MESSAGE value="Добавлен Journal" />
     <MESSAGE value="Реализовано создание профильных папок участника и удаление при удалении участника" />
@@ -606,15 +603,16 @@
     <MESSAGE value="удалены лишние print-ы отладки" />
     <MESSAGE value="Event" />
     <MESSAGE value="Изменение персонализировынных id в таблицах Organizations и Participants" />
-    <option name="LAST_COMMIT_MESSAGE" value="Изменение персонализировынных id в таблицах Organizations и Participants" />
+    <MESSAGE value="в БД role_id и user_id заменены на id. Изменения в коде соответствующие." />
+    <option name="LAST_COMMIT_MESSAGE" value="в БД role_id и user_id заменены на id. Изменения в коде соответствующие." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/Class_Access.py</url>
-          <line>36</line>
-          <option name="timeStamp" value="1" />
+          <line>12</line>
+          <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

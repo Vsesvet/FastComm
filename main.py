@@ -56,7 +56,7 @@ class Login(Ui_Login):
         login['phone_number'] = self.lineEdit_login.text().strip()
         login['password'] = self.lineEdit_password.text().strip()
         journal.log(f'Попытка входа с учетными данными: {login}')
-        user_login = Mysql().find_selected(login, table_name)
+        user_login = Mysql().select_one(login, table_name)
         journal.log(f"Пользователь: {user_login['second_name']} {user_login['first_name']} вошел в систему")
 
 
@@ -76,7 +76,7 @@ class Event_shedule(Ui_Event_shedule):
         # Чтение мероприятий из базы данных
         self.db = Mysql()
         self.table_name = 'events'
-        self.all_events = self.db.select_all_data(self.table_name)
+        self.all_events = self.db.select_all(self.table_name)
         # Формирование расписания мероприятий
         self.events_list()
         self.clicked_connect(window)
@@ -123,7 +123,7 @@ class Event_shedule(Ui_Event_shedule):
             item = self.tree_event_shedule.currentItem()
             print(f'Выбрана строка для открытия {item}')
             dct['id'] = item.text(0)
-            dct_event = self.db.find_selected(dct, self.table_name)
+            dct_event = self.db.select_one(dct, self.table_name)
             Event(dct_event)
         except Exception as ex:\
             print("Не выделен ни один объект в дереве")
@@ -150,7 +150,7 @@ class Event_shedule(Ui_Event_shedule):
     def update_events_shedule(self):
         self.tree_event_shedule.clear()
         db = Mysql()
-        update_events = db.select_all_data(self.table_name)
+        update_events = db.select_all(self.table_name)
         self.all_events = update_events
         self.events_list()
 
@@ -229,7 +229,7 @@ class Event(Ui_Event):
 
     def update_in_db(self):
         sql = Mysql()
-        sql.update_event(self.dct_event, self.table_name)
+        sql.update_row(self.dct_event, self.table_name)
 
     def open_access(self):
         self.dct_event['access'] = 1
@@ -484,7 +484,7 @@ class Create_participant(Ui_Create_participant):
             journal.log(f"Ошибка создания Участника: {dct['second_name']}")
 
         # Создание профиля участника
-        dct = self.db.find_selected(dct, self.table_name)
+        dct = self.db.select_one(dct, self.table_name)
         self.create_profile(dct)
         self.create_profile_to_db(dct)
         journal.log(f"Создан участник {dct['id']}_{dct['second_name']} {dct['first_name']} {dct['last_name']}")
@@ -563,60 +563,18 @@ class Create_participant(Ui_Create_participant):
 
 class Edit_participant(Ui_Create_participant):
     """Окно редактирования Участника"""
-
-    def __init__(self, id):
-        self.db = Mysql()
+    def __init__(self, participant):
+        self.participant = participant
         self.table_name = 'participants'
-        dct = {}
-        dct['id'] = id
-        self.participant = self.db.find_selected(dct, self.table_name)
+        self.db = Mysql()
         username_login_role = access.get_username_and_role(user_login)
         self.dialog = QDialog()
         super().setupUi(self.dialog)
         self.label_create_participant.setText("Редактирование участника")
         self.label_username_login_role.setText(f'{username_login_role}')
-
         self.set_view()
-
         self.clicked_connect(self.dialog)
         self.dialog.exec()
-
-    def clicked_connect(self, dialog):
-        """Обработка нажатий кнопок окна Редактирование участника"""
-        self.pushButton_generate.clicked.connect(self.generate_password)
-        self.pushButton_save.clicked.connect(self.update_participant)
-        self.pushButton_cancel.clicked.connect(dialog.close)
-
-    def update_participant(self):
-        """Считывает данные с полей и обновляет данные пользователя в базе данных"""
-        print(f"Данные участника до обновления: {self.participant}")
-        dct = {}
-        dct['id'] = self.participant['id']
-        dct['phone_number'] = self.lineEdit_phone_number.text().strip()
-        dct['phone_number'] = self.formating_phone(dct['phone_number'])
-        dct['second_name'] = self.lineEdit_second_name.text().strip()
-        dct['first_name'] = self.lineEdit_first_name.text().strip()
-        dct['last_name'] = self.lineEdit_last_name.text().strip()
-        dct['full_name'] = f"{dct['second_name']} {dct['first_name']} {dct['last_name']}"
-        dct['email'] = self.lineEdit_email.text().strip()
-        dct['city'] = self.lineEdit_city.text().strip()
-        dct['password'] = self.lineEdit_password.text().strip()
-        dct['comment'] = self.lineEdit_comment.text().strip()
-        # dct['disabled'] = self.checkBox_disabled_participant.isChecked()
-
-
-        # Проверяем изменились ли данные для обновления профиля участника
-        if dct['second_name'] == self.participant['second_name'] and dct['first_name'] == self.participant['first_name'] and dct['last_name'] == self.participant['last_name']:
-            pass
-        else:
-            self.update_profile(dct)
-            self.update_db_participants_data(dct)
-
-
-        # Update-запись в БД.
-        self.db.update_row_by_id(self.participant['id'], dct, self.table_name)
-        self.dialog.close()
-        journal.log(f"Обновлены данные участника в таблице 'participants': {dct['second_name']} {dct['first_name']}")
 
     def set_view(self):
         """Устанавливает в поля для ввода данные выбранного пользователя"""
@@ -635,35 +593,11 @@ class Edit_participant(Ui_Create_participant):
         passw = generate_password.generate()
         self.lineEdit_password.setText(f'{passw}')
 
-    def update_profile(self, dct):
-        """Изменение профиля участника - директории для хранения файлов личных документов участника"""
-        host, login, secret = ssh_config.host, ssh_config.login, ssh_config.secret
-        old_profile_name = f"{self.participant['id']}_{self.participant['second_name']}_{self.participant['first_name']}_{self.participant['last_name']}"
-        actual_profile_name = f"{self.participant['id']}_{dct['second_name']}_{dct['first_name']}_{dct['last_name']}"
-        self.directory_path = f"/home/event/participants_data/"
-        event = paramiko.client.SSHClient()
-        event.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-        event.connect(host, username=login, password=secret)
-        stdin, stdout, stderr = event.exec_command(f"mv '{self.directory_path}{old_profile_name}' '{self.directory_path}{actual_profile_name}'")
-        journal.log(f"Переименован профиль участника {self.directory_path}{actual_profile_name}")
-        print(stdout.read().decode())
-        stdin.close()
-        event.close()
-
-    def update_db_participants_data(self, dct):
-        """Обновление записи в таблице: 'participants_data' при изменении профиля"""
-        table_name = "participants_data"
-        dct_new = {}
-        dct_new['participant_id'] = self.participant['id']
-
-        # Забираем row по participant_id из таблицы participants_data
-        dct_new = self.db.find_selected(dct_new, table_name)
-
-        # Обновляем данные в таблице participants_data
-        dct_new['full_name'] = dct["full_name"]
-        self.db.update_participant(dct_new, table_name)
-        journal.log(f"Данные в таблице {table_name} обновлены для '{dct_new['participant_id']} {dct_new['full_name']}'")
-
+    def clicked_connect(self, dialog):
+        """Обработка нажатий кнопок окна Редактирование участника"""
+        self.pushButton_generate.clicked.connect(self.generate_password)
+        self.pushButton_save.clicked.connect(self.update_participant)
+        self.pushButton_cancel.clicked.connect(dialog.close)
 
     def formating_phone(self, phone_number):
         """Форматирование строки телефона"""
@@ -679,6 +613,68 @@ class Edit_participant(Ui_Create_participant):
                 return phone_number
             else:
                 return f'Не верный формат'
+
+    def update_participant(self):
+        """Считывает данные с полей и обновляет данные пользователя в базе данных"""
+        print(f"Данные участника до обновления: {self.participant}")
+        dct = {}
+        dct['id'] = self.participant['id']
+        dct['phone_number'] = self.lineEdit_phone_number.text().strip()
+        dct['phone_number'] = self.formating_phone(dct['phone_number'])
+        dct['second_name'] = self.lineEdit_second_name.text().strip()
+        dct['first_name'] = self.lineEdit_first_name.text().strip()
+        dct['last_name'] = self.lineEdit_last_name.text().strip()
+        dct['full_name'] = f"{dct['second_name']} {dct['first_name']} {dct['last_name']}"
+        dct['email'] = self.lineEdit_email.text().strip()
+        dct['city'] = self.lineEdit_city.text().strip()
+        dct['password'] = self.lineEdit_password.text().strip()
+        dct['comment'] = self.lineEdit_comment.text().strip()
+        # dct['disabled'] = self.checkBox_disabled_participant.isChecked()
+
+        # Update профильной папки
+        self.update_profile(dct)
+        # Update в таблице participants_data
+        self.update_db_participants_data(dct)
+        # Update участника в таблице participant
+        self.update_db_participant(dct)
+
+        self.dialog.close()
+        journal.log(f"Обновлены данные участника в таблице 'participants': {dct['second_name']} {dct['first_name']}")
+
+    def update_profile(self, dct):
+        """Изменение профиля участника - директории для хранения файлов личных документов участника"""
+        host, login, secret = ssh_config.host, ssh_config.login, ssh_config.secret
+        old_profile_name = f"{self.participant['id']}_{self.participant['second_name']}_{self.participant['first_name']}_{self.participant['last_name']}"
+        actual_profile_name = f"{dct['id']}_{dct['second_name']}_{dct['first_name']}_{dct['last_name']}"
+        self.directory_path = f"/home/event/participants_data/"
+        event = paramiko.client.SSHClient()
+        event.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+        event.connect(host, username=login, password=secret)
+        print(f"mv {self.directory_path}{old_profile_name} {self.directory_path}{actual_profile_name}")
+        stdin, stdout, stderr = event.exec_command(f"mv {self.directory_path}{old_profile_name} {self.directory_path}{actual_profile_name}")
+        journal.log(f"Переименован профиль участника {self.directory_path}{actual_profile_name}")
+
+        self.new_profile_path = f"{self.directory_path}{actual_profile_name}"
+
+        print(stdout.read().decode())
+        stdin.close()
+        event.close()
+
+    def update_db_participants_data(self, dct):
+        """Обновление записи в таблице: 'participants_data' при изменении профиля"""
+        table_name = "participants_data"
+        dct_new = {}
+        dct_new['participant_id'] = self.participant['id']
+        # Забираем row по participant_id из таблицы participants_data
+        dct_new = self.db.select_one(dct_new, table_name)
+        # Обновляем данные в таблице participants_data
+        dct_new['full_name'] = dct["full_name"]
+        dct_new['profile_path'] = self.new_profile_path
+        self.db.update_row(dct_new, table_name)
+        journal.log(f"Данные в таблице {table_name} обновлены для '{dct_new['participant_id']} {dct_new['full_name']}'")
+
+    def update_db_participant(self, dct):
+        self.db.update_row(dct, 'participants')
 
 
 class Create_organization(Ui_Create_organization):
@@ -865,7 +861,7 @@ class List_organization(Ui_List_organization):
 
         keys = ['organization_name', 'organization_INN', 'organization_KPP', 'phone_number']
         table_name = "organizations"
-        all_organizations = db.select_all_data(table_name)
+        all_organizations = db.select_all(table_name)
 
         print(all_organizations)
 
@@ -881,7 +877,7 @@ class List_organization(Ui_List_organization):
         keys = ['organization_name', 'organization_INN', 'organization_KPP', 'phone_number']
         table_name = "organizations"
         print(table_name)
-        all_organizations = self.db.select_all_data(table_name)
+        all_organizations = self.db.select_all(table_name)
         print(all_organizations)
         value = []
         for id in range(0, len(all_organizations)):
@@ -927,7 +923,7 @@ class Choose_organization(Ui_Choose_organization):
 
     def set_view_of_all_organizations(self):
         keys = ['organization_name', 'organization_INN', 'organization_KPP', 'phone_number']
-        all_organizations = self.db.select_all_data(self.table_name)
+        all_organizations = self.db.select_all(self.table_name)
         print(all_organizations)
         value = []
         for id in range(0, len(all_organizations)):
@@ -964,7 +960,7 @@ class List_participants(Ui_List_participants):
         self.set_headers(headers_names, self.tree_participants_list)
         # Инициализация функции вывода списка всех участников
         table_name = 'participants'
-        participants = self.db.select_all_data(table_name)
+        participants = self.db.select_all(table_name)
         print(participants)
         self.set_view_of_all_participants(participants)
         self.clicked_connect()
@@ -980,9 +976,9 @@ class List_participants(Ui_List_participants):
         self.pushButton_create_participant.clicked.connect(Create_participant)
         self.pushButton_create_participant.clicked.connect(self.update_tree)
         self.pushButton_edit_participant.clicked.connect(self.edit_participant)
+        self.pushButton_edit_participant.clicked.connect(self.update_tree)
         self.tree_participants_list.itemDoubleClicked.connect(self.edit_participant)
         self.tree_participants_list.itemDoubleClicked.connect(self.update_tree)
-        self.pushButton_edit_participant.clicked.connect(self.update_tree)
         self.pushButton_delete_participant.clicked.connect(self.delete_participant)
         self.pushButton_find.clicked.connect(self.find_participant)
         self.pushButton_reset_search.clicked.connect(self.reset_search)
@@ -994,8 +990,8 @@ class List_participants(Ui_List_participants):
             table_name = 'participants'
             item = self.tree_participants_list.currentItem()
             dct['id'] = item.text(0)
-            participant = self.db.find_selected(dct, table_name)
-            Edit_participant(participant['id'])
+            participant = self.db.select_one(dct, table_name)
+            Edit_participant(participant)
         except Exception as ex:\
             print("Не выделен ни один объект в дереве")
 
@@ -1008,7 +1004,7 @@ class List_participants(Ui_List_participants):
             print("Error update list participants")
 
         table_name = "participants"
-        participants = db.select_all_data(table_name)
+        participants = db.select_all(table_name)
         self. set_view_of_all_participants(participants)
 
     def set_headers(self, headers_names, tree):
@@ -1051,7 +1047,7 @@ class List_participants(Ui_List_participants):
         print(dct)
         if dct == {}:
             return
-        find_result = self.db.find_several(dct, table_name)
+        find_result = self.db.select_every(dct, table_name)
         self.set_view_of_all_participants(find_result)
         print(find_result)
 
@@ -1103,7 +1099,7 @@ class List_participants(Ui_List_participants):
     def delete_profile_participant(self, part_id):
         """Удаление профиля участника с документами"""
         # Забираем данные о профильной папке из БД
-        profile = self.db.find_selected(part_id, "participants_data")
+        profile = self.db.select_one(part_id, "participants_data")
         directory_path = profile['profile_path']
         host, login, secret = ssh_config.host, ssh_config.login, ssh_config.secret
         event = paramiko.client.SSHClient()
