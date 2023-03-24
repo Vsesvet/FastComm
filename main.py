@@ -417,7 +417,7 @@ class Create_user(Ui_Create_user):
         new_user['first_name'] = self.lineEdit_first_name.text()
         new_user['last_name'] = self.lineEdit_last_name.text()
         new_user['full_name'] = f"{self.lineEdit_second_name.text()} {self.lineEdit_first_name.text()} {self.lineEdit_last_name.text()}"
-        new_user['role_id'] = 2 # admin
+        new_user['id'] = 2 # admin
         new_user['email'] = self.lineEdit_email.text()
         new_user['city'] = self.lineEdit_city.text()
         new_user['password'] = self.lineEdit_password.text()
@@ -999,8 +999,6 @@ class List_participants(Ui_List_participants):
         except Exception as ex:\
             print("Не выделен ни один объект в дереве")
 
-
-
     def update_tree(self):
         """Обновление общего списка участников (Аналогично функции set_view_of_all_participants, но с небольшими отличиями)"""
         self.tree_participants_list.clear()
@@ -1012,7 +1010,6 @@ class List_participants(Ui_List_participants):
         table_name = "participants"
         participants = db.select_all_data(table_name)
         self. set_view_of_all_participants(participants)
-
 
     def set_headers(self, headers_names, tree):
         """Устанавливает заголовки колонок для Списка всех участников"""

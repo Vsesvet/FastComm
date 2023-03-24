@@ -130,7 +130,7 @@ class Mysql:
 
     def get_role_by_role_id(self, role_id):
         """Получение Роли по id"""
-        select_role_name = f"SELECT role_name FROM roles WHERE role_id = {role_id}"
+        select_role_name = f"SELECT role_name FROM roles WHERE id = {role_id}"
         with self.connection.cursor() as cursor:
             cursor.execute(select_role_name)
             result = cursor.fetchone()
