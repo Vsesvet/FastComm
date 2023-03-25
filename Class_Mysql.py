@@ -14,7 +14,7 @@ class Mysql:
                                               password=password,
                                               database=database,
                                               cursorclass=pymysql.cursors.DictCursor)
-            print("Соединение с базой данных: Статус OK")
+            print("Обращение к базе данных: Статус OK")
         except Exception as ex:
             print("Error connection to db")
 
@@ -31,6 +31,7 @@ class Mysql:
             cursor.execute(select_query)
             find_dict = cursor.fetchone()
             self.connection.commit()
+        journal.log(f"Выборка из БД, функция select_one. Результат: {find_dict}")
         return find_dict
 
     def select_every(self, dct, table_name):
@@ -47,6 +48,7 @@ class Mysql:
             cursor.execute(select_query)
             find_dict = cursor.fetchall()
             self.connection.commit()
+        journal.log(f"Выборка из БД, функция select_every. Результат: {find_dict}")
         return find_dict
 
     def select_all(self, table_name):
@@ -58,8 +60,9 @@ class Mysql:
             rows = cursor.fetchall()
 
             return rows
+        journal.log(f"SELECT_ALL. Результат: {select_all_rows}")
 
-    def insert_row_to_table(self, dictionary, table_name):
+    def insert_row(self, dictionary, table_name):
         """Добавление row в таблицу. На входе: {}, ''. Выход без возврата"""
         column = []
         content = []
@@ -88,19 +91,19 @@ class Mysql:
             cursor.execute(request)
             self.connection.commit()
 
-    def update_participant(self, dct, table_name):
-        """Старая функция Используется 1 раз"""
-        content = ""
-        for key, value in dct.items():
-            i = f"{key} = '{value}', "
-            content += i
-        content = content[:-2] # срез последнего пробела и запятой
-
-        request = f"UPDATE {table_name} SET {content} WHERE participant_id = '{dct['participant_id']}'"
-        print(request)
-        with self.connection.cursor() as cursor:
-            cursor.execute(request)
-            self.connection.commit()
+    # def update_participant(self, dct, table_name):
+    #     """Старая функция Используется 1 раз"""
+    #     content = ""
+    #     for key, value in dct.items():
+    #         i = f"{key} = '{value}', "
+    #         content += i
+    #     content = content[:-2] # срез последнего пробела и запятой
+    #
+    #     request = f"UPDATE {table_name} SET {content} WHERE participant_id = '{dct['participant_id']}'"
+    #     print(request)
+    #     with self.connection.cursor() as cursor:
+    #         cursor.execute(request)
+    #         self.connection.commit()
 
     def create_user(self, new_user):
         """Добавление нового пользователя в базу данных MySql"""

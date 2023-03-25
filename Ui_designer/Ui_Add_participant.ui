@@ -40,12 +40,20 @@
    </item>
    <item row="4" column="0" colspan="4">
     <widget class="QTreeWidget" name="tree_add_participant_to_event">
+     <attribute name="headerMinimumSectionSize">
+      <number>20</number>
+     </attribute>
      <attribute name="headerDefaultSectionSize">
-      <number>147</number>
+      <number>57</number>
      </attribute>
      <attribute name="headerStretchLastSection">
       <bool>false</bool>
      </attribute>
+     <column>
+      <property name="text">
+       <string>№</string>
+      </property>
+     </column>
      <column>
       <property name="text">
        <string>Телефон</string>

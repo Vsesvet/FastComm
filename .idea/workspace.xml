@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Косметические корретировки">
+    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Реализована установка Организацию в Event_shedule из таблицы соответствия organizations_events">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ui_Choose_organization.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_Choose_organization.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Class_Mysql.py" beforeDir="false" afterPath="$PROJECT_DIR$/Class_Mysql.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ui_Add_participant.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_Add_participant.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -210,13 +211,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1676999725137</updated>
-    </task>
-    <task id="LOCAL-00023" summary="Добавлен double_click Tree">
-      <created>1678029833589</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1678029833589</updated>
     </task>
     <task id="LOCAL-00024" summary="дописана функция Find_several">
       <created>1678041203668</created>
@@ -554,7 +548,14 @@
       <option name="project" value="LOCAL" />
       <updated>1679519428469</updated>
     </task>
-    <option name="localTasksCounter" value="72" />
+    <task id="LOCAL-00072" summary="Реализована установка Организацию в Event_shedule из таблицы соответствия organizations_events">
+      <created>1679753665148</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1679753665148</updated>
+    </task>
+    <option name="localTasksCounter" value="73" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -580,7 +581,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Добавлен Journal" />
     <MESSAGE value="Реализовано создание профильных папок участника и удаление при удалении участника" />
     <MESSAGE value="Поле full_name перевел в режим только чтение (заполняется из полей Фамилия, Имя, Отчество)" />
     <MESSAGE value="Добавлено форматирование номера участника при Создании" />
@@ -605,14 +605,15 @@
     <MESSAGE value="Реализовано обновление Мероприятия (Event + Events Shedule)" />
     <MESSAGE value="Реализован выбор Организации в Мероприятии" />
     <MESSAGE value="Добавлены отражения состояния Открыт или закрыт доступ для организации к Мероприятию" />
-    <option name="LAST_COMMIT_MESSAGE" value="Добавлены отражения состояния Открыт или закрыт доступ для организации к Мероприятию" />
+    <MESSAGE value="Реализована установка Организацию в Event_shedule из таблицы соответствия organizations_events" />
+    <option name="LAST_COMMIT_MESSAGE" value="Реализована установка Организацию в Event_shedule из таблицы соответствия organizations_events" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>708</line>
+          <line>772</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>

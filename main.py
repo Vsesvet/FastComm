@@ -177,6 +177,7 @@ class Event(Ui_Event):
     def __init__(self, dct_event):
         self.dct_event = dct_event
         self.table_name = 'events'
+        self.db = Mysql()
         print(f"Объект из базы данных: {self.dct_event}")
         username_login_role = access.get_username_and_role(user_login)
         dialog = QDialog()
@@ -206,14 +207,16 @@ class Event(Ui_Event):
         self.pushButton_open_access.clicked.connect(self.open_access)
         self.pushButton_close_access.clicked.connect(self.close_access)
         self.pushButton_select_organization.clicked.connect(Choose_organization)
-        self.pushButton_select_organization.clicked.connect(self.set_organization)
+        self.pushButton_select_organization.clicked.connect(self.set_choose_organization)
 
     def set_view(self):
         """Заполняем поля данных Мероприятия из полученного словаря dct_event"""
         # self.label_Event.setText(f"Мероприятие  № {self.dct_event['id']}")
         self.lineEdit_event_name.setText(self.dct_event['event_name'])
         self.lineEdit_event_theme.setText(self.dct_event['event_theme'])
-        self.lineEdit_selected_organization.setText(self.dct_event['organization'])
+        self.organization = self.set_organization()
+        self.lineEdit_selected_organization.setText(self.organization['organization_name'])
+
         self.event_dateTime.setDateTime(self.dct_event['date_time'])
         self.lineEdit_event_country.setText(self.dct_event['country'])
         self.lineEdit_event_city.setText(self.dct_event['city'])
@@ -227,10 +230,31 @@ class Event(Ui_Event):
         else:
             self.pushButton_close_access.setText('Закрыт')
 
+    def set_organization(self):
+        """Извлечение {} организации из таблицы соответствия organizations_events"""
+        # Получаем соответствие id События = id Организация
+        event_id = {}
+        event_id['event_id'] = self.dct_event['id']
+        dct = self.db.select_one(event_id, 'organizations_events')
+        # Извлекаем организацию по полученному соответсвию
+        organization_id = {}
+        organization_id['id'] = dct['organization_id']
+        organization = self.db.select_one(organization_id, 'organizations')
+        return organization
+
+    def set_choose_organization(self):
+        global organization_dct
+        self.organization = organization_dct
+        self.lineEdit_selected_organization.setText(organization_dct['organization_name'])
+        # organization_dct = self.organization
+
+
     def update_event(self):
         self.dct_event['event_name'] = self.lineEdit_event_name.text()
         self.dct_event['event_theme'] = self.lineEdit_event_theme.text()
-        self.dct_event['organization'] = self.lineEdit_selected_organization.text()
+        # organization = self.set_choose_organization()
+        # self.dct_event[''] = self.lineEdit_selected_organization.setText()
+
         self.dct_event['date_time'] = self.event_dateTime.dateTime().toString("yyyy-MM-dd hh:mm")
         self.dct_event['country'] = self.lineEdit_event_country.text()
         self.dct_event['city'] = self.lineEdit_event_city.text()
@@ -241,8 +265,15 @@ class Event(Ui_Event):
         self.update_in_db()
 
     def update_in_db(self):
-        sql = Mysql()
-        sql.update_row(self.dct_event, self.table_name)
+        db = Mysql()
+        db.update_row(self.dct_event, self.table_name)
+
+        relation = {}
+        relation["event_id"] = self.dct_event['id']
+        relation = db.select_one(relation, 'organizations_events')
+        relation["organization_id"] = self.organization['id']
+        db.update_row(relation, 'organizations_events')
+
 
     def open_access(self):
         self.dct_event['access'] = 1
@@ -256,9 +287,9 @@ class Event(Ui_Event):
         self.pushButton_open_access.setText("Открыть доступ для организации")
         print(f"Доступ для организации {self.dct_event['access']}")
 
-    def set_organization(self):
-        global organization_dct
-        self.lineEdit_selected_organization.setText(organization_dct['organization_name'])
+    # def set_organization(self):
+    #     global organization_dct
+    #     self.lineEdit_selected_organization.setText(organization_dct['organization_name'])
 
     def comboBox(self):
         pass
@@ -266,6 +297,51 @@ class Event(Ui_Event):
         # ui.comboBox.currentText() - получение значения из QComboBox. Возвращает строку
         # combo_box.currentIndex() - возвращает целое число, т.е. Индекс выбранного элемента
         # combo_box.setCurrentIndex(индекс) - он установит элемент с заданным индексом
+
+
+class Add_participant(Ui_Add_participant):
+    """Окно добавления участника в Мероприятие"""
+    def __init__(self):
+        username_login_role = access.get_username_and_role(user_login)
+        dialog = QDialog()
+        super().setupUi(dialog)
+        self.db = Mysql()
+        participants = self.db.select_all('participants')
+        self.label_username_login_role.setText(f'{username_login_role}')
+        self.adjust_tree()
+        self.set_list_view(participants)
+        # self.clicked_connect()
+        dialog.exec()
+
+    def adjust_tree(self):
+        """Установка наименований для колонок списка"""
+        self.tree_add_participant_to_event.header().setStretchLastSection(False)
+        self.tree_add_participant_to_event.header().setSectionResizeMode(QHeaderView.ResizeToContents)
+        columns_names = ['id', '№', 'Телефон', 'Фамилия', 'Имя', 'Отчество']
+        for i in columns_names:
+            self.tree_add_participant_to_event.headerItem().setText(columns_names.index(i), i)
+        self.tree_add_participant_to_event.setColumnHidden(0, True)
+
+    def set_list_view(self, participants):
+        """Отображение данных по всем участникам"""
+        self.tree_add_participant_to_event.clear()
+        participant_string = []
+        number = 1
+        # ( id, №__, phone_number, second_name, first_name, last_name)
+        for dct in participants:
+            participant_string.append(str(dct['id']))
+            participant_string.append(str(number))
+            participant_string.append(dct['phone_number'])
+            participant_string.append(dct['second_name'])
+            participant_string.append(dct['first_name'])
+            participant_string.append(dct['last_name'])
+            # participant_string.append(dct['email'])
+            item = QTreeWidgetItem(participant_string)
+            self.tree_add_participant_to_event.addTopLevelItem(item)
+            participant_string.clear()
+            number += 1
+        # self.label_total_participants.setText(f"Всего в списке {len(participant_string)} участников")
+
 
 
 class Choose_organization(Ui_Choose_organization):
@@ -407,18 +483,6 @@ class Accept_docs(Ui_Accept_docs):
         self.checkBox_reject_survey.clicked['bool'].connect(self.checkBox_accept_survey.setDisabled)
 
 
-class Add_participant(Ui_Add_participant):
-    """Окно добавления участника в Мероприятие"""
-    def __init__(self):
-        username_login_role = access.get_username_and_role(user_login)
-        dialog = QDialog()
-        super().setupUi(dialog)
-
-        self.label_username_login_role.setText(f'{username_login_role}')
-        # self.clicked_connect()
-        dialog.exec()
-
-
 class Create_Event(Ui_Create_event):
     """Работа с окном Создание Мероприятия"""
     def __init__(self):
@@ -462,7 +526,7 @@ class Create_Event(Ui_Create_event):
 
     def write_event_to_db(self):
         print(self.dct_event)
-        self.db.insert_row_to_table(self.dct_event, 'events')
+        self.db.insert_row(self.dct_event, 'events')
 
     def relation_to_db(self):
         global organization_dct
@@ -471,7 +535,7 @@ class Create_Event(Ui_Create_event):
         relation['organization_id'] = organization_dct['id']
         relation['event_id'] = self.dct_event['id']
         print(f'Запись в таблицу organizations_events: {relation}')
-        self.db.insert_row_to_table(relation, 'organizations_events')
+        self.db.insert_row(relation, 'organizations_events')
 
 
 
@@ -565,7 +629,7 @@ class Create_participant(Ui_Create_participant):
 
         # Запись в БД
         try:
-            self.db.insert_row_to_table(dct, self.table_name)
+            self.db.insert_row(dct, self.table_name)
             self.dialog.close()
         except Exception as ex:
             print('Ошибка создания Участника')
@@ -646,7 +710,7 @@ class Create_participant(Ui_Create_participant):
         dct1['sertificate_exist'] = False
         dct1['sertificate_accept'] = False
 
-        self.db.insert_row_to_table(dct1, table_name)
+        self.db.insert_row(dct1, table_name)
 
 
 class Edit_participant(Ui_Create_participant):
@@ -794,7 +858,7 @@ class Create_organization(Ui_Create_organization):
         self.insert_to_db()
 
     def insert_to_db(self):
-        self.db.insert_row_to_table(self.new_org, self.table_name)
+        self.db.insert_row(self.new_org, self.table_name)
         self.dialog.close()
 
 
