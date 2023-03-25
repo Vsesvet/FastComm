@@ -50,8 +50,11 @@
    </item>
    <item row="2" column="0" colspan="4">
     <widget class="QTreeWidget" name="tree_organizations_list">
+     <attribute name="headerMinimumSectionSize">
+      <number>20</number>
+     </attribute>
      <attribute name="headerDefaultSectionSize">
-      <number>170</number>
+      <number>57</number>
      </attribute>
      <attribute name="headerStretchLastSection">
       <bool>false</bool>

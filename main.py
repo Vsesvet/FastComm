@@ -317,7 +317,7 @@ class Add_participant(Ui_Add_participant):
         """Установка наименований для колонок списка"""
         self.tree_add_participant_to_event.header().setStretchLastSection(False)
         self.tree_add_participant_to_event.header().setSectionResizeMode(QHeaderView.ResizeToContents)
-        columns_names = ['id', '№', 'Телефон', 'Фамилия', 'Имя', 'Отчество']
+        columns_names = ['id', '№', 'Телефон', 'Фамилия', 'Имя', 'Отчество', 'e-mail']
         for i in columns_names:
             self.tree_add_participant_to_event.headerItem().setText(columns_names.index(i), i)
         self.tree_add_participant_to_event.setColumnHidden(0, True)
@@ -327,7 +327,7 @@ class Add_participant(Ui_Add_participant):
         self.tree_add_participant_to_event.clear()
         participant_string = []
         number = 1
-        # ( id, №__, phone_number, second_name, first_name, last_name)
+        # ( id, №__, phone_number, second_name, first_name, last_name, email)
         for dct in participants:
             participant_string.append(str(dct['id']))
             participant_string.append(str(number))
@@ -335,7 +335,7 @@ class Add_participant(Ui_Add_participant):
             participant_string.append(dct['second_name'])
             participant_string.append(dct['first_name'])
             participant_string.append(dct['last_name'])
-            # participant_string.append(dct['email'])
+            participant_string.append(dct['email'])
             item = QTreeWidgetItem(participant_string)
             self.tree_add_participant_to_event.addTopLevelItem(item)
             participant_string.clear()
@@ -1033,7 +1033,7 @@ class List_organization(Ui_List_organization):
         table_name = "organizations"
         all_organizations = db.select_all(table_name)
 
-        print(all_organizations)
+        # print(all_organizations)
 
         value = []
         for id in range(0, len(all_organizations)):

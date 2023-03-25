@@ -14,31 +14,38 @@
    <string>Event</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="2" column="0">
-    <widget class="QLineEdit" name="lineEdit_phone_number_participant">
-     <property name="placeholderText">
-      <string>Номер телефона...</string>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="0" colspan="4">
-    <widget class="QLabel" name="label_add_participant_event">
-     <property name="font">
-      <font>
-       <pointsize>16</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
+   <item row="0" column="3" colspan="2">
+    <widget class="QLabel" name="label_username_login_role">
      <property name="text">
-      <string>Добавить участника мероприятия</string>
+      <string>username_login_role</string>
      </property>
      <property name="alignment">
-      <set>Qt::AlignCenter</set>
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
     </widget>
    </item>
-   <item row="4" column="0" colspan="4">
+   <item row="2" column="1">
+    <widget class="QLineEdit" name="lineEdit_second_name_participant">
+     <property name="placeholderText">
+      <string>Фамилия...</string>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="3">
+    <widget class="QPushButton" name="pushButton_cancel">
+     <property name="text">
+      <string>Отмена</string>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="4">
+    <widget class="QPushButton" name="pushButton_ok">
+     <property name="text">
+      <string>ОК</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="0" colspan="5">
     <widget class="QTreeWidget" name="tree_add_participant_to_event">
      <attribute name="headerMinimumSectionSize">
       <number>20</number>
@@ -74,29 +81,34 @@
        <string>Отчество</string>
       </property>
      </column>
+     <column>
+      <property name="text">
+       <string>e-mail</string>
+      </property>
+     </column>
     </widget>
    </item>
-   <item row="2" column="2">
-    <widget class="QPushButton" name="pushButton_find_participant">
-     <property name="text">
-      <string>Найти</string>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="1">
-    <widget class="QLineEdit" name="lineEdit_second_name_participant">
+   <item row="2" column="0">
+    <widget class="QLineEdit" name="lineEdit_phone_number_participant">
      <property name="placeholderText">
-      <string>Фамилия...</string>
+      <string>Номер телефона...</string>
      </property>
     </widget>
    </item>
-   <item row="0" column="2" colspan="2">
-    <widget class="QLabel" name="label_username_login_role">
+   <item row="1" column="0" colspan="5">
+    <widget class="QLabel" name="label_add_participant_event">
+     <property name="font">
+      <font>
+       <pointsize>16</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
      <property name="text">
-      <string>username_login_role</string>
+      <string>Добавить участника в мероприятие</string>
      </property>
      <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      <set>Qt::AlignCenter</set>
      </property>
     </widget>
    </item>
@@ -107,17 +119,17 @@
      </property>
     </widget>
    </item>
-   <item row="5" column="3">
-    <widget class="QPushButton" name="pushButton_ok">
-     <property name="text">
-      <string>ОК</string>
+   <item row="2" column="2">
+    <widget class="QLineEdit" name="lineEdit_email_participant">
+     <property name="placeholderText">
+      <string>e-mail...</string>
      </property>
     </widget>
    </item>
-   <item row="5" column="2">
-    <widget class="QPushButton" name="pushButton_cancel">
+   <item row="2" column="3">
+    <widget class="QPushButton" name="pushButton_find_participant">
      <property name="text">
-      <string>Отмена</string>
+      <string>Найти</string>
      </property>
     </widget>
    </item>
