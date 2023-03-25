@@ -58,6 +58,6 @@ class Ui_Choose_organization(object):
         _translate = QtCore.QCoreApplication.translate
         Choose_organization.setWindowTitle(_translate("Choose_organization", "Dialog"))
         self.label_username_login_role.setText(_translate("Choose_organization", "username_login_role"))
-        self.label_main.setText(_translate("Choose_organization", "Список организаций"))
+        self.label_main.setText(_translate("Choose_organization", "Выбор организации"))
         self.pushButton_cancel.setText(_translate("Choose_organization", "Отмена"))
         self.pushButton_add.setText(_translate("Choose_organization", "OK"))
