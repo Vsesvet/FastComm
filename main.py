@@ -442,14 +442,11 @@ class Add_participant(Ui_Add_participant):
         second_name = self.lineEdit_find_by_second_name.text()
         email = self.lineEdit_find_by_email.text()
         dct = self.check_find_request(phone, second_name, email)
-        print(dct)
         if dct == {}:
             find_result = self.db.select_all(table_name)
-            # return
         else:
             find_result = self.db.select_every(dct, table_name)
         self.set_list_view(find_result)
-
 
     def check_find_request(self, phone, second_name, email):
         """Проверка введенных пользователем данных для поиска"""
@@ -1276,10 +1273,10 @@ class List_participants(Ui_List_participants):
         second_name = self.lineEdit_find_by_second_name.text()
         email = self.lineEdit_find_by_email.text()
         dct = self.check_find_request(phone, second_name, email)
-        print(dct)
         if dct == {}:
-            return
-        find_result = self.db.select_every(dct, table_name)
+            find_result = self.db.select_all(table_name)
+        else:
+            find_result = self.db.select_every(dct, table_name)
         self.set_view_of_all_participants(find_result)
         print(find_result)
 
