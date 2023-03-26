@@ -146,7 +146,7 @@ class Ui_Event(object):
         self.pushButton_close_access.clicked.connect(Event.show) # type: ignore
         self.pushButton_del_event_participant.clicked.connect(self.tree_event_participants_list.update) # type: ignore
         self.pushButton_email.clicked.connect(Event.lower) # type: ignore
-        self.pushButton_load_xls.clicked.connect(self.tree_event_participants_list.clear) # type: ignore
+        self.pushButton_load_xls.clicked.connect(self.tree_event_participants_list.show) # type: ignore
         self.pushButton_open_access.clicked.connect(Event.repaint) # type: ignore
         self.pushButton_print_list.clicked.connect(Event.hide) # type: ignore
         self.pushButton_sms.clicked.connect(Event.setFocus) # type: ignore
