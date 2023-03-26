@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Реализовано добавление участников в Events">
+    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Реализовано отображение кол-ва участников в Events и Events_Shedule">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Class_Mysql.py" beforeDir="false" afterPath="$PROJECT_DIR$/Class_Mysql.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -208,13 +210,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1676999725137</updated>
-    </task>
-    <task id="LOCAL-00028" summary="реализован поиск в list_participants">
-      <created>1678047545218</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
-      <option name="project" value="LOCAL" />
-      <updated>1678047545218</updated>
     </task>
     <task id="LOCAL-00029" summary="реализован поиск в list_participants">
       <created>1678047573445</created>
@@ -552,7 +547,14 @@
       <option name="project" value="LOCAL" />
       <updated>1679796701462</updated>
     </task>
-    <option name="localTasksCounter" value="77" />
+    <task id="LOCAL-00077" summary="Реализовано отображение кол-ва участников в Events и Events_Shedule">
+      <created>1679797066669</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1679797066669</updated>
+    </task>
+    <option name="localTasksCounter" value="78" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -578,7 +580,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Реализовано переименование профиля участника на сервере." />
     <MESSAGE value="Реализовано изменение таблицы participants_data после переименование профиля" />
     <MESSAGE value="Написана функция обновления update_row_to_table(self, dct, table_name)" />
     <MESSAGE value="Написана функция обновления update_db_participants_data" />
@@ -603,20 +604,26 @@
     <MESSAGE value="Реализована отображение списка участников для добавления в Мероприятие" />
     <MESSAGE value="Реализована отображение списка участников Events" />
     <MESSAGE value="Реализовано добавление участников в Events" />
-    <option name="LAST_COMMIT_MESSAGE" value="Реализовано добавление участников в Events" />
+    <MESSAGE value="Реализовано отображение кол-ва участников в Events и Events_Shedule" />
+    <option name="LAST_COMMIT_MESSAGE" value="Реализовано отображение кол-ва участников в Events и Events_Shedule" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>903</line>
+          <line>904</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
           <line>400</line>
           <option name="timeStamp" value="38" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>456</line>
+          <option name="timeStamp" value="42" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

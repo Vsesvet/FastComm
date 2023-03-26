@@ -444,11 +444,12 @@ class Add_participant(Ui_Add_participant):
         dct = self.check_find_request(phone, second_name, email)
         print(dct)
         if dct == {}:
-            return
-        find_result = self.db.select_every(dct, table_name)
+            find_result = self.db.select_all(table_name)
+            # return
+        else:
+            find_result = self.db.select_every(dct, table_name)
         self.set_list_view(find_result)
-        print(find_result)
-        pass
+
 
     def check_find_request(self, phone, second_name, email):
         """Проверка введенных пользователем данных для поиска"""
@@ -1410,19 +1411,6 @@ class Upload_docs(Ui_Upload_docs):
             dialog.close()
             return
 
-class Pair():
-    def __init__(self, x, y):
-        self.x = x
-        self.y = y
-        self.make_pair(self.x,self.y)
-    def make_pair(self, x, y):
-        return lambda n: x if n == 0 else y
-
-    def first(self, p):
-        return p(0)
-
-    def second(self,p):
-        return p(1)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

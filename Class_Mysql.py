@@ -14,7 +14,7 @@ class Mysql:
                                               password=password,
                                               database=database,
                                               cursorclass=pymysql.cursors.DictCursor)
-            print("Обращение к базе данных: Статус OK")
+            # print("Обращение к базе данных: Статус OK")
         except Exception as ex:
             print("Error connection to db")
 
