@@ -200,7 +200,6 @@ class Event(Ui_Event):
             # Если записей соответствия в таблице нет, то выходим из функции, отображая пустой список
             if relation == ():
                 return None
-
             # Получаем relation = списку словарей соответствия event_id = participant_id
             # Удаляем из списка словарей ключи event_id
             # Забираем всех participants по их id в список словарей
@@ -230,6 +229,7 @@ class Event(Ui_Event):
         """Обработка нажатий кнопок"""
         self.pushButton_ok.clicked.connect(self.update_event)
         self.pushButton_ok.clicked.connect(dialog.close)
+        self.pushButton_del_event_participant.clicked.connect(self.delete_participant_from_event)
         self.pushButton_add_event_participant.clicked.connect(lambda: Add_participant(self.dct_event))
         self.pushButton_add_event_participant.clicked.connect(self.update_list_participants_events)
         self.pushButton_analisis_doc.clicked.connect(Analisis_list)
@@ -284,8 +284,28 @@ class Event(Ui_Event):
         self.label_total_participants.setText(f"Всего в списке {len(participants)} участников")
         self.dct_event['count'] = len(participants)
 
+    def delete_participant_from_event(self):
+        """Удаление участника из списка Мероприятия"""
+        # Считываем выделенную строку, получаем из нее participant_id
+        # По event_id и participant_id удаляем строку в таблице events_participants
+        # Обновляем список
+        self.participant = {}
+        item = self.tree_event_participants_list.currentItem()
+        self.participant['id'] = item.text(0)
+        full_relation = self.processing_relation()
+        self.db.delete_row_by_arg(full_relation, 'events_participants')
+        self.update_list_participants_events()
+
+    def processing_relation(self):
+        """Получение id строки, по event_id и participant_id из таблицы events_participants"""
+        relation = {}
+        relation['event_id'] = self.dct_event['id']
+        relation['participant_id'] = self.participant['id']
+        full_relation = self.db.select_one(relation, 'events_participants')
+        return full_relation
 
     def update_list_participants_events(self):
+        """Обновление списка участников Мероприятия"""
         self.participants_event_list = self.get_participants()
         self.set_list_participants_events()
 
@@ -302,6 +322,7 @@ class Event(Ui_Event):
         return organization
 
     def set_choose_organization(self):
+        """Установка выбранной организации в текстовое поле через глобальную переменную organization_dct"""
         global organization_dct
         self.organization = organization_dct
         self.lineEdit_selected_organization.setText(organization_dct['organization_name'])
@@ -378,13 +399,13 @@ class Add_participant(Ui_Add_participant):
 
     def clicked_connect(self, dialog):
         """Назанчения действий на нажатия кнопок"""
-        self.pushButton_ok.clicked.connect(self.push_ok)
+        self.pushButton_ok.clicked.connect(dialog.close)
         self.pushButton_add_selected_participant.clicked.connect(self.add_selected)
         self.pushButton_add_selected_participant.clicked.connect(dialog.close)
         self.pushButton_find.clicked.connect(self.find_participant)
 
-    def push_ok(self):
-        pass
+    # def push_ok(self):
+    #     pass
 
     def add_selected(self):
         """Добавление выбранного участника в мероприятие"""
