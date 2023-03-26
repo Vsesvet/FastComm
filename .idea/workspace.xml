@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Реализовано отображение кол-ва участников в Events и Events_Shedule">
+    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="в Поиск по участникам при запросе по пустым значениям - выводит полный список">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Class_Mysql.py" beforeDir="false" afterPath="$PROJECT_DIR$/Class_Mysql.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,14 +44,14 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/vsesvet/PycharmProjects/Event&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "/home/vsesvet/PycharmProjects/pythonProject2",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
@@ -108,7 +106,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="Ui_Create_participant_F" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="Ui_Event_shedule" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Logistics_project" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -120,7 +118,7 @@
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Ui_Create_participant_F.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Ui_Event_shedule.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -195,10 +193,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.main" />
+        <item itemvalue="Python.Ui_Event_shedule" />
         <item itemvalue="Python.Class_Mysql" />
         <item itemvalue="Python.db_config" />
         <item itemvalue="Python.ssh_connect" />
-        <item itemvalue="Python.Ui_Create_participant_F" />
       </list>
     </recent_temporary>
   </component>
@@ -210,13 +208,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1676999725137</updated>
-    </task>
-    <task id="LOCAL-00029" summary="реализован поиск в list_participants">
-      <created>1678047573445</created>
-      <option name="number" value="00029" />
-      <option name="presentableId" value="LOCAL-00029" />
-      <option name="project" value="LOCAL" />
-      <updated>1678047573445</updated>
     </task>
     <task id="LOCAL-00030" summary="реализован поиск в list_participants">
       <created>1678047589545</created>
@@ -554,7 +545,14 @@
       <option name="project" value="LOCAL" />
       <updated>1679797066669</updated>
     </task>
-    <option name="localTasksCounter" value="78" />
+    <task id="LOCAL-00078" summary="в Поиск по участникам при запросе по пустым значениям - выводит полный список">
+      <created>1679798255462</created>
+      <option name="number" value="00078" />
+      <option name="presentableId" value="LOCAL-00078" />
+      <option name="project" value="LOCAL" />
+      <updated>1679798255462</updated>
+    </task>
+    <option name="localTasksCounter" value="79" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -580,7 +578,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Реализовано изменение таблицы participants_data после переименование профиля" />
     <MESSAGE value="Написана функция обновления update_row_to_table(self, dct, table_name)" />
     <MESSAGE value="Написана функция обновления update_db_participants_data" />
     <MESSAGE value="Добавлено окно Upload_docs" />
@@ -605,7 +602,8 @@
     <MESSAGE value="Реализована отображение списка участников Events" />
     <MESSAGE value="Реализовано добавление участников в Events" />
     <MESSAGE value="Реализовано отображение кол-ва участников в Events и Events_Shedule" />
-    <option name="LAST_COMMIT_MESSAGE" value="Реализовано отображение кол-ва участников в Events и Events_Shedule" />
+    <MESSAGE value="в Поиск по участникам при запросе по пустым значениям - выводит полный список" />
+    <option name="LAST_COMMIT_MESSAGE" value="в Поиск по участникам при запросе по пустым значениям - выводит полный список" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -619,11 +617,6 @@
           <url>file://$PROJECT_DIR$/main.py</url>
           <line>400</line>
           <option name="timeStamp" value="38" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/main.py</url>
-          <line>456</line>
-          <option name="timeStamp" value="42" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
