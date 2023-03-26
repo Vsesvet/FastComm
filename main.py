@@ -282,6 +282,7 @@ class Event(Ui_Event):
             number += 1
 
         self.label_total_participants.setText(f"Всего в списке {len(participants)} участников")
+        self.dct_event['count'] = len(participants)
 
 
     def update_list_participants_events(self):
