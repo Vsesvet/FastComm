@@ -57,6 +57,10 @@ class Ui_Add_participant(object):
         self.pushButton_find = QtWidgets.QPushButton(Add_participant)
         self.pushButton_find.setObjectName("pushButton_find")
         self.gridLayout.addWidget(self.pushButton_find, 2, 3, 1, 1)
+        self.label_participant_exist = QtWidgets.QLabel(Add_participant)
+        self.label_participant_exist.setText("")
+        self.label_participant_exist.setObjectName("label_participant_exist")
+        self.gridLayout.addWidget(self.label_participant_exist, 5, 1, 1, 2)
 
         self.retranslateUi(Add_participant)
         self.pushButton_cancel.clicked.connect(Add_participant.close) # type: ignore

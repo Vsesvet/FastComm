@@ -201,7 +201,7 @@ class Event(Ui_Event):
             if relation == ():
                 return None
 
-            # Здесь мы получаем relation = списку словарей соответствия event_id = participant_id
+            # Получаем relation = списку словарей соответствия event_id = participant_id
             # Удаляем из списка словарей ключи event_id
             # Забираем всех participants по их id в список словарей
             participants = []
@@ -231,6 +231,7 @@ class Event(Ui_Event):
         self.pushButton_ok.clicked.connect(self.update_event)
         self.pushButton_ok.clicked.connect(dialog.close)
         self.pushButton_add_event_participant.clicked.connect(lambda: Add_participant(self.dct_event))
+        self.pushButton_add_event_participant.clicked.connect(self.update_list_participants_events)
         self.pushButton_analisis_doc.clicked.connect(Analisis_list)
         self.pushButton_open_access.clicked.connect(self.open_access)
         self.pushButton_close_access.clicked.connect(self.close_access)
@@ -244,7 +245,6 @@ class Event(Ui_Event):
         self.lineEdit_event_theme.setText(self.dct_event['event_theme'])
         self.organization = self.set_organization()
         self.lineEdit_selected_organization.setText(self.organization['organization_name'])
-
         self.event_dateTime.setDateTime(self.dct_event['date_time'])
         self.lineEdit_event_country.setText(self.dct_event['country'])
         self.lineEdit_event_city.setText(self.dct_event['city'])
@@ -263,12 +263,9 @@ class Event(Ui_Event):
         if self.participants_event_list == None:
             return
         participants = self.participants_event_list
-        # ['id', '№_', 'Фамилия', 'Имя', 'Отчество', 'Город', 'Телефон', 'e-mail', 'Пароль']
         self.tree_event_participants_list.clear()
-
         participant_string = []
         number = 1
-        # ( id, №__, phone_number, second_name, first_name, last_name, email)
         for dct in participants:
             participant_string.append(str(dct['id']))
             participant_string.append(str(number))
@@ -283,9 +280,13 @@ class Event(Ui_Event):
             self.tree_event_participants_list.addTopLevelItem(item)
             participant_string.clear()
             number += 1
-        # self.label_total_participants.setText(f"Всего в списке {len(participant_string)} участников")
 
-        pass
+        self.label_total_participants.setText(f"Всего в списке {len(participants)} участников")
+
+
+    def update_list_participants_events(self):
+        self.participants_event_list = self.get_participants()
+        self.set_list_participants_events()
 
     def set_organization(self):
         """Извлечение {} организации из таблицы соответствия organizations_events"""
@@ -306,11 +307,9 @@ class Event(Ui_Event):
         # organization_dct = self.organization
 
     def update_event(self):
+        """Обновление текстовых полей"""
         self.dct_event['event_name'] = self.lineEdit_event_name.text()
         self.dct_event['event_theme'] = self.lineEdit_event_theme.text()
-        # organization = self.set_choose_organization()
-        # self.dct_event[''] = self.lineEdit_selected_organization.setText()
-
         self.dct_event['date_time'] = self.event_dateTime.dateTime().toString("yyyy-MM-dd hh:mm")
         self.dct_event['country'] = self.lineEdit_event_country.text()
         self.dct_event['city'] = self.lineEdit_event_city.text()
@@ -321,6 +320,7 @@ class Event(Ui_Event):
         self.update_in_db()
 
     def update_in_db(self):
+        """Запись изменений текстовых полей в базу данных"""
         db = Mysql()
         db.update_row(self.dct_event, self.table_name)
 
@@ -329,7 +329,6 @@ class Event(Ui_Event):
         relation = db.select_one(relation, 'organizations_events')
         relation["organization_id"] = self.organization['id']
         db.update_row(relation, 'organizations_events')
-
 
     def open_access(self):
         self.dct_event['access'] = 1
@@ -343,10 +342,6 @@ class Event(Ui_Event):
         self.pushButton_open_access.setText("Открыть доступ для организации")
         print(f"Доступ для организации {self.dct_event['access']}")
 
-    # def set_organization(self):
-    #     global organization_dct
-    #     self.lineEdit_selected_organization.setText(organization_dct['organization_name'])
-
     def comboBox(self):
         pass
         # combo_box.findText(текст) - поиск элемента по тексту в выпадающем списке. Возвращает int
@@ -358,7 +353,7 @@ class Event(Ui_Event):
 class Add_participant(Ui_Add_participant):
     """Окно добавления участника в Мероприятие"""
     def __init__(self, dct_event):
-        print(dct_event)
+        # print(dct_event)
         self.dct_event = dct_event
         username_login_role = access.get_username_and_role(user_login)
         dialog = QDialog()
@@ -368,7 +363,7 @@ class Add_participant(Ui_Add_participant):
         self.label_username_login_role.setText(f'{username_login_role}')
         self.adjust_tree()
         self.set_list_view(participants)
-        self.clicked_connect()
+        self.clicked_connect(dialog)
         dialog.exec()
 
     def adjust_tree(self):
@@ -380,10 +375,11 @@ class Add_participant(Ui_Add_participant):
             self.tree_add_participant_to_event.headerItem().setText(columns_names.index(i), i)
         self.tree_add_participant_to_event.setColumnHidden(0, True)
 
-    def clicked_connect(self):
+    def clicked_connect(self, dialog):
         """Назанчения действий на нажатия кнопок"""
         self.pushButton_ok.clicked.connect(self.push_ok)
         self.pushButton_add_selected_participant.clicked.connect(self.add_selected)
+        self.pushButton_add_selected_participant.clicked.connect(dialog.close)
         self.pushButton_find.clicked.connect(self.find_participant)
 
     def push_ok(self):
@@ -391,24 +387,35 @@ class Add_participant(Ui_Add_participant):
 
     def add_selected(self):
         """Добавление выбранного участника в мероприятие"""
-        pass
-        # считать id выбранного участника
-        # выбрать из 'participants' по id участника
+        # insert to events_participants
         # добавить участника в list
         try:
             dct = {}
             item = self.tree_add_participant_to_event.currentItem()
-            print(f'Выбрана строка {item}')
-            dct['id'] = item.text(0)
+            dct['participant_id'] = item.text(0)
+            dct['event_id'] = self.dct_event['id']
+            print(f'Составлен словарь {dct}')
+            # Проверяем нет ли такого участника в этом Мероприятии. Если нет, то добавляем.
+            check = self.db.select_one(dct, 'events_participants')
+            if check == None:
+                self.db.insert_row(dct, 'events_participants')
+                self.label_participant_exist.setText(f"Участник {check['second_name']} {check['first_name']} добавлен")
+                # time.sleep(1)
+            else:
+                self.label_participant_exist.setText('Уже существует в списке Мероприятия')
+                # time.sleep(1)
+                print('Такой участник уже присутствует в списке мероприятия')
+                return
+
             dct_participant = self.db.select_one(dct, "participants")
 
-            Event.set_list_participants_events(self.dct_event)
+            # Event.set_list_participants_events(self.dct_event)
         except Exception as ex:\
             print("Не выделен ни один объект в дереве")
 
 
     def set_list_view(self, participants):
-        """Отображение данных по всем участникам в окне добавления участника в Мероприятие"""
+        """Список участников для добавления в Мероприятие"""
         self.tree_add_participant_to_event.clear()
         participant_string = []
         number = 1
