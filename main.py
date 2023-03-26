@@ -178,21 +178,49 @@ class Event(Ui_Event):
         self.dct_event = dct_event
         self.table_name = 'events'
         self.db = Mysql()
-        print(f"Объект из базы данных: {self.dct_event}")
+
         username_login_role = access.get_username_and_role(user_login)
         dialog = QDialog()
         super().setupUi(dialog)
         self.label_username_login_role.setText(f'{username_login_role}')
-        # Установка ResizeToContents для treeWidget_list_participance
-        self.tree_event_participants_list.header().setStretchLastSection(False)
-        self.tree_event_participants_list.header().setSectionResizeMode(QHeaderView.ResizeToContents)
         self.adjust_tree()
         self.set_view()
+        self.participants_event_list = self.get_participants()
+        print(self.participants_event_list)
+        self.set_list_participants_events()
         self.clicked_connect(dialog)
         dialog.exec()
 
+    def get_participants(self):
+        """Получение списка участников Мероприятия по id"""
+        try:
+            dct = {}
+            dct['event_id'] = self.dct_event['id']
+            relation = self.db.select_every(dct, 'events_participants')
+            # Если записей соответствия в таблице нет, то выходим из функции, отображая пустой список
+            if relation == ():
+                return None
+
+            # Здесь мы получаем relation = списку словарей соответствия event_id = participant_id
+            # Удаляем из списка словарей ключи event_id
+            # Забираем всех participants по их id в список словарей
+            participants = []
+            for slovar in relation:
+                slovar['id'] = slovar['participant_id']
+                del slovar['event_id']
+                del slovar['participant_id']
+                dct = self.db.select_one(slovar, 'participants')
+                participants.append(dct)
+            # print(participants)
+            return participants
+        except Exeption as ex:
+            print(f"Ошибка!")
+
     def adjust_tree(self):
         """Установка наименований для колонок списка"""
+        # Установка ResizeToContents для treeWidget_list_participance
+        self.tree_event_participants_list.header().setStretchLastSection(False)
+        self.tree_event_participants_list.header().setSectionResizeMode(QHeaderView.ResizeToContents)
         columns_names = ['id', '№_', 'Фамилия', 'Имя', 'Отчество', 'Город', 'Телефон', 'e-mail', 'Пароль']
         for i in columns_names:
             self.tree_event_participants_list.headerItem().setText(columns_names.index(i), i)
@@ -202,7 +230,7 @@ class Event(Ui_Event):
         """Обработка нажатий кнопок"""
         self.pushButton_ok.clicked.connect(self.update_event)
         self.pushButton_ok.clicked.connect(dialog.close)
-        self.pushButton_add_event_participant.clicked.connect(Add_participant)
+        self.pushButton_add_event_participant.clicked.connect(lambda: Add_participant(self.dct_event))
         self.pushButton_analisis_doc.clicked.connect(Analisis_list)
         self.pushButton_open_access.clicked.connect(self.open_access)
         self.pushButton_close_access.clicked.connect(self.close_access)
@@ -230,6 +258,35 @@ class Event(Ui_Event):
         else:
             self.pushButton_close_access.setText('Закрыт')
 
+    def set_list_participants_events(self):
+        """Участники Мероприятия"""
+        if self.participants_event_list == None:
+            return
+        participants = self.participants_event_list
+        # ['id', '№_', 'Фамилия', 'Имя', 'Отчество', 'Город', 'Телефон', 'e-mail', 'Пароль']
+        self.tree_event_participants_list.clear()
+
+        participant_string = []
+        number = 1
+        # ( id, №__, phone_number, second_name, first_name, last_name, email)
+        for dct in participants:
+            participant_string.append(str(dct['id']))
+            participant_string.append(str(number))
+            participant_string.append(dct['second_name'])
+            participant_string.append(dct['first_name'])
+            participant_string.append(dct['last_name'])
+            participant_string.append(dct['city'])
+            participant_string.append(dct['phone_number'])
+            participant_string.append(dct['email'])
+            participant_string.append(dct['password'])
+            item = QTreeWidgetItem(participant_string)
+            self.tree_event_participants_list.addTopLevelItem(item)
+            participant_string.clear()
+            number += 1
+        # self.label_total_participants.setText(f"Всего в списке {len(participant_string)} участников")
+
+        pass
+
     def set_organization(self):
         """Извлечение {} организации из таблицы соответствия organizations_events"""
         # Получаем соответствие id События = id Организация
@@ -247,7 +304,6 @@ class Event(Ui_Event):
         self.organization = organization_dct
         self.lineEdit_selected_organization.setText(organization_dct['organization_name'])
         # organization_dct = self.organization
-
 
     def update_event(self):
         self.dct_event['event_name'] = self.lineEdit_event_name.text()
@@ -301,7 +357,9 @@ class Event(Ui_Event):
 
 class Add_participant(Ui_Add_participant):
     """Окно добавления участника в Мероприятие"""
-    def __init__(self):
+    def __init__(self, dct_event):
+        print(dct_event)
+        self.dct_event = dct_event
         username_login_role = access.get_username_and_role(user_login)
         dialog = QDialog()
         super().setupUi(dialog)
@@ -310,7 +368,7 @@ class Add_participant(Ui_Add_participant):
         self.label_username_login_role.setText(f'{username_login_role}')
         self.adjust_tree()
         self.set_list_view(participants)
-        # self.clicked_connect()
+        self.clicked_connect()
         dialog.exec()
 
     def adjust_tree(self):
@@ -322,8 +380,35 @@ class Add_participant(Ui_Add_participant):
             self.tree_add_participant_to_event.headerItem().setText(columns_names.index(i), i)
         self.tree_add_participant_to_event.setColumnHidden(0, True)
 
+    def clicked_connect(self):
+        """Назанчения действий на нажатия кнопок"""
+        self.pushButton_ok.clicked.connect(self.push_ok)
+        self.pushButton_add_selected_participant.clicked.connect(self.add_selected)
+        self.pushButton_find.clicked.connect(self.find_participant)
+
+    def push_ok(self):
+        pass
+
+    def add_selected(self):
+        """Добавление выбранного участника в мероприятие"""
+        pass
+        # считать id выбранного участника
+        # выбрать из 'participants' по id участника
+        # добавить участника в list
+        try:
+            dct = {}
+            item = self.tree_add_participant_to_event.currentItem()
+            print(f'Выбрана строка {item}')
+            dct['id'] = item.text(0)
+            dct_participant = self.db.select_one(dct, "participants")
+
+            Event.set_list_participants_events(self.dct_event)
+        except Exception as ex:\
+            print("Не выделен ни один объект в дереве")
+
+
     def set_list_view(self, participants):
-        """Отображение данных по всем участникам"""
+        """Отображение данных по всем участникам в окне добавления участника в Мероприятие"""
         self.tree_add_participant_to_event.clear()
         participant_string = []
         number = 1
@@ -342,6 +427,45 @@ class Add_participant(Ui_Add_participant):
             number += 1
         # self.label_total_participants.setText(f"Всего в списке {len(participant_string)} участников")
 
+    def find_participant(self):
+        """Поиск участника по телефону или фамилии или email"""
+        table_name = 'participants'
+        phone = self.lineEdit_find_by_phone.text()
+        second_name = self.lineEdit_find_by_second_name.text()
+        email = self.lineEdit_find_by_email.text()
+        dct = self.check_find_request(phone, second_name, email)
+        print(dct)
+        if dct == {}:
+            return
+        find_result = self.db.select_every(dct, table_name)
+        self.set_list_view(find_result)
+        print(find_result)
+        pass
+
+    def check_find_request(self, phone, second_name, email):
+        """Проверка введенных пользователем данных для поиска"""
+        dct = {}
+        if len(phone) == 0:
+            pass
+        elif phone.isdigit():
+            dct.setdefault('phone_number', phone)
+        else:
+            self.lineEdit_find_by_phone.setText('Не корректно')
+
+        if len(second_name) == 0:
+            pass
+        elif second_name.isalpha():
+            dct.setdefault('second_name', second_name)
+        else:
+            self.lineEdit_find_by_second_name.setText('Не корректно')
+
+        if len(email) == 0:
+            pass
+        elif "@" in email:
+            dct.setdefault('email', email)
+        else:
+            self.lineEdit_find_by_email.setText('Не корректно')
+        return dct
 
 
 class Choose_organization(Ui_Choose_organization):
@@ -536,7 +660,6 @@ class Create_Event(Ui_Create_event):
         relation['event_id'] = self.dct_event['id']
         print(f'Запись в таблицу organizations_events: {relation}')
         self.db.insert_row(relation, 'organizations_events')
-
 
 
 class Create_user(Ui_Create_user):

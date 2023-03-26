@@ -19,7 +19,7 @@ class Mysql:
             print("Error connection to db")
 
     def select_one(self, dct, table_name):
-        """Находим строку (или несколько) по переданным параметрам в dct. На входе: {}, ''. На выходе {}"""
+        """Находим строку по переданным параметрам в dct. На входе: {}, ''. На выходе {}"""
         content = ''
         for key, value in dct.items():
             i = f"{key} = '{value}' AND "
