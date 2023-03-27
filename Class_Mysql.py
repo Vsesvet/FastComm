@@ -91,45 +91,45 @@ class Mysql:
             cursor.execute(request)
             self.connection.commit()
 
-    # def update_participant(self, dct, table_name):
-    #     """Старая функция Используется 1 раз"""
-    #     content = ""
-    #     for key, value in dct.items():
-    #         i = f"{key} = '{value}', "
-    #         content += i
-    #     content = content[:-2] # срез последнего пробела и запятой
-    #
-    #     request = f"UPDATE {table_name} SET {content} WHERE participant_id = '{dct['participant_id']}'"
-    #     print(request)
+    def delete_row(self, dct, table_name):
+        """Функция удаления строки из таблицы. """
+        print(dct)
+        for key, value in dct.items():
+            ls = key
+            rs = value
+        request = f"DELETE FROM {table_name} WHERE {ls} = '{rs}'"
+        print(request)
+        with self.connection.cursor() as cursor:
+            cursor.execute(request)
+            responce = cursor.fetchall()
+            self.connection.commit()
+            print(f"Удален{responce}")
+
+    # def create_user(self, new_user):
+    #     """Добавление нового пользователя в базу данных MySql"""
+    #     select_role_id = f"SELECT role_id FROM roles WHERE role_name = '{new_user['role']}'"
     #     with self.connection.cursor() as cursor:
-    #         cursor.execute(request)
+    #         cursor.execute(select_role_id)
+    #         result = cursor.fetchall()
     #         self.connection.commit()
-
-    def create_user(self, new_user):
-        """Добавление нового пользователя в базу данных MySql"""
-        select_role_id = f"SELECT role_id FROM roles WHERE role_name = '{new_user['role']}'"
-        with self.connection.cursor() as cursor:
-            cursor.execute(select_role_id)
-            result = cursor.fetchall()
-            self.connection.commit()
-
-        insert_query = f"INSERT INTO users (phone_number, second_name, first_name, last_name, full_name, role_id, city, email, password, comment,disabled) \
-        VALUES(" \
-                       f"'{new_user['phone_number']}'," \
-                       f" '{new_user['second_name']}'," \
-                       f" '{new_user['first_name']}'," \
-                       f" '{new_user['last_name']}'," \
-                       f" '{new_user['full_name']}'," \
-                       f" '{new_user['role_id']},'" \
-                       f" '{new_user['city']}'," \
-                       f" '{new_user['email']}'," \
-                       f" '{new_user['password']}'," \
-                       f" '{new_user['comment']}'," \
-                       f" '{new_user['disabled']})"
-
-        with self.connection.cursor() as cursor:
-            cursor.execute(insert_query)
-            self.connection.commit()
+    #
+    #     insert_query = f"INSERT INTO users (phone_number, second_name, first_name, last_name, full_name, role_id, city, email, password, comment,disabled) \
+    #     VALUES(" \
+    #                    f"'{new_user['phone_number']}'," \
+    #                    f" '{new_user['second_name']}'," \
+    #                    f" '{new_user['first_name']}'," \
+    #                    f" '{new_user['last_name']}'," \
+    #                    f" '{new_user['full_name']}'," \
+    #                    f" '{new_user['role_id']},'" \
+    #                    f" '{new_user['city']}'," \
+    #                    f" '{new_user['email']}'," \
+    #                    f" '{new_user['password']}'," \
+    #                    f" '{new_user['comment']}'," \
+    #                    f" '{new_user['disabled']})"
+    #
+    #     with self.connection.cursor() as cursor:
+    #         cursor.execute(insert_query)
+    #         self.connection.commit()
 
     def get_role_by_role_id(self, role_id):
         """Получение Роли по id"""
@@ -158,20 +158,6 @@ class Mysql:
             print(f'Возвращаемое значение функции get_value_by_arg: {value2}')
         return value2
 
-    def delete_row_by_arg(self, dct, table_name):
-        """(dict - словарь, table_name - название таблицы).
-        Универсальная функция удаления строки из таблицы"""
-        print(dct)
-        for key, value in dct.items():
-            ls = key
-            rs = value
-        request = f"DELETE FROM {table_name} WHERE {ls} = '{rs}'"
-        print(request)
-        with self.connection.cursor() as cursor:
-            cursor.execute(request)
-            responce = cursor.fetchall()
-            self.connection.commit()
-            print(f"Удален{responce}")
 
     def get_PK_by_table_name(self, table_name):
         """Функция возвращающая наименование первичного ключа по наименованию таблицы"""
