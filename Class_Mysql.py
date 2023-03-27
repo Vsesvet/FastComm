@@ -62,11 +62,11 @@ class Mysql:
             return rows
         journal.log(f"SELECT_ALL. Результат: {select_all_rows}")
 
-    def insert_row(self, dictionary, table_name):
+    def insert_row(self, dct, table_name):
         """Добавление row в таблицу. На входе: {}, ''. Выход без возврата"""
         column = []
         content = []
-        for key, value in dictionary.items():
+        for key, value in dct.items():
             column.append(key)
             content.append(value)
         column = str(tuple(column)).replace("'", "")
@@ -140,25 +140,6 @@ class Mysql:
             self.connection.commit()
         return result.get('role_name')
 
-    def get_value_by_arg(self, value_request, dict, table_name):
-        """(value_request - запрашиваемое значение, dict - словарь).
-        Универсальная функция получения одного значения из row"""
-        for key, value in dict.items():
-            ls = key
-            rs = value
-        request = f"SELECT {value_request} FROM {table_name} WHERE {ls} = '{rs}'"
-        print(request)
-        with self.connection.cursor() as cursor:
-            cursor.execute(request)
-            responce = cursor.fetchall()
-            self.connection.commit()
-        for item in responce:
-            # value2 = item
-            value2 = item.get(value_request)
-            print(f'Возвращаемое значение функции get_value_by_arg: {value2}')
-        return value2
-
-
     def get_PK_by_table_name(self, table_name):
         """Функция возвращающая наименование первичного ключа по наименованию таблицы"""
         id_name_request = f"SELECT KU.table_name as TABLENAME,column_name as PRIMARYKEYCOLUMN " \
@@ -175,24 +156,6 @@ class Mysql:
         id_name = id_name['PRIMARYKEYCOLUMN']
         return id_name
 
-    def update_row_by_id(self, id, dict, table_name):
-        """Функция обновления строки в таблице.
-           id - значения первичного ключа строки, которую надо обновить,
-           dict - устанавливаемые значения,
-           table_name - наименование таблицы, в которой необходимо произвести изменения"""
-        id_name = self.get_PK_by_table_name(table_name)
-        content = ""
-
-        for key, value in dict.items():
-            i = f"{key} = '{value}', "
-            content += i
-        content = content[:-2] # срез последнего пробела и запятой
-
-        request = f"UPDATE {table_name} SET {content} WHERE {id_name} = '{id}'"
-        print(request)
-        with self.connection.cursor() as cursor:
-            cursor.execute(request)
-            self.connection.commit()
 
     def __del__(self):
         """Закрытие сессии соединения с базой данных"""

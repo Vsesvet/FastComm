@@ -1047,12 +1047,6 @@ class Edit_organization(Ui_Create_organization):
         self.db.update_row(new_org_data, self.table_name)
         self.dialog.close()
 
-
-    # def update_organization(self, new_org_data):
-    #     table_name = "organizations"
-    #     self.db.update_row_by_id(self.id_from_db, new_org_data, table_name)
-    #     self.dialog.close()
-
     def output_form(self):
         """Устанавливает в поля ввода данные выбранной Организации"""
         self.label_create_organization.setText('Редактирование организации')
@@ -1152,26 +1146,6 @@ class List_organization(Ui_List_organization):
             Edit_organization(organization)
         except Exception as ex:
             print("Error")
-
-    # def update_organization(self):
-    #     """Открытие окна редактирования организации + получение данных по выбранной в QTreeWidget организации в виде списка"""
-    #     try:
-    #         item = self.tree_organizations_list.currentItem()
-    #         result_data = []
-    #         for i in range(0, 4):
-    #             item_string = item.text(i)
-    #             print(item_string)
-    #             result_data.append(item_string)
-    #
-    #         value_request = "id"
-    #         dct = {'phone_number': result_data[3]}
-    #         table_name = "organizations"
-    #         id_from_db = self.db.get_value_by_arg(value_request, dct, table_name)
-    #
-    #         Edit_organization(id_from_db, result_data)
-    #
-    #     except Exception as ex:
-    #         print("Error")
 
     def delete_organization(self):
         """Удаление выделенной организации"""
