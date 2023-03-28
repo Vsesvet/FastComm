@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QApplication, QMainWindow, QDialog, QTreeWidgetItem, QHeaderView, QFileDialog
+from PyQt5.QtWidgets import QApplication, QMainWindow, QDialog, QTreeWidgetItem, QHeaderView, QFileDialog, QMessageBox
 import time
 import datetime
 import pymysql
@@ -294,10 +294,21 @@ class Event(Ui_Event):
         # Обновляем список
         self.participant = {}
         item = self.tree_event_participants_list.currentItem()
+        if item == None:
+            self.show_message_not_select()
+            return
         self.participant['id'] = item.text(0)
         full_relation = self.processing_relation()
         self.db.delete_row(full_relation, 'events_participants')
         self.update_list_participants_events()
+
+    def show_message_not_select(self):
+        msg_box = QMessageBox()
+        msg_box.setIcon(QMessageBox.Information)
+        msg_box.setWindowTitle("Внимание")
+        msg_box.setText('Не выделен ни один участник')
+        msg_box.setStandardButtons(QMessageBox.Ok)
+        msg_box.exec()
 
     def processing_relation(self):
         """Получение id строки, по event_id и participant_id из таблицы events_participants"""
@@ -401,7 +412,7 @@ class Add_participant(Ui_Add_participant):
 
     def clicked_connect(self, dialog):
         """Назанчения действий на нажатия кнопок"""
-        self.pushButton_ok.clicked.connect(dialog.close)
+        # self.pushButton_ok.clicked.connect(dialog.close)
         self.pushButton_add_selected_participant.clicked.connect(self.add_selected)
         self.pushButton_add_selected_participant.clicked.connect(dialog.close)
         self.pushButton_find.clicked.connect(self.find_participant)

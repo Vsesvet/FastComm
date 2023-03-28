@@ -4,8 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Поправлены на словарь функции работы со списком Организаций">
-      <change beforePath="$PROJECT_DIR$/Class_Mysql.py" beforeDir="false" afterPath="$PROJECT_DIR$/Class_Mysql.py" afterDir="false" />
+    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="косметические правки">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -209,6 +209,20 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1676999725137</updated>
+    </task>
+    <task id="LOCAL-00034" summary="Поправлены мелкие недочеты">
+      <created>1678656132270</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1678656132270</updated>
+    </task>
+    <task id="LOCAL-00035" summary="Поправлены мелкие недочеты">
+      <created>1678656142578</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1678656142578</updated>
     </task>
     <task id="LOCAL-00036" summary="Поправлены незначительные мелочи">
       <created>1678656270593</created>
@@ -539,21 +553,7 @@
       <option name="project" value="LOCAL" />
       <updated>1679801335800</updated>
     </task>
-    <task id="LOCAL-00083" summary="Реализовано удаление участника из списка окна Мероприятие">
-      <created>1679868537498</created>
-      <option name="number" value="00083" />
-      <option name="presentableId" value="LOCAL-00083" />
-      <option name="project" value="LOCAL" />
-      <updated>1679868537499</updated>
-    </task>
-    <task id="LOCAL-00084" summary="Поправлены на словарь функции работы со списком Организаций">
-      <created>1679948435543</created>
-      <option name="number" value="00084" />
-      <option name="presentableId" value="LOCAL-00084" />
-      <option name="project" value="LOCAL" />
-      <updated>1679948435544</updated>
-    </task>
-    <option name="localTasksCounter" value="85" />
+    <option name="localTasksCounter" value="83" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -579,6 +579,8 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <MESSAGE value="Написана функция обновления update_db_participants_data" />
+    <MESSAGE value="Добавлено окно Upload_docs" />
     <MESSAGE value="Реализован выбор файлов для загрузки через окно Upload_docs" />
     <MESSAGE value="Поправлены неточности при диалоге в время выбора файлов Uploads_docs" />
     <MESSAGE value="Реализовано указание организации" />
@@ -602,17 +604,15 @@
     <MESSAGE value="Реализовано отображение кол-ва участников в Events и Events_Shedule" />
     <MESSAGE value="в Поиск по участникам при запросе по пустым значениям - выводит полный список" />
     <MESSAGE value="косметические правки" />
-    <MESSAGE value="Реализовано удаление участника из списка окна Мероприятие" />
-    <MESSAGE value="Поправлены на словарь функции работы со списком Организаций" />
-    <option name="LAST_COMMIT_MESSAGE" value="Поправлены на словарь функции работы со списком Организаций" />
+    <option name="LAST_COMMIT_MESSAGE" value="косметические правки" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>924</line>
-          <option name="timeStamp" value="2" />
+          <line>432</line>
+          <option name="timeStamp" value="38" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
