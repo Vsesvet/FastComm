@@ -304,7 +304,7 @@ class Event(Ui_Event):
 
     def show_message_not_select(self):
         msg_box = QMessageBox()
-        msg_box.setIcon(QMessageBox.Information)
+        msg_box.setIcon(QMessageBox.Warning)
         msg_box.setWindowTitle("Внимание")
         msg_box.setText('Не выделен ни один участник')
         msg_box.setStandardButtons(QMessageBox.Ok)
@@ -413,9 +413,6 @@ class Add_participant(Ui_Add_participant):
     def clicked_connect(self, dialog):
         """Назанчения действий на нажатия кнопок"""
         self.tree_add_participant_to_event.itemDoubleClicked.connect(self.add_selected)
-        # self.tree_add_participant_to_event.itemDoubleClicked.connect(dialog.close)
-        # self.pushButton_add_selected_participant.clicked.connect(self.add_selected)
-        # self.pushButton_add_selected_participant.clicked.connect(dialog.close)
         self.pushButton_find.clicked.connect(self.find_participant)
 
     # def push_ok(self):
@@ -539,8 +536,9 @@ class Choose_organization(Ui_Choose_organization):
         self.dialog.exec()
 
     def clicked_connect(self):
-        self.pushButton_add.clicked.connect(self.select_organization)
         self.tree_organizations_list.itemDoubleClicked.connect(self.select_organization)
+        self.tree_organizations_list.itemDoubleClicked.connect(self.dialog.close)
+        self.pushButton_add.clicked.connect(self.select_organization)
         self.pushButton_add.clicked.connect(self.dialog.close)
 
     def adjust_tree(self):
@@ -573,7 +571,6 @@ class Choose_organization(Ui_Choose_organization):
 
     def select_organization(self):
         try:
-
             self.organization = {}
             item = self.tree_organizations_list.currentItem()
             self.organization['id'] = item.text(0)
