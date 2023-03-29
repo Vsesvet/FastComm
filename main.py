@@ -412,9 +412,10 @@ class Add_participant(Ui_Add_participant):
 
     def clicked_connect(self, dialog):
         """Назанчения действий на нажатия кнопок"""
-        # self.pushButton_ok.clicked.connect(dialog.close)
-        self.pushButton_add_selected_participant.clicked.connect(self.add_selected)
-        self.pushButton_add_selected_participant.clicked.connect(dialog.close)
+        self.tree_add_participant_to_event.itemDoubleClicked.connect(self.add_selected)
+        # self.tree_add_participant_to_event.itemDoubleClicked.connect(dialog.close)
+        # self.pushButton_add_selected_participant.clicked.connect(self.add_selected)
+        # self.pushButton_add_selected_participant.clicked.connect(dialog.close)
         self.pushButton_find.clicked.connect(self.find_participant)
 
     # def push_ok(self):
@@ -434,13 +435,11 @@ class Add_participant(Ui_Add_participant):
             check = self.db.select_one(dct, 'events_participants')
             if check == None:
                 self.db.insert_row(dct, 'events_participants')
-                self.label_participant_exist.setText(f"Участник {check['second_name']} {check['first_name']} добавлен")
-                # time.sleep(1)
+                self.show_message_add_participant()
+                journal.log(f"В Мероприятие {self.dct_event['event_name']} добавлен участник {check['second_name']} {check['first_name']}")
             else:
-                self.label_participant_exist.setText('Уже существует в списке Мероприятия')
-                # time.sleep(1)
-                print('Такой участник уже присутствует в списке мероприятия')
-                return
+                self.show_message_participant_exist()
+                # return
 
             dct_participant = self.db.select_one(dct, "participants")
 
@@ -448,6 +447,21 @@ class Add_participant(Ui_Add_participant):
         except Exception as ex:\
             print("Не выделен ни один объект в дереве")
 
+    def show_message_participant_exist(self):
+        msg_box = QMessageBox()
+        msg_box.setIcon(QMessageBox.Warning)
+        msg_box.setWindowTitle("Внимание")
+        msg_box.setText('Участник уже присутствует в списке мероприятия.')
+        msg_box.setStandardButtons(QMessageBox.Ok)
+        msg_box.exec()
+
+    def show_message_add_participant(self):
+        msg_box = QMessageBox()
+        msg_box.setIcon(QMessageBox.Information)
+        msg_box.setWindowTitle("Оповещение")
+        msg_box.setText("Участник добавлен(а).")
+        msg_box.setStandardButtons(QMessageBox.Ok)
+        msg_box.exec()
 
     def set_list_view(self, participants):
         """Список участников для добавления в Мероприятие"""
@@ -564,7 +578,6 @@ class Choose_organization(Ui_Choose_organization):
             item = self.tree_organizations_list.currentItem()
             self.organization['id'] = item.text(0)
             self.organization = self.db.select_one(self.organization, 'organizations')
-            print(self.organization)
             global organization_dct
             organization_dct = self.organization
 

@@ -6,21 +6,28 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>608</width>
-    <height>376</height>
+    <width>745</width>
+    <height>382</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Event</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="0" column="3" colspan="2">
-    <widget class="QLabel" name="label_username_login_role">
+   <item row="1" column="0" colspan="6">
+    <widget class="QLabel" name="label_add_participant_event">
+     <property name="font">
+      <font>
+       <pointsize>16</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
      <property name="text">
-      <string>username_login_role</string>
+      <string>Добавить участника в мероприятие</string>
      </property>
      <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      <set>Qt::AlignCenter</set>
      </property>
     </widget>
    </item>
@@ -31,21 +38,14 @@
      </property>
     </widget>
    </item>
-   <item row="5" column="3">
-    <widget class="QPushButton" name="pushButton_cancel">
+   <item row="2" column="4">
+    <widget class="QPushButton" name="pushButton_find">
      <property name="text">
-      <string>Отмена</string>
+      <string>Найти</string>
      </property>
     </widget>
    </item>
-   <item row="5" column="4">
-    <widget class="QPushButton" name="pushButton_ok">
-     <property name="text">
-      <string>ОК</string>
-     </property>
-    </widget>
-   </item>
-   <item row="4" column="0" colspan="5">
+   <item row="4" column="0" colspan="6">
     <widget class="QTreeWidget" name="tree_add_participant_to_event">
      <attribute name="headerMinimumSectionSize">
       <number>20</number>
@@ -88,34 +88,20 @@
      </column>
     </widget>
    </item>
-   <item row="2" column="0">
-    <widget class="QLineEdit" name="lineEdit_find_by_phone">
-     <property name="placeholderText">
-      <string>Номер телефона...</string>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="0" colspan="5">
-    <widget class="QLabel" name="label_add_participant_event">
-     <property name="font">
-      <font>
-       <pointsize>16</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
+   <item row="0" column="4" colspan="2">
+    <widget class="QLabel" name="label_username_login_role">
      <property name="text">
-      <string>Добавить участника в мероприятие</string>
+      <string>username_login_role</string>
      </property>
      <property name="alignment">
-      <set>Qt::AlignCenter</set>
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
     </widget>
    </item>
-   <item row="5" column="0">
-    <widget class="QPushButton" name="pushButton_add_selected_participant">
+   <item row="5" column="1" colspan="2">
+    <widget class="QLabel" name="label">
      <property name="text">
-      <string>Добавить выбранного</string>
+      <string>Двойной щелчок добавляет участника</string>
      </property>
     </widget>
    </item>
@@ -126,17 +112,17 @@
      </property>
     </widget>
    </item>
-   <item row="2" column="3">
-    <widget class="QPushButton" name="pushButton_find">
+   <item row="5" column="5">
+    <widget class="QPushButton" name="pushButton_cancel">
      <property name="text">
-      <string>Найти</string>
+      <string>Закрыть</string>
      </property>
     </widget>
    </item>
-   <item row="5" column="1" colspan="2">
-    <widget class="QLabel" name="label_participant_exist">
-     <property name="text">
-      <string/>
+   <item row="2" column="0">
+    <widget class="QLineEdit" name="lineEdit_find_by_phone">
+     <property name="placeholderText">
+      <string>Номер телефона...</string>
      </property>
     </widget>
    </item>
@@ -147,9 +133,6 @@
   <tabstop>lineEdit_find_by_second_name</tabstop>
   <tabstop>pushButton_find</tabstop>
   <tabstop>tree_add_participant_to_event</tabstop>
-  <tabstop>pushButton_add_selected_participant</tabstop>
-  <tabstop>pushButton_ok</tabstop>
-  <tabstop>pushButton_cancel</tabstop>
  </tabstops>
  <resources/>
  <connections>
