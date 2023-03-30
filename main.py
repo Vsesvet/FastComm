@@ -264,6 +264,7 @@ class Event(Ui_Event):
     def set_list_participants_events(self):
         """Участники Мероприятия"""
         if self.participants_event_list == None:
+            self.dct_event['count'] = 0
             return
         participants = self.participants_event_list
         self.tree_event_participants_list.clear()
