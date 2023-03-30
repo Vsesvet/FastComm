@@ -411,15 +411,9 @@ class Add_participant(Ui_Add_participant):
         self.tree_add_participant_to_event.setColumnHidden(0, True)
 
     def clicked_connect(self, dialog):
-        """Назанчения действий на нажатия кнопок"""
+        """Назначения действий на нажатия кнопок"""
         self.tree_add_participant_to_event.itemDoubleClicked.connect(self.add_selected)
-        # self.tree_add_participant_to_event.itemDoubleClicked.connect(dialog.close)
-        # self.pushButton_add_selected_participant.clicked.connect(self.add_selected)
-        # self.pushButton_add_selected_participant.clicked.connect(dialog.close)
         self.pushButton_find.clicked.connect(self.find_participant)
-
-    # def push_ok(self):
-    #     pass
 
     def add_selected(self):
         """Добавление выбранного участника в мероприятие"""
@@ -435,17 +429,43 @@ class Add_participant(Ui_Add_participant):
             check = self.db.select_one(dct, 'events_participants')
             if check == None:
                 self.db.insert_row(dct, 'events_participants')
+                dct = self.add_entry_participants_event_data(dct)
+
+                self.db.insert_row(dct, 'participants_event_data')
                 self.show_message_add_participant()
                 journal.log(f"В Мероприятие {self.dct_event['event_name']} добавлен участник {check['second_name']} {check['first_name']}")
             else:
                 self.show_message_participant_exist()
-                # return
 
-            dct_participant = self.db.select_one(dct, "participants")
 
-            # Event.set_list_participants_events(self.dct_event)
         except Exception as ex:\
             print("Не выделен ни один объект в дереве")
+
+    def select_path_participants_event_data(self, dct):
+        """Забираем profile_path из таблицы participants_data"""
+        del dct['event_id']
+        dct_participants_data = self.db.select_one(dct, 'participants_data')
+        return dct_participants_data['profile_path']
+
+
+    def add_entry_participants_event_data(self, dct):
+        """Заполняем словарь dct для вставки row в таблицу participants_event_data"""
+        dct['path'] = self.select_path_participants_event_data(dct)
+        dct['event_id'] = self.dct_event['id']
+        id = self.dct_event['id']
+        dct['act'] = f'{id}_act'
+        dct['agreement'] = f'{id}_agreement'
+        dct['contract'] = f'{id}_contract'
+        dct['survey'] = f'{id}_survey'
+        dct['act_exist'] = False
+        dct['act_accept'] = False
+        dct['agreement_exist'] = False
+        dct['agreement_accept'] = False
+        dct['contract_exist'] = False
+        dct['contract_accept'] = False
+        dct['survey_exist'] = False
+        dct['survey_accept'] = False
+        return dct
 
     def show_message_participant_exist(self):
         msg_box = QMessageBox()
@@ -867,12 +887,12 @@ class Create_participant(Ui_Create_participant):
         dct1['participant_id'] = dct['id']
         dct1['full_name'] = dct["full_name"]
         dct1['profile_path'] = self.directory_path
-        dct1['passport'] = f"{dct['id']}_passport.jpg"
-        dct1['registration'] = f"{dct['id']}_registration.jpg"
-        dct1['inn'] = f"{dct['id']}_inn.jpg"
-        dct1['snils'] = f"{dct['id']}_snils.jpg"
-        dct1['diploma'] = f"{dct['id']}_diploma.jpg"
-        dct1['sertificate'] = f"{dct['id']}_sertificate.jpg"
+        dct1['passport'] = f"{dct['id']}_passport"
+        dct1['registration'] = f"{dct['id']}_registration"
+        dct1['inn'] = f"{dct['id']}_inn"
+        dct1['snils'] = f"{dct['id']}_snils"
+        dct1['diploma'] = f"{dct['id']}_diploma"
+        dct1['sertificate'] = f"{dct['id']}_sertificate"
         dct1['passport_exist'] = False
         dct1['passport_accept'] = False
         dct1['registration_exist'] = False
@@ -1405,7 +1425,7 @@ class Upload_docs(Ui_Upload_docs):
 
     def open_file(self, label, docs_name):
         """Функция выбора файла из окна проводника и присвоение словарю путей откуда будут копироваться файлы"""
-        self.fname = QFileDialog.getOpenFileName(None, 'Выберите файл', '/home', "Image files (*.jpg *.gif)")
+        self.fname = QFileDialog.getOpenFileName(None, 'Выберите файл', '/home', "Files (*.pdf, *.jpg *.jpeg, *.png)")
         print(self.fname)
         if self.fname == ('', ''):
             label.setText('Не выбран файл')
