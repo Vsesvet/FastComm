@@ -643,9 +643,10 @@ class Accept_docs(Ui_Accept_docs):
 
     def view_document(self):
         import webbrowser
-        webbrowser.open(r"/home/efremov/Изображения/SNILS.pdf")
+        webbrowser.open("/home/vsesvet/Изображения/2_passport.jpg")
         #  для Windows os.startfile(r'/home/event/participants_data/2_Волкова_Ольга_Викторовна/2_passport.png')
         # os.startfile(r'D:\picture.jpg')
+
     def clicked_connect(self):
         """Обработка нажатий на кнопки в окне Принятия или отклонения документов"""
         # Кнопки основных действий
@@ -932,17 +933,17 @@ class Create_participant(Ui_Create_participant):
         dct1['diploma'] = f"{dct['id']}_diploma"
         dct1['sertificate'] = f"{dct['id']}_sertificate"
         dct1['passport_exist'] = False
-        dct1['passport_accept'] = False
+        # dct1['passport_accept'] = NULL
         dct1['registration_exist'] = False
-        dct1['registration_accept'] = False
+        # dct1['registration_accept'] = NULL
         dct1['inn_exist'] = False
-        dct1['inn_accept'] = False
+        # dct1['inn_accept'] = NULL
         dct1['snils_exist'] = False
-        dct1['snils_accept'] = False
+        # dct1['snils_accept'] = NULL
         dct1['diploma_exist'] = False
-        dct1['diploma_accept'] = False
+        # dct1['diploma_accept'] = NULL
         dct1['sertificate_exist'] = False
-        dct1['sertificate_accept'] = False
+        # dct1['sertificate_accept'] = NULL
 
         self.db.insert_row(dct1, table_name)
 

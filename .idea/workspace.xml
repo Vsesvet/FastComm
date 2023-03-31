@@ -4,7 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Пробник открытия документов различных форматов под Ubuntu">
+    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Реализовано добавление строки с именами файлов в таблицу participants_event_data при добавлении участника в Мероприятие.">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -208,6 +209,27 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1676999725137</updated>
+    </task>
+    <task id="LOCAL-00038" summary="Принятие изменений">
+      <created>1678656317016</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1678656317016</updated>
+    </task>
+    <task id="LOCAL-00039" summary="Добавлен Journal">
+      <created>1678998848306</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1678998848306</updated>
+    </task>
+    <task id="LOCAL-00040" summary="Реализовано создание профильных папок участника и удаление при удалении участника">
+      <created>1678998899749</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1678998899749</updated>
     </task>
     <task id="LOCAL-00041" summary="Поле full_name перевел в режим только чтение (заполняется из полей Фамилия, Имя, Отчество)">
       <created>1678998969885</created>
@@ -517,42 +539,21 @@
       <option name="project" value="LOCAL" />
       <updated>1679948435544</updated>
     </task>
-    <task id="LOCAL-00085" summary="Косметические изменения">
-      <created>1680252861536</created>
+    <task id="LOCAL-00085" summary="Добавлены окна сообщения при добавлении/удалении участника из Мероприятия.">
+      <created>1680063084469</created>
       <option name="number" value="00085" />
       <option name="presentableId" value="LOCAL-00085" />
       <option name="project" value="LOCAL" />
-      <updated>1680252861536</updated>
+      <updated>1680063084470</updated>
     </task>
-    <task id="LOCAL-00086" summary="При создании Мероприятия реализовано создание директории с id Мероприятия. Для хранения шаблонов документов Мероприятия">
-      <created>1680266595297</created>
+    <task id="LOCAL-00086" summary="Реализовано добавление строки с именами файлов в таблицу participants_event_data при добавлении участника в Мероприятие.">
+      <created>1680209648732</created>
       <option name="number" value="00086" />
       <option name="presentableId" value="LOCAL-00086" />
       <option name="project" value="LOCAL" />
-      <updated>1680266595298</updated>
+      <updated>1680209648732</updated>
     </task>
-    <task id="LOCAL-00087" summary="Косметические изменения">
-      <created>1680266756345</created>
-      <option name="number" value="00087" />
-      <option name="presentableId" value="LOCAL-00087" />
-      <option name="project" value="LOCAL" />
-      <updated>1680266756345</updated>
-    </task>
-    <task id="LOCAL-00088" summary="Пробник открытия документов различных форматов под Ubuntu">
-      <created>1680269760388</created>
-      <option name="number" value="00088" />
-      <option name="presentableId" value="LOCAL-00088" />
-      <option name="project" value="LOCAL" />
-      <updated>1680269760388</updated>
-    </task>
-    <task id="LOCAL-00089" summary="Пробник открытия документов различных форматов под Ubuntu">
-      <created>1680269775697</created>
-      <option name="number" value="00089" />
-      <option name="presentableId" value="LOCAL-00089" />
-      <option name="project" value="LOCAL" />
-      <updated>1680269775697</updated>
-    </task>
-    <option name="localTasksCounter" value="90" />
+    <option name="localTasksCounter" value="87" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -578,6 +579,7 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <MESSAGE value="Реализовано указание организации" />
     <MESSAGE value="Реализовано Создание Мероприятия (надо разобраться с передачей DateTime в SQL)" />
     <MESSAGE value="Реализовал Event_Shedule. Первоначальное и обновление после добавления Мероприятия." />
     <MESSAGE value="Убрал один принт" />
@@ -600,17 +602,16 @@
     <MESSAGE value="косметические правки" />
     <MESSAGE value="Реализовано удаление участника из списка окна Мероприятие" />
     <MESSAGE value="Поправлены на словарь функции работы со списком Организаций" />
-    <MESSAGE value="При создании Мероприятия реализовано создание директории с id Мероприятия. Для хранения шаблонов документов Мероприятия" />
-    <MESSAGE value="Косметические изменения" />
-    <MESSAGE value="Пробник открытия документов различных форматов под Ubuntu" />
-    <option name="LAST_COMMIT_MESSAGE" value="Пробник открытия документов различных форматов под Ubuntu" />
+    <MESSAGE value="Добавлены окна сообщения при добавлении/удалении участника из Мероприятия." />
+    <MESSAGE value="Реализовано добавление строки с именами файлов в таблицу participants_event_data при добавлении участника в Мероприятие." />
+    <option name="LAST_COMMIT_MESSAGE" value="Реализовано добавление строки с именами файлов в таблицу participants_event_data при добавлении участника в Мероприятие." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>975</line>
+          <line>997</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
