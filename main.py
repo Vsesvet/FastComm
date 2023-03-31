@@ -700,6 +700,7 @@ class Create_Event(Ui_Create_event):
         self.pushButton_ok.clicked.connect(self.get_event_data)
         self.pushButton_ok.clicked.connect(self.write_event_to_db)
         self.pushButton_ok.clicked.connect(self.relation_to_db)
+        self.pushButton_ok.clicked.connect(self.event_templates_to_db)
         self.pushButton_ok.clicked.connect(dialog.close)
 
     def set_organization(self):
@@ -711,7 +712,6 @@ class Create_Event(Ui_Create_event):
         self.dct_event = {}
         self.dct_event['event_name'] = self.lineEdit_event_name.text()
         self.dct_event['event_theme'] = self.lineEdit_event_theme.text()
-        # self.dct_event['organization_name'] = self.lineEdit_selected_organization.text()
         self.dct_event['date_time'] = self.event_dateTime.dateTime().toString("yyyy-MM-dd hh:mm")
         self.dct_event['country'] = self.lineEdit_event_country.text()
         self.dct_event['city'] = self.lineEdit_event_city.text()
@@ -720,13 +720,14 @@ class Create_Event(Ui_Create_event):
         self.dct_event['status'] = 'Запланировано'
         self.dct_event['access'] = False
         self.dct_event['count'] = 0
-        print(f"Вывод данных введенной организации: {self.dct_event}")
+        # print(f"Вывод данных введенной организации: {self.dct_event}")
 
     def write_event_to_db(self):
         print(self.dct_event)
         self.db.insert_row(self.dct_event, 'events')
 
     def relation_to_db(self):
+        """Запись в таблицу organizations_events связки Мероприятие-Организация"""
         global organization_dct
         self.dct_event = self.db.select_one(self.dct_event, 'events')
         relation = {}
@@ -734,6 +735,32 @@ class Create_Event(Ui_Create_event):
         relation['event_id'] = self.dct_event['id']
         print(f'Запись в таблицу organizations_events: {relation}')
         self.db.insert_row(relation, 'organizations_events')
+
+    def event_templates_to_db(self):
+        """Запись в event_templates именования шаблонов документов"""
+        dct = {}
+        dct['event_id'] = self.dct_event['id']
+        id = self.dct_event['id']
+        dct['path_template'] = f'/home/event/event_templates/{id}'
+        dct['act_template'] = 'act_template'
+        dct['agreement_template'] = 'agreement_template'
+        dct['contract_template'] = 'contract_template'
+        dct['survey_template'] = 'survey_template'
+        self.db.insert_row(dct, 'event_templates')
+        self.create_templates_directory(dct['path_template'])
+
+    def create_templates_directory(self, path):
+        """Создание директории для хранения шаблонов документов Мероприятия"""
+        host, login, secret = ssh_config.host, ssh_config.login, ssh_config.secret
+        templates_path = path
+        event = paramiko.client.SSHClient()
+        event.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+        event.connect(host, username=login, password=secret)
+        stdin, stdout, stderr = event.exec_command(f"mkdir -p {templates_path}")
+        journal.log(f"Создана директория для хранения шаблонов документов Мероприятия {templates_path}")
+        print(stdout.read().decode())
+        stdin.close()
+        event.close()
 
 
 class Create_user(Ui_Create_user):
