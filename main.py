@@ -1,3 +1,5 @@
+import os
+
 from PyQt5.QtWidgets import QApplication, QMainWindow, QDialog, QTreeWidgetItem, QHeaderView, QFileDialog, QMessageBox
 import time
 import datetime
@@ -638,10 +640,16 @@ class Accept_docs(Ui_Accept_docs):
         self.clicked_connect()
         dialog.exec()
 
+    def view_document(self):
+        import webbrowser
+        webbrowser.open(r"/home/efremov/Изображения/SNILS.pdf")
+        #  для Windows os.startfile(r'/home/event/participants_data/2_Волкова_Ольга_Викторовна/2_passport.png')
+        # os.startfile(r'D:\picture.jpg')
     def clicked_connect(self):
         """Обработка нажатий на кнопки в окне Принятия или отклонения документов"""
         # Кнопки основных действий
         self.pushButton_upload_docs.clicked.connect(Upload_docs)
+        self.pushButton_open_passport.clicked.connect(self.view_document)
         # self.pushButton_Ok.clicked.connect(Accept_docs.close)
         # self.pushButton_Cancel.clicked.connect(Accept_docs.close)
 
