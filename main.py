@@ -704,6 +704,7 @@ class Create_Event(Ui_Create_event):
         self.pushButton_ok.clicked.connect(dialog.close)
 
     def set_organization(self):
+        """Установка организации в поле отображения Мероприятия"""
         global organization_dct
         self.lineEdit_selected_organization.setText(organization_dct['organization_name'])
 
