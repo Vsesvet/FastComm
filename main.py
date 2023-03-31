@@ -607,6 +607,7 @@ class Choose_organization(Ui_Choose_organization):
         except Exception as ex:\
             print("Не выделен ни один объект в дереве")
 
+
 class Analisis_list(Ui_Analisis_docs):
     """Класс работы с окном Анализ загруженных документов"""
     def __init__(self):
