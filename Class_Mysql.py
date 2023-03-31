@@ -101,16 +101,14 @@ class Mysql:
         print(request)
         with self.connection.cursor() as cursor:
             cursor.execute(request)
-            responce = cursor.fetchall()
             self.connection.commit()
-            print(f"Удален{responce}")
 
     # def create_user(self, new_user):
     #     """Добавление нового пользователя в базу данных MySql"""
     #     select_role_id = f"SELECT role_id FROM roles WHERE role_name = '{new_user['role']}'"
     #     with self.connection.cursor() as cursor:
     #         cursor.execute(select_role_id)
-    #         result = cursor.fetchall()
+    #         result = cursor.fetchone()
     #         self.connection.commit()
     #
     #     insert_query = f"INSERT INTO users (phone_number, second_name, first_name, last_name, full_name, role_id, city, email, password, comment,disabled) \
