@@ -1,3 +1,4 @@
+import copy
 import os
 
 from PyQt5.QtWidgets import QApplication, QMainWindow, QDialog, QTreeWidgetItem, QHeaderView, QFileDialog, QMessageBox
@@ -237,7 +238,7 @@ class Event(Ui_Event):
         self.pushButton_del_event_participant.clicked.connect(self.delete_participant_from_event)
         self.pushButton_add_event_participant.clicked.connect(lambda: Add_participant(self.dct_event))
         self.pushButton_add_event_participant.clicked.connect(self.update_list_participants_events)
-        self.pushButton_analisis_doc.clicked.connect(Analisis_list)
+        self.pushButton_analisis_doc.clicked.connect(lambda: Analisis_list(self.dct_event))
         self.pushButton_open_access.clicked.connect(self.open_access)
         self.pushButton_close_access.clicked.connect(self.close_access)
         self.pushButton_select_organization.clicked.connect(Choose_organization)
@@ -459,15 +460,21 @@ class Add_participant(Ui_Add_participant):
         dct['act'] = f'{id}_act'
         dct['agreement'] = f'{id}_agreement'
         dct['contract'] = f'{id}_contract'
+        dct['report'] = f'{id}_report'
         dct['survey'] = f'{id}_survey'
+
         dct['act_exist'] = False
-        dct['act_accept'] = False
         dct['agreement_exist'] = False
-        dct['agreement_accept'] = False
         dct['contract_exist'] = False
-        dct['contract_accept'] = False
+        dct['report_exist'] = False
         dct['survey_exist'] = False
-        dct['survey_accept'] = False
+
+        # Данные словаря для заполнения при Принятии загруженного документа
+        # dct['act_accept'] = False
+        # dct['agreement_accept'] = True
+        # dct['contract_accept'] = True
+        # dct['report_accept'] = True
+        # dct['survey_accept'] = True
         return dct
 
     def show_message_participant_exist(self):
@@ -610,25 +617,114 @@ class Choose_organization(Ui_Choose_organization):
 
 class Analisis_list(Ui_Analisis_docs):
     """Класс работы с окном Анализ загруженных документов"""
-    def __init__(self):
+    def __init__(self, dct_event):
         username_login_role = access.get_username_and_role(user_login)
         dialog = QDialog()
         super().setupUi(dialog)
         self.label_username_login_role.setText(f'{username_login_role}')
+        self.db = Mysql()
+        self.dct_event = dct_event
+        participants_data = self.select_participants_data()
+        self.adjust_tree(self.treeWidget_analysis)
+        self.output_analisis_list(participants_data)
         self.clicked_connect()
         dialog.exec()
 
     def adjust_tree(self, tree):
         """Установка наименований для колонок Tree"""
-        columns_names = ['Телефон', 'Фамилия', 'Имя', 'Отчество', 'Паспорт', 'Прописка', 'ИНН', 'СНИЛС', 'Диплом', 'Сертификат', 'Согласие', 'Анкета', 'Договор', 'Акт', 'Отчет']
+        self.treeWidget_analysis.header().setStretchLastSection(False)
+        self.treeWidget_analysis.header().setSectionResizeMode(QHeaderView.ResizeToContents)
+        columns_names = ['participant_id', '№', 'Фамилия Имя Отчество', 'Паспорт', 'Прописка', 'ИНН', 'СНИЛС', 'Диплом', 'Сертификат', 'Согласие', 'Анкета', 'Договор', 'Акт', 'Отчет']
         for name in columns_names:
             tree.headerItem().setText(columns_names.index(name), name)
+            tree.setColumnHidden(0, True)
+
+    def output_analisis_list(self, participants_data):
+        """Вывод списка загруженных документов участников Мероприятия"""
+        self.treeWidget_analysis.clear()
+        one_string = []
+        number = 1
+        for dct in participants_data:
+            one_string.append(str(dct['participant_id']))
+            one_string.append(str(number))
+            one_string.append(dct['full_name'])
+            status_passport = self.check_status_by_exist_accept_value(dct['passport_exist'], dct['passport_accept'])
+            one_string.append(status_passport)
+            status_registration = self.check_status_by_exist_accept_value(dct['registration_exist'], dct['registration_accept'])
+            one_string.append(status_registration)
+            status_inn = self.check_status_by_exist_accept_value(dct['inn_exist'], dct['inn_accept'])
+            one_string.append(status_inn)
+            status_snils = self.check_status_by_exist_accept_value(dct['snils_exist'], dct['snils_accept'])
+            one_string.append(status_snils)
+            status_diploma = self.check_status_by_exist_accept_value(dct['diploma_exist'], dct['diploma_accept'])
+            one_string.append(status_diploma)
+            status_sertificate = self.check_status_by_exist_accept_value(dct['sertificate_exist'], dct['sertificate_accept'])
+            one_string.append(status_sertificate)
+
+
+            status_agreement = self.check_status_by_exist_accept_value(dct['agreement_exist'], dct['agreement_accept'])
+            one_string.append(status_agreement)
+            status_survey = self.check_status_by_exist_accept_value(dct['survey_exist'], dct['survey_accept'])
+            one_string.append(status_survey)
+            status_contract = self.check_status_by_exist_accept_value(dct['contract_exist'], dct['contract_accept'])
+            one_string.append(status_contract)
+            status_act = self.check_status_by_exist_accept_value(dct['act_exist'], dct['act_accept'])
+            one_string.append(status_act)
+            status_report = self.check_status_by_exist_accept_value(dct['report_exist'], dct['report_accept'])
+            one_string.append(status_report)
+
+            item = QTreeWidgetItem(one_string)
+            self.treeWidget_analysis.addTopLevelItem(item)
+            one_string.clear()
+            number += 1
+
+    def check_status_by_exist_accept_value(self, exist, accept):
+        """Установка статуса документа по значениям ключей exist-accept"""
+        if exist == 0:
+            status = ''
+        elif exist == 1 and accept == None:
+            status = 'загружен'
+        elif exist == 1 and accept == 1:
+            status = 'Принят'
+        elif exist == 1 and accept == 0:
+            status = 'ОТКЛОНЁН'
+        return status
+
 
     def clicked_connect(self):
         """Обработка нажатий кнопок"""
         pass
         # self.pushButton_add_participance.clicked.connect(List_participants)
         self.pushButton_open_analisis_doc.clicked.connect(Accept_docs)
+
+    def select_participants_data(self):
+        """Выбираем из таблицы events_participants по event_id все participant_id.
+         Забираем по participants_id все строки из таблицы participants_data. Личные документы участников.
+         Так же забираем из таблицы participants_event_data документы участника по Мероприятию.
+         Проводим слияние словарей для получения одной строкой личных док-ов и документов по Мероприятию"""
+        event_id = {}
+        event_id['event_id'] = self.dct_event['id']
+        events_participants = self.db.select_every(event_id, 'events_participants')
+
+        participants_data = []
+        for dct in events_participants:
+            del dct['id']
+            dct2 = self.db.select_one(dct, 'participants_event_data')
+            print(f'dct2 = {dct2}')
+            del dct2['id']
+            del dct2['event_id']
+            del dct2['path']
+            print(f'dct2 = {dct2}')
+            del dct['event_id']
+            dct = self.db.select_one(dct, 'participants_data')
+            del dct['id']
+            del dct['profile_path']
+            print(f'dct = {dct}')
+            dct.update(dct2)
+            print(f'update dct = {dct}')
+
+            participants_data.append(dct)
+        return participants_data
 
 
 class Accept_docs(Ui_Accept_docs):
