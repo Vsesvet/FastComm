@@ -158,7 +158,9 @@ class Event_shedule(Ui_Event_shedule):
         # Получаем соответствие id События = id Организация
         event_id = {}
         event_id['event_id'] = dct_event['id']
+        print(f"event_id = {event_id}")
         dct = self.db.select_one(event_id, 'organizations_events')
+        print(f"dct = {dct}")
         # Извлекаем организацию по полученному соответсвию
         organization_id = {}
         organization_id['id'] = dct['organization_id']
@@ -243,6 +245,8 @@ class Event(Ui_Event):
         self.pushButton_close_access.clicked.connect(self.close_access)
         self.pushButton_select_organization.clicked.connect(Choose_organization)
         self.pushButton_select_organization.clicked.connect(self.set_choose_organization)
+        self.pushButton_load_xls.clicked.connect(lambda: Load_xls_participants(self.dct_event))
+        self.pushButton_load_xls.clicked.connect(self.update_event)
 
     def output_form(self):
         """Заполняем поля данных Мероприятия из полученного словаря dct_event"""
@@ -630,6 +634,12 @@ class Analisis_list(Ui_Analisis_docs):
         self.clicked_connect()
         dialog.exec()
 
+    def clicked_connect(self):
+        """Обработка нажатий кнопок"""
+        pass
+        # self.pushButton_add_participance.clicked.connect(List_participants)
+        self.pushButton_open_analisis_doc.clicked.connect(Accept_docs)
+
     def adjust_tree(self, tree):
         """Установка наименований для колонок Tree"""
         self.treeWidget_analysis.header().setStretchLastSection(False)
@@ -690,13 +700,6 @@ class Analisis_list(Ui_Analisis_docs):
             status = 'ОТКЛОНЁН'
         return status
 
-
-    def clicked_connect(self):
-        """Обработка нажатий кнопок"""
-        pass
-        # self.pushButton_add_participance.clicked.connect(List_participants)
-        self.pushButton_open_analisis_doc.clicked.connect(Accept_docs)
-
     def select_participants_data(self):
         """Выбираем из таблицы events_participants по event_id все participant_id.
          Забираем по participants_id все строки из таблицы participants_data. Личные документы участников.
@@ -710,18 +713,18 @@ class Analisis_list(Ui_Analisis_docs):
         for dct in events_participants:
             del dct['id']
             dct2 = self.db.select_one(dct, 'participants_event_data')
-            print(f'dct2 = {dct2}')
+
             del dct2['id']
             del dct2['event_id']
             del dct2['path']
-            print(f'dct2 = {dct2}')
+
             del dct['event_id']
             dct = self.db.select_one(dct, 'participants_data')
             del dct['id']
             del dct['profile_path']
-            print(f'dct = {dct}')
+
             dct.update(dct2)
-            print(f'update dct = {dct}')
+            # print(f'update dct = {dct}')
 
             participants_data.append(dct)
         return participants_data
@@ -922,12 +925,6 @@ class Create_participant(Ui_Create_participant):
         self.label_username_login_role.setText(f'{username_login_role}')
         self.table_name = 'participants'
 
-        # disabled after debug
-        self.lineEdit_second_name.setText('Ефремов')
-        self.lineEdit_first_name.setText('Максим')
-        self.lineEdit_last_name.setText('Георгиевич')
-        self.lineEdit_phone_number.setText('89889925875')
-
         self.checkBox_disabled_participant.setText("")
         self.clicked_connect(self.dialog)
         self.db = Mysql()
@@ -1042,7 +1039,197 @@ class Create_participant(Ui_Create_participant):
         # dct1['sertificate_accept'] = NULL
 
         self.db.insert_row(dct1, table_name)
+        
 
+class Load_xls_participants():
+    """Загрузка участников Мероприятия из файла xls"""
+    def __init__(self, dct_event):
+        self.dct_event = dct_event
+        self.table_name = "participants"
+        self.db = Mysql()
+        file_path_xls = self.select_xls_file()
+        lst_dct_participants = self.load_xls(file_path_xls)
+        print(lst_dct_participants)
+        # Заменяем имена ключей в словарях
+        for dct in lst_dct_participants:
+            dct['full_name'] = dct.pop('ФИО полностью')
+            dct['city'] = dct.pop('Город отправления')
+            dct['phone_number'] = dct.pop('Телефон')
+            dct['email'] = dct.pop('e-mail')
+            dct['phone_number'] = self.formating_phone(dct['phone_number'])
+            dct = self.split_full_name(dct)
+            dct['role_id'] = '4'
+            dct['password'] = generate_password.generate()
+            dct['disabled'] = False
+
+            self.add_new_participant(dct)
+            participant = self.db.select_one(dct, self.table_name)
+            print(participant)
+            self.create_profile(participant)
+            self.create_profile_to_db(participant)
+            journal.log(f"Создан участник {participant['id']}_{participant['second_name']} {participant['first_name']}"
+                        f" {participant['last_name']}")
+            self.add_participant_to_event(participant)
+
+
+        print(lst_dct_participants)
+
+    def select_xls_file(self):
+        """Функция выбора файла из окна проводника"""
+        self.file_name = QFileDialog.getOpenFileName(None, 'Выберите файл', '/home', "Files (*.xls, *.xlsx)")
+        file_path_xls = self.file_name[0]
+        return file_path_xls
+
+    def load_xls(self, file_path):
+        """Загрузка файла XLS в DataFrame, получение списка словарей участников"""
+        import pandas as pd
+        excel_data = pd.read_excel(f"{file_path}")
+        data = pd.DataFrame(excel_data, columns=['ФИО полностью', 'Город отправления', 'Телефон', 'e-mail'])
+        print(f"data (DataFrame) = {data}")
+        lst_dct = data.to_dict(orient="records")
+        return lst_dct
+
+    def split_full_name(self, dct):
+        """Разделение full_name и запись ФИО в second, first, last name"""
+        full_name = str(dct['full_name'])
+        split = full_name.split()
+        if len(split) == 2:
+            dct['second_name'] = split[0]
+            dct['first_name'] = split[1]
+        elif len(split) == 3:
+            dct['second_name'] = split[0]
+            dct['first_name'] = split[1]
+            dct['last_name'] = split[2]
+        elif len(split) == 4:
+            dct['second_name'] = split[0] + split[1]
+            dct['first_name'] = split[2]
+            dct['last_name'] = split[3]
+        return dct
+
+    def formating_phone(self, phone_number):
+        """Форматирование строки телефона"""
+        phone_number = str(phone_number)
+        phone_number = phone_number.replace('+7', '8').strip()
+        if phone_number.isdigit():
+            return phone_number
+        else:
+            symbols = ["-", "(", ")", " "]
+            for symbol in symbols:
+                if symbol in phone_number:
+                    phone_number = phone_number.replace(symbol, '')
+            if phone_number.isdigit():
+                return phone_number
+            else:
+                return f'Не верный формат'
+
+    def add_new_participant(self, dct):
+        """Добавляет нового пользователя в базу данных"""
+        # Запись в БД
+        try:
+            self.db.insert_row(dct, self.table_name)
+
+        except Exception as ex:
+            print(f"Ошибка создания Участника  {dct['second_name']}")
+            journal.log(f"Ошибка создания Участника: {dct['second_name']}")
+
+        # # Создание профиля участника
+        # dct = self.db.select_one(dct, self.table_name)
+        # self.create_profile(dct)
+        # self.create_profile_to_db(dct)
+        # journal.log(f"Создан участник {dct['id']}_{dct['second_name']} {dct['first_name']} {dct['last_name']}")
+
+    def create_profile(self, dct):
+        """Создание профиля - директории для хранения файлов личных документов участника"""
+        host, login, secret = ssh_config.host, ssh_config.login, ssh_config.secret
+        profile_name = f"{dct['id']}_{dct['second_name']}_{dct['first_name']}_{dct['last_name']}"
+        self.directory_path = f"/home/event/participants_data/{profile_name}"
+        event = paramiko.client.SSHClient()
+        event.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+        event.connect(host, username=login, password=secret)
+        stdin, stdout, stderr = event.exec_command(f"mkdir -p {self.directory_path}")
+        journal.log(f"Создан профиль нового участника {self.directory_path}{profile_name}")
+        print(stdout.read().decode())
+        stdin.close()
+        event.close()
+
+    def create_profile_to_db(self, dct):
+        """Создание записи в таблице: 'participants_data' о новом профиле"""
+        table_name = "participants_data"
+        dct1 = {}
+        dct1['participant_id'] = dct['id']
+        dct1['full_name'] = dct["full_name"]
+        dct1['profile_path'] = self.directory_path
+        dct1['passport'] = f"{dct['id']}_passport"
+        dct1['registration'] = f"{dct['id']}_registration"
+        dct1['inn'] = f"{dct['id']}_inn"
+        dct1['snils'] = f"{dct['id']}_snils"
+        dct1['diploma'] = f"{dct['id']}_diploma"
+        dct1['sertificate'] = f"{dct['id']}_sertificate"
+        dct1['passport_exist'] = False
+        dct1['registration_exist'] = False
+        dct1['inn_exist'] = False
+        dct1['snils_exist'] = False
+        dct1['diploma_exist'] = False
+        dct1['sertificate_exist'] = False
+
+        self.db.insert_row(dct1, table_name)
+        
+    def add_participant_to_event(self, participant):
+        """Добавление участника в мероприятие"""
+        # insert to events_participants
+        # добавить участника в list
+        try:
+            dct = {}
+            dct['participant_id'] = participant['id']
+            dct['event_id'] = self.dct_event['id']
+            print(f'Составлен словарь {dct}')
+            # Проверяем нет ли такого участника в этом Мероприятии. Если нет, то добавляем.
+            check = self.db.select_one(dct, 'events_participants')
+            if check == None:
+                self.db.insert_row(dct, 'events_participants')
+                dct = self.add_entry_participants_event_data(dct)
+
+                self.db.insert_row(dct, 'participants_event_data')
+                print(f"В Мероприятие {self.dct_event['event_name']} добавлен участник {check['second_name']} {check['first_name']}")
+                journal.log(f"В Мероприятие {self.dct_event['event_name']} добавлен участник {check['second_name']} {check['first_name']}")
+            else:
+                # Если участник присутствует в Мероприятии
+                pass
+
+        except Exception as ex:\
+            print("Не выделен ни один объект в дереве")
+
+    def select_path_participants_event_data(self, dct):
+        """Забираем profile_path из таблицы participants_data"""
+        del dct['event_id']
+        dct_participants_data = self.db.select_one(dct, 'participants_data')
+        return dct_participants_data['profile_path']
+
+    def add_entry_participants_event_data(self, dct):
+        """Заполняем словарь dct для вставки row в таблицу participants_event_data"""
+        dct['path'] = self.select_path_participants_event_data(dct)
+        dct['event_id'] = self.dct_event['id']
+        id = self.dct_event['id']
+        dct['act'] = f'{id}_act'
+        dct['agreement'] = f'{id}_agreement'
+        dct['contract'] = f'{id}_contract'
+        dct['report'] = f'{id}_report'
+        dct['survey'] = f'{id}_survey'
+
+        dct['act_exist'] = False
+        dct['agreement_exist'] = False
+        dct['contract_exist'] = False
+        dct['report_exist'] = False
+        dct['survey_exist'] = False
+
+        # Данные словаря для заполнения при Принятии загруженного документа
+        # dct['act_accept'] = False
+        # dct['agreement_accept'] = True
+        # dct['contract_accept'] = True
+        # dct['report_accept'] = True
+        # dct['survey_accept'] = True
+        return dct
+        
 
 class Edit_participant(Ui_Create_participant):
     """Окно редактирования Участника"""
@@ -1145,12 +1332,14 @@ class Edit_participant(Ui_Create_participant):
 
     def update_db_participants_data(self, dct):
         """Обновление записи в таблице: 'participants_data' при изменении профиля"""
+
         table_name = "participants_data"
         dct_new = {}
         dct_new['participant_id'] = self.participant['id']
         # Забираем row по participant_id из таблицы participants_data
-        dct_new = self.db.select_one(dct_new, table_name)
+        dct_prev = self.db.select_one(dct_new, table_name)
         # Обновляем данные в таблице participants_data
+        dct_new['id'] = dct_prev['id']
         dct_new['full_name'] = dct["full_name"]
         dct_new['profile_path'] = self.new_profile_path
         self.db.update_row(dct_new, table_name)
