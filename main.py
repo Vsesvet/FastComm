@@ -636,9 +636,8 @@ class Analisis_list(Ui_Analisis_docs):
 
     def clicked_connect(self):
         """Обработка нажатий кнопок"""
-        pass
-        # self.pushButton_add_participance.clicked.connect(List_participants)
-        self.pushButton_open_analisis_doc.clicked.connect(Accept_docs)
+        self.treeWidget_analysis.itemDoubleClicked.connect(self.open_accept_docs)
+        # self.pushButton_open_analisis_doc.clicked.connect(Accept_docs)
 
     def adjust_tree(self, tree):
         """Установка наименований для колонок Tree"""
@@ -648,6 +647,17 @@ class Analisis_list(Ui_Analisis_docs):
         for name in columns_names:
             tree.headerItem().setText(columns_names.index(name), name)
             tree.setColumnHidden(0, True)
+
+    def open_accept_docs(self):
+        try:
+            dct = {}
+            table_name = 'participants'
+            item = self.treeWidget_analysis.currentItem()
+            dct['id'] = item.text(0)
+            participant = self.db.select_one(dct, table_name)
+            Accept_docs(participant, self.dct_event)
+        except Exception as ex:\
+            print("Не выделен ни один объект в списке Analisis_list")
 
     def output_analisis_list(self, participants_data):
         """Вывод списка загруженных документов участников Мероприятия"""
@@ -732,10 +742,14 @@ class Analisis_list(Ui_Analisis_docs):
 
 class Accept_docs(Ui_Accept_docs):
     """Окно Принятия или отклонения документов"""
-    def __init__(self):
+    def __init__(self, participant, event):
+        self.participant = participant
+        self.event = event
         username_login_role = access.get_username_and_role(user_login)
         dialog = QDialog()
         super().setupUi(dialog)
+        self.label_participant_full_name.setText(f"{participant['full_name']}")
+        self.label_event.setText(f"{self.event['event_name']}")
         self.label_username_login_role.setText(f'{username_login_role}')
         self.clicked_connect()
         dialog.exec()
@@ -1048,6 +1062,10 @@ class Load_xls_participants():
         self.table_name = "participants"
         self.db = Mysql()
         file_path_xls = self.select_xls_file()
+        # Если нажата кнопка Отмена, self.file_name[0] возвращает '')
+        if file_path_xls == '':
+            print(f"Файл не выбран, возврат к Event")
+            return
         lst_dct_participants = self.load_xls(file_path_xls)
         print(lst_dct_participants)
         # Заменяем имена ключей в словарях
@@ -1077,8 +1095,10 @@ class Load_xls_participants():
     def select_xls_file(self):
         """Функция выбора файла из окна проводника"""
         self.file_name = QFileDialog.getOpenFileName(None, 'Выберите файл', '/home', "Files (*.xls, *.xlsx)")
+        print(self.file_name)
         file_path_xls = self.file_name[0]
         return file_path_xls
+
 
     def load_xls(self, file_path):
         """Загрузка файла XLS в DataFrame, получение списка словарей участников"""
@@ -1750,7 +1770,7 @@ class Upload_docs(Ui_Upload_docs):
     def open_file(self, label, docs_name):
         """Функция выбора файла из окна проводника и присвоение словарю путей откуда будут копироваться файлы"""
         self.fname = QFileDialog.getOpenFileName(None, 'Выберите файл', '/home', "Files (*.pdf, *.jpg *.jpeg, *.png)")
-        print(self.fname)
+        # print(self.fname)
         if self.fname == ('', ''):
             label.setText('Не выбран файл')
         else:
