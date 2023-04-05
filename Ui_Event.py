@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Event(object):
     def setupUi(self, Event):
         Event.setObjectName("Event")
-        Event.resize(999, 529)
+        Event.resize(1116, 571)
         self.gridLayout = QtWidgets.QGridLayout(Event)
         self.gridLayout.setObjectName("gridLayout")
         self.pushButton_sms = QtWidgets.QPushButton(Event)
@@ -120,17 +120,18 @@ class Ui_Event(object):
         self.pushButton_close_access.setObjectName("pushButton_close_access")
         self.gridLayout.addWidget(self.pushButton_close_access, 8, 4, 1, 1)
         self.tree_event_participants_list = QtWidgets.QTreeWidget(Event)
-        self.tree_event_participants_list.setColumnCount(7)
+        self.tree_event_participants_list.setHeaderHidden(False)
+        self.tree_event_participants_list.setColumnCount(9)
         self.tree_event_participants_list.setObjectName("tree_event_participants_list")
-        self.tree_event_participants_list.headerItem().setText(1, "2")
-        self.tree_event_participants_list.headerItem().setText(2, "3")
-        self.tree_event_participants_list.headerItem().setText(3, "4")
-        self.tree_event_participants_list.headerItem().setText(4, "5")
-        self.tree_event_participants_list.headerItem().setText(5, "6")
-        self.tree_event_participants_list.headerItem().setText(6, "7")
+        self.tree_event_participants_list.headerItem().setText(1, "№")
+        self.tree_event_participants_list.headerItem().setText(2, "Фамилия")
+        self.tree_event_participants_list.headerItem().setText(3, "Имя")
+        self.tree_event_participants_list.headerItem().setText(4, "Отчество")
+        self.tree_event_participants_list.headerItem().setText(5, "Город")
+        self.tree_event_participants_list.headerItem().setText(6, "Телефон")
         self.tree_event_participants_list.header().setDefaultSectionSize(20)
         self.tree_event_participants_list.header().setHighlightSections(True)
-        self.tree_event_participants_list.header().setMinimumSectionSize(15)
+        self.tree_event_participants_list.header().setMinimumSectionSize(20)
         self.tree_event_participants_list.header().setStretchLastSection(False)
         self.gridLayout.addWidget(self.tree_event_participants_list, 15, 0, 7, 6)
         self.comboBox_event_status = QtWidgets.QComboBox(Event)
@@ -146,7 +147,7 @@ class Ui_Event(object):
         self.pushButton_close_access.clicked.connect(Event.show) # type: ignore
         self.pushButton_del_event_participant.clicked.connect(self.tree_event_participants_list.update) # type: ignore
         self.pushButton_email.clicked.connect(Event.lower) # type: ignore
-        self.pushButton_load_xls.clicked.connect(self.tree_event_participants_list.show) # type: ignore
+        self.pushButton_load_xls.clicked.connect(self.tree_event_participants_list.clear) # type: ignore
         self.pushButton_open_access.clicked.connect(Event.repaint) # type: ignore
         self.pushButton_print_list.clicked.connect(Event.hide) # type: ignore
         self.pushButton_sms.clicked.connect(Event.setFocus) # type: ignore
@@ -177,7 +178,7 @@ class Ui_Event(object):
         _translate = QtCore.QCoreApplication.translate
         Event.setWindowTitle(_translate("Event", "Event"))
         self.pushButton_sms.setText(_translate("Event", "SMS"))
-        self.label_Event.setText(_translate("Event", "Мероприятие"))
+        self.label_Event.setText(_translate("Event", "Мероприятие  №"))
         self.pushButton_ok.setText(_translate("Event", "OK"))
         self.lineEdit_event_name.setPlaceholderText(_translate("Event", "Наименование мероприятия..."))
         self.lineEdit_selected_organization.setPlaceholderText(_translate("Event", "Организация..."))
@@ -200,7 +201,9 @@ class Ui_Event(object):
         self.lineEdit_event_comment.setPlaceholderText(_translate("Event", "Комментарий к мероприятию..."))
         self.pushButton_del_event_participant.setText(_translate("Event", "Удалить участника"))
         self.pushButton_close_access.setText(_translate("Event", "Закрыть доступ для организации"))
-        self.tree_event_participants_list.headerItem().setText(0, _translate("Event", "1"))
+        self.tree_event_participants_list.headerItem().setText(0, _translate("Event", "id"))
+        self.tree_event_participants_list.headerItem().setText(7, _translate("Event", "e-mail"))
+        self.tree_event_participants_list.headerItem().setText(8, _translate("Event", "Пароль"))
         self.comboBox_event_status.setItemText(0, _translate("Event", "Запланировано"))
         self.comboBox_event_status.setItemText(1, _translate("Event", "Проведено"))
         self.comboBox_event_status.setItemText(2, _translate("Event", "Отменено"))

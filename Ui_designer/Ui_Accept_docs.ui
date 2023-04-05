@@ -14,21 +14,6 @@
    <string>Event</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="1" column="0" colspan="4">
-    <widget class="QLabel" name="label_participant_full_name">
-     <property name="font">
-      <font>
-       <pointsize>14</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>Participant_full_name</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-    </widget>
-   </item>
    <item row="10" column="2">
     <widget class="QCheckBox" name="checkBox_reject_agree">
      <property name="text">
@@ -279,16 +264,6 @@
      </property>
     </spacer>
    </item>
-   <item row="0" column="3">
-    <widget class="QLabel" name="label_username_login_role">
-     <property name="text">
-      <string>username_login_role</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-     </property>
-    </widget>
-   </item>
    <item row="4" column="1">
     <widget class="QCheckBox" name="checkBox_accept_passport">
      <property name="text">
@@ -394,16 +369,6 @@
      </property>
     </widget>
    </item>
-   <item row="2" column="0" colspan="4">
-    <widget class="QLabel" name="label_event">
-     <property name="text">
-      <string>Event</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-    </widget>
-   </item>
    <item row="3" column="3">
     <widget class="QLabel" name="label_comment">
      <property name="font">
@@ -413,6 +378,41 @@
      </property>
      <property name="text">
       <string>Комментарий при отклонении</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0" colspan="6">
+    <widget class="QLabel" name="label_participant_full_name">
+     <property name="font">
+      <font>
+       <pointsize>14</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Participant_full_name</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0" colspan="6">
+    <widget class="QLabel" name="label_event">
+     <property name="text">
+      <string>Event</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="3" colspan="3">
+    <widget class="QLabel" name="label_username_login_role">
+     <property name="text">
+      <string>username_login_role</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
     </widget>
    </item>
