@@ -854,7 +854,7 @@ class Accept_docs(Ui_Accept_docs):
         print(f"Обновлены данные для self.participants_event_data: {self.participant_event_data}")
 
     def update_flags_participant_to_db(self):
-        """Запись считанных флагов в таблицы"""
+        """Запись считанных флагов в таблицы participants_data & participants_event_data"""
         # self.db.update_row(self.participant_data)
         pass
 
