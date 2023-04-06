@@ -17,6 +17,13 @@ class Ui_Accept_docs(object):
         Accept_docs.resize(716, 504)
         self.gridLayout = QtWidgets.QGridLayout(Accept_docs)
         self.gridLayout.setObjectName("gridLayout")
+        self.label_participant_full_name = QtWidgets.QLabel(Accept_docs)
+        font = QtGui.QFont()
+        font.setPointSize(14)
+        self.label_participant_full_name.setFont(font)
+        self.label_participant_full_name.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_participant_full_name.setObjectName("label_participant_full_name")
+        self.gridLayout.addWidget(self.label_participant_full_name, 1, 0, 1, 4)
         self.checkBox_reject_agree = QtWidgets.QCheckBox(Accept_docs)
         self.checkBox_reject_agree.setObjectName("checkBox_reject_agree")
         self.gridLayout.addWidget(self.checkBox_reject_agree, 10, 2, 1, 1)
@@ -117,6 +124,10 @@ class Ui_Accept_docs(object):
         self.gridLayout.addWidget(self.checkBox_accept_sertificate, 9, 1, 1, 1)
         spacerItem1 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.gridLayout.addItem(spacerItem1, 15, 2, 1, 1)
+        self.label_username_login_role = QtWidgets.QLabel(Accept_docs)
+        self.label_username_login_role.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
+        self.label_username_login_role.setObjectName("label_username_login_role")
+        self.gridLayout.addWidget(self.label_username_login_role, 0, 3, 1, 1)
         self.checkBox_accept_passport = QtWidgets.QCheckBox(Accept_docs)
         self.checkBox_accept_passport.setObjectName("checkBox_accept_passport")
         self.gridLayout.addWidget(self.checkBox_accept_passport, 4, 1, 1, 1)
@@ -162,36 +173,54 @@ class Ui_Accept_docs(object):
         self.checkBox_accept_snils = QtWidgets.QCheckBox(Accept_docs)
         self.checkBox_accept_snils.setObjectName("checkBox_accept_snils")
         self.gridLayout.addWidget(self.checkBox_accept_snils, 7, 1, 1, 1)
+        self.label_event = QtWidgets.QLabel(Accept_docs)
+        self.label_event.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_event.setObjectName("label_event")
+        self.gridLayout.addWidget(self.label_event, 2, 0, 1, 4)
         self.label_comment = QtWidgets.QLabel(Accept_docs)
         font = QtGui.QFont()
         font.setPointSize(11)
         self.label_comment.setFont(font)
         self.label_comment.setObjectName("label_comment")
         self.gridLayout.addWidget(self.label_comment, 3, 3, 1, 1)
-        self.label_participant_full_name = QtWidgets.QLabel(Accept_docs)
-        font = QtGui.QFont()
-        font.setPointSize(14)
-        self.label_participant_full_name.setFont(font)
-        self.label_participant_full_name.setAlignment(QtCore.Qt.AlignCenter)
-        self.label_participant_full_name.setObjectName("label_participant_full_name")
-        self.gridLayout.addWidget(self.label_participant_full_name, 1, 0, 1, 6)
-        self.label_event = QtWidgets.QLabel(Accept_docs)
-        self.label_event.setAlignment(QtCore.Qt.AlignCenter)
-        self.label_event.setObjectName("label_event")
-        self.gridLayout.addWidget(self.label_event, 2, 0, 1, 6)
-        self.label_username_login_role = QtWidgets.QLabel(Accept_docs)
-        self.label_username_login_role.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
-        self.label_username_login_role.setObjectName("label_username_login_role")
-        self.gridLayout.addWidget(self.label_username_login_role, 0, 3, 1, 3)
 
         self.retranslateUi(Accept_docs)
-        self.checkBox_reject_passport.stateChanged['int'].connect(Accept_docs.show) # type: ignore
-        self.checkBox_accept_passport.stateChanged['int'].connect(Accept_docs.show) # type: ignore
-        self.lineEdit_passport_comment.textChanged['QString'].connect(Accept_docs.show) # type: ignore
+        self.checkBox_reject_passport.clicked['bool'].connect(self.checkBox_accept_passport.setDisabled) # type: ignore
+        self.checkBox_accept_passport.clicked['bool'].connect(self.checkBox_reject_passport.setDisabled) # type: ignore
         self.pushButton_open_passport.clicked.connect(Accept_docs.show) # type: ignore
-        self.pushButton_Ok.clicked.connect(Accept_docs.show) # type: ignore
+        self.pushButton_Ok.clicked.connect(Accept_docs.close) # type: ignore
         self.pushButton_Cancel.clicked.connect(Accept_docs.close) # type: ignore
-        self.pushButton_upload_docs.clicked.connect(Accept_docs.show) # type: ignore
+        self.pushButton_upload_docs.clicked.connect(Accept_docs.accept) # type: ignore
+        self.checkBox_accept_registration.clicked['bool'].connect(self.checkBox_reject_registration.setDisabled) # type: ignore
+        self.checkBox_reject_registration.clicked['bool'].connect(self.checkBox_accept_registration.setDisabled) # type: ignore
+        self.checkBox_accept_act.clicked['bool'].connect(self.checkBox_reject_act.setDisabled) # type: ignore
+        self.checkBox_accept_sertificate.clicked['bool'].connect(self.checkBox_reject_sertificate.setDisabled) # type: ignore
+        self.checkBox_accept_report.clicked['bool'].connect(self.checkBox_reject_report.setDisabled) # type: ignore
+        self.checkBox_accept_inn.clicked['bool'].connect(self.checkBox_reject_inn.setDisabled) # type: ignore
+        self.checkBox_accept_diploma.clicked['bool'].connect(self.checkBox_reject_diploma.setDisabled) # type: ignore
+        self.checkBox_accept_contract.clicked['bool'].connect(self.checkBox_reject_contract.setDisabled) # type: ignore
+        self.checkBox_accept_agree.clicked['bool'].connect(self.checkBox_reject_agree.setDisabled) # type: ignore
+        self.checkBox_accept_survey.clicked['bool'].connect(self.checkBox_reject_survey.setDisabled) # type: ignore
+        self.checkBox_accept_snils.clicked['bool'].connect(self.checkBox_reject_snils.setDisabled) # type: ignore
+        self.checkBox_reject_act.clicked['bool'].connect(self.checkBox_accept_act.setDisabled) # type: ignore
+        self.checkBox_reject_agree.clicked['bool'].connect(self.checkBox_accept_agree.setDisabled) # type: ignore
+        self.checkBox_reject_contract.clicked['bool'].connect(self.checkBox_accept_contract.setDisabled) # type: ignore
+        self.checkBox_reject_diploma.clicked['bool'].connect(self.checkBox_accept_diploma.setDisabled) # type: ignore
+        self.checkBox_reject_inn.clicked['bool'].connect(self.checkBox_accept_inn.setDisabled) # type: ignore
+        self.checkBox_reject_report.clicked['bool'].connect(self.checkBox_accept_report.setDisabled) # type: ignore
+        self.checkBox_reject_sertificate.clicked['bool'].connect(self.checkBox_accept_sertificate.setDisabled) # type: ignore
+        self.checkBox_reject_snils.clicked['bool'].connect(self.checkBox_accept_snils.setDisabled) # type: ignore
+        self.checkBox_reject_survey.clicked['bool'].connect(self.checkBox_accept_survey.setDisabled) # type: ignore
+        self.pushButton_open_agree.clicked.connect(Accept_docs.show) # type: ignore
+        self.pushButton_open_act.clicked.connect(Accept_docs.show) # type: ignore
+        self.pushButton_open_contract.clicked.connect(Accept_docs.show) # type: ignore
+        self.pushButton_open_diploma.clicked.connect(Accept_docs.show) # type: ignore
+        self.pushButton_open_inn.clicked.connect(Accept_docs.show) # type: ignore
+        self.pushButton_open_registration.clicked.connect(Accept_docs.show) # type: ignore
+        self.pushButton_open_report.clicked.connect(Accept_docs.show) # type: ignore
+        self.pushButton_open_sertificate.clicked.connect(Accept_docs.show) # type: ignore
+        self.pushButton_open_snils.clicked.connect(Accept_docs.show) # type: ignore
+        self.pushButton_open_survey.clicked.connect(Accept_docs.show) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(Accept_docs)
         Accept_docs.setTabOrder(self.pushButton_open_passport, self.checkBox_accept_passport)
         Accept_docs.setTabOrder(self.checkBox_accept_passport, self.checkBox_reject_passport)
@@ -243,6 +272,7 @@ class Ui_Accept_docs(object):
     def retranslateUi(self, Accept_docs):
         _translate = QtCore.QCoreApplication.translate
         Accept_docs.setWindowTitle(_translate("Accept_docs", "Event"))
+        self.label_participant_full_name.setText(_translate("Accept_docs", "Participant_full_name"))
         self.checkBox_reject_agree.setText(_translate("Accept_docs", "Отклонено"))
         self.pushButton_Cancel.setText(_translate("Accept_docs", "Отмена"))
         self.pushButton_open_contract.setText(_translate("Accept_docs", "Договор"))
@@ -275,6 +305,7 @@ class Ui_Accept_docs(object):
         self.checkBox_reject_report.setText(_translate("Accept_docs", "Отклонено"))
         self.checkBox_accept_act.setText(_translate("Accept_docs", "Принято"))
         self.checkBox_accept_sertificate.setText(_translate("Accept_docs", "Принято"))
+        self.label_username_login_role.setText(_translate("Accept_docs", "username_login_role"))
         self.checkBox_accept_passport.setText(_translate("Accept_docs", "Принято"))
         self.pushButton_open_agree.setText(_translate("Accept_docs", "Согласие"))
         self.checkBox_reject_passport.setText(_translate("Accept_docs", "Отклонено"))
@@ -290,7 +321,5 @@ class Ui_Accept_docs(object):
         self.checkBox_accept_contract.setText(_translate("Accept_docs", "Принято"))
         self.lineEdit_contract_comment.setPlaceholderText(_translate("Accept_docs", "Комментарий Договора"))
         self.checkBox_accept_snils.setText(_translate("Accept_docs", "Принято"))
-        self.label_comment.setText(_translate("Accept_docs", "Комментарий при отклонении"))
-        self.label_participant_full_name.setText(_translate("Accept_docs", "Participant_full_name"))
         self.label_event.setText(_translate("Accept_docs", "Event"))
-        self.label_username_login_role.setText(_translate("Accept_docs", "username_login_role"))
+        self.label_comment.setText(_translate("Accept_docs", "Комментарий при отклонении"))
