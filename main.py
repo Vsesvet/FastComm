@@ -83,7 +83,7 @@ class Event_shedule(Ui_Event_shedule):
         # Формирование расписания мероприятий
         self.events_list()
         self.clicked_connect(window)
-        window.showMaximized()
+        # window.showMaximized()
         window.show()
         sys.exit(app.exec())
 
@@ -743,13 +743,17 @@ class Analisis_list(Ui_Analisis_docs):
 class Accept_docs(Ui_Accept_docs):
     """Окно Принятия или отклонения документов"""
     def __init__(self, participant, event):
-        self.participant = participant
-        self.event = event
         username_login_role = access.get_username_and_role(user_login)
         dialog = QDialog()
         super().setupUi(dialog)
+        self.db = Mysql()
+        self.participant_data = {}  # словарь для записи флагов participants_data
+        self.participant_data['participant_id'] = participant['id']
+        self.participant_event_data = {}  # словарь для записи флагов participants_event_data
+        self.participant_event_data['event_id'] = event['id']
+        self.participant_event_data['participant_id'] = participant['id']
         self.label_participant_full_name.setText(f"{participant['full_name']}")
-        self.label_event.setText(f"{self.event['event_name']}")
+        self.label_event.setText(f"{event['event_name']}")
         self.label_username_login_role.setText(f'{username_login_role}')
         self.clicked_connect()
         dialog.exec()
@@ -765,8 +769,9 @@ class Accept_docs(Ui_Accept_docs):
         # Кнопки основных действий
         self.pushButton_upload_docs.clicked.connect(Upload_docs)
         self.pushButton_open_passport.clicked.connect(self.view_document)
+        # self.pushButton_Ok.clicked.connect(self.write_flags_to_db)
         # self.pushButton_Ok.clicked.connect(Accept_docs.close)
-        # self.pushButton_Cancel.clicked.connect(Accept_docs.close)
+
 
         # # Кнопки открытия документов для просмотра
         # self.pushButton_open_agree.clicked.connect(Accept_docs.close)
@@ -781,31 +786,78 @@ class Accept_docs(Ui_Accept_docs):
         # self.pushButton_open_survey.clicked.connect(Accept_docs.close)
 
         # Кнопки Принятия / Отклонения
-        # table participants_data
-        self.checkBox_accept_passport.clicked['bool'].connect(self.checkBox_reject_passport.setDisabled)
-        self.checkBox_accept_registration.clicked['bool'].connect(self.checkBox_reject_registration.setDisabled)
-        self.checkBox_accept_inn.clicked['bool'].connect(self.checkBox_reject_inn.setDisabled)
-        self.checkBox_accept_snils.clicked['bool'].connect(self.checkBox_reject_snils.setDisabled)
-        self.checkBox_accept_diploma.clicked['bool'].connect(self.checkBox_reject_diploma.setDisabled)
-        self.checkBox_accept_sertificate.clicked['bool'].connect(self.checkBox_reject_sertificate.setDisabled)
-        self.checkBox_reject_passport.clicked['bool'].connect(self.checkBox_accept_passport.setDisabled)
-        self.checkBox_reject_registration.clicked['bool'].connect(self.checkBox_accept_registration.setDisabled)
-        self.checkBox_reject_inn.clicked['bool'].connect(self.checkBox_accept_inn.setDisabled)
-        self.checkBox_reject_snils.clicked['bool'].connect(self.checkBox_accept_snils.setDisabled)
-        self.checkBox_reject_diploma.clicked['bool'].connect(self.checkBox_accept_diploma.setDisabled)
-        self.checkBox_reject_sertificate.clicked['bool'].connect(self.checkBox_accept_sertificate.setDisabled)
+        self.checkBox_accept_passport.clicked.connect(lambda: self.set_flags_participant(
+            self.checkBox_accept_passport.checkState(), {'passport_accept': True, 'passport_reject': False}))
+        self.checkBox_accept_registration.clicked.connect(lambda: self.set_flags_participant(
+            self.checkBox_accept_registration.checkState(), {'registration_accept': True, 'registration_reject': False}))
+        self.checkBox_accept_inn.clicked.connect(lambda: self.set_flags_participant(
+            self.checkBox_accept_inn.checkState(), {'inn_accept': True, 'inn_reject': False}))
+        self.checkBox_accept_snils.clicked.connect(lambda: self.set_flags_participant(
+            self.checkBox_accept_snils.checkState(), {'snils_accept': True, 'snils_reject': False}))
+        self.checkBox_accept_diploma.clicked.connect(lambda: self.set_flags_participant(
+            self.checkBox_accept_diploma.checkState(), {'diploma_accept': True, 'diploma_reject': False}))
+        self.checkBox_accept_sertificate.clicked.connect(lambda: self.set_flags_participant(
+            self.checkBox_accept_sertificate.checkState(), {'sertificate_accept': True, 'sertificate_reject': False}))
 
-        # table participants_event_data
-        self.checkBox_accept_agree.clicked['bool'].connect(self.checkBox_reject_agree.setDisabled)
-        self.checkBox_accept_survey.clicked['bool'].connect(self.checkBox_reject_survey.setDisabled)
-        self.checkBox_accept_contract.clicked['bool'].connect(self.checkBox_reject_contract.setDisabled)
-        self.checkBox_accept_act.clicked['bool'].connect(self.checkBox_reject_act.setDisabled)
-        self.checkBox_accept_report.clicked['bool'].connect(self.checkBox_reject_report.setDisabled)
-        self.checkBox_reject_agree.clicked['bool'].connect(self.checkBox_accept_agree.setDisabled)
-        self.checkBox_reject_survey.clicked['bool'].connect(self.checkBox_accept_survey.setDisabled)
-        self.checkBox_reject_contract.clicked['bool'].connect(self.checkBox_accept_contract.setDisabled)
-        self.checkBox_reject_act.clicked['bool'].connect(self.checkBox_accept_act.setDisabled)
-        self.checkBox_reject_report.clicked['bool'].connect(self.checkBox_accept_report.setDisabled)
+        self.checkBox_accept_agree.clicked.connect(lambda: self.set_flags_participant_event_data(
+            self.checkBox_accept_agree.checkState(), {'agreement_accept': True, 'agreement_reject': False}))
+        self.checkBox_accept_survey.clicked.connect(lambda: self.set_flags_participant_event_data(
+            self.checkBox_accept_survey.checkState(), {'survey_accept': True, 'survey_reject': False}))
+        self.checkBox_accept_contract.clicked.connect(lambda: self.set_flags_participant_event_data(
+            self.checkBox_accept_contract.checkState(), {'contract_accept': True, 'contract_reject': False}))
+        self.checkBox_accept_act.clicked.connect(lambda: self.set_flags_participant_event_data(
+            self.checkBox_accept_act.checkState(), {'act_accept': True, 'act_reject': False}))
+        self.checkBox_accept_report.clicked.connect(lambda: self.set_flags_participant_event_data(
+            self.checkBox_accept_report.checkState(), {'report_accept': True, 'report_reject': False}))
+
+
+        self.checkBox_reject_passport.clicked.connect(lambda: self.set_flags_participant(
+                    self.checkBox_reject_passport.checkState(), {'passport_accept': False, 'passport_reject': True}))
+        self.checkBox_reject_registration.clicked.connect(lambda: self.set_flags_participant(
+                    self.checkBox_reject_registration.checkState(), {'registration_accept': False, 'registration_reject': True}))
+        self.checkBox_reject_inn.clicked.connect(lambda: self.set_flags_participant(
+            self.checkBox_reject_inn.checkState(), {'inn_accept': False, 'inn_reject': True}))
+        self.checkBox_reject_snils.clicked.connect(lambda: self.set_flags_participant(
+            self.checkBox_reject_snils.checkState(), {'snils_accept': False, 'snils_reject': True}))
+        self.checkBox_reject_diploma.clicked.connect(lambda: self.set_flags_participant(
+            self.checkBox_reject_diploma.checkState(), {'diploma_accept': False, 'diploma_reject': True}))
+        self.checkBox_reject_sertificate.clicked.connect(lambda: self.set_flags_participant(
+            self.checkBox_reject_sertificate.checkState(), {'sertificate_accept': False, 'sertificate_reject': True}))
+
+        self.checkBox_reject_agree.clicked.connect(lambda: self.set_flags_participant_event_data(
+            self.checkBox_reject_agree.checkState(), {'agreement_accept': False, 'agreement_reject': True}))
+        self.checkBox_reject_survey.clicked.connect(lambda: self.set_flags_participant_event_data(
+            self.checkBox_reject_survey.checkState(), {'survey_accept': False, 'survey_reject': True}))
+        self.checkBox_reject_contract.clicked.connect(lambda: self.set_flags_participant_event_data(
+            self.checkBox_reject_contract.checkState(), {'contract_accept': False, 'contract_reject': True}))
+        self.checkBox_reject_act.clicked.connect(lambda: self.set_flags_participant_event_data(
+            self.checkBox_reject_act.checkState(), {'act_accept': False, 'act_reject': True}))
+        self.checkBox_reject_report.clicked.connect(lambda: self.set_flags_participant_event_data(
+            self.checkBox_reject_report.checkState(), {'report_accept': False, 'report_reject': True}))
+
+    def set_flags_participant(self, state, dct):
+        """Считываение флагов состояния для записи в таблицу participants_data"""
+        if state == 2:
+            self.participant_data.update(dct)
+        elif state == 0:
+            for key in dct:
+                del self.participant_data[key]
+        print(f"Обновлены данные для self.participant_data: {self.participant_data}")
+
+    def set_flags_participant_event_data(self, state, dct):
+        """Считывание флагов состояния для записи в таблицу participants_event_data"""
+        if state == 2:
+            self.participant_event_data.update(dct)
+        elif state == 0:
+            for key in dct:
+                del self.participant_event_data[key]
+        print(f"Обновлены данные для self.participants_event_data: {self.participant_event_data}")
+
+    def update_flags_participant_to_db(self):
+        """Запись считанных флагов в таблицы"""
+        # self.db.update_row(self.participant_data)
+        pass
+
 
 
 class Create_Event(Ui_Create_event):
@@ -1784,7 +1836,7 @@ class Upload_docs(Ui_Upload_docs):
         self.dict_all_docs[docs_name] = path_file_document
 
     def press_ok(self, dialog):
-        """Копирование выбранных документов в профиль участника на сервер"""
+        """Копирование выбранных документов в профиль участника на сервере"""
         if self.fname == None:
             print('Не выбрано ни одного документа')
         else:
@@ -1792,7 +1844,7 @@ class Upload_docs(Ui_Upload_docs):
             # вызов ssh.client и копирование файлов из self.path_file_documents в participants_data path/documents
             # Установка флага: Exist для переданного документа в True
             dialog.close()
-            # return
+            return
 
 
 if __name__ == '__main__':
