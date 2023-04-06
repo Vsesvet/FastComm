@@ -779,29 +779,33 @@ class Accept_docs(Ui_Accept_docs):
         # self.pushButton_open_sertificate.clicked.connect(Accept_docs.close)
         # self.pushButton_open_snils.clicked.connect(Accept_docs.close)
         # self.pushButton_open_survey.clicked.connect(Accept_docs.close)
+
         # Кнопки Принятия / Отклонения
-        self.checkBox_reject_passport.clicked['bool'].connect(self.checkBox_accept_passport.setDisabled)
+        # table participants_data
         self.checkBox_accept_passport.clicked['bool'].connect(self.checkBox_reject_passport.setDisabled)
         self.checkBox_accept_registration.clicked['bool'].connect(self.checkBox_reject_registration.setDisabled)
-        self.checkBox_reject_registration.clicked['bool'].connect(self.checkBox_accept_registration.setDisabled)
-        self.checkBox_accept_act.clicked['bool'].connect(self.checkBox_reject_act.setDisabled)
-        self.checkBox_accept_sertificate.clicked['bool'].connect(self.checkBox_reject_sertificate.setDisabled)
-        self.checkBox_accept_report.clicked['bool'].connect(self.checkBox_reject_report.setDisabled)
         self.checkBox_accept_inn.clicked['bool'].connect(self.checkBox_reject_inn.setDisabled)
+        self.checkBox_accept_snils.clicked['bool'].connect(self.checkBox_reject_snils.setDisabled)
         self.checkBox_accept_diploma.clicked['bool'].connect(self.checkBox_reject_diploma.setDisabled)
-        self.checkBox_accept_contract.clicked['bool'].connect(self.checkBox_reject_contract.setDisabled)
+        self.checkBox_accept_sertificate.clicked['bool'].connect(self.checkBox_reject_sertificate.setDisabled)
+        self.checkBox_reject_passport.clicked['bool'].connect(self.checkBox_accept_passport.setDisabled)
+        self.checkBox_reject_registration.clicked['bool'].connect(self.checkBox_accept_registration.setDisabled)
+        self.checkBox_reject_inn.clicked['bool'].connect(self.checkBox_accept_inn.setDisabled)
+        self.checkBox_reject_snils.clicked['bool'].connect(self.checkBox_accept_snils.setDisabled)
+        self.checkBox_reject_diploma.clicked['bool'].connect(self.checkBox_accept_diploma.setDisabled)
+        self.checkBox_reject_sertificate.clicked['bool'].connect(self.checkBox_accept_sertificate.setDisabled)
+
+        # table participants_event_data
         self.checkBox_accept_agree.clicked['bool'].connect(self.checkBox_reject_agree.setDisabled)
         self.checkBox_accept_survey.clicked['bool'].connect(self.checkBox_reject_survey.setDisabled)
-        self.checkBox_accept_snils.clicked['bool'].connect(self.checkBox_reject_snils.setDisabled)
-        self.checkBox_reject_act.clicked['bool'].connect(self.checkBox_accept_act.setDisabled)
+        self.checkBox_accept_contract.clicked['bool'].connect(self.checkBox_reject_contract.setDisabled)
+        self.checkBox_accept_act.clicked['bool'].connect(self.checkBox_reject_act.setDisabled)
+        self.checkBox_accept_report.clicked['bool'].connect(self.checkBox_reject_report.setDisabled)
         self.checkBox_reject_agree.clicked['bool'].connect(self.checkBox_accept_agree.setDisabled)
-        self.checkBox_reject_contract.clicked['bool'].connect(self.checkBox_accept_contract.setDisabled)
-        self.checkBox_reject_diploma.clicked['bool'].connect(self.checkBox_accept_diploma.setDisabled)
-        self.checkBox_reject_inn.clicked['bool'].connect(self.checkBox_accept_inn.setDisabled)
-        self.checkBox_reject_report.clicked['bool'].connect(self.checkBox_accept_report.setDisabled)
-        self.checkBox_reject_sertificate.clicked['bool'].connect(self.checkBox_accept_sertificate.setDisabled)
-        self.checkBox_reject_snils.clicked['bool'].connect(self.checkBox_accept_snils.setDisabled)
         self.checkBox_reject_survey.clicked['bool'].connect(self.checkBox_accept_survey.setDisabled)
+        self.checkBox_reject_contract.clicked['bool'].connect(self.checkBox_accept_contract.setDisabled)
+        self.checkBox_reject_act.clicked['bool'].connect(self.checkBox_accept_act.setDisabled)
+        self.checkBox_reject_report.clicked['bool'].connect(self.checkBox_accept_report.setDisabled)
 
 
 class Create_Event(Ui_Create_event):
@@ -1780,7 +1784,7 @@ class Upload_docs(Ui_Upload_docs):
         self.dict_all_docs[docs_name] = path_file_document
 
     def press_ok(self, dialog):
-        """Копирование выбранных документов в профиль участника на сервере"""
+        """Копирование выбранных документов в профиль участника на сервер"""
         if self.fname == None:
             print('Не выбрано ни одного документа')
         else:
@@ -1788,7 +1792,7 @@ class Upload_docs(Ui_Upload_docs):
             # вызов ssh.client и копирование файлов из self.path_file_documents в participants_data path/documents
             # Установка флага: Exist для переданного документа в True
             dialog.close()
-            return
+            # return
 
 
 if __name__ == '__main__':
