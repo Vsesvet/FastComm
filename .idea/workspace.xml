@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Реализовано:&#10;1. Добавление и обновление Приема документов в базе данных&#10;2. Обновление Загруженных документов после установки статусов Приема документов">
+    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Реализованы функции на кнопки Обновление и Открытие док-та в окне Анализ загрузки док-ов.">
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -208,20 +208,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1676999725137</updated>
-    </task>
-    <task id="LOCAL-00049" summary="Добавлено окно Upload_docs">
-      <created>1679159115813</created>
-      <option name="number" value="00049" />
-      <option name="presentableId" value="LOCAL-00049" />
-      <option name="project" value="LOCAL" />
-      <updated>1679159115813</updated>
-    </task>
-    <task id="LOCAL-00050" summary="Реализован выбор файлов для загрузки через окно Upload_docs">
-      <created>1679228524674</created>
-      <option name="number" value="00050" />
-      <option name="presentableId" value="LOCAL-00050" />
-      <option name="project" value="LOCAL" />
-      <updated>1679228524675</updated>
     </task>
     <task id="LOCAL-00051" summary="Реализован выбор файлов для загрузки через окно Upload_docs">
       <created>1679228542466</created>
@@ -552,7 +538,21 @@
       <option name="project" value="LOCAL" />
       <updated>1680986949901</updated>
     </task>
-    <option name="localTasksCounter" value="98" />
+    <task id="LOCAL-00098" summary="Реализованы функции на кнопки Обновление и Открытие док-та в окне Анализ загрузки док-ов.">
+      <created>1680990361861</created>
+      <option name="number" value="00098" />
+      <option name="presentableId" value="LOCAL-00098" />
+      <option name="project" value="LOCAL" />
+      <updated>1680990361861</updated>
+    </task>
+    <task id="LOCAL-00099" summary="Реализованы функции на кнопки Обновление и Открытие док-та в окне Анализ загрузки док-ов.">
+      <created>1680990371627</created>
+      <option name="number" value="00099" />
+      <option name="presentableId" value="LOCAL-00099" />
+      <option name="project" value="LOCAL" />
+      <updated>1680990371627</updated>
+    </task>
+    <option name="localTasksCounter" value="100" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -578,7 +578,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Добавлены поля в Event. Уменьшен размер колонок tree по умолчанию." />
     <MESSAGE value="Добавлены комментарии по работе с comboBox" />
     <MESSAGE value="удалены лишние print-ы отладки" />
     <MESSAGE value="удалены неиспользуемые функции" />
@@ -603,24 +602,25 @@
     <MESSAGE value="Дописана Установка состояния для кнопок открытия документов (Disabled, если exist = False" />
     <MESSAGE value="Переименованы agree в agreement. Во всех местах для организации цикла For по именам переменных" />
     <MESSAGE value="Реализовано:&#10;1. Добавление и обновление Приема документов в базе данных&#10;2. Обновление Загруженных документов после установки статусов Приема документов" />
-    <option name="LAST_COMMIT_MESSAGE" value="Реализовано:&#10;1. Добавление и обновление Приема документов в базе данных&#10;2. Обновление Загруженных документов после установки статусов Приема документов" />
+    <MESSAGE value="Реализованы функции на кнопки Обновление и Открытие док-та в окне Анализ загрузки док-ов." />
+    <option name="LAST_COMMIT_MESSAGE" value="Реализованы функции на кнопки Обновление и Открытие док-та в окне Анализ загрузки док-ов." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>1496</line>
+          <line>1497</line>
           <option name="timeStamp" value="6" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>1338</line>
+          <line>1339</line>
           <option name="timeStamp" value="19" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>1220</line>
+          <line>1221</line>
           <option name="timeStamp" value="23" />
         </line-breakpoint>
       </breakpoints>
