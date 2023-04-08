@@ -775,9 +775,13 @@ class Accept_docs(Ui_Accept_docs):
             exist = f'{doc}_exist'
             if participant_data[exist] == 0:
                 disable_button1 = f"self.pushButton_open_{doc}.setEnabled(False)"
+                disable_checkbox_accept = f"self.checkBox_accept_{doc}.setDisabled(True)"
+                disable_checkbox_reject = f"self.checkBox_reject_{doc}.setDisabled(True)"
                 exec(disable_button1)
+                exec(disable_checkbox_accept)
+                exec(disable_checkbox_reject)
+
             elif participant_data[exist] == 1:
-                print(f"Документ {doc} существует, устанавливаем флаг кнопки Enabled")
                 pass
 
         participant_event_docs = ('agreement', 'survey', 'contract', 'act', 'report')
@@ -785,12 +789,13 @@ class Accept_docs(Ui_Accept_docs):
             exist = f'{doc2}_exist'
             if participant_event_data[exist] == 0:
                 disable_button2 = f"self.pushButton_open_{doc2}.setEnabled(False)"
+                disable_checkbox_accept = f"self.checkBox_accept_{doc2}.setDisabled(True)"
+                disable_checkbox_reject = f"self.checkBox_reject_{doc2}.setDisabled(True)"
                 exec(disable_button2)
+                exec(disable_checkbox_accept)
+                exec(disable_checkbox_reject)
             elif participant_event_data[exist] == 1:
-                print(f"Документ {doc2} существует, устанавливаем флаг кнопки Enabled")
                 pass
-
-
 
     def view_document(self):
         import webbrowser
@@ -808,7 +813,7 @@ class Accept_docs(Ui_Accept_docs):
 
 
         # # Кнопки открытия документов для просмотра
-        # self.pushButton_open_agree.clicked.connect(Accept_docs.close)
+        # self.pushButton_open_agreement.clicked.connect(Accept_docs.close)
         # self.pushButton_open_act.clicked.connect(Accept_docs.close)
         # self.pushButton_open_contract.clicked.connect(Accept_docs.close)
         # self.pushButton_open_diploma.clicked.connect(Accept_docs.close)
@@ -822,6 +827,7 @@ class Accept_docs(Ui_Accept_docs):
         # Кнопки Принятия / Отклонения
         self.checkBox_accept_passport.clicked.connect(lambda: self.set_flags_participant(
             self.checkBox_accept_passport.checkState(), {'passport_accept': True, 'passport_reject': False}))
+
         self.checkBox_accept_registration.clicked.connect(lambda: self.set_flags_participant(
             self.checkBox_accept_registration.checkState(), {'registration_accept': True, 'registration_reject': False}))
         self.checkBox_accept_inn.clicked.connect(lambda: self.set_flags_participant(
@@ -833,8 +839,8 @@ class Accept_docs(Ui_Accept_docs):
         self.checkBox_accept_sertificate.clicked.connect(lambda: self.set_flags_participant(
             self.checkBox_accept_sertificate.checkState(), {'sertificate_accept': True, 'sertificate_reject': False}))
 
-        self.checkBox_accept_agree.clicked.connect(lambda: self.set_flags_participant_event_data(
-            self.checkBox_accept_agree.checkState(), {'agreement_accept': True, 'agreement_reject': False}))
+        self.checkBox_accept_agreement.clicked.connect(lambda: self.set_flags_participant_event_data(
+            self.checkBox_accept_agreement.checkState(), {'agreement_accept': True, 'agreement_reject': False}))
         self.checkBox_accept_survey.clicked.connect(lambda: self.set_flags_participant_event_data(
             self.checkBox_accept_survey.checkState(), {'survey_accept': True, 'survey_reject': False}))
         self.checkBox_accept_contract.clicked.connect(lambda: self.set_flags_participant_event_data(
@@ -858,8 +864,8 @@ class Accept_docs(Ui_Accept_docs):
         self.checkBox_reject_sertificate.clicked.connect(lambda: self.set_flags_participant(
             self.checkBox_reject_sertificate.checkState(), {'sertificate_accept': False, 'sertificate_reject': True}))
 
-        self.checkBox_reject_agree.clicked.connect(lambda: self.set_flags_participant_event_data(
-            self.checkBox_reject_agree.checkState(), {'agreement_accept': False, 'agreement_reject': True}))
+        self.checkBox_reject_agreement.clicked.connect(lambda: self.set_flags_participant_event_data(
+            self.checkBox_reject_agreement.checkState(), {'agreement_accept': False, 'agreement_reject': True}))
         self.checkBox_reject_survey.clicked.connect(lambda: self.set_flags_participant_event_data(
             self.checkBox_reject_survey.checkState(), {'survey_accept': False, 'survey_reject': True}))
         self.checkBox_reject_contract.clicked.connect(lambda: self.set_flags_participant_event_data(
@@ -1851,7 +1857,7 @@ class Upload_docs(Ui_Upload_docs):
         self.pushButton_ok.clicked.connect(lambda: self.press_ok(dialog))
 
         # self.pushButton_upload_survey.clicked.connect(Upload_docs.show)
-        # self.pushButton_upload_agree.clicked.connect(Upload_docs.show)
+        # self.pushButton_upload_agreement.clicked.connect(Upload_docs.show)
         # self.pushButton_upload_contract.clicked.connect(Upload_docs.show)
         # self.pushButton_upload_act.clicked.connect(Upload_docs.show)
         # self.pushButton_upload_report.clicked.connect(Upload_docs.show)
