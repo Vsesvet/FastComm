@@ -629,15 +629,16 @@ class Analisis_list(Ui_Analisis_docs):
         self.db = Mysql()
         self.dct_event = dct_event
         self.update_analisis_list()
-        self.clicked_connect()
+        self.clicked_connect(dialog)
         dialog.exec()
 
-    def clicked_connect(self):
+    def clicked_connect(self, dialog):
         """Обработка нажатий кнопок"""
         self.treeWidget_analysis.itemDoubleClicked.connect(self.open_accept_docs)
         self.treeWidget_analysis.itemDoubleClicked.connect(self.update_analisis_list)
         self.pushButton_open_analisis_doc.clicked.connect(self.open_accept_docs)
         self.pushButton_update_table.clicked.connect(self.update_analisis_list)
+        self.pushButton_ok.clicked.connect(dialog.close)
 
     def adjust_tree(self, tree):
         """Установка наименований для колонок Tree"""
