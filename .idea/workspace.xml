@@ -4,8 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Реализованы коннекты галочек триггеров Принято-Отклонено окна Принятия документов.">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Дописана Установка состояния для кнопок открытия документов (Disabled, если exist = False">
       <change beforePath="$PROJECT_DIR$/Ui_Accept_docs.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_Accept_docs.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
@@ -210,13 +209,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1676999725137</updated>
-    </task>
-    <task id="LOCAL-00044" summary="Реализовано переименование профиля участника на сервере.">
-      <created>1679092182252</created>
-      <option name="number" value="00044" />
-      <option name="presentableId" value="LOCAL-00044" />
-      <option name="project" value="LOCAL" />
-      <updated>1679092182252</updated>
     </task>
     <task id="LOCAL-00045" summary="Реализовано изменение таблицы participants_data после переименование профиля">
       <created>1679096642121</created>
@@ -554,7 +546,14 @@
       <option name="project" value="LOCAL" />
       <updated>1680815239447</updated>
     </task>
-    <option name="localTasksCounter" value="93" />
+    <task id="LOCAL-00093" summary="Дописана Установка состояния для кнопок открытия документов (Disabled, если exist = False">
+      <created>1680970249800</created>
+      <option name="number" value="00093" />
+      <option name="presentableId" value="LOCAL-00093" />
+      <option name="project" value="LOCAL" />
+      <updated>1680970249800</updated>
+    </task>
+    <option name="localTasksCounter" value="94" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -580,7 +579,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Переделал окно Create_event" />
     <MESSAGE value="Реализовано открытие Event по double click из Event Shedule." />
     <MESSAGE value="Доработано окно Event Shedule." />
     <MESSAGE value="Добавлены поля в Event. Уменьшен размер колонок tree по умолчанию." />
@@ -605,30 +603,36 @@
     <MESSAGE value="Реализован вывод данных в окне Анализ загруженных документов!" />
     <MESSAGE value="Реализована загрузка xls файла с участниками в Мероприятие" />
     <MESSAGE value="Реализованы коннекты галочек триггеров Принято-Отклонено окна Принятия документов." />
-    <option name="LAST_COMMIT_MESSAGE" value="Реализованы коннекты галочек триггеров Принято-Отклонено окна Принятия документов." />
+    <MESSAGE value="Дописана Установка состояния для кнопок открытия документов (Disabled, если exist = False" />
+    <option name="LAST_COMMIT_MESSAGE" value="Дописана Установка состояния для кнопок открытия документов (Disabled, если exist = False" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>1449</line>
+          <line>1455</line>
           <option name="timeStamp" value="6" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>1291</line>
+          <line>1297</line>
           <option name="timeStamp" value="19" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>1173</line>
+          <line>1179</line>
           <option name="timeStamp" value="23" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>783</line>
-          <option name="timeStamp" value="57" />
+          <line>747</line>
+          <option name="timeStamp" value="66" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Ui_Accept_docs.py</url>
+          <line>27</line>
+          <option name="timeStamp" value="67" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
