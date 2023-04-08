@@ -131,9 +131,9 @@ class Ui_Accept_docs(object):
         self.checkBox_accept_passport = QtWidgets.QCheckBox(Accept_docs)
         self.checkBox_accept_passport.setObjectName("checkBox_accept_passport")
         self.gridLayout.addWidget(self.checkBox_accept_passport, 4, 1, 1, 1)
-        self.pushButton_open_agree = QtWidgets.QPushButton(Accept_docs)
-        self.pushButton_open_agree.setObjectName("pushButton_open_agree")
-        self.gridLayout.addWidget(self.pushButton_open_agree, 10, 0, 1, 1)
+        self.pushButton_open_agreement = QtWidgets.QPushButton(Accept_docs)
+        self.pushButton_open_agreement.setObjectName("pushButton_open_agreement")
+        self.gridLayout.addWidget(self.pushButton_open_agreement, 10, 0, 1, 1)
         self.checkBox_reject_passport = QtWidgets.QCheckBox(Accept_docs)
         self.checkBox_reject_passport.setObjectName("checkBox_reject_passport")
         self.gridLayout.addWidget(self.checkBox_reject_passport, 4, 2, 1, 1)
@@ -185,12 +185,12 @@ class Ui_Accept_docs(object):
         self.gridLayout.addWidget(self.label_comment, 3, 3, 1, 1)
 
         self.retranslateUi(Accept_docs)
-        self.checkBox_reject_passport.clicked['bool'].connect(self.checkBox_accept_passport.setDisabled) # type: ignore
-        self.checkBox_accept_passport.clicked['bool'].connect(self.checkBox_reject_passport.setDisabled) # type: ignore
-        self.pushButton_open_passport.clicked.connect(Accept_docs.show) # type: ignore
-        self.pushButton_Ok.clicked.connect(Accept_docs.close) # type: ignore
-        self.pushButton_Cancel.clicked.connect(Accept_docs.close) # type: ignore
-        self.pushButton_upload_docs.clicked.connect(Accept_docs.accept) # type: ignore
+        self.checkBox_reject_passport.clicked['bool'].connect(self.checkBox_accept_passport.setHidden)
+        self.checkBox_accept_passport.clicked['bool'].connect(self.checkBox_reject_passport.setHidden)
+        self.pushButton_open_passport.clicked.connect(Accept_docs.show)
+        self.pushButton_Ok.clicked.connect(Accept_docs.close)
+        self.pushButton_Cancel.clicked.connect(Accept_docs.close)
+        self.pushButton_upload_docs.clicked.connect(Accept_docs.accept)
         self.checkBox_accept_passport.clicked['bool'].connect(self.checkBox_reject_passport.setDisabled)
         self.checkBox_accept_registration.clicked['bool'].connect(self.checkBox_reject_registration.setDisabled)
         self.checkBox_accept_inn.clicked['bool'].connect(self.checkBox_reject_inn.setDisabled)
@@ -216,7 +216,7 @@ class Ui_Accept_docs(object):
         self.checkBox_reject_contract.clicked['bool'].connect(self.checkBox_accept_contract.setDisabled)
         self.checkBox_reject_act.clicked['bool'].connect(self.checkBox_accept_act.setDisabled)
         self.checkBox_reject_report.clicked['bool'].connect(self.checkBox_accept_report.setDisabled)
-        self.pushButton_open_agree.clicked.connect(Accept_docs.show) # type: ignore
+        self.pushButton_open_agreement.clicked.connect(Accept_docs.show) # type: ignore
         self.pushButton_open_act.clicked.connect(Accept_docs.show) # type: ignore
         self.pushButton_open_contract.clicked.connect(Accept_docs.show) # type: ignore
         self.pushButton_open_diploma.clicked.connect(Accept_docs.show) # type: ignore
@@ -250,8 +250,8 @@ class Ui_Accept_docs(object):
         Accept_docs.setTabOrder(self.pushButton_open_sertificate, self.checkBox_accept_sertificate)
         Accept_docs.setTabOrder(self.checkBox_accept_sertificate, self.checkBox_reject_sertificate)
         Accept_docs.setTabOrder(self.checkBox_reject_sertificate, self.lineEdit_sertificate_comment)
-        Accept_docs.setTabOrder(self.lineEdit_sertificate_comment, self.pushButton_open_agree)
-        Accept_docs.setTabOrder(self.pushButton_open_agree, self.checkBox_accept_agree)
+        Accept_docs.setTabOrder(self.lineEdit_sertificate_comment, self.pushButton_open_agreement)
+        Accept_docs.setTabOrder(self.pushButton_open_agreement, self.checkBox_accept_agree)
         Accept_docs.setTabOrder(self.checkBox_accept_agree, self.checkBox_reject_agree)
         Accept_docs.setTabOrder(self.checkBox_reject_agree, self.lineEdit_agree_comment)
         Accept_docs.setTabOrder(self.lineEdit_agree_comment, self.pushButton_open_survey)
@@ -312,7 +312,7 @@ class Ui_Accept_docs(object):
         self.checkBox_accept_sertificate.setText(_translate("Accept_docs", "Принято"))
         self.label_username_login_role.setText(_translate("Accept_docs", "username_login_role"))
         self.checkBox_accept_passport.setText(_translate("Accept_docs", "Принято"))
-        self.pushButton_open_agree.setText(_translate("Accept_docs", "Согласие"))
+        self.pushButton_open_agreement.setText(_translate("Accept_docs", "Согласие"))
         self.checkBox_reject_passport.setText(_translate("Accept_docs", "Отклонено"))
         self.pushButton_Ok.setText(_translate("Accept_docs", "OK"))
         self.checkBox_reject_contract.setText(_translate("Accept_docs", "Отклонено"))

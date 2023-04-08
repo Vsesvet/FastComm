@@ -755,8 +755,42 @@ class Accept_docs(Ui_Accept_docs):
         self.label_participant_full_name.setText(f"{participant['full_name']}")
         self.label_event.setText(f"{event['event_name']}")
         self.label_username_login_role.setText(f'{username_login_role}')
+        self.adjust_view()
+
         self.clicked_connect()
         dialog.exec()
+
+    def adjust_view(self):
+        """Установка состояния для кнопок открытия документов (Disabled, если exist = False"""
+        participant_data = {}
+        participant_data['participant_id'] = self.participant_data['participant_id']
+        participant_data = self.db.select_one(participant_data, 'participants_data')
+        participant_event_data = {}
+        participant_event_data['participant_id'] = self.participant_data['participant_id']
+        participant_event_data['event_id'] = self.participant_event_data['event_id']
+        participant_event_data = self.db.select_one(participant_event_data, 'participants_event_data')
+
+        participant_docs = ('passport', 'registration', 'inn', 'snils', 'diploma', 'sertificate')
+        for doc in participant_docs:
+            exist = f'{doc}_exist'
+            if participant_data[exist] == 0:
+                disable_button1 = f"self.pushButton_open_{doc}.setEnabled(False)"
+                exec(disable_button1)
+            elif participant_data[exist] == 1:
+                print(f"Документ {doc} существует, устанавливаем флаг кнопки Enabled")
+                pass
+
+        participant_event_docs = ('agreement', 'survey', 'contract', 'act', 'report')
+        for doc2 in participant_event_docs:
+            exist = f'{doc2}_exist'
+            if participant_event_data[exist] == 0:
+                disable_button2 = f"self.pushButton_open_{doc2}.setEnabled(False)"
+                exec(disable_button2)
+            elif participant_event_data[exist] == 1:
+                print(f"Документ {doc2} существует, устанавливаем флаг кнопки Enabled")
+                pass
+
+
 
     def view_document(self):
         import webbrowser
