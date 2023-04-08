@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Переименованы agree в agreement. Во всех местах для организации цикла For по именам переменных">
+    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Реализовано:&#10;1. Добавление и обновление Приема документов в базе данных&#10;2. Обновление Загруженных документов после установки статусов Приема документов">
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -208,20 +208,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1676999725137</updated>
-    </task>
-    <task id="LOCAL-00047" summary="Написана функция обновления update_row_to_table(self, dct, table_name)">
-      <created>1679096804206</created>
-      <option name="number" value="00047" />
-      <option name="presentableId" value="LOCAL-00047" />
-      <option name="project" value="LOCAL" />
-      <updated>1679096804206</updated>
-    </task>
-    <task id="LOCAL-00048" summary="Написана функция обновления update_db_participants_data">
-      <created>1679096976178</created>
-      <option name="number" value="00048" />
-      <option name="presentableId" value="LOCAL-00048" />
-      <option name="project" value="LOCAL" />
-      <updated>1679096976178</updated>
     </task>
     <task id="LOCAL-00049" summary="Добавлено окно Upload_docs">
       <created>1679159115813</created>
@@ -552,7 +538,21 @@
       <option name="project" value="LOCAL" />
       <updated>1680972840313</updated>
     </task>
-    <option name="localTasksCounter" value="96" />
+    <task id="LOCAL-00096" summary="Реализовано:&#10;1. Добавление и обновление Приема документов в базе данных&#10;2. Обновление Загруженных документов после установки статусов Приема документов">
+      <created>1680986937701</created>
+      <option name="number" value="00096" />
+      <option name="presentableId" value="LOCAL-00096" />
+      <option name="project" value="LOCAL" />
+      <updated>1680986937701</updated>
+    </task>
+    <task id="LOCAL-00097" summary="Реализовано:&#10;1. Добавление и обновление Приема документов в базе данных&#10;2. Обновление Загруженных документов после установки статусов Приема документов">
+      <created>1680986949901</created>
+      <option name="number" value="00097" />
+      <option name="presentableId" value="LOCAL-00097" />
+      <option name="project" value="LOCAL" />
+      <updated>1680986949901</updated>
+    </task>
+    <option name="localTasksCounter" value="98" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -578,7 +578,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Доработано окно Event Shedule." />
     <MESSAGE value="Добавлены поля в Event. Уменьшен размер колонок tree по умолчанию." />
     <MESSAGE value="Добавлены комментарии по работе с comboBox" />
     <MESSAGE value="удалены лишние print-ы отладки" />
@@ -603,24 +602,25 @@
     <MESSAGE value="Реализованы коннекты галочек триггеров Принято-Отклонено окна Принятия документов." />
     <MESSAGE value="Дописана Установка состояния для кнопок открытия документов (Disabled, если exist = False" />
     <MESSAGE value="Переименованы agree в agreement. Во всех местах для организации цикла For по именам переменных" />
-    <option name="LAST_COMMIT_MESSAGE" value="Переименованы agree в agreement. Во всех местах для организации цикла For по именам переменных" />
+    <MESSAGE value="Реализовано:&#10;1. Добавление и обновление Приема документов в базе данных&#10;2. Обновление Загруженных документов после установки статусов Приема документов" />
+    <option name="LAST_COMMIT_MESSAGE" value="Реализовано:&#10;1. Добавление и обновление Приема документов в базе данных&#10;2. Обновление Загруженных документов после установки статусов Приема документов" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>1467</line>
+          <line>1496</line>
           <option name="timeStamp" value="6" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>1309</line>
+          <line>1338</line>
           <option name="timeStamp" value="19" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>1191</line>
+          <line>1220</line>
           <option name="timeStamp" value="23" />
         </line-breakpoint>
       </breakpoints>
