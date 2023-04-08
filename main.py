@@ -636,7 +636,8 @@ class Analisis_list(Ui_Analisis_docs):
         """Обработка нажатий кнопок"""
         self.treeWidget_analysis.itemDoubleClicked.connect(self.open_accept_docs)
         self.treeWidget_analysis.itemDoubleClicked.connect(self.update_analisis_list)
-        # self.pushButton_open_analisis_doc.clicked.connect(Accept_docs)
+        self.pushButton_open_analisis_doc.clicked.connect(self.open_accept_docs)
+        self.pushButton_update_table.clicked.connect(self.update_analisis_list)
 
     def adjust_tree(self, tree):
         """Установка наименований для колонок Tree"""
@@ -765,7 +766,7 @@ class Accept_docs(Ui_Accept_docs):
         dialog.exec()
 
     def adjust_view(self):
-        """Установка состояния для кнопок и чекбоксов в Disabled, если документ_exist = False"""
+        """Установка состояний для кнопок и чекбоксов"""
         participant_data = {}
         participant_data['participant_id'] = self.participant_data['participant_id']
         participant_data = self.db.select_one(participant_data, 'participants_data')
@@ -774,7 +775,7 @@ class Accept_docs(Ui_Accept_docs):
         participant_event_data['participant_id'] = self.participant_data['participant_id']
         participant_event_data['event_id'] = self.participant_event_data['event_id']
         participant_event_data = self.db.select_one(participant_event_data, 'participants_event_data')
-
+        # Установка флагов для личных документов участников
         participant_docs = ('passport', 'registration', 'inn', 'snils', 'diploma', 'sertificate')
         for doc in participant_docs:
             exist = f'{doc}_exist'
@@ -782,14 +783,28 @@ class Accept_docs(Ui_Accept_docs):
                 disable_button1 = f"self.pushButton_open_{doc}.setEnabled(False)"
                 disable_checkbox_accept = f"self.checkBox_accept_{doc}.setDisabled(True)"
                 disable_checkbox_reject = f"self.checkBox_reject_{doc}.setDisabled(True)"
+                # view_comment = f"self.lineEdit_{doc}_comment.text()"
                 exec(disable_button1)
                 exec(disable_checkbox_accept)
                 exec(disable_checkbox_reject)
+                # exec(view_comment)
 
             elif participant_data[exist] == 1:
+                flag = f"{doc}_accept"
+                set_accept = f"self.checkBox_accept_{doc}.setChecked(True)"
+                set_reject = f"self.checkBox_reject_{doc}.setChecked(True)"
+                disable_checkbox_accept = f"self.checkBox_accept_{doc}.setDisabled(True)"
+                disable_checkbox_reject = f"self.checkBox_reject_{doc}.setDisabled(True)"
+                if participant_data[flag] == 1:
+                    exec(set_accept)
+                    exec(disable_checkbox_reject)
+                elif participant_data[flag] == 0:
+                    exec(set_reject)
+                    exec(disable_checkbox_accept)
 
                 print(f"Данные из participants_data по выбранному участнику: {participant_data}")
 
+        # Установка флагов для документов участников по Мероприятию
         participant_event_docs = ('agreement', 'survey', 'contract', 'act', 'report')
         for doc2 in participant_event_docs:
             exist = f'{doc2}_exist'
@@ -797,10 +812,23 @@ class Accept_docs(Ui_Accept_docs):
                 disable_button2 = f"self.pushButton_open_{doc2}.setEnabled(False)"
                 disable_checkbox_accept = f"self.checkBox_accept_{doc2}.setDisabled(True)"
                 disable_checkbox_reject = f"self.checkBox_reject_{doc2}.setDisabled(True)"
+                # view_comment = f"self.lineEdit_{doc2}_comment.text()"
                 exec(disable_button2)
                 exec(disable_checkbox_accept)
                 exec(disable_checkbox_reject)
+                # exec(view_comment)
             elif participant_event_data[exist] == 1:
+                flag = f"{doc2}_accept"
+                set_accept = f"self.checkBox_accept_{doc2}.setChecked(True)"
+                set_reject = f"self.checkBox_reject_{doc2}.setChecked(True)"
+                disable_checkbox_accept = f"self.checkBox_accept_{doc2}.setDisabled(True)"
+                disable_checkbox_reject = f"self.checkBox_reject_{doc2}.setDisabled(True)"
+                if participant_event_data[flag] == 1:
+                    exec(set_accept)
+                    exec(disable_checkbox_reject)
+                elif participant_event_data[flag] == 0:
+                    exec(set_reject)
+                    exec(disable_checkbox_accept)
                 print(f"Данные из participants_event_data по выбранному участнику: {participant_event_data}")
 
         return participant_event_data
@@ -888,8 +916,8 @@ class Accept_docs(Ui_Accept_docs):
             self.participant_data.update(dct)
         elif state == 0:
             for key in dct:
+                self.participant_data.update(dct)
                 del self.participant_data[key]
-                # self.participant_data.update(dct)
 
         print(f"Подготовленые данные для self.participant_data: {self.participant_data}")
 
@@ -899,8 +927,9 @@ class Accept_docs(Ui_Accept_docs):
             self.participant_event_data.update(dct)
         elif state == 0:
             for key in dct:
+                self.participant_event_data.update(dct)
                 del self.participant_event_data[key]
-                # self.participant_event_data.update(dct)
+
         print(f"Подготовлены данные для self.participants_event_data: {self.participant_event_data}")
 
     def update_flags_participant_to_db(self):
