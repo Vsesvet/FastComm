@@ -628,15 +628,14 @@ class Analisis_list(Ui_Analisis_docs):
         self.label_username_login_role.setText(f'{username_login_role}')
         self.db = Mysql()
         self.dct_event = dct_event
-        participants_data = self.select_participants_data()
-        self.adjust_tree(self.treeWidget_analysis)
-        self.output_analisis_list(participants_data)
+        self.update_analisis_list()
         self.clicked_connect()
         dialog.exec()
 
     def clicked_connect(self):
         """Обработка нажатий кнопок"""
         self.treeWidget_analysis.itemDoubleClicked.connect(self.open_accept_docs)
+        self.treeWidget_analysis.itemDoubleClicked.connect(self.update_analisis_list)
         # self.pushButton_open_analisis_doc.clicked.connect(Accept_docs)
 
     def adjust_tree(self, tree):
@@ -656,7 +655,8 @@ class Analisis_list(Ui_Analisis_docs):
             dct['id'] = item.text(0)
             participant = self.db.select_one(dct, table_name)
             Accept_docs(participant, self.dct_event)
-        except Exception as ex:\
+        except Exception as ex:
+
             print("Не выделен ни один объект в списке Analisis_list")
 
     def output_analisis_list(self, participants_data):
@@ -739,6 +739,11 @@ class Analisis_list(Ui_Analisis_docs):
             participants_data.append(dct)
         return participants_data
 
+    def update_analisis_list(self):
+        participants_data = self.select_participants_data()
+        self.adjust_tree(self.treeWidget_analysis)
+        self.output_analisis_list(participants_data)
+
 
 class Accept_docs(Ui_Accept_docs):
     """Окно Принятия или отклонения документов"""
@@ -751,20 +756,20 @@ class Accept_docs(Ui_Accept_docs):
         self.participant_data['participant_id'] = participant['id']
         self.participant_event_data = {}  # словарь для записи флагов participants_event_data
         self.participant_event_data['event_id'] = event['id']
-        self.participant_event_data['participant_id'] = participant['id']
         self.label_participant_full_name.setText(f"{participant['full_name']}")
         self.label_event.setText(f"{event['event_name']}")
         self.label_username_login_role.setText(f'{username_login_role}')
-        self.adjust_view()
-
-        self.clicked_connect()
+        participant_event_data = self.adjust_view()
+        self.participant_event_data['id'] = participant_event_data['id']
+        self.clicked_connect(dialog)
         dialog.exec()
 
     def adjust_view(self):
-        """Установка состояния для кнопок открытия документов (Disabled, если exist = False"""
+        """Установка состояния для кнопок и чекбоксов в Disabled, если документ_exist = False"""
         participant_data = {}
         participant_data['participant_id'] = self.participant_data['participant_id']
         participant_data = self.db.select_one(participant_data, 'participants_data')
+        self.participant_data['id'] = participant_data['id']
         participant_event_data = {}
         participant_event_data['participant_id'] = self.participant_data['participant_id']
         participant_event_data['event_id'] = self.participant_event_data['event_id']
@@ -782,7 +787,8 @@ class Accept_docs(Ui_Accept_docs):
                 exec(disable_checkbox_reject)
 
             elif participant_data[exist] == 1:
-                pass
+
+                print(f"Данные из participants_data по выбранному участнику: {participant_data}")
 
         participant_event_docs = ('agreement', 'survey', 'contract', 'act', 'report')
         for doc2 in participant_event_docs:
@@ -795,24 +801,26 @@ class Accept_docs(Ui_Accept_docs):
                 exec(disable_checkbox_accept)
                 exec(disable_checkbox_reject)
             elif participant_event_data[exist] == 1:
-                pass
+                print(f"Данные из participants_event_data по выбранному участнику: {participant_event_data}")
+
+        return participant_event_data
 
     def view_document(self):
+        """открытие документа при нажатии на кнопку с наименованием"""
         import webbrowser
         webbrowser.open("/home/vsesvet/Изображения/2_passport.jpg")
         #  для Windows os.startfile(r'/home/event/participants_data/2_Волкова_Ольга_Викторовна/2_passport.png')
         # os.startfile(r'D:\picture.jpg')
 
-    def clicked_connect(self):
+    def clicked_connect(self, dialog):
         """Обработка нажатий на кнопки в окне Принятия или отклонения документов"""
         # Кнопки основных действий
+        self.pushButton_Ok.clicked.connect(self.update_flags_participant_to_db)
+        self.pushButton_Ok.clicked.connect(dialog.close)
         self.pushButton_upload_docs.clicked.connect(Upload_docs)
-        self.pushButton_open_passport.clicked.connect(self.view_document)
-        # self.pushButton_Ok.clicked.connect(self.write_flags_to_db)
-        # self.pushButton_Ok.clicked.connect(Accept_docs.close)
-
 
         # # Кнопки открытия документов для просмотра
+        self.pushButton_open_passport.clicked.connect(self.view_document)
         # self.pushButton_open_agreement.clicked.connect(Accept_docs.close)
         # self.pushButton_open_act.clicked.connect(Accept_docs.close)
         # self.pushButton_open_contract.clicked.connect(Accept_docs.close)
@@ -826,54 +834,53 @@ class Accept_docs(Ui_Accept_docs):
 
         # Кнопки Принятия / Отклонения
         self.checkBox_accept_passport.clicked.connect(lambda: self.set_flags_participant(
-            self.checkBox_accept_passport.checkState(), {'passport_accept': True, 'passport_reject': False}))
-
+            self.checkBox_accept_passport.checkState(), {'passport_accept': 1}))
         self.checkBox_accept_registration.clicked.connect(lambda: self.set_flags_participant(
-            self.checkBox_accept_registration.checkState(), {'registration_accept': True, 'registration_reject': False}))
+            self.checkBox_accept_registration.checkState(), {'registration_accept': 1}))
         self.checkBox_accept_inn.clicked.connect(lambda: self.set_flags_participant(
-            self.checkBox_accept_inn.checkState(), {'inn_accept': True, 'inn_reject': False}))
+            self.checkBox_accept_inn.checkState(), {'inn_accept': 1}))
         self.checkBox_accept_snils.clicked.connect(lambda: self.set_flags_participant(
-            self.checkBox_accept_snils.checkState(), {'snils_accept': True, 'snils_reject': False}))
+            self.checkBox_accept_snils.checkState(), {'snils_accept': 1}))
         self.checkBox_accept_diploma.clicked.connect(lambda: self.set_flags_participant(
-            self.checkBox_accept_diploma.checkState(), {'diploma_accept': True, 'diploma_reject': False}))
+            self.checkBox_accept_diploma.checkState(), {'diploma_accept': 1}))
         self.checkBox_accept_sertificate.clicked.connect(lambda: self.set_flags_participant(
-            self.checkBox_accept_sertificate.checkState(), {'sertificate_accept': True, 'sertificate_reject': False}))
+            self.checkBox_accept_sertificate.checkState(), {'sertificate_accept': 1}))
 
         self.checkBox_accept_agreement.clicked.connect(lambda: self.set_flags_participant_event_data(
-            self.checkBox_accept_agreement.checkState(), {'agreement_accept': True, 'agreement_reject': False}))
+            self.checkBox_accept_agreement.checkState(), {'agreement_accept': 1}))
         self.checkBox_accept_survey.clicked.connect(lambda: self.set_flags_participant_event_data(
-            self.checkBox_accept_survey.checkState(), {'survey_accept': True, 'survey_reject': False}))
+            self.checkBox_accept_survey.checkState(), {'survey_accept': 1}))
         self.checkBox_accept_contract.clicked.connect(lambda: self.set_flags_participant_event_data(
-            self.checkBox_accept_contract.checkState(), {'contract_accept': True, 'contract_reject': False}))
+            self.checkBox_accept_contract.checkState(), {'contract_accept': 1}))
         self.checkBox_accept_act.clicked.connect(lambda: self.set_flags_participant_event_data(
-            self.checkBox_accept_act.checkState(), {'act_accept': True, 'act_reject': False}))
+            self.checkBox_accept_act.checkState(), {'act_accept': 1}))
         self.checkBox_accept_report.clicked.connect(lambda: self.set_flags_participant_event_data(
-            self.checkBox_accept_report.checkState(), {'report_accept': True, 'report_reject': False}))
+            self.checkBox_accept_report.checkState(), {'report_accept': 1}))
 
 
         self.checkBox_reject_passport.clicked.connect(lambda: self.set_flags_participant(
-                    self.checkBox_reject_passport.checkState(), {'passport_accept': False, 'passport_reject': True}))
+                    self.checkBox_reject_passport.checkState(), {'passport_accept': 0}))
         self.checkBox_reject_registration.clicked.connect(lambda: self.set_flags_participant(
-                    self.checkBox_reject_registration.checkState(), {'registration_accept': False, 'registration_reject': True}))
+                    self.checkBox_reject_registration.checkState(), {'registration_accept': 0}))
         self.checkBox_reject_inn.clicked.connect(lambda: self.set_flags_participant(
-            self.checkBox_reject_inn.checkState(), {'inn_accept': False, 'inn_reject': True}))
+            self.checkBox_reject_inn.checkState(), {'inn_accept': 0}))
         self.checkBox_reject_snils.clicked.connect(lambda: self.set_flags_participant(
-            self.checkBox_reject_snils.checkState(), {'snils_accept': False, 'snils_reject': True}))
+            self.checkBox_reject_snils.checkState(), {'snils_accept': 0}))
         self.checkBox_reject_diploma.clicked.connect(lambda: self.set_flags_participant(
-            self.checkBox_reject_diploma.checkState(), {'diploma_accept': False, 'diploma_reject': True}))
+            self.checkBox_reject_diploma.checkState(), {'diploma_accept': 0}))
         self.checkBox_reject_sertificate.clicked.connect(lambda: self.set_flags_participant(
-            self.checkBox_reject_sertificate.checkState(), {'sertificate_accept': False, 'sertificate_reject': True}))
+            self.checkBox_reject_sertificate.checkState(), {'sertificate_accept': 0}))
 
         self.checkBox_reject_agreement.clicked.connect(lambda: self.set_flags_participant_event_data(
-            self.checkBox_reject_agreement.checkState(), {'agreement_accept': False, 'agreement_reject': True}))
+            self.checkBox_reject_agreement.checkState(), {'agreement_accept': 0}))
         self.checkBox_reject_survey.clicked.connect(lambda: self.set_flags_participant_event_data(
-            self.checkBox_reject_survey.checkState(), {'survey_accept': False, 'survey_reject': True}))
+            self.checkBox_reject_survey.checkState(), {'survey_accept': 0}))
         self.checkBox_reject_contract.clicked.connect(lambda: self.set_flags_participant_event_data(
-            self.checkBox_reject_contract.checkState(), {'contract_accept': False, 'contract_reject': True}))
+            self.checkBox_reject_contract.checkState(), {'contract_accept': 0}))
         self.checkBox_reject_act.clicked.connect(lambda: self.set_flags_participant_event_data(
-            self.checkBox_reject_act.checkState(), {'act_accept': False, 'act_reject': True}))
+            self.checkBox_reject_act.checkState(), {'act_accept': 0}))
         self.checkBox_reject_report.clicked.connect(lambda: self.set_flags_participant_event_data(
-            self.checkBox_reject_report.checkState(), {'report_accept': False, 'report_reject': True}))
+            self.checkBox_reject_report.checkState(), {'report_accept': 0}))
 
     def set_flags_participant(self, state, dct):
         """Считываение флагов состояния для записи в таблицу participants_data"""
@@ -882,7 +889,9 @@ class Accept_docs(Ui_Accept_docs):
         elif state == 0:
             for key in dct:
                 del self.participant_data[key]
-        print(f"Обновлены данные для self.participant_data: {self.participant_data}")
+                # self.participant_data.update(dct)
+
+        print(f"Подготовленые данные для self.participant_data: {self.participant_data}")
 
     def set_flags_participant_event_data(self, state, dct):
         """Считывание флагов состояния для записи в таблицу participants_event_data"""
@@ -891,13 +900,16 @@ class Accept_docs(Ui_Accept_docs):
         elif state == 0:
             for key in dct:
                 del self.participant_event_data[key]
-        print(f"Обновлены данные для self.participants_event_data: {self.participant_event_data}")
+                # self.participant_event_data.update(dct)
+        print(f"Подготовлены данные для self.participants_event_data: {self.participant_event_data}")
 
     def update_flags_participant_to_db(self):
         """Запись считанных флагов в таблицы participants_data & participants_event_data"""
-        # self.db.update_row(self.participant_data)
-        pass
-
+        print(self.participant_data)
+        print(self.participant_event_data)
+        # в Базе данных есть только состояние passport_accept. reject - НЕТ!!!
+        self.db.update_row(self.participant_data, 'participants_data')
+        self.db.update_row(self.participant_event_data, 'participants_event_data')
 
 
 class Create_Event(Ui_Create_event):
