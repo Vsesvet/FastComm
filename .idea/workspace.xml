@@ -4,8 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Дописана Установка состояния для кнопок открытия документов (Disabled, если exist = False">
-      <change beforePath="$PROJECT_DIR$/Ui_Accept_docs.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_Accept_docs.py" afterDir="false" />
+    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Переименованы agree в agreement. Во всех местах для организации цикла For по именам переменных">
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -209,20 +208,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1676999725137</updated>
-    </task>
-    <task id="LOCAL-00045" summary="Реализовано изменение таблицы participants_data после переименование профиля">
-      <created>1679096642121</created>
-      <option name="number" value="00045" />
-      <option name="presentableId" value="LOCAL-00045" />
-      <option name="project" value="LOCAL" />
-      <updated>1679096642121</updated>
-    </task>
-    <task id="LOCAL-00046" summary="Написана функция обновления update_row_to_table(self, dct, table_name)">
-      <created>1679096736875</created>
-      <option name="number" value="00046" />
-      <option name="presentableId" value="LOCAL-00046" />
-      <option name="project" value="LOCAL" />
-      <updated>1679096736875</updated>
     </task>
     <task id="LOCAL-00047" summary="Написана функция обновления update_row_to_table(self, dct, table_name)">
       <created>1679096804206</created>
@@ -553,7 +538,21 @@
       <option name="project" value="LOCAL" />
       <updated>1680970249800</updated>
     </task>
-    <option name="localTasksCounter" value="94" />
+    <task id="LOCAL-00094" summary="Переименованы agree в agreement. Во всех местах для организации цикла For по именам переменных">
+      <created>1680972827693</created>
+      <option name="number" value="00094" />
+      <option name="presentableId" value="LOCAL-00094" />
+      <option name="project" value="LOCAL" />
+      <updated>1680972827693</updated>
+    </task>
+    <task id="LOCAL-00095" summary="Переименованы agree в agreement. Во всех местах для организации цикла For по именам переменных">
+      <created>1680972840313</created>
+      <option name="number" value="00095" />
+      <option name="presentableId" value="LOCAL-00095" />
+      <option name="project" value="LOCAL" />
+      <updated>1680972840313</updated>
+    </task>
+    <option name="localTasksCounter" value="96" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -579,7 +578,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Реализовано открытие Event по double click из Event Shedule." />
     <MESSAGE value="Доработано окно Event Shedule." />
     <MESSAGE value="Добавлены поля в Event. Уменьшен размер колонок tree по умолчанию." />
     <MESSAGE value="Добавлены комментарии по работе с comboBox" />
@@ -604,35 +602,26 @@
     <MESSAGE value="Реализована загрузка xls файла с участниками в Мероприятие" />
     <MESSAGE value="Реализованы коннекты галочек триггеров Принято-Отклонено окна Принятия документов." />
     <MESSAGE value="Дописана Установка состояния для кнопок открытия документов (Disabled, если exist = False" />
-    <option name="LAST_COMMIT_MESSAGE" value="Дописана Установка состояния для кнопок открытия документов (Disabled, если exist = False" />
+    <MESSAGE value="Переименованы agree в agreement. Во всех местах для организации цикла For по именам переменных" />
+    <option name="LAST_COMMIT_MESSAGE" value="Переименованы agree в agreement. Во всех местах для организации цикла For по именам переменных" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>1455</line>
+          <line>1467</line>
           <option name="timeStamp" value="6" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>1297</line>
+          <line>1309</line>
           <option name="timeStamp" value="19" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>1179</line>
+          <line>1191</line>
           <option name="timeStamp" value="23" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/main.py</url>
-          <line>747</line>
-          <option name="timeStamp" value="66" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Ui_Accept_docs.py</url>
-          <line>27</line>
-          <option name="timeStamp" value="67" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
