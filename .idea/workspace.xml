@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Устранение ошибок: 1. Вылет при сохранении первого Мероприятия (self.db на db)&#10;2. Не обновлялся список участников после загрузки xls.">
+    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Устраненены ошибки вылета при загрузке xlsx файла с участниками.">
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -208,20 +208,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1676999725137</updated>
-    </task>
-    <task id="LOCAL-00052" summary="Реализован выбор файлов для загрузки через окно Upload_docs">
-      <created>1679229610977</created>
-      <option name="number" value="00052" />
-      <option name="presentableId" value="LOCAL-00052" />
-      <option name="project" value="LOCAL" />
-      <updated>1679229610977</updated>
-    </task>
-    <task id="LOCAL-00053" summary="Реализован выбор файлов для загрузки через окно Upload_docs">
-      <created>1679229805767</created>
-      <option name="number" value="00053" />
-      <option name="presentableId" value="LOCAL-00053" />
-      <option name="project" value="LOCAL" />
-      <updated>1679229805767</updated>
     </task>
     <task id="LOCAL-00054" summary="Реализован выбор файлов для загрузки через окно Upload_docs">
       <created>1679229838116</created>
@@ -552,7 +538,21 @@
       <option name="project" value="LOCAL" />
       <updated>1681149010769</updated>
     </task>
-    <option name="localTasksCounter" value="101" />
+    <task id="LOCAL-00101" summary="Устраненены ошибки вылета при загрузке xlsx файла с участниками.">
+      <created>1681155292243</created>
+      <option name="number" value="00101" />
+      <option name="presentableId" value="LOCAL-00101" />
+      <option name="project" value="LOCAL" />
+      <updated>1681155292243</updated>
+    </task>
+    <task id="LOCAL-00102" summary="Устраненены ошибки вылета при загрузке xlsx файла с участниками.">
+      <created>1681155302762</created>
+      <option name="number" value="00102" />
+      <option name="presentableId" value="LOCAL-00102" />
+      <option name="project" value="LOCAL" />
+      <updated>1681155302762</updated>
+    </task>
+    <option name="localTasksCounter" value="103" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -578,7 +578,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="удалены лишние print-ы отладки" />
     <MESSAGE value="удалены неиспользуемые функции" />
     <MESSAGE value="Реализовано обновление Мероприятия (Event + Events Shedule)" />
     <MESSAGE value="Реализован выбор Организации в Мероприятии" />
@@ -603,19 +602,20 @@
     <MESSAGE value="Реализовано:&#10;1. Добавление и обновление Приема документов в базе данных&#10;2. Обновление Загруженных документов после установки статусов Приема документов" />
     <MESSAGE value="Реализованы функции на кнопки Обновление и Открытие док-та в окне Анализ загрузки док-ов." />
     <MESSAGE value="Устранение ошибок: 1. Вылет при сохранении первого Мероприятия (self.db на db)&#10;2. Не обновлялся список участников после загрузки xls." />
-    <option name="LAST_COMMIT_MESSAGE" value="Устранение ошибок: 1. Вылет при сохранении первого Мероприятия (self.db на db)&#10;2. Не обновлялся список участников после загрузки xls." />
+    <MESSAGE value="Устраненены ошибки вылета при загрузке xlsx файла с участниками." />
+    <option name="LAST_COMMIT_MESSAGE" value="Устраненены ошибки вылета при загрузке xlsx файла с участниками." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>1508</line>
+          <line>1512</line>
           <option name="timeStamp" value="6" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>1387</line>
+          <line>1391</line>
           <option name="timeStamp" value="37" />
         </line-breakpoint>
       </breakpoints>

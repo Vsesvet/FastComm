@@ -846,30 +846,32 @@ class Accept_docs(Ui_Accept_docs):
 
     def view_participant_data_document(self):
         """Просмотр личных документов участника при нажатии на кнопку с наименованием документа"""
-        # self.connect_to_server()
-        import webbrowser
-        webbrowser.open("/home/event/participants_data/38_Слыва_Елена_Борисовна/38_passport.jpeg")
-        # webbrowser.open("/home/vsesvet/Изображения/2_passport.jpg")
-        #  для Windows os.startfile(r'/home/event/participants_data/2_Волкова_Ольга_Викторовна/2_passport.png')
+        # Подключение и закачка файла по sftp, запуск на открытие с помощью webbroser
+        self.get_document_by_sftp()
+
+        # # Открытие изображения для windows
         # os.startfile(r'D:\picture.jpg')
 
-    # def connect_to_server(self):
-    #     """Подключение к серверу по ssh"""
-    #     host, login, secret = ssh_config.host, ssh_config.login, ssh_config.secret
-    #     # profile_name = f"{dct['id']}_{dct['second_name']}_{dct['first_name']}_{dct['last_name']}"
-    #     # self.directory_path = f"/home/event/participants_data/{profile_name}"
-    #
-    #     event = paramiko.client.SSHClient()
-    #     event.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    #     event.connect(host, username=login, password=secret)
-    #     import webbrowser
-    #     webbrowser.open("/192.168.0.244/home/event/participants_data/38_Слыва_Елена_Борисовна/38_passport.jpeg")
-    #     # stdin, stdout, stderr = event.exec_command(r"/home/event/participants_data/38_Слыва_Елена_Борисовна/38_passport.jpeg")
-    #     # stdin, stdout, stderr = event.exec_command(f"cd {self.directory_path}")
-    #     # journal.log(f"Создан профиль нового участника {self.directory_path}{profile_name}")
-    #     # print(stdout.read().decode())
-    #     stdin.close()
-    #     event.close()
+        import webbrowser  # open file in Linux
+        webbrowser.open("/home/event/participants_data/38_Слыва_Елена_Борисовна/38_passport.jpeg")
+
+    def get_document_by_sftp(self):
+        """Закачка выбранного документа из сервера на локальный компьютер"""
+        transport = paramiko.Transport((host, port))  # двойные кавычки обязательны
+        transport.connect(username=login, password=secret)
+        sftp = paramiko.SFTPClient.from_transport(transport)
+        # Забираем из таблицы particiapnts_data remote_path и наименование файла с расширением
+        # file = "123.jpeg"
+
+        # local_path = f"/home/vsesvet/{Загрузки}"
+        # remote_path = f"/home/event/participants_data/{path_from_db}"
+
+        # sftp.get(remote_path, local_path)
+        # sftp.put(local_path, remote_path)
+
+        sftp.close()
+        transport.close()
+
 
     def clicked_connect(self, dialog):
         """Обработка нажатий на кнопки в окне Принятия или отклонения документов"""
@@ -879,7 +881,9 @@ class Accept_docs(Ui_Accept_docs):
         self.pushButton_upload_docs.clicked.connect(Upload_docs)
 
         # # Кнопки открытия документов для просмотра
-        self.pushButton_open_passport.clicked.connect(self.view_participant_data_document)
+        self.pushButton_open_passport.clicked.connect(lambda: self.view_participant_data_document(
+
+        ))
         # self.pushButton_open_agreement.clicked.connect(Accept_docs.close)
         # self.pushButton_open_act.clicked.connect(Accept_docs.close)
         # self.pushButton_open_contract.clicked.connect(Accept_docs.close)
@@ -1900,6 +1904,7 @@ class List_participants(Ui_List_participants):
 
 
 class Upload_docs(Ui_Upload_docs):
+    """Класс загрузки выбранных документов на сервер по sftp"""
     def __init__(self):
         username_login_role = access.get_username_and_role(user_login)
         dialog = QDialog()
@@ -1919,7 +1924,7 @@ class Upload_docs(Ui_Upload_docs):
         dialog.exec()
 
     def clicked_connect(self, dialog):
-        """Обработка нажатий кнопок"""
+        """Обработка нажатий кнопок для указания пути к файлам"""
         self.pushButton_upload_passport.clicked.connect(
             lambda: self.open_file(self.label_passport_upload, 'passport'))
         self.pushButton_upload_registration.clicked.connect(
@@ -1944,26 +1949,47 @@ class Upload_docs(Ui_Upload_docs):
 
     def open_file(self, label, docs_name):
         """Функция выбора файла из окна проводника и присвоение словарю путей откуда будут копироваться файлы"""
-        self.fname = QFileDialog.getOpenFileName(None, 'Выберите файл', '/home', "Files (*.pdf, *.jpg *.jpeg, *.png)")
+        self.file_name = QFileDialog.getOpenFileName(None, 'Выберите файл', '/home', "Files (*.pdf, *.jpg *.jpeg, *.png)")
         # print(self.fname)
-        if self.fname == ('', ''):
+        if self.file_name == ('', ''):  # Нажата кнопка Отмена
             label.setText('Не выбран файл')
+
         else:
             label.setText('Файл выбран')
-        path_file_document = self.fname[0]
+        path_file_document = self.file_name[0]
         print(f"Выбран путь к файлу {docs_name}: {path_file_document}")
         self.dict_all_docs[docs_name] = path_file_document
 
     
 
     def press_ok(self, dialog):
-        """Копирование выбранных документов в профиль участника на сервере"""
-        if self.fname == None:
+        """Копирование выбранных документов self.path_file_documents в профиль (participants_data path/documents)"""
+        if self.file_name == None:
             print('Не выбрано ни одного документа')
         else:
             print(f"Выбраные для загузки следующие документы: {self.dict_all_docs}")
-            # вызов ssh.client и копирование файлов из self.path_file_documents в participants_data path/documents
-            # Установка флага: Exist для переданного документа в True
+            # копирование файлов из self.path_file_documents в participants_data path/documents
+            # Установка флага: Exist для переданного документа в True = 1
+
+            # # Передача файлов по sftp
+            # transport = paramiko.Transport((host, port))   #двойные кавычки обязательны
+            # transport.connect(username=login, password=secret)
+            # sftp = paramiko.SFTPClient.from_transport(transport)
+            #
+            # file = "123.jpeg"
+            #
+            # localpath = f"/home/vsesvet/{file}"
+            # remotepath = f"/home/event/event_templates/{file}"
+            #
+            # sftp.get(remotepath, localpath)
+            # sftp.put(localpath, remotepath)
+            #
+            # sftp.close()
+            # transport.close()
+            #
+            # # Открытие изображения для windows
+            # os.startfile(r'D:\picture.jpg')
+            #
             dialog.close()
             return
 
