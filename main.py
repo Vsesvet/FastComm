@@ -77,9 +77,9 @@ class Event_shedule(Ui_Event_shedule):
         self.adjust_tree(self.tree_event_shedule)
         self.move_to_centre(window)
         # Чтение мероприятий из базы данных
-        self.db = Mysql()
+        db = Mysql()
         self.table_name = 'events'
-        self.all_events = self.db.select_all(self.table_name)
+        self.all_events = db.select_all(self.table_name)
         # Формирование расписания мероприятий
         self.events_list()
         self.clicked_connect(window)
@@ -122,12 +122,13 @@ class Event_shedule(Ui_Event_shedule):
 
     def open_event(self):
         """Открытие Мероприятия из списка в Event_shedule"""
+        db = Mysql()
         try:
             dct = {}
             item = self.tree_event_shedule.currentItem()
             print(f'Выбрана строка для открытия {item}')
             dct['id'] = item.text(0)
-            dct_event = self.db.select_one(dct, self.table_name)
+            dct_event = db.select_one(dct, self.table_name)
             Event(dct_event)
         except Exception as ex:\
             print("Не выделен ни один объект в дереве")
@@ -156,15 +157,16 @@ class Event_shedule(Ui_Event_shedule):
     def set_organization(self, dct_event):
         """Извлечение {} организации из таблицы соответствия organizations_events"""
         # Получаем соответствие id События = id Организация
+        db = Mysql()
         event_id = {}
         event_id['event_id'] = dct_event['id']
         print(f"event_id = {event_id}")
-        dct = self.db.select_one(event_id, 'organizations_events')
+        dct = db.select_one(event_id, 'organizations_events')
         print(f"dct = {dct}")
-        # Извлекаем организацию по полученному соответсвию
+        # Извлекаем организацию по полученному соответствию
         organization_id = {}
         organization_id['id'] = dct['organization_id']
-        organization = self.db.select_one(organization_id, 'organizations')
+        organization = db.select_one(organization_id, 'organizations')
         return organization
 
     def update_events_shedule(self):
@@ -247,7 +249,7 @@ class Event(Ui_Event):
         self.pushButton_select_organization.clicked.connect(Choose_organization)
         self.pushButton_select_organization.clicked.connect(self.set_choose_organization)
         self.pushButton_load_xls.clicked.connect(lambda: Load_xls_participants(self.dct_event))
-        self.pushButton_load_xls.clicked.connect(self.update_event)
+        self.pushButton_load_xls.clicked.connect(self.update_list_participants_events)
 
     def output_form(self):
         """Заполняем поля данных Мероприятия из полученного словаря dct_event"""
@@ -771,15 +773,19 @@ class Accept_docs(Ui_Accept_docs):
         dialog.exec()
 
     def adjust_view(self):
-        """Установка состояний для кнопок и чекбоксов"""
+        """Установка состояний для кнопок и чекбоксов окна Принятия документов"""
         participant_data = {}
         participant_data['participant_id'] = self.participant_data['participant_id']
+
         participant_data = self.db.select_one(participant_data, 'participants_data')
+
         self.participant_data['id'] = participant_data['id']
         participant_event_data = {}
         participant_event_data['participant_id'] = self.participant_data['participant_id']
         participant_event_data['event_id'] = self.participant_event_data['event_id']
+
         participant_event_data = self.db.select_one(participant_event_data, 'participants_event_data')
+
         # Установка флагов для личных документов участников
         participant_docs = ('passport', 'registration', 'inn', 'snils', 'diploma', 'sertificate')
         for doc in participant_docs:
@@ -838,12 +844,32 @@ class Accept_docs(Ui_Accept_docs):
 
         return participant_event_data
 
-    def view_document(self):
-        """открытие документа при нажатии на кнопку с наименованием"""
+    def view_participant_data_document(self):
+        """Просмотр личных документов участника при нажатии на кнопку с наименованием документа"""
+        # self.connect_to_server()
         import webbrowser
-        webbrowser.open("/home/vsesvet/Изображения/2_passport.jpg")
+        webbrowser.open("/home/event/participants_data/38_Слыва_Елена_Борисовна/38_passport.jpeg")
+        # webbrowser.open("/home/vsesvet/Изображения/2_passport.jpg")
         #  для Windows os.startfile(r'/home/event/participants_data/2_Волкова_Ольга_Викторовна/2_passport.png')
         # os.startfile(r'D:\picture.jpg')
+
+    # def connect_to_server(self):
+    #     """Подключение к серверу по ssh"""
+    #     host, login, secret = ssh_config.host, ssh_config.login, ssh_config.secret
+    #     # profile_name = f"{dct['id']}_{dct['second_name']}_{dct['first_name']}_{dct['last_name']}"
+    #     # self.directory_path = f"/home/event/participants_data/{profile_name}"
+    #
+    #     event = paramiko.client.SSHClient()
+    #     event.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    #     event.connect(host, username=login, password=secret)
+    #     import webbrowser
+    #     webbrowser.open("/192.168.0.244/home/event/participants_data/38_Слыва_Елена_Борисовна/38_passport.jpeg")
+    #     # stdin, stdout, stderr = event.exec_command(r"/home/event/participants_data/38_Слыва_Елена_Борисовна/38_passport.jpeg")
+    #     # stdin, stdout, stderr = event.exec_command(f"cd {self.directory_path}")
+    #     # journal.log(f"Создан профиль нового участника {self.directory_path}{profile_name}")
+    #     # print(stdout.read().decode())
+    #     stdin.close()
+    #     event.close()
 
     def clicked_connect(self, dialog):
         """Обработка нажатий на кнопки в окне Принятия или отклонения документов"""
@@ -853,7 +879,7 @@ class Accept_docs(Ui_Accept_docs):
         self.pushButton_upload_docs.clicked.connect(Upload_docs)
 
         # # Кнопки открытия документов для просмотра
-        self.pushButton_open_passport.clicked.connect(self.view_document)
+        self.pushButton_open_passport.clicked.connect(self.view_participant_data_document)
         # self.pushButton_open_agreement.clicked.connect(Accept_docs.close)
         # self.pushButton_open_act.clicked.connect(Accept_docs.close)
         # self.pushButton_open_contract.clicked.connect(Accept_docs.close)
@@ -1222,7 +1248,7 @@ class Load_xls_participants():
             dct['password'] = generate_password.generate()
             dct['disabled'] = False
 
-            self.add_new_participant(dct)
+            self.add_new_participant(dct) # Эта строка подлежит переосмыслению
             participant = self.db.select_one(dct, self.table_name)
             print(participant)
             self.create_profile(participant)
@@ -1241,7 +1267,6 @@ class Load_xls_participants():
         file_path_xls = self.file_name[0]
         return file_path_xls
 
-
     def load_xls(self, file_path):
         """Загрузка файла XLS в DataFrame, получение списка словарей участников"""
         import pandas as pd
@@ -1255,14 +1280,14 @@ class Load_xls_participants():
         """Разделение full_name и запись ФИО в second, first, last name"""
         full_name = str(dct['full_name'])
         split = full_name.split()
-        if len(split) == 2:
+        if len(split) == 2: # Если в ФИО отсутствует очередь
             dct['second_name'] = split[0]
             dct['first_name'] = split[1]
-        elif len(split) == 3:
+        elif len(split) == 3: # Штатное заполнение ФИО
             dct['second_name'] = split[0]
             dct['first_name'] = split[1]
             dct['last_name'] = split[2]
-        elif len(split) == 4:
+        elif len(split) == 4: # Если менялась фамилия, то заносим в строку Фамилия оба результата
             dct['second_name'] = split[0] + split[1]
             dct['first_name'] = split[2]
             dct['last_name'] = split[3]
@@ -1880,7 +1905,6 @@ class Upload_docs(Ui_Upload_docs):
         self.path_file_diploma = ''
         self.path_file_sertificate = ''
         self.fname = None
-        
 
         self.clicked_connect(dialog)
         dialog.exec()
@@ -1920,6 +1944,8 @@ class Upload_docs(Ui_Upload_docs):
         path_file_document = self.fname[0]
         print(f"Выбран путь к файлу {docs_name}: {path_file_document}")
         self.dict_all_docs[docs_name] = path_file_document
+
+    
 
     def press_ok(self, dialog):
         """Копирование выбранных документов в профиль участника на сервере"""
