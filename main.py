@@ -202,9 +202,10 @@ class Event(Ui_Event):
     def get_participants(self):
         """Получение списка участников Мероприятия по id"""
         try:
+            db = Mysql()
             dct = {}
             dct['event_id'] = self.dct_event['id']
-            relation = self.db.select_every(dct, 'events_participants')
+            relation = db.select_every(dct, 'events_participants')
             # Если записей соответствия в таблице нет, то выходим из функции, отображая пустой список
             if relation == ():
                 return None
@@ -269,15 +270,18 @@ class Event(Ui_Event):
             self.pushButton_close_access.setText('Закрыт')
 
     def set_list_participants_events(self):
-        """Участники Мероприятия"""
+        """Формирование отображения списка Участников Мероприятия"""
         if self.participants_event_list == None:
             self.dct_event['count'] = 0
+            self.tree_event_participants_list.clear()
+            self.label_total_participants.setText(f"Всего в списке 0 участников")
             return
         participants = self.participants_event_list
         self.tree_event_participants_list.clear()
         participant_string = []
-        number = 1
+        number = 0
         for dct in participants:
+            number += 1
             participant_string.append(str(dct['id']))
             participant_string.append(str(number))
             participant_string.append(dct['second_name'])
@@ -290,7 +294,6 @@ class Event(Ui_Event):
             item = QTreeWidgetItem(participant_string)
             self.tree_event_participants_list.addTopLevelItem(item)
             participant_string.clear()
-            number += 1
 
         self.label_total_participants.setText(f"Всего в списке {len(participants)} участников")
         self.dct_event['count'] = len(participants)
@@ -320,10 +323,11 @@ class Event(Ui_Event):
 
     def processing_relation(self):
         """Получение id строки, по event_id и participant_id из таблицы events_participants"""
+        db = Mysql()
         relation = {}
         relation['event_id'] = self.dct_event['id']
         relation['participant_id'] = self.participant['id']
-        full_relation = self.db.select_one(relation, 'events_participants')
+        full_relation = db.select_one(relation, 'events_participants')
         return full_relation
 
     def update_list_participants_events(self):
