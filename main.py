@@ -1228,7 +1228,7 @@ class Load_xls_participants():
     def __init__(self, dct_event):
         self.dct_event = dct_event
         self.table_name = "participants"
-        self.db = Mysql()
+        db = Mysql()
         file_path_xls = self.select_xls_file()
         # Если нажата кнопка Отмена, self.file_name[0] возвращает '')
         if file_path_xls == '':
@@ -1242,23 +1242,29 @@ class Load_xls_participants():
             dct['city'] = dct.pop('Город отправления')
             dct['phone_number'] = dct.pop('Телефон')
             dct['email'] = dct.pop('e-mail')
-            dct['phone_number'] = self.formating_phone(dct['phone_number'])
-            dct = self.split_full_name(dct)
             dct['role_id'] = '4'
             dct['password'] = generate_password.generate()
             dct['disabled'] = False
+            # Убираем Space & Enter из прочитанных данных ячеек xlsx файла
+            dct['full_name'] = self.formating_text(dct['full_name'])
+            dct = self.split_full_name(dct)
+            dct['city'] = self.formating_text(dct['city'])
+            dct['email'] = self.formating_text(dct['email'])
+            dct['phone_number'] = self.formating_phone(dct['phone_number'])
 
-            self.add_new_participant(dct) # Эта строка подлежит переосмыслению
-            participant = self.db.select_one(dct, self.table_name)
-            print(participant)
+            self.add_new_participant(dct)
+            participant = db.select_one(dct, self.table_name)
+            # print(f"Участник выбран из базы данных{participant}")
             self.create_profile(participant)
+            # print(f"Создан профиль участника {participant}")
             self.create_profile_to_db(participant)
+            # print(f"Записаны данные профиля в базу данных: {participant}")
             journal.log(f"Создан участник {participant['id']}_{participant['second_name']} {participant['first_name']}"
                         f" {participant['last_name']}")
             self.add_participant_to_event(participant)
+            # print(f"Участник добавлен в мероприятие {participant}")
 
-
-        print(lst_dct_participants)
+        # print(lst_dct_participants)
 
     def select_xls_file(self):
         """Функция выбора файла из окна проводника"""
@@ -1280,7 +1286,7 @@ class Load_xls_participants():
         """Разделение full_name и запись ФИО в second, first, last name"""
         full_name = str(dct['full_name'])
         split = full_name.split()
-        if len(split) == 2: # Если в ФИО отсутствует очередь
+        if len(split) == 2: # Если в ФИО отсутствует Отчество
             dct['second_name'] = split[0]
             dct['first_name'] = split[1]
         elif len(split) == 3: # Штатное заполнение ФИО
@@ -1288,10 +1294,15 @@ class Load_xls_participants():
             dct['first_name'] = split[1]
             dct['last_name'] = split[2]
         elif len(split) == 4: # Если менялась фамилия, то заносим в строку Фамилия оба результата
-            dct['second_name'] = split[0] + split[1]
+            dct['second_name'] = f"{split[0]} {split[1]}"
             dct['first_name'] = split[2]
             dct['last_name'] = split[3]
         return dct
+
+    def formating_text(self, string):
+        string = str(string)
+        string = string.strip()
+        return string
 
     def formating_phone(self, phone_number):
         """Форматирование строки телефона"""
@@ -1312,8 +1323,9 @@ class Load_xls_participants():
     def add_new_participant(self, dct):
         """Добавляет нового пользователя в базу данных"""
         # Запись в БД
+        db = Mysql()
         try:
-            self.db.insert_row(dct, self.table_name)
+            db.insert_row(dct, self.table_name)
 
         except Exception as ex:
             print(f"Ошибка создания Участника  {dct['second_name']}")
@@ -1341,6 +1353,7 @@ class Load_xls_participants():
 
     def create_profile_to_db(self, dct):
         """Создание записи в таблице: 'participants_data' о новом профиле"""
+        db = Mysql()
         table_name = "participants_data"
         dct1 = {}
         dct1['participant_id'] = dct['id']
@@ -1359,26 +1372,27 @@ class Load_xls_participants():
         dct1['diploma_exist'] = False
         dct1['sertificate_exist'] = False
 
-        self.db.insert_row(dct1, table_name)
+        db.insert_row(dct1, table_name)
         
     def add_participant_to_event(self, participant):
         """Добавление участника в мероприятие"""
         # insert to events_participants
         # добавить участника в list
+        db = Mysql()
         try:
             dct = {}
             dct['participant_id'] = participant['id']
             dct['event_id'] = self.dct_event['id']
-            print(f'Составлен словарь {dct}')
+            print(f'Составлен словарь соответствия: Участник в Мероприятие: {dct}')
             # Проверяем нет ли такого участника в этом Мероприятии. Если нет, то добавляем.
-            check = self.db.select_one(dct, 'events_participants')
+            check = db.select_one(dct, 'events_participants')
             if check == None:
-                self.db.insert_row(dct, 'events_participants')
+                db.insert_row(dct, 'events_participants')
                 dct = self.add_entry_participants_event_data(dct)
 
-                self.db.insert_row(dct, 'participants_event_data')
-                print(f"В Мероприятие {self.dct_event['event_name']} добавлен участник {check['second_name']} {check['first_name']}")
-                journal.log(f"В Мероприятие {self.dct_event['event_name']} добавлен участник {check['second_name']} {check['first_name']}")
+                db.insert_row(dct, 'participants_event_data')
+                print(f"В Мероприятие {self.dct_event['event_name']} добавлен участник {participant['second_name']} {participant['first_name']}")
+                journal.log(f"В Мероприятие {self.dct_event['event_name']} добавлен участник {participant['second_name']} {participant['first_name']}")
             else:
                 # Если участник присутствует в Мероприятии
                 pass
@@ -1388,8 +1402,9 @@ class Load_xls_participants():
 
     def select_path_participants_event_data(self, dct):
         """Забираем profile_path из таблицы participants_data"""
+        db = Mysql()
         del dct['event_id']
-        dct_participants_data = self.db.select_one(dct, 'participants_data')
+        dct_participants_data = db.select_one(dct, 'participants_data')
         return dct_participants_data['profile_path']
 
     def add_entry_participants_event_data(self, dct):
@@ -1409,12 +1424,6 @@ class Load_xls_participants():
         dct['report_exist'] = False
         dct['survey_exist'] = False
 
-        # Данные словаря для заполнения при Принятии загруженного документа
-        # dct['act_accept'] = False
-        # dct['agreement_accept'] = True
-        # dct['contract_accept'] = True
-        # dct['report_accept'] = True
-        # dct['survey_accept'] = True
         return dct
         
 
