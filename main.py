@@ -461,7 +461,6 @@ class Add_participant(Ui_Add_participant):
         dct_participants_data = self.db.select_one(dct, 'participants_data')
         return dct_participants_data['profile_path']
 
-
     def add_entry_participants_event_data(self, dct):
         """Заполняем словарь dct для вставки row в таблицу participants_event_data"""
         dct['path'] = self.select_path_participants_event_data(dct)
@@ -872,18 +871,15 @@ class Accept_docs(Ui_Accept_docs):
         sftp.close()
         transport.close()
 
-
     def clicked_connect(self, dialog):
         """Обработка нажатий на кнопки в окне Принятия или отклонения документов"""
         # Кнопки основных действий
         self.pushButton_Ok.clicked.connect(self.update_flags_participant_to_db)
         self.pushButton_Ok.clicked.connect(dialog.close)
-        self.pushButton_upload_docs.clicked.connect(Upload_docs)
-
+        self.pushButton_upload_docs.clicked.connect(lambda: Upload_docs(self.participant_data, self.participant_event_data))
+        self.pushButton_upload_docs.clicked.connect(self.adjust_view)
         # # Кнопки открытия документов для просмотра
-        self.pushButton_open_passport.clicked.connect(lambda: self.view_participant_data_document(
-
-        ))
+        # self.pushButton_open_passport.clicked.connect(lambda: self.view_participant_data_document)
         # self.pushButton_open_agreement.clicked.connect(Accept_docs.close)
         # self.pushButton_open_act.clicked.connect(Accept_docs.close)
         # self.pushButton_open_contract.clicked.connect(Accept_docs.close)
@@ -1905,26 +1901,23 @@ class List_participants(Ui_List_participants):
 
 class Upload_docs(Ui_Upload_docs):
     """Класс загрузки выбранных документов на сервер по sftp"""
-    def __init__(self):
+    def __init__(self, participant_data, participant_event_data):
         username_login_role = access.get_username_and_role(user_login)
         dialog = QDialog()
         super().setupUi(dialog)
         self.label_username_login_role.setText(f'{username_login_role}')
-        docs = ['passport', 'registration', 'inn', 'snils', 'diploma', 'sertificate']
-        self.dict_all_docs = dict.fromkeys(docs)
-        self.path_file_passport = ''
-        self.path_file_registration = ''
-        self.path_file_inn = ''
-        self.path_file_snils = ''
-        self.path_file_diploma = ''
-        self.path_file_sertificate = ''
-        self.fname = None
-
+        # Получение participant_data & participant_event_data по полученным id
+        db = Mysql()
+        self.participant_data = db.select_one(participant_data, 'participants_data')
+        self.participant_event_data = db.select_one(participant_event_data, 'participants_event_data')
+        # Словарь для хранения путей всех выбранных пользователем документов для загрузки
+        self.dict_local_path_all_docs = {}
         self.clicked_connect(dialog)
+
         dialog.exec()
 
     def clicked_connect(self, dialog):
-        """Обработка нажатий кнопок для указания пути к файлам"""
+        """Обработка нажатий кнопок для указания пути к локальным файлам"""
         self.pushButton_upload_passport.clicked.connect(
             lambda: self.open_file(self.label_passport_upload, 'passport'))
         self.pushButton_upload_registration.clicked.connect(
@@ -1950,48 +1943,64 @@ class Upload_docs(Ui_Upload_docs):
     def open_file(self, label, docs_name):
         """Функция выбора файла из окна проводника и присвоение словарю путей откуда будут копироваться файлы"""
         self.file_name = QFileDialog.getOpenFileName(None, 'Выберите файл', '/home', "Files (*.pdf, *.jpg *.jpeg, *.png)")
-        # print(self.fname)
         if self.file_name == ('', ''):  # Нажата кнопка Отмена
             label.setText('Не выбран файл')
 
         else:
             label.setText('Файл выбран')
-        path_file_document = self.file_name[0]
-        print(f"Выбран путь к файлу {docs_name}: {path_file_document}")
-        self.dict_all_docs[docs_name] = path_file_document
+        local_path = self.file_name[0]
+        print(f"Выбран путь к файлу {docs_name}: {local_path}")
+        self.dict_local_path_all_docs[docs_name] = local_path
+        print(f"Словарь хранения локальных путей выбранных файлов: {self.dict_local_path_all_docs}")
 
     
 
     def press_ok(self, dialog):
-        """Копирование выбранных документов self.path_file_documents в профиль (participants_data path/documents)"""
-        if self.file_name == None:
-            print('Не выбрано ни одного документа')
-        else:
-            print(f"Выбраные для загузки следующие документы: {self.dict_all_docs}")
-            # копирование файлов из self.path_file_documents в participants_data path/documents
-            # Установка флага: Exist для переданного документа в True = 1
+        """Копирование выбранных документов self.dict_local_path_all_docs в профиль (participants_data path/documents)"""
+        # Передача файла по sftp из self.dict_local_path_all_docs в participants_data path/documents
+        host, port, login, secret = ssh_config.host, ssh_config.port, ssh_config.login, ssh_config.secret
+        transport = paramiko.Transport((host, port))  # двойные кавычки обязательны
+        transport.connect(username=login, password=secret)
+        sftp = paramiko.SFTPClient.from_transport(transport)
+        # print(self.dict_local_path_all_docs)
+        # Разбираем каждый ключ участника
+        for doc_name, local_path in self.dict_local_path_all_docs.items():
+            if self.dict_local_path_all_docs[doc_name] == None:
+                print(f"Документ {doc_name} не выбран для загрузки")
+                del self.dict_local_path_all_docs[doc_name]
+                continue
+            else:
+                split_local_path = local_path.split('.')
+                extenstion = split_local_path[-1]
+                print(extenstion)
+                # Документ {doc_name} имеет локальный путь {local_path}
+                print(self.participant_data[doc_name])
+                # составляем remote_path
+                r_path_1 = self.participant_data['profile_path']
+                r_path_2 = self.participant_data[doc_name]
+                remote_path = f"{r_path_1}/{r_path_2}.{extenstion}"
+                print(remote_path)
 
-            # # Передача файлов по sftp
-            # transport = paramiko.Transport((host, port))   #двойные кавычки обязательны
-            # transport.connect(username=login, password=secret)
-            # sftp = paramiko.SFTPClient.from_transport(transport)
-            #
-            # file = "123.jpeg"
-            #
-            # localpath = f"/home/vsesvet/{file}"
-            # remotepath = f"/home/event/event_templates/{file}"
-            #
-            # sftp.get(remotepath, localpath)
-            # sftp.put(localpath, remotepath)
-            #
-            # sftp.close()
-            # transport.close()
-            #
-            # # Открытие изображения для windows
-            # os.startfile(r'D:\picture.jpg')
-            #
-            dialog.close()
-            return
+                sftp.put(local_path, remote_path)
+                # Новое значение ключа для записи в db
+                new_value = f"{r_path_2}.{extenstion}"
+                self.participant_data[doc_name] = new_value
+                # Установка флага doc_exist
+                doc_name_exist = f"{doc_name}_exist"
+                self.participant_data[doc_name_exist] = 1
+
+        sftp.close()
+        transport.close()
+        self.add_entry_participants_data()
+        dialog.close()
+        return
+
+    def add_entry_participants_data(self):
+        """Обновление данных о загруженных документах в базе данных, таблице participants_data"""
+        db = Mysql()
+        print(self.participant_data)
+        db.update_row(self.participant_data, 'participants_data')
+        print(f"Обновлены данные в таблице базы данных: {self.participant_data}")
 
 
 if __name__ == '__main__':

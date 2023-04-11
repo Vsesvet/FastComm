@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Устраненены ошибки вылета при загрузке xlsx файла с участниками.">
+    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Частично написан код для sftp закачки файла с сервера и просмотра.">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Class_Mysql.py" beforeDir="false" afterPath="$PROJECT_DIR$/Class_Mysql.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -208,13 +210,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1676999725137</updated>
-    </task>
-    <task id="LOCAL-00054" summary="Реализован выбор файлов для загрузки через окно Upload_docs">
-      <created>1679229838116</created>
-      <option name="number" value="00054" />
-      <option name="presentableId" value="LOCAL-00054" />
-      <option name="project" value="LOCAL" />
-      <updated>1679229838116</updated>
     </task>
     <task id="LOCAL-00055" summary="Поправлены неточности при диалоге в время выбора файлов Uploads_docs">
       <created>1679240979234</created>
@@ -552,7 +547,14 @@
       <option name="project" value="LOCAL" />
       <updated>1681155302762</updated>
     </task>
-    <option name="localTasksCounter" value="103" />
+    <task id="LOCAL-00103" summary="Частично написан код для sftp закачки файла с сервера и просмотра.">
+      <created>1681159718175</created>
+      <option name="number" value="00103" />
+      <option name="presentableId" value="LOCAL-00103" />
+      <option name="project" value="LOCAL" />
+      <updated>1681159718176</updated>
+    </task>
+    <option name="localTasksCounter" value="104" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -578,7 +580,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="удалены неиспользуемые функции" />
     <MESSAGE value="Реализовано обновление Мероприятия (Event + Events Shedule)" />
     <MESSAGE value="Реализован выбор Организации в Мероприятии" />
     <MESSAGE value="Добавлены отражения состояния Открыт или закрыт доступ для организации к Мероприятию" />
@@ -603,20 +604,36 @@
     <MESSAGE value="Реализованы функции на кнопки Обновление и Открытие док-та в окне Анализ загрузки док-ов." />
     <MESSAGE value="Устранение ошибок: 1. Вылет при сохранении первого Мероприятия (self.db на db)&#10;2. Не обновлялся список участников после загрузки xls." />
     <MESSAGE value="Устраненены ошибки вылета при загрузке xlsx файла с участниками." />
-    <option name="LAST_COMMIT_MESSAGE" value="Устраненены ошибки вылета при загрузке xlsx файла с участниками." />
+    <MESSAGE value="Частично написан код для sftp закачки файла с сервера и просмотра." />
+    <option name="LAST_COMMIT_MESSAGE" value="Частично написан код для sftp закачки файла с сервера и просмотра." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>1512</line>
+          <line>1508</line>
           <option name="timeStamp" value="6" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>1391</line>
+          <line>1387</line>
           <option name="timeStamp" value="37" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>1999</line>
+          <option name="timeStamp" value="51" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Class_Mysql.py</url>
+          <line>81</line>
+          <option name="timeStamp" value="52" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>1985</line>
+          <option name="timeStamp" value="54" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

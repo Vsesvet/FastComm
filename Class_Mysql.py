@@ -81,6 +81,8 @@ class Mysql:
         """Универсальная функция обновления row в таблице"""
         content = ""
         for key, value in dct.items():
+            if value == None:
+                continue
             i = f"{key} = '{value}', "
             content += i
         content = content[:-2] # срез последнего пробела и запятой
