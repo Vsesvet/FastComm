@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Частично написан код для sftp закачки файла с сервера и просмотра.">
+    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Упорядочил флаги в окне Accept_docs">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Class_Mysql.py" beforeDir="false" afterPath="$PROJECT_DIR$/Class_Mysql.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -79,27 +78,6 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Class_Mysql.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="Ui_Accept_docs" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Logistics_project" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Ui_Accept_docs.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -192,13 +170,34 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="ssh_connect" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Logistics_project" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ssh_connect.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Python.main" />
-        <item itemvalue="Python.Ui_Accept_docs" />
         <item itemvalue="Python.Ui_Event_shedule" />
         <item itemvalue="Python.Class_Mysql" />
         <item itemvalue="Python.db_config" />
+        <item itemvalue="Python.ssh_connect" />
       </list>
     </recent_temporary>
   </component>
@@ -210,6 +209,104 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1676999725137</updated>
+    </task>
+    <task id="LOCAL-00041" summary="Поле full_name перевел в режим только чтение (заполняется из полей Фамилия, Имя, Отчество)">
+      <created>1678998969885</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1678998969885</updated>
+    </task>
+    <task id="LOCAL-00042" summary="Добавлено форматирование номера участника при Создании">
+      <created>1679078444811</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1679078444811</updated>
+    </task>
+    <task id="LOCAL-00043" summary="Добавлено форматирование номера участника при Создании">
+      <created>1679086720159</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1679086720159</updated>
+    </task>
+    <task id="LOCAL-00044" summary="Реализовано переименование профиля участника на сервере.">
+      <created>1679092182252</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1679092182252</updated>
+    </task>
+    <task id="LOCAL-00045" summary="Реализовано изменение таблицы participants_data после переименование профиля">
+      <created>1679096642121</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1679096642121</updated>
+    </task>
+    <task id="LOCAL-00046" summary="Написана функция обновления update_row_to_table(self, dct, table_name)">
+      <created>1679096736875</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1679096736875</updated>
+    </task>
+    <task id="LOCAL-00047" summary="Написана функция обновления update_row_to_table(self, dct, table_name)">
+      <created>1679096804206</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1679096804206</updated>
+    </task>
+    <task id="LOCAL-00048" summary="Написана функция обновления update_db_participants_data">
+      <created>1679096976178</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1679096976178</updated>
+    </task>
+    <task id="LOCAL-00049" summary="Добавлено окно Upload_docs">
+      <created>1679159115813</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1679159115813</updated>
+    </task>
+    <task id="LOCAL-00050" summary="Реализован выбор файлов для загрузки через окно Upload_docs">
+      <created>1679228524674</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1679228524675</updated>
+    </task>
+    <task id="LOCAL-00051" summary="Реализован выбор файлов для загрузки через окно Upload_docs">
+      <created>1679228542466</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1679228542466</updated>
+    </task>
+    <task id="LOCAL-00052" summary="Реализован выбор файлов для загрузки через окно Upload_docs">
+      <created>1679229610977</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1679229610977</updated>
+    </task>
+    <task id="LOCAL-00053" summary="Реализован выбор файлов для загрузки через окно Upload_docs">
+      <created>1679229805767</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1679229805767</updated>
+    </task>
+    <task id="LOCAL-00054" summary="Реализован выбор файлов для загрузки через окно Upload_docs">
+      <created>1679229838116</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1679229838116</updated>
     </task>
     <task id="LOCAL-00055" summary="Поправлены неточности при диалоге в время выбора файлов Uploads_docs">
       <created>1679240979234</created>
@@ -449,112 +546,14 @@
       <option name="project" value="LOCAL" />
       <updated>1680383513391</updated>
     </task>
-    <task id="LOCAL-00089" summary="Реализована загрузка xls файла с участниками в Мероприятие">
-      <created>1680643420329</created>
+    <task id="LOCAL-00089" summary="Упорядочил флаги в окне Accept_docs">
+      <created>1680788897665</created>
       <option name="number" value="00089" />
       <option name="presentableId" value="LOCAL-00089" />
       <option name="project" value="LOCAL" />
-      <updated>1680643420330</updated>
+      <updated>1680788897666</updated>
     </task>
-    <task id="LOCAL-00090" summary="Реализованы коннекты галочек триггеров Принято-Отклонено окна Принятия документов.">
-      <created>1680815017183</created>
-      <option name="number" value="00090" />
-      <option name="presentableId" value="LOCAL-00090" />
-      <option name="project" value="LOCAL" />
-      <updated>1680815017184</updated>
-    </task>
-    <task id="LOCAL-00091" summary="Реализованы коннекты галочек триггеров Принято-Отклонено окна Принятия документов.">
-      <created>1680815229157</created>
-      <option name="number" value="00091" />
-      <option name="presentableId" value="LOCAL-00091" />
-      <option name="project" value="LOCAL" />
-      <updated>1680815229157</updated>
-    </task>
-    <task id="LOCAL-00092" summary="Реализованы коннекты галочек триггеров Принято-Отклонено окна Принятия документов.">
-      <created>1680815239446</created>
-      <option name="number" value="00092" />
-      <option name="presentableId" value="LOCAL-00092" />
-      <option name="project" value="LOCAL" />
-      <updated>1680815239447</updated>
-    </task>
-    <task id="LOCAL-00093" summary="Дописана Установка состояния для кнопок открытия документов (Disabled, если exist = False">
-      <created>1680970249800</created>
-      <option name="number" value="00093" />
-      <option name="presentableId" value="LOCAL-00093" />
-      <option name="project" value="LOCAL" />
-      <updated>1680970249800</updated>
-    </task>
-    <task id="LOCAL-00094" summary="Переименованы agree в agreement. Во всех местах для организации цикла For по именам переменных">
-      <created>1680972827693</created>
-      <option name="number" value="00094" />
-      <option name="presentableId" value="LOCAL-00094" />
-      <option name="project" value="LOCAL" />
-      <updated>1680972827693</updated>
-    </task>
-    <task id="LOCAL-00095" summary="Переименованы agree в agreement. Во всех местах для организации цикла For по именам переменных">
-      <created>1680972840313</created>
-      <option name="number" value="00095" />
-      <option name="presentableId" value="LOCAL-00095" />
-      <option name="project" value="LOCAL" />
-      <updated>1680972840313</updated>
-    </task>
-    <task id="LOCAL-00096" summary="Реализовано:&#10;1. Добавление и обновление Приема документов в базе данных&#10;2. Обновление Загруженных документов после установки статусов Приема документов">
-      <created>1680986937701</created>
-      <option name="number" value="00096" />
-      <option name="presentableId" value="LOCAL-00096" />
-      <option name="project" value="LOCAL" />
-      <updated>1680986937701</updated>
-    </task>
-    <task id="LOCAL-00097" summary="Реализовано:&#10;1. Добавление и обновление Приема документов в базе данных&#10;2. Обновление Загруженных документов после установки статусов Приема документов">
-      <created>1680986949901</created>
-      <option name="number" value="00097" />
-      <option name="presentableId" value="LOCAL-00097" />
-      <option name="project" value="LOCAL" />
-      <updated>1680986949901</updated>
-    </task>
-    <task id="LOCAL-00098" summary="Реализованы функции на кнопки Обновление и Открытие док-та в окне Анализ загрузки док-ов.">
-      <created>1680990361861</created>
-      <option name="number" value="00098" />
-      <option name="presentableId" value="LOCAL-00098" />
-      <option name="project" value="LOCAL" />
-      <updated>1680990361861</updated>
-    </task>
-    <task id="LOCAL-00099" summary="Реализованы функции на кнопки Обновление и Открытие док-та в окне Анализ загрузки док-ов.">
-      <created>1680990371627</created>
-      <option name="number" value="00099" />
-      <option name="presentableId" value="LOCAL-00099" />
-      <option name="project" value="LOCAL" />
-      <updated>1680990371627</updated>
-    </task>
-    <task id="LOCAL-00100" summary="Устранение ошибок: 1. Вылет при сохранении первого Мероприятия (self.db на db)&#10;2. Не обновлялся список участников после загрузки xls.">
-      <created>1681149010768</created>
-      <option name="number" value="00100" />
-      <option name="presentableId" value="LOCAL-00100" />
-      <option name="project" value="LOCAL" />
-      <updated>1681149010769</updated>
-    </task>
-    <task id="LOCAL-00101" summary="Устраненены ошибки вылета при загрузке xlsx файла с участниками.">
-      <created>1681155292243</created>
-      <option name="number" value="00101" />
-      <option name="presentableId" value="LOCAL-00101" />
-      <option name="project" value="LOCAL" />
-      <updated>1681155292243</updated>
-    </task>
-    <task id="LOCAL-00102" summary="Устраненены ошибки вылета при загрузке xlsx файла с участниками.">
-      <created>1681155302762</created>
-      <option name="number" value="00102" />
-      <option name="presentableId" value="LOCAL-00102" />
-      <option name="project" value="LOCAL" />
-      <updated>1681155302762</updated>
-    </task>
-    <task id="LOCAL-00103" summary="Частично написан код для sftp закачки файла с сервера и просмотра.">
-      <created>1681159718175</created>
-      <option name="number" value="00103" />
-      <option name="presentableId" value="LOCAL-00103" />
-      <option name="project" value="LOCAL" />
-      <updated>1681159718176</updated>
-    </task>
-    <option name="localTasksCounter" value="104" />
+    <option name="localTasksCounter" value="90" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -580,6 +579,14 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <MESSAGE value="Убрал один принт" />
+    <MESSAGE value="Переделал окно Create_event" />
+    <MESSAGE value="Реализовано открытие Event по double click из Event Shedule." />
+    <MESSAGE value="Доработано окно Event Shedule." />
+    <MESSAGE value="Добавлены поля в Event. Уменьшен размер колонок tree по умолчанию." />
+    <MESSAGE value="Добавлены комментарии по работе с comboBox" />
+    <MESSAGE value="удалены лишние print-ы отладки" />
+    <MESSAGE value="удалены неиспользуемые функции" />
     <MESSAGE value="Реализовано обновление Мероприятия (Event + Events Shedule)" />
     <MESSAGE value="Реализован выбор Организации в Мероприятии" />
     <MESSAGE value="Добавлены отражения состояния Открыт или закрыт доступ для организации к Мероприятию" />
@@ -596,44 +603,26 @@
     <MESSAGE value="Реализовано добавление строки с именами файлов в таблицу participants_event_data при добавлении участника в Мероприятие." />
     <MESSAGE value="Начало разработки Анализа полученных документов. Установка логических флагов при создании участника." />
     <MESSAGE value="Реализован вывод данных в окне Анализ загруженных документов!" />
-    <MESSAGE value="Реализована загрузка xls файла с участниками в Мероприятие" />
-    <MESSAGE value="Реализованы коннекты галочек триггеров Принято-Отклонено окна Принятия документов." />
-    <MESSAGE value="Дописана Установка состояния для кнопок открытия документов (Disabled, если exist = False" />
-    <MESSAGE value="Переименованы agree в agreement. Во всех местах для организации цикла For по именам переменных" />
-    <MESSAGE value="Реализовано:&#10;1. Добавление и обновление Приема документов в базе данных&#10;2. Обновление Загруженных документов после установки статусов Приема документов" />
-    <MESSAGE value="Реализованы функции на кнопки Обновление и Открытие док-та в окне Анализ загрузки док-ов." />
-    <MESSAGE value="Устранение ошибок: 1. Вылет при сохранении первого Мероприятия (self.db на db)&#10;2. Не обновлялся список участников после загрузки xls." />
-    <MESSAGE value="Устраненены ошибки вылета при загрузке xlsx файла с участниками." />
-    <MESSAGE value="Частично написан код для sftp закачки файла с сервера и просмотра." />
-    <option name="LAST_COMMIT_MESSAGE" value="Частично написан код для sftp закачки файла с сервера и просмотра." />
+    <MESSAGE value="Упорядочил флаги в окне Accept_docs" />
+    <option name="LAST_COMMIT_MESSAGE" value="Упорядочил флаги в окне Accept_docs" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>1508</line>
+          <line>1481</line>
           <option name="timeStamp" value="6" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>1387</line>
-          <option name="timeStamp" value="37" />
+          <line>1323</line>
+          <option name="timeStamp" value="19" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>1999</line>
-          <option name="timeStamp" value="51" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Class_Mysql.py</url>
-          <line>81</line>
-          <option name="timeStamp" value="52" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/main.py</url>
-          <line>1985</line>
-          <option name="timeStamp" value="54" />
+          <line>1207</line>
+          <option name="timeStamp" value="23" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

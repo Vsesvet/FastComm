@@ -1873,6 +1873,7 @@ class List_participants(Ui_List_participants):
     def delete_participant(self):
         """Полное Удаление выделенного участника вместе с профильной папкой"""
         item = self.tree_participants_list.currentItem()
+
         dct_id = {} # id для таблицы participants
         dct_id['id'] = int(item.text(0))
         part_id = {} # id для таблицы participants_data
@@ -1918,31 +1919,40 @@ class Upload_docs(Ui_Upload_docs):
 
     def clicked_connect(self, dialog):
         """Обработка нажатий кнопок для указания пути к локальным файлам"""
+        # Личные документы участника
         self.pushButton_upload_passport.clicked.connect(
             lambda: self.open_file(self.label_passport_upload, 'passport'))
         self.pushButton_upload_registration.clicked.connect(
-            lambda: self.open_file( self.label_registration_upload, 'registration'))
+            lambda: self.open_file(self.label_registration_upload, 'registration'))
         self.pushButton_upload_inn.clicked.connect(
             lambda: self.open_file(self.label_inn_upload, 'inn'))
         self.pushButton_upload_snils.clicked.connect(
-            lambda: self.open_file( self.label_snils_upload, 'snils'))
+            lambda: self.open_file(self.label_snils_upload, 'snils'))
         self.pushButton_upload_diploma.clicked.connect(
-            lambda: self.open_file( self.label_diploma_upload, 'diploma'))
+            lambda: self.open_file(self.label_diploma_upload, 'diploma'))
         self.pushButton_upload_sertificate.clicked.connect(
             lambda: self.open_file(self.label_sertificate_upload, 'sertificate'))
 
+        # Документы участника для Мероприятия
+        self.pushButton_upload_survey.clicked.connect(
+            lambda: self.open_file(self.label_survey_upload, 'survey'))
+        self.pushButton_upload_agreement.clicked.connect(
+            lambda: self.open_file(self.label_agreement_upload, 'agreement'))
+        self.pushButton_upload_contract.clicked.connect(
+            lambda: self.open_file(self.label_contract_upload, 'contract'))
+        self.pushButton_upload_act.clicked.connect(
+            lambda: self.open_file(self.label_act_upload, 'act'))
+        self.pushButton_upload_report.clicked.connect(
+            lambda: self.open_file(self.label_report_upload, 'report'))
+
         self.pushButton_ok.clicked.connect(lambda: self.press_ok(dialog))
 
-        # self.pushButton_upload_survey.clicked.connect(Upload_docs.show)
-        # self.pushButton_upload_agreement.clicked.connect(Upload_docs.show)
-        # self.pushButton_upload_contract.clicked.connect(Upload_docs.show)
-        # self.pushButton_upload_act.clicked.connect(Upload_docs.show)
-        # self.pushButton_upload_report.clicked.connect(Upload_docs.show)
-
-
     def open_file(self, label, docs_name):
-        """Функция выбора файла из окна проводника и присвоение словарю путей откуда будут копироваться файлы"""
+        """Функция выбора файла из окна проводника и присвоение словарю локальных путей откуда будут копироваться файлы"""
         self.file_name = QFileDialog.getOpenFileName(None, 'Выберите файл', '/home', "Files (*.pdf, *.jpg *.jpeg, *.png)")
+
+        # Сюда надо прописать обращение к БД, считывание полей exist, и установка в label 'Существует' если exist = '1'
+
         if self.file_name == ('', ''):  # Нажата кнопка Отмена
             label.setText('Не выбран файл')
 
@@ -1953,8 +1963,6 @@ class Upload_docs(Ui_Upload_docs):
         self.dict_local_path_all_docs[docs_name] = local_path
         print(f"Словарь хранения локальных путей выбранных файлов: {self.dict_local_path_all_docs}")
 
-    
-
     def press_ok(self, dialog):
         """Копирование выбранных документов self.dict_local_path_all_docs в профиль (participants_data path/documents)"""
         # Передача файла по sftp из self.dict_local_path_all_docs в participants_data path/documents
@@ -1963,6 +1971,8 @@ class Upload_docs(Ui_Upload_docs):
         transport.connect(username=login, password=secret)
         sftp = paramiko.SFTPClient.from_transport(transport)
         # print(self.dict_local_path_all_docs)
+        lst_participants_data = ['passport', 'registration', 'inn', 'snils', 'diploma', 'sertificate']
+        lst_participants_event_data = ['survey', 'agreement', 'contract', 'act', 'report']
         # Разбираем каждый ключ участника
         for doc_name, local_path in self.dict_local_path_all_docs.items():
             if self.dict_local_path_all_docs[doc_name] == None:
@@ -1974,24 +1984,39 @@ class Upload_docs(Ui_Upload_docs):
                 extenstion = split_local_path[-1]
                 print(extenstion)
                 # Документ {doc_name} имеет локальный путь {local_path}
-                print(self.participant_data[doc_name])
-                # составляем remote_path
-                r_path_1 = self.participant_data['profile_path']
-                r_path_2 = self.participant_data[doc_name]
-                remote_path = f"{r_path_1}/{r_path_2}.{extenstion}"
-                print(remote_path)
+                # Если документ из числа личных документов участника то пишем в participants_data
+                if doc_name in lst_participants_data:
+                    # составляем remote_path
+                    p_path_1 = self.participant_data['profile_path']
+                    p_path_2 = self.participant_data[doc_name]
+                    remote_path = f"{p_path_1}/{p_path_2}.{extenstion}"
+                    # Новое значение ключа для записи в db
+                    new_value = f"{p_path_2}.{extenstion}"
+                    self.participant_data[doc_name] = new_value
+                    # Установка флага doc_exist
+                    doc_name_exist = f"{doc_name}_exist"
+                    self.participant_data[doc_name_exist] = 1
+                    sftp.put(local_path, remote_path)
+                    self.add_entry_participants_data()
 
-                sftp.put(local_path, remote_path)
-                # Новое значение ключа для записи в db
-                new_value = f"{r_path_2}.{extenstion}"
-                self.participant_data[doc_name] = new_value
-                # Установка флага doc_exist
-                doc_name_exist = f"{doc_name}_exist"
-                self.participant_data[doc_name_exist] = 1
+                # Если документ из числа participants_event_data, то пишем в participants_event_data
+                elif doc_name in lst_participants_event_data:
+                    e_path_1 = self.participant_event_data['path']
+                    e_path_2 = self.participant_event_data[doc_name]
+                    remote_path = f"{e_path_1}/{e_path_2}.{extenstion}"
+                    # Новое значение ключа для записи в db
+                    new_value = f"{e_path_2}.{extenstion}"
+                    self.participant_event_data[doc_name] = new_value
+                    # Установка флага doc_exist
+                    doc_name_exist = f"{doc_name}_exist"
+                    self.participant_event_data[doc_name_exist] = 1
+                    sftp.put(local_path, remote_path)
+                    self.add_entry_participants_event_data()
 
         sftp.close()
         transport.close()
-        self.add_entry_participants_data()
+
+        self.add_entry_participants_event_data()
         dialog.close()
         return
 
@@ -2000,7 +2025,14 @@ class Upload_docs(Ui_Upload_docs):
         db = Mysql()
         print(self.participant_data)
         db.update_row(self.participant_data, 'participants_data')
-        print(f"Обновлены данные в таблице базы данных: {self.participant_data}")
+        print(f"Обновлены данные в таблице базы данных 'participants_data': {self.participant_data}")
+
+    def add_entry_participants_event_data(self):
+        """Обновление данных о загруженных документах в таблице participants_event_data"""
+        db = Mysql()
+        print(self.participant_event_data)
+        db.update_row(self.participant_event_data, 'participants_event_data')
+        print(f"Обновлены данные в таблице базы данных 'participants_event_data': {self.participant_event_data}")
 
 
 if __name__ == '__main__':
