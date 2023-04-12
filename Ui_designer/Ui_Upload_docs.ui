@@ -46,7 +46,7 @@
     </widget>
    </item>
    <item row="11" column="0">
-    <widget class="QPushButton" name="pushButton_upload_agree">
+    <widget class="QPushButton" name="pushButton_upload_agreement">
      <property name="text">
       <string>Согласие</string>
      </property>
@@ -102,7 +102,7 @@
     </widget>
    </item>
    <item row="11" column="1">
-    <widget class="QLabel" name="label_agree_upload">
+    <widget class="QLabel" name="label_agreement_upload">
      <property name="text">
       <string>Файл не загружен</string>
      </property>
@@ -255,7 +255,7 @@
   <tabstop>pushButton_upload_snils</tabstop>
   <tabstop>pushButton_upload_diploma</tabstop>
   <tabstop>pushButton_upload_sertificate</tabstop>
-  <tabstop>pushButton_upload_agree</tabstop>
+  <tabstop>pushButton_upload_agreement</tabstop>
   <tabstop>pushButton_upload_survey</tabstop>
   <tabstop>pushButton_upload_contract</tabstop>
   <tabstop>pushButton_upload_act</tabstop>
@@ -393,7 +393,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>pushButton_upload_agree</sender>
+   <sender>pushButton_upload_agreement</sender>
    <signal>clicked()</signal>
    <receiver>Upload_docs</receiver>
    <slot>show()</slot>
