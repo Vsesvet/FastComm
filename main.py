@@ -766,9 +766,9 @@ class Accept_docs(Ui_Accept_docs):
         self.label_participant_full_name.setText(f"{participant['full_name']}")
         self.label_event.setText(f"{event['event_name']}")
         self.label_username_login_role.setText(f'{username_login_role}')
-        participant_event_data = self.adjust_view()
+        participant_data, participant_event_data = self.adjust_view()
         self.participant_event_data['id'] = participant_event_data['id']
-        self.clicked_connect(dialog)
+        self.clicked_connect(dialog, participant_data, participant_event_data)
         dialog.exec()
 
     def adjust_view(self):
@@ -841,12 +841,30 @@ class Accept_docs(Ui_Accept_docs):
                     exec(disable_checkbox_accept)
                 print(f"Данные из participants_event_data по выбранному участнику: {participant_event_data}")
 
-        return participant_event_data
+        return participant_data, participant_event_data
 
-    def view_participant_data_document(self):
+    def view_participant_data_document(self, participant_data, doc_name):
         """Просмотр личных документов участника при нажатии на кнопку с наименованием документа"""
         # Подключение и закачка файла по sftp, запуск на открытие с помощью webbroser
-        self.get_document_by_sftp()
+        profile = participant_data['profile_path']
+        file = participant_data[doc_name]
+        remote_path = f"{profile}/{file}"
+        linux_username = os.getlogin()
+        local_path = f"/home/{linux_username}/Загрузки/{file}"
+        self.get_document_by_sftp(remote_path, local_path)
+
+        # # Открытие изображения для windows
+        # os.startfile(local_path)
+
+        import webbrowser  # open file in Linux
+        webbrowser.open(local_path)
+
+    def view_participant_event_data_document(self, participant_event_data, doc_name):
+        """Просмотр документов участника по Мероприятию при нажатии на кнопку с наименованием документа"""
+        # Подключение и закачка файла по sftp, запуск на открытие с помощью webbroser
+        print(doc_name)
+        print(participant_event_data)
+        # self.get_document_by_sftp()
 
         # # Открытие изображения для windows
         # os.startfile(r'D:\picture.jpg')
@@ -854,42 +872,40 @@ class Accept_docs(Ui_Accept_docs):
         import webbrowser  # open file in Linux
         webbrowser.open("/home/event/participants_data/38_Слыва_Елена_Борисовна/38_passport.jpeg")
 
-    def get_document_by_sftp(self):
+    def get_document_by_sftp(self, remote_path, local_path):
         """Закачка выбранного документа из сервера на локальный компьютер"""
+        host, port, login, secret = ssh_config.host, ssh_config.port, ssh_config.login, ssh_config.secret
         transport = paramiko.Transport((host, port))  # двойные кавычки обязательны
         transport.connect(username=login, password=secret)
         sftp = paramiko.SFTPClient.from_transport(transport)
-        # Забираем из таблицы particiapnts_data remote_path и наименование файла с расширением
-        # file = "123.jpeg"
-
-        # local_path = f"/home/vsesvet/{Загрузки}"
-        # remote_path = f"/home/event/participants_data/{path_from_db}"
-
-        # sftp.get(remote_path, local_path)
+        sftp.get(remote_path, local_path)
         # sftp.put(local_path, remote_path)
 
         sftp.close()
         transport.close()
+        return local_path
 
-    def clicked_connect(self, dialog):
+    def clicked_connect(self, dialog, p_data, pe_data):
         """Обработка нажатий на кнопки в окне Принятия или отклонения документов"""
         # Кнопки основных действий
         self.pushButton_Ok.clicked.connect(self.update_flags_participant_to_db)
         self.pushButton_Ok.clicked.connect(dialog.close)
         self.pushButton_upload_docs.clicked.connect(lambda: Upload_docs(self.participant_data, self.participant_event_data))
         self.pushButton_upload_docs.clicked.connect(self.adjust_view)
-        # # Кнопки открытия документов для просмотра
-        # self.pushButton_open_passport.clicked.connect(lambda: self.view_participant_data_document)
-        # self.pushButton_open_agreement.clicked.connect(Accept_docs.close)
-        # self.pushButton_open_act.clicked.connect(Accept_docs.close)
-        # self.pushButton_open_contract.clicked.connect(Accept_docs.close)
-        # self.pushButton_open_diploma.clicked.connect(Accept_docs.close)
-        # self.pushButton_open_inn.clicked.connect(Accept_docs.close)
-        # self.pushButton_open_registration.clicked.connect(Accept_docs.close)
-        # self.pushButton_open_report.clicked.connect(Accept_docs.close)
-        # self.pushButton_open_sertificate.clicked.connect(Accept_docs.close)
-        # self.pushButton_open_snils.clicked.connect(Accept_docs.close)
-        # self.pushButton_open_survey.clicked.connect(Accept_docs.close)
+        # Кнопки открытия личных документов для просмотра
+        self.pushButton_open_passport.clicked.connect(lambda: self.view_participant_data_document(p_data, 'passport'))
+        self.pushButton_open_registration.clicked.connect(lambda: self.view_participant_data_document(p_data, 'registration'))
+        self.pushButton_open_inn.clicked.connect(lambda: self.view_participant_data_document(p_data, 'inn'))
+        self.pushButton_open_snils.clicked.connect(lambda: self.view_participant_data_document(p_data, 'snils'))
+        self.pushButton_open_diploma.clicked.connect(lambda: self.view_participant_data_document(p_data, 'diploma'))
+        self.pushButton_open_sertificate.clicked.connect(lambda: self.view_participant_data_document(p_data, 'sertificate'))
+        # Кнопки открытия документов участника по Мероприятию для просмотра
+        self.pushButton_open_agreement.clicked.connect(lambda: self.view_participant_event_data_document(pe_data, 'agreement'))
+        self.pushButton_open_survey.clicked.connect(lambda: self.view_participant_event_data_document(pe_data, 'survey'))
+        self.pushButton_open_contract.clicked.connect(lambda: self.view_participant_event_data_document(pe_data, 'contract'))
+        self.pushButton_open_act.clicked.connect(lambda: self.view_participant_event_data_document(pe_data, 'act'))
+        self.pushButton_open_report.clicked.connect(lambda: self.view_participant_event_data_document(pe_data, 'report'))
+
 
         # Кнопки Принятия / Отклонения
         self.checkBox_accept_passport.clicked.connect(lambda: self.set_flags_participant(

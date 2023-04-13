@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Упорядочил флаги в окне Accept_docs">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -209,104 +208,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1676999725137</updated>
-    </task>
-    <task id="LOCAL-00041" summary="Поле full_name перевел в режим только чтение (заполняется из полей Фамилия, Имя, Отчество)">
-      <created>1678998969885</created>
-      <option name="number" value="00041" />
-      <option name="presentableId" value="LOCAL-00041" />
-      <option name="project" value="LOCAL" />
-      <updated>1678998969885</updated>
-    </task>
-    <task id="LOCAL-00042" summary="Добавлено форматирование номера участника при Создании">
-      <created>1679078444811</created>
-      <option name="number" value="00042" />
-      <option name="presentableId" value="LOCAL-00042" />
-      <option name="project" value="LOCAL" />
-      <updated>1679078444811</updated>
-    </task>
-    <task id="LOCAL-00043" summary="Добавлено форматирование номера участника при Создании">
-      <created>1679086720159</created>
-      <option name="number" value="00043" />
-      <option name="presentableId" value="LOCAL-00043" />
-      <option name="project" value="LOCAL" />
-      <updated>1679086720159</updated>
-    </task>
-    <task id="LOCAL-00044" summary="Реализовано переименование профиля участника на сервере.">
-      <created>1679092182252</created>
-      <option name="number" value="00044" />
-      <option name="presentableId" value="LOCAL-00044" />
-      <option name="project" value="LOCAL" />
-      <updated>1679092182252</updated>
-    </task>
-    <task id="LOCAL-00045" summary="Реализовано изменение таблицы participants_data после переименование профиля">
-      <created>1679096642121</created>
-      <option name="number" value="00045" />
-      <option name="presentableId" value="LOCAL-00045" />
-      <option name="project" value="LOCAL" />
-      <updated>1679096642121</updated>
-    </task>
-    <task id="LOCAL-00046" summary="Написана функция обновления update_row_to_table(self, dct, table_name)">
-      <created>1679096736875</created>
-      <option name="number" value="00046" />
-      <option name="presentableId" value="LOCAL-00046" />
-      <option name="project" value="LOCAL" />
-      <updated>1679096736875</updated>
-    </task>
-    <task id="LOCAL-00047" summary="Написана функция обновления update_row_to_table(self, dct, table_name)">
-      <created>1679096804206</created>
-      <option name="number" value="00047" />
-      <option name="presentableId" value="LOCAL-00047" />
-      <option name="project" value="LOCAL" />
-      <updated>1679096804206</updated>
-    </task>
-    <task id="LOCAL-00048" summary="Написана функция обновления update_db_participants_data">
-      <created>1679096976178</created>
-      <option name="number" value="00048" />
-      <option name="presentableId" value="LOCAL-00048" />
-      <option name="project" value="LOCAL" />
-      <updated>1679096976178</updated>
-    </task>
-    <task id="LOCAL-00049" summary="Добавлено окно Upload_docs">
-      <created>1679159115813</created>
-      <option name="number" value="00049" />
-      <option name="presentableId" value="LOCAL-00049" />
-      <option name="project" value="LOCAL" />
-      <updated>1679159115813</updated>
-    </task>
-    <task id="LOCAL-00050" summary="Реализован выбор файлов для загрузки через окно Upload_docs">
-      <created>1679228524674</created>
-      <option name="number" value="00050" />
-      <option name="presentableId" value="LOCAL-00050" />
-      <option name="project" value="LOCAL" />
-      <updated>1679228524675</updated>
-    </task>
-    <task id="LOCAL-00051" summary="Реализован выбор файлов для загрузки через окно Upload_docs">
-      <created>1679228542466</created>
-      <option name="number" value="00051" />
-      <option name="presentableId" value="LOCAL-00051" />
-      <option name="project" value="LOCAL" />
-      <updated>1679228542466</updated>
-    </task>
-    <task id="LOCAL-00052" summary="Реализован выбор файлов для загрузки через окно Upload_docs">
-      <created>1679229610977</created>
-      <option name="number" value="00052" />
-      <option name="presentableId" value="LOCAL-00052" />
-      <option name="project" value="LOCAL" />
-      <updated>1679229610977</updated>
-    </task>
-    <task id="LOCAL-00053" summary="Реализован выбор файлов для загрузки через окно Upload_docs">
-      <created>1679229805767</created>
-      <option name="number" value="00053" />
-      <option name="presentableId" value="LOCAL-00053" />
-      <option name="project" value="LOCAL" />
-      <updated>1679229805767</updated>
-    </task>
-    <task id="LOCAL-00054" summary="Реализован выбор файлов для загрузки через окно Upload_docs">
-      <created>1679229838116</created>
-      <option name="number" value="00054" />
-      <option name="presentableId" value="LOCAL-00054" />
-      <option name="project" value="LOCAL" />
-      <updated>1679229838116</updated>
     </task>
     <task id="LOCAL-00055" summary="Поправлены неточности при диалоге в время выбора файлов Uploads_docs">
       <created>1679240979234</created>
@@ -677,7 +578,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Реализовано обновление Мероприятия (Event + Events Shedule)" />
     <MESSAGE value="Реализован выбор Организации в Мероприятии" />
     <MESSAGE value="Добавлены отражения состояния Открыт или закрыт доступ для организации к Мероприятию" />
     <MESSAGE value="Реализована установка Организацию в Event_shedule из таблицы соответствия organizations_events" />
@@ -702,24 +602,25 @@
     <MESSAGE value="Устранение ошибок: 1. Вылет при сохранении первого Мероприятия (self.db на db)&#10;2. Не обновлялся список участников после загрузки xls." />
     <MESSAGE value="Устраненены ошибки вылета при загрузке xlsx файла с участниками." />
     <MESSAGE value="Частично написан код для sftp закачки файла с сервера и просмотра." />
-    <option name="LAST_COMMIT_MESSAGE" value="Частично написан код для sftp закачки файла с сервера и просмотра." />
+    <MESSAGE value="Реализована загрузка личных документов участника на сервер, с установкой флага doc_exist и обновлением именований файлов" />
+    <option name="LAST_COMMIT_MESSAGE" value="Реализована загрузка личных документов участника на сервер, с установкой флага doc_exist и обновлением именований файлов" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>1508</line>
+          <line>1524</line>
           <option name="timeStamp" value="6" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>1387</line>
+          <line>1403</line>
           <option name="timeStamp" value="37" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>1999</line>
+          <line>2040</line>
           <option name="timeStamp" value="51" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -729,8 +630,8 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>1985</line>
-          <option name="timeStamp" value="54" />
+          <line>864</line>
+          <option name="timeStamp" value="59" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
