@@ -1261,12 +1261,13 @@ class Load_xls_participants():
             dct['role_id'] = '4'
             dct['password'] = generate_password.generate()
             dct['disabled'] = False
-            # Убираем Space & Enter из прочитанных данных ячеек xlsx файла
+            # Форматируем телефон и убираем Space & Enter из прочитанных данных ячеек xlsx файла
+            dct['phone_number'] = self.formating_phone(dct['phone_number'])
             dct['full_name'] = self.formating_text(dct['full_name'])
             dct = self.split_full_name(dct)
             dct['city'] = self.formating_text(dct['city'])
             dct['email'] = self.formating_text(dct['email'])
-            dct['phone_number'] = self.formating_phone(dct['phone_number'])
+
 
             self.add_new_participant(dct)
             participant = db.select_one(dct, self.table_name)
@@ -1284,7 +1285,7 @@ class Load_xls_participants():
 
     def select_xls_file(self):
         """Функция выбора файла из окна проводника"""
-        self.file_name = QFileDialog.getOpenFileName(None, 'Выберите файл', '/home', "Files (*.xls, *.xlsx)")
+        self.file_name = QFileDialog.getOpenFileName(None, 'Выбор файла', '/home', "Files (*.xls, *.xlsx)")
         print(self.file_name)
         file_path_xls = self.file_name[0]
         return file_path_xls
@@ -1337,21 +1338,25 @@ class Load_xls_participants():
                 return f'Не верный формат'
 
     def add_new_participant(self, dct):
-        """Добавляет нового пользователя в базу данных"""
+        """Добавляем нового пользователя в базу данных 'participants', если такой телефон не найден"""
         # Запись в БД
         db = Mysql()
         try:
-            db.insert_row(dct, self.table_name)
+            dct_check = {}
+            # dct_check['full_name'] = dct['full_name']
+            dct_check['phone_number'] = dct['phone_number']
+            check = db.select_one(dct_check, self.table_name)
+            print(check)
+            if check == None:
+                db.insert_row(dct, self.table_name)
+                print(f"Участник {dct['full_name']} добавлен в базу данных")
+            else:
+                print(f"Участник {check} уже присутствует в базе данных, пропускаем")
+                return check
 
         except Exception as ex:
             print(f"Ошибка создания Участника  {dct['second_name']}")
             journal.log(f"Ошибка создания Участника: {dct['second_name']}")
-
-        # # Создание профиля участника
-        # dct = self.db.select_one(dct, self.table_name)
-        # self.create_profile(dct)
-        # self.create_profile_to_db(dct)
-        # journal.log(f"Создан участник {dct['id']}_{dct['second_name']} {dct['first_name']} {dct['last_name']}")
 
     def create_profile(self, dct):
         """Создание профиля - директории для хранения файлов личных документов участника"""
