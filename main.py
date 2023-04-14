@@ -381,12 +381,14 @@ class Event(Ui_Event):
         db.update_row(relation, 'organizations_events')
 
     def open_access(self):
+        """Открытие доступа для организации"""
         self.dct_event['access'] = 1
         self.pushButton_open_access.setText("Открыт")
         self.pushButton_close_access.setText('Закрыть доступ для организации')
         print(f"Доступ для организации {self.dct_event['access']}")
 
     def close_access(self):
+        """Закрытие доступа для организации"""
         self.dct_event['access'] = 0
         self.pushButton_close_access.setText('Закрыт')
         self.pushButton_open_access.setText("Открыть доступ для организации")
@@ -862,15 +864,18 @@ class Accept_docs(Ui_Accept_docs):
     def view_participant_event_data_document(self, participant_event_data, doc_name):
         """Просмотр документов участника по Мероприятию при нажатии на кнопку с наименованием документа"""
         # Подключение и закачка файла по sftp, запуск на открытие с помощью webbroser
-        print(doc_name)
-        print(participant_event_data)
-        # self.get_document_by_sftp()
+        profile = participant_event_data['path']
+        file = participant_event_data[doc_name]
+        remote_path = f"{profile}/{file}"
+        linux_username = os.getlogin()
+        local_path = f"/home/{linux_username}/Загрузки/{file}"
+        self.get_document_by_sftp(remote_path, local_path)
 
         # # Открытие изображения для windows
-        # os.startfile(r'D:\picture.jpg')
+        # os.startfile(local_path)
 
         import webbrowser  # open file in Linux
-        webbrowser.open("/home/event/participants_data/38_Слыва_Елена_Борисовна/38_passport.jpeg")
+        webbrowser.open(local_path)
 
     def get_document_by_sftp(self, remote_path, local_path):
         """Закачка выбранного документа из сервера на локальный компьютер"""
@@ -878,6 +883,7 @@ class Accept_docs(Ui_Accept_docs):
         transport = paramiko.Transport((host, port))  # двойные кавычки обязательны
         transport.connect(username=login, password=secret)
         sftp = paramiko.SFTPClient.from_transport(transport)
+
         sftp.get(remote_path, local_path)
         # sftp.put(local_path, remote_path)
 
@@ -891,7 +897,7 @@ class Accept_docs(Ui_Accept_docs):
         self.pushButton_Ok.clicked.connect(self.update_flags_participant_to_db)
         self.pushButton_Ok.clicked.connect(dialog.close)
         self.pushButton_upload_docs.clicked.connect(lambda: Upload_docs(self.participant_data, self.participant_event_data))
-        self.pushButton_upload_docs.clicked.connect(self.adjust_view)
+        self.pushButton_upload_docs.clicked.connect(dialog.close)
         # Кнопки открытия личных документов для просмотра
         self.pushButton_open_passport.clicked.connect(lambda: self.view_participant_data_document(p_data, 'passport'))
         self.pushButton_open_registration.clicked.connect(lambda: self.view_participant_data_document(p_data, 'registration'))
@@ -1347,7 +1353,7 @@ class Load_xls_participants():
             dct_check['phone_number'] = dct['phone_number']
             check = db.select_one(dct_check, self.table_name)
             print(check)
-            if check == None:
+            if check['full_name'] == None:
                 db.insert_row(dct, self.table_name)
                 print(f"Участник {dct['full_name']} добавлен в базу данных")
             else:
@@ -1932,6 +1938,7 @@ class Upload_docs(Ui_Upload_docs):
         db = Mysql()
         self.participant_data = db.select_one(participant_data, 'participants_data')
         self.participant_event_data = db.select_one(participant_event_data, 'participants_event_data')
+        self.label_participant_full_name.setText(f"{self.participant_data['full_name']}")
         # Словарь для хранения путей всех выбранных пользователем документов для загрузки
         self.dict_local_path_all_docs = {}
         self.clicked_connect(dialog)

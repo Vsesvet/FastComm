@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Упорядочил флаги в окне Accept_docs">
+    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Реализованы кнопки Update &amp; Open в Analisis_list. Упорядочен код в Analisis_list">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ui_Analisis_list.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_Analisis_list.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ui_Upload_docs.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_Upload_docs.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -129,6 +129,27 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="Ui_Upload_docs" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Logistics_project" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Ui_Upload_docs.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="db_config" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Logistics_project" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -171,34 +192,13 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="ssh_connect" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Logistics_project" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ssh_connect.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Python.main" />
+        <item itemvalue="Python.Ui_Upload_docs" />
         <item itemvalue="Python.Ui_Event_shedule" />
         <item itemvalue="Python.Class_Mysql" />
         <item itemvalue="Python.db_config" />
-        <item itemvalue="Python.ssh_connect" />
       </list>
     </recent_temporary>
   </component>
@@ -210,13 +210,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1676999725137</updated>
-    </task>
-    <task id="LOCAL-00041" summary="Поле full_name перевел в режим только чтение (заполняется из полей Фамилия, Имя, Отчество)">
-      <created>1678998969885</created>
-      <option name="number" value="00041" />
-      <option name="presentableId" value="LOCAL-00041" />
-      <option name="project" value="LOCAL" />
-      <updated>1678998969885</updated>
     </task>
     <task id="LOCAL-00042" summary="Добавлено форматирование номера участника при Создании">
       <created>1679078444811</created>
@@ -554,7 +547,14 @@
       <option name="project" value="LOCAL" />
       <updated>1680788897666</updated>
     </task>
-    <option name="localTasksCounter" value="90" />
+    <task id="LOCAL-00090" summary="Реализованы кнопки Update &amp; Open в Analisis_list. Упорядочен код в Analisis_list">
+      <created>1681458951736</created>
+      <option name="number" value="00090" />
+      <option name="presentableId" value="LOCAL-00090" />
+      <option name="project" value="LOCAL" />
+      <updated>1681458951736</updated>
+    </task>
+    <option name="localTasksCounter" value="91" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -580,7 +580,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Убрал один принт" />
     <MESSAGE value="Переделал окно Create_event" />
     <MESSAGE value="Реализовано открытие Event по double click из Event Shedule." />
     <MESSAGE value="Доработано окно Event Shedule." />
@@ -605,25 +604,21 @@
     <MESSAGE value="Начало разработки Анализа полученных документов. Установка логических флагов при создании участника." />
     <MESSAGE value="Реализован вывод данных в окне Анализ загруженных документов!" />
     <MESSAGE value="Упорядочил флаги в окне Accept_docs" />
-    <option name="LAST_COMMIT_MESSAGE" value="Упорядочил флаги в окне Accept_docs" />
+    <MESSAGE value="Реализованы кнопки Update &amp; Open в Analisis_list. Упорядочен код в Analisis_list" />
+    <option name="LAST_COMMIT_MESSAGE" value="Реализованы кнопки Update &amp; Open в Analisis_list. Упорядочен код в Analisis_list" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>1481</line>
-          <option name="timeStamp" value="6" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/main.py</url>
-          <line>1323</line>
-          <option name="timeStamp" value="19" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/main.py</url>
-          <line>1207</line>
+          <line>1213</line>
           <option name="timeStamp" value="23" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>1352</line>
+          <option name="timeStamp" value="25" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
