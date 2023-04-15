@@ -857,6 +857,14 @@ class Accept_docs(Ui_Accept_docs):
 
         participant_data = self.db.select_one(participant_data, 'participants_data')
 
+        # Установка полей комментарий личных документов участника
+        self.lineEdit_passport_comment.setText(participant_data['passport_comment'])
+        self.lineEdit_registration_comment.setText(participant_data['registration_comment'])
+        self.lineEdit_inn_comment.setText(participant_data['inn_comment'])
+        self.lineEdit_snils_comment.setText(participant_data['snils_comment'])
+        self.lineEdit_diploma_comment.setText(participant_data['diploma_comment'])
+        self.lineEdit_sertificate_comment.setText(participant_data['sertificate_comment'])
+
         self.participant_data['id'] = participant_data['id']
         participant_event_data = {}
         participant_event_data['participant_id'] = self.participant_data['participant_id']
@@ -864,29 +872,42 @@ class Accept_docs(Ui_Accept_docs):
 
         participant_event_data = self.db.select_one(participant_event_data, 'participants_event_data')
 
+        # Установка полей Комментарий для документов участника Мероприятия
+        self.lineEdit_agreement_comment.setText(participant_event_data['agreement_comment'])
+        self.lineEdit_survey_comment.setText(participant_event_data['survey_comment'])
+        self.lineEdit_contract_comment.setText(participant_event_data['contract_comment'])
+        self.lineEdit_act_comment.setText(participant_event_data['act_comment'])
+        self.lineEdit_report_comment.setText(participant_event_data['report_comment'])
+
         # Установка флагов для личных документов участников
         participant_docs = ('passport', 'registration', 'inn', 'snils', 'diploma', 'sertificate')
         for doc in participant_docs:
+            # Если документ не был загружен
             exist = f'{doc}_exist'
+            comment = f'{doc}_comment'
             if participant_data[exist] == 0:
                 disable_button1 = f"self.pushButton_open_{doc}.setEnabled(False)"
                 disable_checkbox_accept = f"self.checkBox_accept_{doc}.setDisabled(True)"
                 disable_checkbox_reject = f"self.checkBox_reject_{doc}.setDisabled(True)"
-                # view_comment = f"self.lineEdit_{doc}_comment.text()"
+                # comment_field = f"self.lineEdit_{comment}.setEnabled(False)"
                 exec(disable_button1)
                 exec(disable_checkbox_accept)
                 exec(disable_checkbox_reject)
-                # exec(view_comment)
+                # exec(comment_field)
 
+            # Если документ Загружен, активируем флаги Принять/Отклонить для установки состояния
             elif participant_data[exist] == 1:
                 flag = f"{doc}_accept"
                 set_accept = f"self.checkBox_accept_{doc}.setChecked(True)"
                 set_reject = f"self.checkBox_reject_{doc}.setChecked(True)"
+                # comment_field = f"self.lineEdit_{doc}_comment.setEnabled(True)"
                 disable_checkbox_accept = f"self.checkBox_accept_{doc}.setDisabled(True)"
                 disable_checkbox_reject = f"self.checkBox_reject_{doc}.setDisabled(True)"
+                # Установка флага Принято
                 if participant_data[flag] == 1:
                     exec(set_accept)
                     exec(disable_checkbox_reject)
+                # Установка флага Отклонено
                 elif participant_data[flag] == 0:
                     exec(set_reject)
                     exec(disable_checkbox_accept)
@@ -1046,6 +1067,7 @@ class Accept_docs(Ui_Accept_docs):
             self.participant_data.update(dct)
         elif state == 0:
             for key in dct:
+
                 self.participant_data.update(dct)
                 del self.participant_data[key]
 
@@ -1064,6 +1086,19 @@ class Accept_docs(Ui_Accept_docs):
 
     def update_flags_participant_to_db(self):
         """Запись считанных флагов в таблицы participants_data & participants_event_data"""
+        self.participant_data['passport_comment'] = self.lineEdit_passport_comment.text()
+        self.participant_data['registration_comment'] = self.lineEdit_registration_comment.text()
+        self.participant_data['inn_comment'] = self.lineEdit_inn_comment.text()
+        self.participant_data['snils_comment'] = self.lineEdit_snils_comment.text()
+        self.participant_data['diploma_comment'] = self.lineEdit_diploma_comment.text()
+        self.participant_data['sertificate_comment'] = self.lineEdit_sertificate_comment.text()
+
+        self.participant_event_data['agreement_comment'] = self.lineEdit_agreement_comment.text()
+        self.participant_event_data['survey_comment'] = self.lineEdit_survey_comment.text()
+        self.participant_event_data['contract_comment'] = self.lineEdit_contract_comment.text()
+        self.participant_event_data['act_comment'] = self.lineEdit_act_comment.text()
+        self.participant_event_data['report_comment'] = self.lineEdit_report_comment.text()
+
         print(self.participant_data)
         print(self.participant_event_data)
         # в Базе данных есть только состояние passport_accept. reject - НЕТ!!!
