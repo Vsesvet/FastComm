@@ -756,7 +756,8 @@ class Analisis_list(Ui_Analisis_docs):
         event_templates_new[template_name] = new_file_name
         # Записываем в базу данных новое имя файла с расширением
         self.db.update_row(event_templates_new, 'event_templates')
-
+        # Показываем пользователю окно об успешном окончании загрузки
+        self.show_message_template_upload(template_name)
 
     def sftp_upload_file(self, local_path, remote_path):
         """Загрузка файла на сервер по sftp"""
@@ -780,7 +781,20 @@ class Analisis_list(Ui_Analisis_docs):
             print(f"Выбран путь к файлу шаблона {docs_name}: {local_path}")
             return local_path
 
+    def show_message_template_upload(self, template_name):
+        template = ['agreement_template', 'survey_template', 'contract_template', 'act_template', 'report_template']
+        name = ['Соглашение', 'Анкета', 'Договор', 'Акт', 'Отчет']
+        for i in template:
+            if i == template_name:
+                index_name = template.index(i)
+                template_name = name[index_name]
 
+        msg_box = QMessageBox()
+        msg_box.setIcon(QMessageBox.Information)
+        msg_box.setWindowTitle("Оповещение")
+        msg_box.setText(f"Шаблон документа {template_name} успешно добавлен в мероприятие")
+        msg_box.setStandardButtons(QMessageBox.Ok)
+        msg_box.exec()
 
     def select_participants_data(self):
         """Выбираем из таблицы events_participants по event_id все participant_id.
@@ -1119,10 +1133,11 @@ class Create_Event(Ui_Create_event):
         dct['event_id'] = self.dct_event['id']
         id = self.dct_event['id']
         dct['path_template'] = f'/home/event/event_templates/{id}'
-        dct['act_template'] = 'act_template'
         dct['agreement_template'] = 'agreement_template'
-        dct['contract_template'] = 'contract_template'
         dct['survey_template'] = 'survey_template'
+        dct['contract_template'] = 'contract_template'
+        dct['act_template'] = 'act_template'
+        dct['report_template'] = 'report_template'
         self.db.insert_row(dct, 'event_templates')
         self.create_templates_directory(dct['path_template'])
 
