@@ -78,15 +78,16 @@ class Ui_Analisis_docs(object):
         self.gridLayout.addWidget(self.pushButton_ok, 9, 8, 1, 1)
 
         self.retranslateUi(Analisis_docs)
-        self.pushButton_open_analisis_doc.clicked.connect(Analisis_docs.show) # type: ignore
-        self.pushButton_ok.clicked.connect(Analisis_docs.show) # type: ignore
-        self.pushButton_cancel.clicked.connect(Analisis_docs.close) # type: ignore
-        self.pushButton_update_table.clicked.connect(Analisis_docs.show) # type: ignore
-        self.pushButton_template_act.clicked.connect(Analisis_docs.show) # type: ignore
-        self.pushButton_template_agreement.clicked.connect(Analisis_docs.show) # type: ignore
-        self.pushButton_template_contract.clicked.connect(Analisis_docs.show) # type: ignore
-        self.pushButton_template_report.clicked.connect(Analisis_docs.show) # type: ignore
-        self.pushButton_template_survey.clicked.connect(Analisis_docs.show) # type: ignore
+        self.pushButton_open_analisis_doc.clicked.connect(Analisis_docs.show)
+        self.pushButton_ok.clicked.connect(Analisis_docs.show)
+        self.pushButton_cancel.clicked.connect(Analisis_docs.close)
+        self.pushButton_update_table.clicked.connect(Analisis_docs.show)
+        self.pushButton_template_agreement.clicked.connect(Analisis_docs.show)
+        self.pushButton_template_survey.clicked.connect(Analisis_docs.show)
+        self.pushButton_template_contract.clicked.connect(Analisis_docs.show)
+        self.pushButton_template_act.clicked.connect(Analisis_docs.show)
+        self.pushButton_template_report.clicked.connect(Analisis_docs.show)
+
         QtCore.QMetaObject.connectSlotsByName(Analisis_docs)
         Analisis_docs.setTabOrder(self.treeWidget_analysis, self.pushButton_update_table)
         Analisis_docs.setTabOrder(self.pushButton_update_table, self.pushButton_open_analisis_doc)

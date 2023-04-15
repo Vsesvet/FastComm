@@ -647,6 +647,12 @@ class Analisis_list(Ui_Analisis_docs):
         self.pushButton_update_table.clicked.connect(self.update_analisis_list)
         self.pushButton_ok.clicked.connect(dialog.close)
 
+        self.pushButton_template_agreement.clicked.connect(lambda: self.upload_template('agreement_template'))
+        self.pushButton_template_survey.clicked.connect(lambda: self.upload_template('survey_template'))
+        self.pushButton_template_contract.clicked.connect(lambda: self.upload_template('contract_template'))
+        self.pushButton_template_act.clicked.connect(lambda: self.upload_template('act_template'))
+        self.pushButton_template_report.clicked.connect(lambda: self.upload_template('report_template'))
+
     def adjust_tree(self, tree):
         """Установка наименований для колонок Tree"""
         self.treeWidget_analysis.header().setStretchLastSection(False)
@@ -718,6 +724,63 @@ class Analisis_list(Ui_Analisis_docs):
         elif exist == 1 and accept == 0:
             status = 'ОТКЛОНЁН'
         return status
+
+    def upload_template(self, template_name):
+        """Загрузка шаблонов документов по Мероприятию"""
+        print(template_name)
+        event_templates = {}
+        event_templates_new = {}
+        event_templates['event_id'] = self.dct_event['id']
+        event_templates = self.db.select_one(event_templates, "event_templates")
+        # Словарь для записи в базу данных нового имени файла
+        event_templates_new['id'] = event_templates['id']
+
+        # Даем пользователю выбрать файл
+        local_path = self.select_file(template_name)
+
+        # Готовим имя файла для записи в ключи
+        split_local_path = local_path.split('.')
+        extenstion = split_local_path[-1]
+        print(extenstion)
+
+        # Составляем путь на сервер для копирования
+        r_path_1 = event_templates['path_template']
+        r_path_2 = event_templates[template_name]
+        remote_path = f"{r_path_1}/{r_path_2}.{extenstion}"
+
+        # Загружаем шаблон документа на сервер
+        self.sftp_upload_file(local_path, remote_path)
+
+        # Формируем новое имя файла для записи в db
+        new_file_name = f"{r_path_2}.{extenstion}"
+        event_templates_new[template_name] = new_file_name
+        # Записываем в базу данных новое имя файла с расширением
+        self.db.update_row(event_templates_new, 'event_templates')
+
+
+    def sftp_upload_file(self, local_path, remote_path):
+        """Загрузка файла на сервер по sftp"""
+        host, port, login, secret = ssh_config.host, ssh_config.port, ssh_config.login, ssh_config.secret
+        transport = paramiko.Transport((host, port))  # двойные кавычки обязательны
+        transport.connect(username=login, password=secret)
+        sftp = paramiko.SFTPClient.from_transport(transport)
+        sftp.put(local_path, remote_path)
+
+    def select_file(self, docs_name):
+        """Функция выбора файла из окна проводника. Возвращает локальный путь хранения файла"""
+        self.file_name = QFileDialog.getOpenFileName(
+            None, 'Выберите файл', '/home', "Files (*.doc, *.docx, *.xls, *.xlsx, *.pdf)")
+
+        # Сюда надо прописать обращение к БД, считывание полей exist, и установка в label 'Существует' если exist = '1'
+
+        if self.file_name == ('', ''):  # Нажата кнопка Отмена
+            return
+        else:
+            local_path = self.file_name[0]
+            print(f"Выбран путь к файлу шаблона {docs_name}: {local_path}")
+            return local_path
+
+
 
     def select_participants_data(self):
         """Выбираем из таблицы events_participants по event_id все participant_id.
@@ -1949,43 +2012,44 @@ class Upload_docs(Ui_Upload_docs):
         """Обработка нажатий кнопок для указания пути к локальным файлам"""
         # Личные документы участника
         self.pushButton_upload_passport.clicked.connect(
-            lambda: self.open_file(self.label_passport_upload, 'passport'))
+            lambda: self.select_file(self.label_passport_upload, 'passport'))
         self.pushButton_upload_registration.clicked.connect(
-            lambda: self.open_file(self.label_registration_upload, 'registration'))
+            lambda: self.select_file(self.label_registration_upload, 'registration'))
         self.pushButton_upload_inn.clicked.connect(
-            lambda: self.open_file(self.label_inn_upload, 'inn'))
+            lambda: self.select_file(self.label_inn_upload, 'inn'))
         self.pushButton_upload_snils.clicked.connect(
-            lambda: self.open_file(self.label_snils_upload, 'snils'))
+            lambda: self.select_file(self.label_snils_upload, 'snils'))
         self.pushButton_upload_diploma.clicked.connect(
-            lambda: self.open_file(self.label_diploma_upload, 'diploma'))
+            lambda: self.select_file(self.label_diploma_upload, 'diploma'))
         self.pushButton_upload_sertificate.clicked.connect(
-            lambda: self.open_file(self.label_sertificate_upload, 'sertificate'))
+            lambda: self.select_file(self.label_sertificate_upload, 'sertificate'))
 
         # Документы участника для Мероприятия
         self.pushButton_upload_survey.clicked.connect(
-            lambda: self.open_file(self.label_survey_upload, 'survey'))
+            lambda: self.select_file(self.label_survey_upload, 'survey'))
         self.pushButton_upload_agreement.clicked.connect(
-            lambda: self.open_file(self.label_agreement_upload, 'agreement'))
+            lambda: self.select_file(self.label_agreement_upload, 'agreement'))
         self.pushButton_upload_contract.clicked.connect(
-            lambda: self.open_file(self.label_contract_upload, 'contract'))
+            lambda: self.select_file(self.label_contract_upload, 'contract'))
         self.pushButton_upload_act.clicked.connect(
-            lambda: self.open_file(self.label_act_upload, 'act'))
+            lambda: self.select_file(self.label_act_upload, 'act'))
         self.pushButton_upload_report.clicked.connect(
-            lambda: self.open_file(self.label_report_upload, 'report'))
+            lambda: self.select_file(self.label_report_upload, 'report'))
 
         self.pushButton_ok.clicked.connect(lambda: self.press_ok(dialog))
 
-    def open_file(self, label, docs_name):
+    def select_file(self, label, docs_name):
         """Функция выбора файла из окна проводника и присвоение словарю локальных путей откуда будут копироваться файлы"""
         self.file_name = QFileDialog.getOpenFileName(None, 'Выберите файл', '/home', "Files (*.pdf, *.jpg *.jpeg, *.png)")
 
         # Сюда надо прописать обращение к БД, считывание полей exist, и установка в label 'Существует' если exist = '1'
 
         if self.file_name == ('', ''):  # Нажата кнопка Отмена
-            label.setText('Не выбран файл')
+            label.setText('Выбор отменен')
+            return
 
         else:
-            label.setText('Файл выбран')
+            label.setText('Файл готов к загрузке')
         local_path = self.file_name[0]
         print(f"Выбран путь к файлу {docs_name}: {local_path}")
         self.dict_local_path_all_docs[docs_name] = local_path
