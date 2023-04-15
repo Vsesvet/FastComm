@@ -307,8 +307,8 @@
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <tabstops>
+  <tabstop>pushButton_find_event</tabstop>
   <tabstop>pushButton_create_event</tabstop>
-  <tabstop>pushButton_create_participant</tabstop>
   <tabstop>pushButton_create_organization</tabstop>
   <tabstop>pushButton_create_inspector</tabstop>
   <tabstop>tree_event_shedule</tabstop>
@@ -318,6 +318,12 @@
   <tabstop>dateEdit_begin_event</tabstop>
   <tabstop>dateEdit_finish_event</tabstop>
   <tabstop>comboBox_event_status</tabstop>
+  <tabstop>pushButton_select_organization</tabstop>
+  <tabstop>lineEdit_organization</tabstop>
+  <tabstop>pushButton_create_participant</tabstop>
+  <tabstop>pushButton_list_organization</tabstop>
+  <tabstop>pushButton_list_of_all_participants</tabstop>
+  <tabstop>pushButton_exit</tabstop>
  </tabstops>
  <resources/>
  <connections>

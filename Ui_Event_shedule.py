@@ -137,8 +137,8 @@ class Ui_Event_shedule(object):
         self.pushButton_select_organization.clicked.connect(Event_shedule.show) # type: ignore
         self.pushButton_exit.clicked.connect(Event_shedule.close) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(Event_shedule)
-        Event_shedule.setTabOrder(self.pushButton_create_event, self.pushButton_create_participant)
-        Event_shedule.setTabOrder(self.pushButton_create_participant, self.pushButton_create_organization)
+        Event_shedule.setTabOrder(self.pushButton_find_event, self.pushButton_create_event)
+        Event_shedule.setTabOrder(self.pushButton_create_event, self.pushButton_create_organization)
         Event_shedule.setTabOrder(self.pushButton_create_organization, self.pushButton_create_inspector)
         Event_shedule.setTabOrder(self.pushButton_create_inspector, self.tree_event_shedule)
         Event_shedule.setTabOrder(self.tree_event_shedule, self.pushButton_export_xls)
@@ -147,6 +147,12 @@ class Ui_Event_shedule(object):
         Event_shedule.setTabOrder(self.lineEdit_find_event, self.dateEdit_begin_event)
         Event_shedule.setTabOrder(self.dateEdit_begin_event, self.dateEdit_finish_event)
         Event_shedule.setTabOrder(self.dateEdit_finish_event, self.comboBox_event_status)
+        Event_shedule.setTabOrder(self.comboBox_event_status, self.pushButton_select_organization)
+        Event_shedule.setTabOrder(self.pushButton_select_organization, self.lineEdit_organization)
+        Event_shedule.setTabOrder(self.lineEdit_organization, self.pushButton_create_participant)
+        Event_shedule.setTabOrder(self.pushButton_create_participant, self.pushButton_list_organization)
+        Event_shedule.setTabOrder(self.pushButton_list_organization, self.pushButton_list_of_all_participants)
+        Event_shedule.setTabOrder(self.pushButton_list_of_all_participants, self.pushButton_exit)
 
     def retranslateUi(self, Event_shedule):
         _translate = QtCore.QCoreApplication.translate

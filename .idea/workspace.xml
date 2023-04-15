@@ -4,8 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Исправление: добавлен упущенный шаблон для мероприятия - Отчет">
-      <change beforePath="$PROJECT_DIR$/Ui_Accept_docs.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_Accept_docs.py" afterDir="false" />
+    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="В окне Accept_docs добавлен вывод комментариев к документам и сохранение комментариев.">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ui_Event_shedule.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_Event_shedule.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ui_designer/Ui_Event_shedule.ui" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_designer/Ui_Event_shedule.ui" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -45,14 +47,14 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/vsesvet/PycharmProjects/pythonProject2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "/home/vsesvet/PycharmProjects/Event",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
@@ -209,20 +211,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1676999725137</updated>
-    </task>
-    <task id="LOCAL-00057" summary="Реализовано Создание Мероприятия (надо разобраться с передачей DateTime в SQL)">
-      <created>1679257340008</created>
-      <option name="number" value="00057" />
-      <option name="presentableId" value="LOCAL-00057" />
-      <option name="project" value="LOCAL" />
-      <updated>1679257340008</updated>
-    </task>
-    <task id="LOCAL-00058" summary="Реализовано Создание Мероприятия (надо разобраться с передачей DateTime в SQL)">
-      <created>1679257592823</created>
-      <option name="number" value="00058" />
-      <option name="presentableId" value="LOCAL-00058" />
-      <option name="project" value="LOCAL" />
-      <updated>1679257592823</updated>
     </task>
     <task id="LOCAL-00059" summary="Реализовал Event_Shedule. Первоначальное и обновление после добавления Мероприятия.">
       <created>1679344682691</created>
@@ -553,7 +541,21 @@
       <option name="project" value="LOCAL" />
       <updated>1681574062405</updated>
     </task>
-    <option name="localTasksCounter" value="106" />
+    <task id="LOCAL-00106" summary="В окне Accept_docs добавлен вывод комментариев к документам и сохранение комментариев.">
+      <created>1681585313548</created>
+      <option name="number" value="00106" />
+      <option name="presentableId" value="LOCAL-00106" />
+      <option name="project" value="LOCAL" />
+      <updated>1681585313549</updated>
+    </task>
+    <task id="LOCAL-00107" summary="В окне Accept_docs добавлен вывод комментариев к документам и сохранение комментариев.">
+      <created>1681585325433</created>
+      <option name="number" value="00107" />
+      <option name="presentableId" value="LOCAL-00107" />
+      <option name="project" value="LOCAL" />
+      <updated>1681585325433</updated>
+    </task>
+    <option name="localTasksCounter" value="108" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -579,7 +581,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Реализована установка Организацию в Event_shedule из таблицы соответствия organizations_events" />
     <MESSAGE value="Реализована отображение списка участников для добавления в Мероприятие" />
     <MESSAGE value="Реализована отображение списка участников Events" />
     <MESSAGE value="Реализовано добавление участников в Events" />
@@ -604,29 +605,25 @@
     <MESSAGE value="Реализована загрузка личных документов участника на сервер, с установкой флага doc_exist и обновлением именований файлов" />
     <MESSAGE value="Реализована загрузка шаблонов документов по мероприятию" />
     <MESSAGE value="Исправление: добавлен упущенный шаблон для мероприятия - Отчет" />
-    <option name="LAST_COMMIT_MESSAGE" value="Исправление: добавлен упущенный шаблон для мероприятия - Отчет" />
+    <MESSAGE value="В окне Accept_docs добавлен вывод комментариев к документам и сохранение комментариев." />
+    <option name="LAST_COMMIT_MESSAGE" value="В окне Accept_docs добавлен вывод комментариев к документам и сохранение комментариев." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>1637</line>
-          <option name="timeStamp" value="6" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/main.py</url>
-          <line>1516</line>
+          <line>1561</line>
           <option name="timeStamp" value="37" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>2154</line>
+          <line>2199</line>
           <option name="timeStamp" value="51" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>962</line>
+          <line>1007</line>
           <option name="timeStamp" value="59" />
         </line-breakpoint>
       </breakpoints>
