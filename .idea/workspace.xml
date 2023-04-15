@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Упорядочил флаги в окне Accept_docs">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ui_Analisis_list.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_Analisis_list.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ui_Upload_docs.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_Upload_docs.py" afterDir="false" />
+    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Исправление: добавлен упущенный шаблон для мероприятия - Отчет">
+      <change beforePath="$PROJECT_DIR$/Ui_Accept_docs.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_Accept_docs.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -211,20 +209,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1676999725137</updated>
-    </task>
-    <task id="LOCAL-00055" summary="Поправлены неточности при диалоге в время выбора файлов Uploads_docs">
-      <created>1679240979234</created>
-      <option name="number" value="00055" />
-      <option name="presentableId" value="LOCAL-00055" />
-      <option name="project" value="LOCAL" />
-      <updated>1679240979235</updated>
-    </task>
-    <task id="LOCAL-00056" summary="Реализовано указание организации">
-      <created>1679249964889</created>
-      <option name="number" value="00056" />
-      <option name="presentableId" value="LOCAL-00056" />
-      <option name="project" value="LOCAL" />
-      <updated>1679249964889</updated>
     </task>
     <task id="LOCAL-00057" summary="Реализовано Создание Мероприятия (надо разобраться с передачей DateTime в SQL)">
       <created>1679257340008</created>
@@ -555,7 +539,21 @@
       <option name="project" value="LOCAL" />
       <updated>1681159718176</updated>
     </task>
-    <option name="localTasksCounter" value="104" />
+    <task id="LOCAL-00104" summary="Реализована загрузка шаблонов документов по мероприятию">
+      <created>1681572234971</created>
+      <option name="number" value="00104" />
+      <option name="presentableId" value="LOCAL-00104" />
+      <option name="project" value="LOCAL" />
+      <updated>1681572234971</updated>
+    </task>
+    <task id="LOCAL-00105" summary="Исправление: добавлен упущенный шаблон для мероприятия - Отчет">
+      <created>1681574062405</created>
+      <option name="number" value="00105" />
+      <option name="presentableId" value="LOCAL-00105" />
+      <option name="project" value="LOCAL" />
+      <updated>1681574062405</updated>
+    </task>
+    <option name="localTasksCounter" value="106" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -581,8 +579,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Реализован выбор Организации в Мероприятии" />
-    <MESSAGE value="Добавлены отражения состояния Открыт или закрыт доступ для организации к Мероприятию" />
     <MESSAGE value="Реализована установка Организацию в Event_shedule из таблицы соответствия organizations_events" />
     <MESSAGE value="Реализована отображение списка участников для добавления в Мероприятие" />
     <MESSAGE value="Реализована отображение списка участников Events" />
@@ -606,40 +602,32 @@
     <MESSAGE value="Устраненены ошибки вылета при загрузке xlsx файла с участниками." />
     <MESSAGE value="Частично написан код для sftp закачки файла с сервера и просмотра." />
     <MESSAGE value="Реализована загрузка личных документов участника на сервер, с установкой флага doc_exist и обновлением именований файлов" />
-    <option name="LAST_COMMIT_MESSAGE" value="Реализована загрузка личных документов участника на сервер, с установкой флага doc_exist и обновлением именований файлов" />
+    <MESSAGE value="Реализована загрузка шаблонов документов по мероприятию" />
+    <MESSAGE value="Исправление: добавлен упущенный шаблон для мероприятия - Отчет" />
+    <option name="LAST_COMMIT_MESSAGE" value="Исправление: добавлен упущенный шаблон для мероприятия - Отчет" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>1587</line>
+          <line>1637</line>
           <option name="timeStamp" value="6" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>1466</line>
+          <line>1516</line>
           <option name="timeStamp" value="37" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>2104</line>
+          <line>2154</line>
           <option name="timeStamp" value="51" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Class_Mysql.py</url>
-          <line>81</line>
-          <option name="timeStamp" value="52" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>927</line>
+          <line>962</line>
           <option name="timeStamp" value="59" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/main.py</url>
-          <line>754</line>
-          <option name="timeStamp" value="66" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
