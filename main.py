@@ -126,6 +126,8 @@ class Event_shedule(Ui_Event_shedule):
 
     def find_by_name(self):
         """Поиск Мероприятия по части введенного в поиск имени"""
+        # Устанавливаем comboBox по умолчанию в статус = 0 (Все)
+        self.comboBox_event_status.setCurrentIndex(0)
         db = Mysql()
         find_by_name = self.lineEdit_find_event.text()
         dct = self.check_find_request(find_by_name)
@@ -147,6 +149,8 @@ class Event_shedule(Ui_Event_shedule):
 
     def find_by_status(self):
         """Фильтр Мероприятий по статусу Запланировано-Проведено-Отменено"""
+        # Устанавливаем поле поиска по Мероприятию в = Пусто
+        self.lineEdit_find_event.setText('')
         dct = {}
         value_comboBox = self.comboBox_event_status.currentText()
         if value_comboBox == 'Все':
