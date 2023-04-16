@@ -118,8 +118,20 @@ class Mysql:
             cursor.execute(select_query)
             find_dict = cursor.fetchall()
             self.connection.commit()
-        journal.log(f"Выборка из БД, функция select_every. Результат: {find_dict}")
+        journal.log(f"Выборка из БД, функция select_partial_matching. Результат: {find_dict}")
         return find_dict
+
+    def select_by_range(self, dct, table_name):
+        """Выбор данных между диапазоном дат"""
+        # SELECT * from event_db.events where date_time >= '2023-03-25' and date_time < '2023-05-10'
+        select_query = f"SELECT * FROM {table_name} WHERE date_time >= '{dct['start_date']}' AND date_time < '{dct['end_date']}'"
+        with self.connection.cursor() as cursor:
+            cursor.execute(select_query)
+            find_dict = cursor.fetchall()
+            self.connection.commit()
+        journal.log(f"Выборка из БД, функция select_by_range. Результат: {find_dict}")
+        return find_dict
+
 
     # def create_user(self, new_user):
     #     """Добавление нового пользователя в базу данных MySql"""

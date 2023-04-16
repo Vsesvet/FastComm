@@ -105,7 +105,6 @@ class Event_shedule(Ui_Event_shedule):
         # Устанавливаем comboBox по умолчанию в статус = 0 (Все)
         # self.comboBox_event_status.setCurrentIndex(0)
 
-
     def clicked_connect(self, window):
         """Обращения к классам окон по клику мыши"""
         self.tree_event_shedule.itemDoubleClicked.connect(self.open_event)
@@ -119,10 +118,12 @@ class Event_shedule(Ui_Event_shedule):
         self.pushButton_create_inspector.clicked.connect(Create_inspector)
         self.pushButton_list_organization.clicked.connect(List_organization)
         self.pushButton_list_of_all_participants.clicked.connect(List_participants)
-        self.pushButton_export_xls.clicked.connect(window.showMaximized)
-        self.pushButton_print.clicked.connect(Create_user)
+        self.pushButton_export_xls.clicked.connect(self.show_message_in_progress)
+        self.pushButton_print.clicked.connect(self.show_message_in_progress)
         self.lineEdit_find_event.returnPressed.connect(self.find_by_name)
-        self.pushButton_find_event.clicked.connect(self.find_by_name)
+        # self.pushButton_find_event.clicked.connect(self.find_by_date_range)
+        self.dateEdit_begin_event.userDateChanged['QDate'].connect(self.find_by_date_range)
+        self.dateEdit_finish_event.userDateChanged['QDate'].connect(self.find_by_date_range)
         self.comboBox_event_status.currentIndexChanged['QString'].connect(self.find_by_status)
 
     def find_by_name(self):
@@ -149,6 +150,19 @@ class Event_shedule(Ui_Event_shedule):
         self.tree_event_shedule.clear()
 
         self.events_list()
+        self.lineEdit_find_event.setText('')
+
+    def find_by_date_range(self):
+        """Поиск Мероприятий в диапазоне указанных дат"""
+        dct = {}
+        dct['start_date'] = self.dateEdit_begin_event.dateTime().toString("yyyy-MM-dd")
+        dct['end_date'] = self.dateEdit_finish_event.dateTime().toString("yyyy-MM-dd")
+        print(dct)
+        db = Mysql()
+        events_results = db.select_by_range(dct, 'events')
+        self.all_events = events_results
+        self.tree_event_shedule.clear()
+        self.events_list()
 
     def find_by_status(self):
         """Фильтр Мероприятий по статусу Запланировано-Проведено-Отменено"""
@@ -161,6 +175,15 @@ class Event_shedule(Ui_Event_shedule):
             return
         dct['status'] = value_comboBox
         self.update_events_shedule_by_filtered(dct)
+
+    def show_message_in_progress(self):
+        """Показываем окно - Данная функция в разработке"""
+        msg_box = QMessageBox()
+        msg_box.setIcon(QMessageBox.Information)
+        msg_box.setWindowTitle("Оповещение")
+        msg_box.setText(f"Данная функция в разработке")
+        msg_box.setStandardButtons(QMessageBox.Ok)
+        msg_box.exec()
 
     def check_find_request(self, find_by_name):
         """Проверка введенных пользователем данных для поиска"""
@@ -177,7 +200,6 @@ class Event_shedule(Ui_Event_shedule):
         update_events = db.select_every(dct, 'events')
         self.all_events = update_events
         self.events_list()
-
 
     def open_event(self):
         """Открытие Мероприятия из списка в Event_shedule"""

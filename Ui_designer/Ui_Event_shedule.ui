@@ -15,13 +15,6 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout_2">
-    <item row="6" column="0" colspan="2">
-     <widget class="QLabel" name="label_find_event">
-      <property name="text">
-       <string>Фильтры поиска мероприятия:</string>
-      </property>
-     </widget>
-    </item>
     <item row="4" column="0" colspan="6">
      <widget class="QTreeWidget" name="tree_event_shedule">
       <property name="sizeAdjustPolicy">
@@ -155,14 +148,44 @@
     </item>
     <item row="7" column="0" colspan="6">
      <layout class="QGridLayout" name="gridLayout">
-      <item row="0" column="4">
-       <widget class="QLabel" name="label_status_event">
-        <property name="text">
-         <string>  Статус мероприятия</string>
+      <item row="0" column="1">
+       <spacer name="horizontalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="0" column="2">
+       <widget class="QDateEdit" name="dateEdit_begin_event">
+        <property name="date">
+         <date>
+          <year>2023</year>
+          <month>1</month>
+          <day>1</day>
+         </date>
         </property>
        </widget>
       </item>
-      <item row="1" column="1">
+      <item row="0" column="4">
+       <spacer name="horizontalSpacer_3">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="0" column="3">
        <widget class="QDateEdit" name="dateEdit_finish_event">
         <property name="date">
          <date>
@@ -173,14 +196,7 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="3">
-       <widget class="QPushButton" name="pushButton_select_organization">
-        <property name="text">
-         <string>Выбрать</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="5">
+      <item row="0" column="6">
        <widget class="QComboBox" name="comboBox_event_status">
         <item>
          <property name="text">
@@ -204,22 +220,22 @@
         </item>
        </widget>
       </item>
-      <item row="0" column="3">
-       <widget class="QLineEdit" name="lineEdit_organization">
-        <property name="placeholderText">
-         <string>Организация...</string>
+      <item row="0" column="5">
+       <widget class="QLabel" name="label_status_event">
+        <property name="text">
+         <string>  Статус мероприятия</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="0" colspan="2">
+      <item row="0" column="0">
        <widget class="QLineEdit" name="lineEdit_find_event">
         <property name="placeholderText">
          <string>Наименование мероприятия...</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="6">
-       <spacer name="horizontalSpacer_3">
+      <item row="0" column="7">
+       <spacer name="horizontalSpacer_4">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
@@ -230,24 +246,6 @@
          </size>
         </property>
        </spacer>
-      </item>
-      <item row="1" column="0">
-       <widget class="QDateEdit" name="dateEdit_begin_event">
-        <property name="date">
-         <date>
-          <year>2023</year>
-          <month>1</month>
-          <day>1</day>
-         </date>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="2">
-       <widget class="QPushButton" name="pushButton_find_event">
-        <property name="text">
-         <string>Найти</string>
-        </property>
-       </widget>
       </item>
      </layout>
     </item>
@@ -292,6 +290,33 @@
       </property>
      </widget>
     </item>
+    <item row="6" column="2">
+     <widget class="QPushButton" name="pushButton_reset_find">
+      <property name="text">
+       <string>Сброс всех фильтров</string>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="0">
+     <widget class="QLabel" name="label_find_event">
+      <property name="text">
+       <string>Фильтры поиска мероприятия:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="1">
+     <spacer name="horizontalSpacer_5">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -307,170 +332,23 @@
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <tabstops>
-  <tabstop>pushButton_find_event</tabstop>
   <tabstop>pushButton_create_event</tabstop>
+  <tabstop>pushButton_create_participant</tabstop>
   <tabstop>pushButton_create_organization</tabstop>
   <tabstop>pushButton_create_inspector</tabstop>
   <tabstop>tree_event_shedule</tabstop>
-  <tabstop>pushButton_export_xls</tabstop>
-  <tabstop>pushButton_print</tabstop>
   <tabstop>lineEdit_find_event</tabstop>
   <tabstop>dateEdit_begin_event</tabstop>
   <tabstop>dateEdit_finish_event</tabstop>
   <tabstop>comboBox_event_status</tabstop>
-  <tabstop>pushButton_select_organization</tabstop>
-  <tabstop>lineEdit_organization</tabstop>
-  <tabstop>pushButton_create_participant</tabstop>
+  <tabstop>pushButton_export_xls</tabstop>
+  <tabstop>pushButton_print</tabstop>
   <tabstop>pushButton_list_organization</tabstop>
-  <tabstop>pushButton_list_of_all_participants</tabstop>
   <tabstop>pushButton_exit</tabstop>
+  <tabstop>pushButton_list_of_all_participants</tabstop>
  </tabstops>
  <resources/>
  <connections>
-  <connection>
-   <sender>pushButton_create_event</sender>
-   <signal>clicked()</signal>
-   <receiver>Event_shedule</receiver>
-   <slot>show()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>115</x>
-     <y>114</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>486</x>
-     <y>299</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pushButton_create_participant</sender>
-   <signal>clicked()</signal>
-   <receiver>Event_shedule</receiver>
-   <slot>show()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>115</x>
-     <y>154</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>486</x>
-     <y>299</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pushButton_create_organization</sender>
-   <signal>clicked()</signal>
-   <receiver>Event_shedule</receiver>
-   <slot>show()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>305</x>
-     <y>114</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>486</x>
-     <y>299</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pushButton_create_inspector</sender>
-   <signal>clicked()</signal>
-   <receiver>Event_shedule</receiver>
-   <slot>show()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>305</x>
-     <y>154</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>486</x>
-     <y>299</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pushButton_export_xls</sender>
-   <signal>clicked()</signal>
-   <receiver>Event_shedule</receiver>
-   <slot>showFullScreen()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>665</x>
-     <y>114</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>486</x>
-     <y>299</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pushButton_print</sender>
-   <signal>clicked()</signal>
-   <receiver>Event_shedule</receiver>
-   <slot>show()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>775</x>
-     <y>114</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>486</x>
-     <y>299</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pushButton_find_event</sender>
-   <signal>clicked()</signal>
-   <receiver>tree_event_shedule</receiver>
-   <slot>clear()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>848</x>
-     <y>544</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>535</x>
-     <y>322</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>comboBox_event_status</sender>
-   <signal>currentIndexChanged(QString)</signal>
-   <receiver>tree_event_shedule</receiver>
-   <slot>expandAll()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>983</x>
-     <y>543</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>539</x>
-     <y>313</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pushButton_select_organization</sender>
-   <signal>clicked()</signal>
-   <receiver>Event_shedule</receiver>
-   <slot>show()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>498</x>
-     <y>574</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>539</x>
-     <y>309</y>
-    </hint>
-   </hints>
-  </connection>
   <connection>
    <sender>pushButton_exit</sender>
    <signal>clicked()</signal>
