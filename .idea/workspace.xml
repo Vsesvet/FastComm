@@ -210,13 +210,6 @@
       <option name="presentableId" value="Default" />
       <updated>1676999725137</updated>
     </task>
-    <task id="LOCAL-00062" summary="Реализовано открытие Event по double click из Event Shedule.">
-      <created>1679432109915</created>
-      <option name="number" value="00062" />
-      <option name="presentableId" value="LOCAL-00062" />
-      <option name="project" value="LOCAL" />
-      <updated>1679432109916</updated>
-    </task>
     <task id="LOCAL-00063" summary="Доработано окно Event Shedule.">
       <created>1679432144080</created>
       <option name="number" value="00063" />
@@ -553,7 +546,14 @@
       <option name="project" value="LOCAL" />
       <updated>1681606934956</updated>
     </task>
-    <option name="localTasksCounter" value="111" />
+    <task id="LOCAL-00111" summary="подредактирован поиск Мероприятий">
+      <created>1681606951641</created>
+      <option name="number" value="00111" />
+      <option name="presentableId" value="LOCAL-00111" />
+      <option name="project" value="LOCAL" />
+      <updated>1681606951641</updated>
+    </task>
+    <option name="localTasksCounter" value="112" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -611,17 +611,17 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>1572</line>
+          <line>1573</line>
           <option name="timeStamp" value="37" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>2210</line>
+          <line>2211</line>
           <option name="timeStamp" value="51" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>1018</line>
+          <line>1019</line>
           <option name="timeStamp" value="59" />
         </line-breakpoint>
       </breakpoints>

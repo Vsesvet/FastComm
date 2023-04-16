@@ -121,6 +121,7 @@ class Event_shedule(Ui_Event_shedule):
         self.pushButton_list_of_all_participants.clicked.connect(List_participants)
         self.pushButton_export_xls.clicked.connect(window.showMaximized)
         self.pushButton_print.clicked.connect(Create_user)
+        self.lineEdit_find_event.returnPressed.connect(self.find_by_name)
         self.pushButton_find_event.clicked.connect(self.find_by_name)
         self.comboBox_event_status.currentIndexChanged['QString'].connect(self.find_by_status)
 
