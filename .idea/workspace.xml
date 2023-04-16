@@ -4,8 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="подредактирован поиск Мероприятий">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Допилин поиск по наименованию Мероприятия (по returnPressed)">
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -209,13 +208,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1676999725137</updated>
-    </task>
-    <task id="LOCAL-00063" summary="Доработано окно Event Shedule.">
-      <created>1679432144080</created>
-      <option name="number" value="00063" />
-      <option name="presentableId" value="LOCAL-00063" />
-      <option name="project" value="LOCAL" />
-      <updated>1679432144080</updated>
     </task>
     <task id="LOCAL-00064" summary="Добавлены поля в Event. Уменьшен размер колонок tree по умолчанию.">
       <created>1679432191877</created>
@@ -553,7 +545,14 @@
       <option name="project" value="LOCAL" />
       <updated>1681606951641</updated>
     </task>
-    <option name="localTasksCounter" value="112" />
+    <task id="LOCAL-00112" summary="Допилин поиск по наименованию Мероприятия (по returnPressed)">
+      <created>1681608202921</created>
+      <option name="number" value="00112" />
+      <option name="presentableId" value="LOCAL-00112" />
+      <option name="project" value="LOCAL" />
+      <updated>1681608202921</updated>
+    </task>
+    <option name="localTasksCounter" value="113" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -579,7 +578,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Реализовано отображение кол-ва участников в Events и Events_Shedule" />
     <MESSAGE value="в Поиск по участникам при запросе по пустым значениям - выводит полный список" />
     <MESSAGE value="косметические правки" />
     <MESSAGE value="Реализовано удаление участника из списка окна Мероприятие" />
@@ -604,7 +602,8 @@
     <MESSAGE value="В окне Event Shedule реализован поиск статусу Мероприятия" />
     <MESSAGE value="В окне Event Shedule реализован поиск по частичному имени Мероприятия" />
     <MESSAGE value="подредактирован поиск Мероприятий" />
-    <option name="LAST_COMMIT_MESSAGE" value="подредактирован поиск Мероприятий" />
+    <MESSAGE value="Допилин поиск по наименованию Мероприятия (по returnPressed)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Допилин поиск по наименованию Мероприятия (по returnPressed)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
