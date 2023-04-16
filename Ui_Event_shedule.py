@@ -126,16 +126,16 @@ class Ui_Event_shedule(object):
         Event_shedule.setStatusBar(self.statusbar)
 
         self.retranslateUi(Event_shedule)
-        self.pushButton_create_event.clicked.connect(Event_shedule.show) # type: ignore
-        self.pushButton_create_participant.clicked.connect(Event_shedule.show) # type: ignore
-        self.pushButton_create_organization.clicked.connect(Event_shedule.show) # type: ignore
-        self.pushButton_create_inspector.clicked.connect(Event_shedule.show) # type: ignore
-        self.pushButton_export_xls.clicked.connect(Event_shedule.showFullScreen) # type: ignore
-        self.pushButton_print.clicked.connect(Event_shedule.show) # type: ignore
-        self.pushButton_find_event.clicked.connect(self.tree_event_shedule.clear) # type: ignore
-        self.comboBox_event_status.currentIndexChanged['QString'].connect(self.tree_event_shedule.expandAll) # type: ignore
-        self.pushButton_select_organization.clicked.connect(Event_shedule.show) # type: ignore
-        self.pushButton_exit.clicked.connect(Event_shedule.close) # type: ignore
+        self.pushButton_create_event.clicked.connect(Event_shedule.show)
+        self.pushButton_create_participant.clicked.connect(Event_shedule.show)
+        self.pushButton_create_organization.clicked.connect(Event_shedule.show)
+        self.pushButton_create_inspector.clicked.connect(Event_shedule.show)
+        self.pushButton_export_xls.clicked.connect(Event_shedule.showFullScreen)
+        self.pushButton_print.clicked.connect(Event_shedule.show)
+        # self.pushButton_find_event.clicked.connect(self.tree_event_shedule.clear)
+        # self.comboBox_event_status.currentIndexChanged['QString'].connect(self.tree_event_shedule.expandAll)
+        self.pushButton_select_organization.clicked.connect(Event_shedule.show)
+        self.pushButton_exit.clicked.connect(Event_shedule.close)
         QtCore.QMetaObject.connectSlotsByName(Event_shedule)
         Event_shedule.setTabOrder(self.pushButton_find_event, self.pushButton_create_event)
         Event_shedule.setTabOrder(self.pushButton_create_event, self.pushButton_create_organization)

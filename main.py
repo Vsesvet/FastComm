@@ -82,8 +82,9 @@ class Event_shedule(Ui_Event_shedule):
         self.all_events = db.select_all(self.table_name)
         # Формирование расписания мероприятий
         self.events_list()
+        # self.find_event() # Если надо фильтровать сразу по статусу comboBox
         self.clicked_connect(window)
-        # window.showMaximized()
+        window.showMaximized()
         window.show()
         sys.exit(app.exec())
 
@@ -104,6 +105,7 @@ class Event_shedule(Ui_Event_shedule):
         # Устанавливаем comboBox по умолчанию в статус = 0 (Все)
         # self.comboBox_event_status.setCurrentIndex(0)
 
+
     def clicked_connect(self, window):
         """Обращения к классам окон по клику мыши"""
         self.tree_event_shedule.itemDoubleClicked.connect(self.open_event)
@@ -119,41 +121,46 @@ class Event_shedule(Ui_Event_shedule):
         self.pushButton_list_of_all_participants.clicked.connect(List_participants)
         self.pushButton_export_xls.clicked.connect(window.showMaximized)
         self.pushButton_print.clicked.connect(Create_user)
-        self.pushButton_find_event.clicked.connect(self.find_event)
-        self.comboBox_event_status.currentIndexChanged['QString'].connect(self.find_event)
-        # combo_box.findText(текст) - поиск элемента по тексту в выпадающем списке. Возвращает int
-        # ui.comboBox.currentText() - получение значения из QComboBox. Возвращает строку
-        # combo_box.currentIndex() - возвращает целое число, т.е. Индекс выбранного элемента
-        # combo_box.setCurrentIndex(индекс) - он установит элемент с заданным индексом
+        self.pushButton_find_event.clicked.connect(self.find_by_name)
+        self.comboBox_event_status.currentIndexChanged['QString'].connect(self.find_by_status)
 
-    def find_event(self):
-        """Поиск Мероприятия по критериям"""
+    def find_by_name(self):
+        """Поиск Мероприятия по части введенного в поиск имени"""
         db = Mysql()
         find_by_name = self.lineEdit_find_event.text()
+        dct = self.check_find_request(find_by_name)
+        # Если ничего не введено
+        if dct == {}:
+            self.tree_event_shedule.clear()
+            self.all_events = db.select_all("events")
+            self.events_list()
+            return
+        else:
+            if self.all_events == ():
+                return
+        full_dct = db.find_partial_matching(dct, 'events')
+        self.all_events.clear()
+        self.all_events = full_dct
+        self.tree_event_shedule.clear()
+        self.events_list()
+
+
+    def find_by_status(self):
+        """Фильтр Мероприятий по статусу Запланировано-Проведено-Отменено"""
+        dct = {}
         value_comboBox = self.comboBox_event_status.currentText()
         if value_comboBox == 'Все':
             self.update_events_shedule()
             return
-        dct = self.check_find_request(find_by_name, value_comboBox)
-        # Если ничего не введено
-        if dct == {}:
-            self.all_events = db.select_all("events")
-            self.events_list()
-        else:
-            if self.all_events == ():
-                return
-
+        dct['status'] = value_comboBox
         self.update_events_shedule_by_filtered(dct)
 
-
-    def check_find_request(self, find_by_name, value_comboBox):
+    def check_find_request(self, find_by_name):
         """Проверка введенных пользователем данных для поиска"""
         dct = {}
         # Если строка Наименование Мероприятия не пуста, то ищем по имени наименованию
         if find_by_name != '':
             dct['event_name'] = find_by_name
-        dct['status'] = value_comboBox
-
         return dct
 
     def update_events_shedule_by_filtered(self, dct):

@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="В окне Accept_docs добавлен вывод комментариев к документам и сохранение комментариев.">
+    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="В окне Event Shedule реализован поиск статусу Мероприятия">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Class_Mysql.py" beforeDir="false" afterPath="$PROJECT_DIR$/Class_Mysql.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Ui_Event_shedule.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_Event_shedule.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ui_designer/Ui_Event_shedule.ui" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_designer/Ui_Event_shedule.ui" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -47,14 +47,14 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "/home/vsesvet/PycharmProjects/Event",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/vsesvet/PycharmProjects/Event&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
@@ -196,8 +196,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.main" />
-        <item itemvalue="Python.Ui_Event_shedule" />
         <item itemvalue="Python.Class_Mysql" />
+        <item itemvalue="Python.Ui_Event_shedule" />
         <item itemvalue="Python.db_config" />
         <item itemvalue="Python.ssh_connect" />
       </list>
@@ -211,13 +211,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1676999725137</updated>
-    </task>
-    <task id="LOCAL-00059" summary="Реализовал Event_Shedule. Первоначальное и обновление после добавления Мероприятия.">
-      <created>1679344682691</created>
-      <option name="number" value="00059" />
-      <option name="presentableId" value="LOCAL-00059" />
-      <option name="project" value="LOCAL" />
-      <updated>1679344682692</updated>
     </task>
     <task id="LOCAL-00060" summary="Убрал один принт">
       <created>1679344760151</created>
@@ -555,7 +548,14 @@
       <option name="project" value="LOCAL" />
       <updated>1681585325433</updated>
     </task>
-    <option name="localTasksCounter" value="108" />
+    <task id="LOCAL-00108" summary="В окне Event Shedule реализован поиск статусу Мероприятия">
+      <created>1681599457736</created>
+      <option name="number" value="00108" />
+      <option name="presentableId" value="LOCAL-00108" />
+      <option name="project" value="LOCAL" />
+      <updated>1681599457737</updated>
+    </task>
+    <option name="localTasksCounter" value="109" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -581,7 +581,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Реализована отображение списка участников для добавления в Мероприятие" />
     <MESSAGE value="Реализована отображение списка участников Events" />
     <MESSAGE value="Реализовано добавление участников в Events" />
     <MESSAGE value="Реализовано отображение кол-ва участников в Events и Events_Shedule" />
@@ -606,25 +605,31 @@
     <MESSAGE value="Реализована загрузка шаблонов документов по мероприятию" />
     <MESSAGE value="Исправление: добавлен упущенный шаблон для мероприятия - Отчет" />
     <MESSAGE value="В окне Accept_docs добавлен вывод комментариев к документам и сохранение комментариев." />
-    <option name="LAST_COMMIT_MESSAGE" value="В окне Accept_docs добавлен вывод комментариев к документам и сохранение комментариев." />
+    <MESSAGE value="В окне Event Shedule реализован поиск статусу Мероприятия" />
+    <option name="LAST_COMMIT_MESSAGE" value="В окне Event Shedule реализован поиск статусу Мероприятия" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>1561</line>
+          <line>1568</line>
           <option name="timeStamp" value="37" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>2199</line>
+          <line>2206</line>
           <option name="timeStamp" value="51" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>1007</line>
+          <line>1014</line>
           <option name="timeStamp" value="59" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>140</line>
+          <option name="timeStamp" value="63" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -105,6 +105,22 @@ class Mysql:
             cursor.execute(request)
             self.connection.commit()
 
+    def find_partial_matching(self, dct, table_name):
+        """Поиск по частичному совпадению параметров"""
+        # SELECT * FROM table_name WHERE dct[key] LIKE 'some-date%'
+        for key, value in dct.items():
+            dct_key = key
+            dct_value = '%' + value + '%'
+
+        select_query = f"SELECT * FROM {table_name} WHERE {dct_key} LIKE '{dct_value}'"
+        print(select_query)
+        with self.connection.cursor() as cursor:
+            cursor.execute(select_query)
+            find_dict = cursor.fetchall()
+            self.connection.commit()
+        journal.log(f"Выборка из БД, функция select_every. Результат: {find_dict}")
+        return find_dict
+
     # def create_user(self, new_user):
     #     """Добавление нового пользователя в базу данных MySql"""
     #     select_role_id = f"SELECT role_id FROM roles WHERE role_name = '{new_user['role']}'"
