@@ -818,7 +818,9 @@ class Analisis_list(Ui_Analisis_docs):
 
         # Даем пользователю выбрать файл
         local_path = self.select_file(template_name)
-
+        # Если нажата кнопка Отмена то выходим из функции
+        if local_path is None:
+            return
         # Готовим имя файла для записи в ключи
         split_local_path = local_path.split('.')
         extenstion = split_local_path[-1]
@@ -856,7 +858,7 @@ class Analisis_list(Ui_Analisis_docs):
         # Сюда надо прописать обращение к БД, считывание полей exist, и установка в label 'Существует' если exist = '1'
 
         if self.file_name == ('', ''):  # Нажата кнопка Отмена
-            return
+            return None
         else:
             local_path = self.file_name[0]
             print(f"Выбран путь к файлу шаблона {docs_name}: {local_path}")
@@ -1468,18 +1470,17 @@ class Load_xls_participants():
             dct['city'] = self.formating_text(dct['city'])
             dct['email'] = self.formating_text(dct['email'])
 
-
-            self.add_new_participant(dct)
-            participant = db.select_one(dct, self.table_name)
-            # print(f"Участник выбран из базы данных{participant}")
+            participant = self.add_new_participant(dct)
+            # participant = db.select_one(dct, "participants")
+            print(f"Участник выбран из базы данных {participant}")
             self.create_profile(participant)
-            # print(f"Создан профиль участника {participant}")
+            print(f"Создан профиль участника {participant}")
             self.create_profile_to_db(participant)
-            # print(f"Записаны данные профиля в базу данных: {participant}")
+            print(f"Записаны данные профиля в базу данных: {participant}")
             journal.log(f"Создан участник {participant['id']}_{participant['second_name']} {participant['first_name']}"
                         f" {participant['last_name']}")
             self.add_participant_to_event(participant)
-            # print(f"Участник добавлен в мероприятие {participant}")
+            print(f"Участник добавлен в мероприятие {participant}")
 
         # print(lst_dct_participants)
 
@@ -1543,13 +1544,16 @@ class Load_xls_participants():
         db = Mysql()
         try:
             dct_check = {}
-            # dct_check['full_name'] = dct['full_name']
+            dct_check['full_name'] = dct['full_name']
             dct_check['phone_number'] = dct['phone_number']
-            check = db.select_one(dct_check, self.table_name)
-            print(check)
-            if check['full_name'] == None:
-                db.insert_row(dct, self.table_name)
+            check = db.select_one(dct_check, "participants")
+            print(f"Смотрим check {check} ")
+            # Если участника не существует:
+            if check is None:
+                db.insert_row(dct, "participants")
                 print(f"Участник {dct['full_name']} добавлен в базу данных")
+                check = db.select_one(dct_check, "participants")
+                return check
             else:
                 print(f"Участник {check} уже присутствует в базе данных, пропускаем")
                 return check
@@ -1560,6 +1564,7 @@ class Load_xls_participants():
 
     def create_profile(self, dct):
         """Создание профиля - директории для хранения файлов личных документов участника"""
+        print(dct)
         host, login, secret = ssh_config.host, ssh_config.login, ssh_config.secret
         profile_name = f"{dct['id']}_{dct['second_name']}_{dct['first_name']}_{dct['last_name']}"
         self.directory_path = f"/home/event/participants_data/{profile_name}"
@@ -2171,10 +2176,11 @@ class Upload_docs(Ui_Upload_docs):
 
     def select_file(self, label, docs_name):
         """Функция выбора файла из окна проводника и присвоение словарю локальных путей откуда будут копироваться файлы"""
-        self.file_name = QFileDialog.getOpenFileName(None, 'Выберите файл', '/home', "Files (*.pdf, *.jpg *.jpeg, *.png)")
+        self.file_name = QFileDialog.getOpenFileNames(
+            None, 'Выберите файл', r'/home/efremov/Develop/', 'file (*.pdf *.jpg *.jpeg *.png)')
 
         # Сюда надо прописать обращение к БД, считывание полей exist, и установка в label 'Существует' если exist = '1'
-
+        print(self.file_name)
         if self.file_name == ('', ''):  # Нажата кнопка Отмена
             label.setText('Выбор отменен')
             return
@@ -2182,6 +2188,16 @@ class Upload_docs(Ui_Upload_docs):
         else:
             label.setText('Файл готов к загрузке')
         local_path = self.file_name[0]
+
+        # Если выбрано несколько файлов.
+        if len(local_path) > 1:
+            for path in local_path:
+                number = local_path.index(path)
+                lst = path.split('.')
+                new_path = f"{lst[0]}_{number}.{lst[1]}"
+                self.dict_local_path_all_docs[docs_name] = new_path
+
+
         print(f"Выбран путь к файлу {docs_name}: {local_path}")
         self.dict_local_path_all_docs[docs_name] = local_path
         print(f"Словарь хранения локальных путей выбранных файлов: {self.dict_local_path_all_docs}")

@@ -4,11 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="косметические правки">
+    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Реализованы кнопки Update &amp; Open в Analisis_list. Упорядочен код в Analisis_list">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Class_Mysql.py" beforeDir="false" afterPath="$PROJECT_DIR$/Class_Mysql.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ui_Event_shedule.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_Event_shedule.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ui_designer/Ui_Event_shedule.ui" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_designer/Ui_Event_shedule.ui" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ui_Analisis_list.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_Analisis_list.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -52,7 +50,7 @@
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/vsesvet/PycharmProjects/Event&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/vsesvet/PycharmProjects/pythonProject2&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
 }</component>
@@ -131,6 +129,27 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="Ui_Upload_docs" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Logistics_project" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Ui_Upload_docs.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="db_config" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Logistics_project" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -173,34 +192,13 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="ssh_connect" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Logistics_project" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ssh_connect.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Python.main" />
-        <item itemvalue="Python.Class_Mysql" />
+        <item itemvalue="Python.Ui_Upload_docs" />
         <item itemvalue="Python.Ui_Event_shedule" />
+        <item itemvalue="Python.Class_Mysql" />
         <item itemvalue="Python.db_config" />
-        <item itemvalue="Python.ssh_connect" />
       </list>
     </recent_temporary>
   </component>
@@ -212,6 +210,167 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1676999725137</updated>
+    </task>
+    <task id="LOCAL-00042" summary="Добавлено форматирование номера участника при Создании">
+      <created>1679078444811</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1679078444811</updated>
+    </task>
+    <task id="LOCAL-00043" summary="Добавлено форматирование номера участника при Создании">
+      <created>1679086720159</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1679086720159</updated>
+    </task>
+    <task id="LOCAL-00044" summary="Реализовано переименование профиля участника на сервере.">
+      <created>1679092182252</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1679092182252</updated>
+    </task>
+    <task id="LOCAL-00045" summary="Реализовано изменение таблицы participants_data после переименование профиля">
+      <created>1679096642121</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1679096642121</updated>
+    </task>
+    <task id="LOCAL-00046" summary="Написана функция обновления update_row_to_table(self, dct, table_name)">
+      <created>1679096736875</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1679096736875</updated>
+    </task>
+    <task id="LOCAL-00047" summary="Написана функция обновления update_row_to_table(self, dct, table_name)">
+      <created>1679096804206</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1679096804206</updated>
+    </task>
+    <task id="LOCAL-00048" summary="Написана функция обновления update_db_participants_data">
+      <created>1679096976178</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1679096976178</updated>
+    </task>
+    <task id="LOCAL-00049" summary="Добавлено окно Upload_docs">
+      <created>1679159115813</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1679159115813</updated>
+    </task>
+    <task id="LOCAL-00050" summary="Реализован выбор файлов для загрузки через окно Upload_docs">
+      <created>1679228524674</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1679228524675</updated>
+    </task>
+    <task id="LOCAL-00051" summary="Реализован выбор файлов для загрузки через окно Upload_docs">
+      <created>1679228542466</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1679228542466</updated>
+    </task>
+    <task id="LOCAL-00052" summary="Реализован выбор файлов для загрузки через окно Upload_docs">
+      <created>1679229610977</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1679229610977</updated>
+    </task>
+    <task id="LOCAL-00053" summary="Реализован выбор файлов для загрузки через окно Upload_docs">
+      <created>1679229805767</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1679229805767</updated>
+    </task>
+    <task id="LOCAL-00054" summary="Реализован выбор файлов для загрузки через окно Upload_docs">
+      <created>1679229838116</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1679229838116</updated>
+    </task>
+    <task id="LOCAL-00055" summary="Поправлены неточности при диалоге в время выбора файлов Uploads_docs">
+      <created>1679240979234</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1679240979235</updated>
+    </task>
+    <task id="LOCAL-00056" summary="Реализовано указание организации">
+      <created>1679249964889</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1679249964889</updated>
+    </task>
+    <task id="LOCAL-00057" summary="Реализовано Создание Мероприятия (надо разобраться с передачей DateTime в SQL)">
+      <created>1679257340008</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1679257340008</updated>
+    </task>
+    <task id="LOCAL-00058" summary="Реализовано Создание Мероприятия (надо разобраться с передачей DateTime в SQL)">
+      <created>1679257592823</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1679257592823</updated>
+    </task>
+    <task id="LOCAL-00059" summary="Реализовал Event_Shedule. Первоначальное и обновление после добавления Мероприятия.">
+      <created>1679344682691</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1679344682692</updated>
+    </task>
+    <task id="LOCAL-00060" summary="Убрал один принт">
+      <created>1679344760151</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1679344760151</updated>
+    </task>
+    <task id="LOCAL-00061" summary="Переделал окно Create_event">
+      <created>1679344801158</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1679344801158</updated>
+    </task>
+    <task id="LOCAL-00062" summary="Реализовано открытие Event по double click из Event Shedule.">
+      <created>1679432109915</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1679432109916</updated>
+    </task>
+    <task id="LOCAL-00063" summary="Доработано окно Event Shedule.">
+      <created>1679432144080</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1679432144080</updated>
+    </task>
+    <task id="LOCAL-00064" summary="Добавлены поля в Event. Уменьшен размер колонок tree по умолчанию.">
+      <created>1679432191877</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1679432191877</updated>
     </task>
     <task id="LOCAL-00065" summary="Добавлены комментарии по работе с comboBox">
       <created>1679432271996</created>
@@ -381,182 +540,21 @@
       <option name="project" value="LOCAL" />
       <updated>1680383513391</updated>
     </task>
-    <task id="LOCAL-00089" summary="Реализована загрузка xls файла с участниками в Мероприятие">
-      <created>1680643420329</created>
+    <task id="LOCAL-00089" summary="Упорядочил флаги в окне Accept_docs">
+      <created>1680788897665</created>
       <option name="number" value="00089" />
       <option name="presentableId" value="LOCAL-00089" />
       <option name="project" value="LOCAL" />
-      <updated>1680643420330</updated>
+      <updated>1680788897666</updated>
     </task>
-    <task id="LOCAL-00090" summary="Реализованы коннекты галочек триггеров Принято-Отклонено окна Принятия документов.">
-      <created>1680815017183</created>
+    <task id="LOCAL-00090" summary="Реализованы кнопки Update &amp; Open в Analisis_list. Упорядочен код в Analisis_list">
+      <created>1681458951736</created>
       <option name="number" value="00090" />
       <option name="presentableId" value="LOCAL-00090" />
       <option name="project" value="LOCAL" />
-      <updated>1680815017184</updated>
+      <updated>1681458951736</updated>
     </task>
-    <task id="LOCAL-00091" summary="Реализованы коннекты галочек триггеров Принято-Отклонено окна Принятия документов.">
-      <created>1680815229157</created>
-      <option name="number" value="00091" />
-      <option name="presentableId" value="LOCAL-00091" />
-      <option name="project" value="LOCAL" />
-      <updated>1680815229157</updated>
-    </task>
-    <task id="LOCAL-00092" summary="Реализованы коннекты галочек триггеров Принято-Отклонено окна Принятия документов.">
-      <created>1680815239446</created>
-      <option name="number" value="00092" />
-      <option name="presentableId" value="LOCAL-00092" />
-      <option name="project" value="LOCAL" />
-      <updated>1680815239447</updated>
-    </task>
-    <task id="LOCAL-00093" summary="Дописана Установка состояния для кнопок открытия документов (Disabled, если exist = False">
-      <created>1680970249800</created>
-      <option name="number" value="00093" />
-      <option name="presentableId" value="LOCAL-00093" />
-      <option name="project" value="LOCAL" />
-      <updated>1680970249800</updated>
-    </task>
-    <task id="LOCAL-00094" summary="Переименованы agree в agreement. Во всех местах для организации цикла For по именам переменных">
-      <created>1680972827693</created>
-      <option name="number" value="00094" />
-      <option name="presentableId" value="LOCAL-00094" />
-      <option name="project" value="LOCAL" />
-      <updated>1680972827693</updated>
-    </task>
-    <task id="LOCAL-00095" summary="Переименованы agree в agreement. Во всех местах для организации цикла For по именам переменных">
-      <created>1680972840313</created>
-      <option name="number" value="00095" />
-      <option name="presentableId" value="LOCAL-00095" />
-      <option name="project" value="LOCAL" />
-      <updated>1680972840313</updated>
-    </task>
-    <task id="LOCAL-00096" summary="Реализовано:&#10;1. Добавление и обновление Приема документов в базе данных&#10;2. Обновление Загруженных документов после установки статусов Приема документов">
-      <created>1680986937701</created>
-      <option name="number" value="00096" />
-      <option name="presentableId" value="LOCAL-00096" />
-      <option name="project" value="LOCAL" />
-      <updated>1680986937701</updated>
-    </task>
-    <task id="LOCAL-00097" summary="Реализовано:&#10;1. Добавление и обновление Приема документов в базе данных&#10;2. Обновление Загруженных документов после установки статусов Приема документов">
-      <created>1680986949901</created>
-      <option name="number" value="00097" />
-      <option name="presentableId" value="LOCAL-00097" />
-      <option name="project" value="LOCAL" />
-      <updated>1680986949901</updated>
-    </task>
-    <task id="LOCAL-00098" summary="Реализованы функции на кнопки Обновление и Открытие док-та в окне Анализ загрузки док-ов.">
-      <created>1680990361861</created>
-      <option name="number" value="00098" />
-      <option name="presentableId" value="LOCAL-00098" />
-      <option name="project" value="LOCAL" />
-      <updated>1680990361861</updated>
-    </task>
-    <task id="LOCAL-00099" summary="Реализованы функции на кнопки Обновление и Открытие док-та в окне Анализ загрузки док-ов.">
-      <created>1680990371627</created>
-      <option name="number" value="00099" />
-      <option name="presentableId" value="LOCAL-00099" />
-      <option name="project" value="LOCAL" />
-      <updated>1680990371627</updated>
-    </task>
-    <task id="LOCAL-00100" summary="Устранение ошибок: 1. Вылет при сохранении первого Мероприятия (self.db на db)&#10;2. Не обновлялся список участников после загрузки xls.">
-      <created>1681149010768</created>
-      <option name="number" value="00100" />
-      <option name="presentableId" value="LOCAL-00100" />
-      <option name="project" value="LOCAL" />
-      <updated>1681149010769</updated>
-    </task>
-    <task id="LOCAL-00101" summary="Устраненены ошибки вылета при загрузке xlsx файла с участниками.">
-      <created>1681155292243</created>
-      <option name="number" value="00101" />
-      <option name="presentableId" value="LOCAL-00101" />
-      <option name="project" value="LOCAL" />
-      <updated>1681155292243</updated>
-    </task>
-    <task id="LOCAL-00102" summary="Устраненены ошибки вылета при загрузке xlsx файла с участниками.">
-      <created>1681155302762</created>
-      <option name="number" value="00102" />
-      <option name="presentableId" value="LOCAL-00102" />
-      <option name="project" value="LOCAL" />
-      <updated>1681155302762</updated>
-    </task>
-    <task id="LOCAL-00103" summary="Частично написан код для sftp закачки файла с сервера и просмотра.">
-      <created>1681159718175</created>
-      <option name="number" value="00103" />
-      <option name="presentableId" value="LOCAL-00103" />
-      <option name="project" value="LOCAL" />
-      <updated>1681159718176</updated>
-    </task>
-    <task id="LOCAL-00104" summary="Реализована загрузка шаблонов документов по мероприятию">
-      <created>1681572234971</created>
-      <option name="number" value="00104" />
-      <option name="presentableId" value="LOCAL-00104" />
-      <option name="project" value="LOCAL" />
-      <updated>1681572234971</updated>
-    </task>
-    <task id="LOCAL-00105" summary="Исправление: добавлен упущенный шаблон для мероприятия - Отчет">
-      <created>1681574062405</created>
-      <option name="number" value="00105" />
-      <option name="presentableId" value="LOCAL-00105" />
-      <option name="project" value="LOCAL" />
-      <updated>1681574062405</updated>
-    </task>
-    <task id="LOCAL-00106" summary="В окне Accept_docs добавлен вывод комментариев к документам и сохранение комментариев.">
-      <created>1681585313548</created>
-      <option name="number" value="00106" />
-      <option name="presentableId" value="LOCAL-00106" />
-      <option name="project" value="LOCAL" />
-      <updated>1681585313549</updated>
-    </task>
-    <task id="LOCAL-00107" summary="В окне Accept_docs добавлен вывод комментариев к документам и сохранение комментариев.">
-      <created>1681585325433</created>
-      <option name="number" value="00107" />
-      <option name="presentableId" value="LOCAL-00107" />
-      <option name="project" value="LOCAL" />
-      <updated>1681585325433</updated>
-    </task>
-    <task id="LOCAL-00108" summary="В окне Event Shedule реализован поиск статусу Мероприятия">
-      <created>1681599457736</created>
-      <option name="number" value="00108" />
-      <option name="presentableId" value="LOCAL-00108" />
-      <option name="project" value="LOCAL" />
-      <updated>1681599457737</updated>
-    </task>
-    <task id="LOCAL-00109" summary="В окне Event Shedule реализован поиск по частичному имени Мероприятия">
-      <created>1681606098588</created>
-      <option name="number" value="00109" />
-      <option name="presentableId" value="LOCAL-00109" />
-      <option name="project" value="LOCAL" />
-      <updated>1681606098588</updated>
-    </task>
-    <task id="LOCAL-00110" summary="подредактирован поиск Мероприятий">
-      <created>1681606934956</created>
-      <option name="number" value="00110" />
-      <option name="presentableId" value="LOCAL-00110" />
-      <option name="project" value="LOCAL" />
-      <updated>1681606934956</updated>
-    </task>
-    <task id="LOCAL-00111" summary="подредактирован поиск Мероприятий">
-      <created>1681606951641</created>
-      <option name="number" value="00111" />
-      <option name="presentableId" value="LOCAL-00111" />
-      <option name="project" value="LOCAL" />
-      <updated>1681606951641</updated>
-    </task>
-    <task id="LOCAL-00112" summary="Допилин поиск по наименованию Мероприятия (по returnPressed)">
-      <created>1681608202921</created>
-      <option name="number" value="00112" />
-      <option name="presentableId" value="LOCAL-00112" />
-      <option name="project" value="LOCAL" />
-      <updated>1681608202921</updated>
-    </task>
-    <task id="LOCAL-00113" summary="косметические правки">
-      <created>1681608659340</created>
-      <option name="number" value="00113" />
-      <option name="presentableId" value="LOCAL-00113" />
-      <option name="project" value="LOCAL" />
-      <updated>1681608659340</updated>
-    </task>
-    <option name="localTasksCounter" value="114" />
+    <option name="localTasksCounter" value="91" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -582,55 +580,60 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <MESSAGE value="Переделал окно Create_event" />
+    <MESSAGE value="Реализовано открытие Event по double click из Event Shedule." />
+    <MESSAGE value="Доработано окно Event Shedule." />
+    <MESSAGE value="Добавлены поля в Event. Уменьшен размер колонок tree по умолчанию." />
+    <MESSAGE value="Добавлены комментарии по работе с comboBox" />
+    <MESSAGE value="удалены лишние print-ы отладки" />
+    <MESSAGE value="удалены неиспользуемые функции" />
+    <MESSAGE value="Реализовано обновление Мероприятия (Event + Events Shedule)" />
+    <MESSAGE value="Реализован выбор Организации в Мероприятии" />
+    <MESSAGE value="Добавлены отражения состояния Открыт или закрыт доступ для организации к Мероприятию" />
+    <MESSAGE value="Реализована установка Организацию в Event_shedule из таблицы соответствия organizations_events" />
+    <MESSAGE value="Реализована отображение списка участников для добавления в Мероприятие" />
+    <MESSAGE value="Реализована отображение списка участников Events" />
+    <MESSAGE value="Реализовано добавление участников в Events" />
+    <MESSAGE value="Реализовано отображение кол-ва участников в Events и Events_Shedule" />
     <MESSAGE value="в Поиск по участникам при запросе по пустым значениям - выводит полный список" />
+    <MESSAGE value="косметические правки" />
     <MESSAGE value="Реализовано удаление участника из списка окна Мероприятие" />
     <MESSAGE value="Поправлены на словарь функции работы со списком Организаций" />
     <MESSAGE value="Добавлены окна сообщения при добавлении/удалении участника из Мероприятия." />
     <MESSAGE value="Реализовано добавление строки с именами файлов в таблицу participants_event_data при добавлении участника в Мероприятие." />
     <MESSAGE value="Начало разработки Анализа полученных документов. Установка логических флагов при создании участника." />
     <MESSAGE value="Реализован вывод данных в окне Анализ загруженных документов!" />
-    <MESSAGE value="Реализована загрузка xls файла с участниками в Мероприятие" />
-    <MESSAGE value="Реализованы коннекты галочек триггеров Принято-Отклонено окна Принятия документов." />
-    <MESSAGE value="Дописана Установка состояния для кнопок открытия документов (Disabled, если exist = False" />
-    <MESSAGE value="Переименованы agree в agreement. Во всех местах для организации цикла For по именам переменных" />
-    <MESSAGE value="Реализовано:&#10;1. Добавление и обновление Приема документов в базе данных&#10;2. Обновление Загруженных документов после установки статусов Приема документов" />
-    <MESSAGE value="Реализованы функции на кнопки Обновление и Открытие док-та в окне Анализ загрузки док-ов." />
-    <MESSAGE value="Устранение ошибок: 1. Вылет при сохранении первого Мероприятия (self.db на db)&#10;2. Не обновлялся список участников после загрузки xls." />
-    <MESSAGE value="Устраненены ошибки вылета при загрузке xlsx файла с участниками." />
-    <MESSAGE value="Частично написан код для sftp закачки файла с сервера и просмотра." />
-    <MESSAGE value="Реализована загрузка личных документов участника на сервер, с установкой флага doc_exist и обновлением именований файлов" />
-    <MESSAGE value="Реализована загрузка шаблонов документов по мероприятию" />
-    <MESSAGE value="Исправление: добавлен упущенный шаблон для мероприятия - Отчет" />
-    <MESSAGE value="В окне Accept_docs добавлен вывод комментариев к документам и сохранение комментариев." />
-    <MESSAGE value="В окне Event Shedule реализован поиск статусу Мероприятия" />
-    <MESSAGE value="В окне Event Shedule реализован поиск по частичному имени Мероприятия" />
-    <MESSAGE value="подредактирован поиск Мероприятий" />
-    <MESSAGE value="Допилин поиск по наименованию Мероприятия (по returnPressed)" />
-    <MESSAGE value="косметические правки" />
-    <option name="LAST_COMMIT_MESSAGE" value="косметические правки" />
+    <MESSAGE value="Упорядочил флаги в окне Accept_docs" />
+    <MESSAGE value="Реализованы кнопки Update &amp; Open в Analisis_list. Упорядочен код в Analisis_list" />
+    <option name="LAST_COMMIT_MESSAGE" value="Реализованы кнопки Update &amp; Open в Analisis_list. Упорядочен код в Analisis_list" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>1597</line>
-          <option name="timeStamp" value="37" />
+          <line>1409</line>
+          <option name="timeStamp" value="23" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>2235</line>
-          <option name="timeStamp" value="51" />
+          <line>1567</line>
+          <option name="timeStamp" value="26" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>1043</line>
-          <option name="timeStamp" value="59" />
+          <line>1472</line>
+          <option name="timeStamp" value="28" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>156</line>
-          <option name="timeStamp" value="61" />
+          <line>819</line>
+          <option name="timeStamp" value="29" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>2192</line>
+          <option name="timeStamp" value="33" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
