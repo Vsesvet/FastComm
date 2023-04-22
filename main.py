@@ -953,6 +953,7 @@ class Accept_docs(Ui_Accept_docs):
         dialog = QDialog()
         super().setupUi(dialog)
         self.db = Mysql()
+        self.list_for_file_remove = [] # хранение путей к скачанным по sftp файлам
         self.participant_data = {}  # словарь для записи флагов participants_data
         self.participant_data['participant_id'] = participant['id']
         self.participant_event_data = {}  # словарь для записи флагов participants_event_data
@@ -1073,6 +1074,9 @@ class Accept_docs(Ui_Accept_docs):
 
         import webbrowser  # open file in Linux
         webbrowser.open(local_path)
+        # Помещаем в список скачанные на локальную машину файлы для последующего их удаления
+        self.list_for_file_remove.append(local_path)
+
 
     def view_participant_event_data_document(self, participant_event_data, doc_name):
         """Просмотр документов участника по Мероприятию при нажатии на кнопку с наименованием документа"""
@@ -1089,6 +1093,8 @@ class Accept_docs(Ui_Accept_docs):
 
         import webbrowser  # open file in Linux
         webbrowser.open(local_path)
+        # Помещаем в список скачанные на локальную машину файлы для последующего их удаления
+        self.list_for_file_remove.append(local_path)
 
     def get_document_by_sftp(self, remote_path, local_path):
         """Закачка выбранного документа из сервера на локальный компьютер"""
@@ -1104,10 +1110,16 @@ class Accept_docs(Ui_Accept_docs):
         transport.close()
         return local_path
 
+    def remove_download_files(self):
+        """Удаление скачанных по sftp файлов на локальном компьютере"""
+        for local_path in self.list_for_file_remove:
+            os.remove(local_path)
+
     def clicked_connect(self, dialog, p_data, pe_data):
         """Обработка нажатий на кнопки в окне Принятия или отклонения документов"""
         # Кнопки основных действий
         self.pushButton_Ok.clicked.connect(self.update_flags_participant_to_db)
+        self.pushButton_Ok.clicked.connect(self.remove_download_files) # удаляем закачанные файлы
         self.pushButton_Ok.clicked.connect(dialog.close)
         self.pushButton_upload_docs.clicked.connect(dialog.close)
         self.pushButton_upload_docs.clicked.connect(lambda: Upload_docs(self.participant_data, self.participant_event_data))

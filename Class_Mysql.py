@@ -58,7 +58,6 @@ class Mysql:
         with self.connection.cursor() as cursor:
             cursor.execute(select_all_rows)
             rows = cursor.fetchall()
-
         # journal.log(f"SELECT_ALL. Результат: {select_all_rows}")
         return rows
 
@@ -128,7 +127,7 @@ class Mysql:
             cursor.execute(select_query)
             find_dict = cursor.fetchall()
             self.connection.commit()
-        journal.log(f"Select_by_range. Результат: {find_dict}")
+        # journal.log(f"Select_by_range. Результат: {find_dict}")
         return find_dict
 
     def get_role_by_role_id(self, role_id):
