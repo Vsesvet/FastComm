@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Принты заменены записью в journal.log. Исправлено self.now_time.">
+    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Реализовано открытие на редактирование участника из Event">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Class_Journal.py" beforeDir="false" afterPath="$PROJECT_DIR$/Class_Journal.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Class_Mysql.py" beforeDir="false" afterPath="$PROJECT_DIR$/Class_Mysql.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -211,13 +209,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1676999725137</updated>
-    </task>
-    <task id="LOCAL-00066" summary="удалены лишние print-ы отладки">
-      <created>1679432369247</created>
-      <option name="number" value="00066" />
-      <option name="presentableId" value="LOCAL-00066" />
-      <option name="project" value="LOCAL" />
-      <updated>1679432369248</updated>
     </task>
     <task id="LOCAL-00067" summary="удалены лишние print-ы отладки">
       <created>1679433058098</created>
@@ -555,7 +546,14 @@
       <option name="project" value="LOCAL" />
       <updated>1682174638905</updated>
     </task>
-    <option name="localTasksCounter" value="115" />
+    <task id="LOCAL-00115" summary="Реализовано открытие на редактирование участника из Event">
+      <created>1682198844969</created>
+      <option name="number" value="00115" />
+      <option name="presentableId" value="LOCAL-00115" />
+      <option name="project" value="LOCAL" />
+      <updated>1682198844970</updated>
+    </task>
+    <option name="localTasksCounter" value="116" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -581,7 +579,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Реализовано удаление участника из списка окна Мероприятие" />
     <MESSAGE value="Поправлены на словарь функции работы со списком Организаций" />
     <MESSAGE value="Добавлены окна сообщения при добавлении/удалении участника из Мероприятия." />
     <MESSAGE value="Реализовано добавление строки с именами файлов в таблицу participants_event_data при добавлении участника в Мероприятие." />
@@ -606,34 +603,35 @@
     <MESSAGE value="Допилин поиск по наименованию Мероприятия (по returnPressed)" />
     <MESSAGE value="косметические правки" />
     <MESSAGE value="Принты заменены записью в journal.log. Исправлено self.now_time." />
-    <option name="LAST_COMMIT_MESSAGE" value="Принты заменены записью в journal.log. Исправлено self.now_time." />
+    <MESSAGE value="Реализовано открытие на редактирование участника из Event" />
+    <option name="LAST_COMMIT_MESSAGE" value="Реализовано открытие на редактирование участника из Event" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>2281</line>
+          <line>2294</line>
           <option name="timeStamp" value="51" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>1064</line>
+          <line>1077</line>
           <option name="timeStamp" value="59" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>156</line>
+          <line>157</line>
           <option name="timeStamp" value="61" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>2245</line>
+          <line>2258</line>
           <option name="timeStamp" value="62" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>1622</line>
+          <line>1635</line>
           <option name="timeStamp" value="75" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -643,17 +641,17 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>909</line>
+          <line>922</line>
           <option name="timeStamp" value="87" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>2142</line>
+          <line>2155</line>
           <option name="timeStamp" value="89" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>385</line>
+          <line>398</line>
           <option name="timeStamp" value="92" />
         </line-breakpoint>
       </breakpoints>

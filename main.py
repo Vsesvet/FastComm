@@ -121,6 +121,7 @@ class Event_shedule(Ui_Event_shedule):
         self.pushButton_export_xls.clicked.connect(self.show_message_in_progress)
         self.pushButton_print.clicked.connect(self.show_message_in_progress)
         self.lineEdit_find_event.returnPressed.connect(self.find_by_name)
+        self.pushButton_reset_find.clicked.connect(self.reset_filters)
         # self.pushButton_find_event.clicked.connect(self.find_by_date_range)
         self.dateEdit_begin_event.userDateChanged['QDate'].connect(self.find_by_date_range)
         self.dateEdit_finish_event.userDateChanged['QDate'].connect(self.find_by_date_range)
@@ -175,6 +176,18 @@ class Event_shedule(Ui_Event_shedule):
             return
         dct['status'] = value_comboBox
         self.update_events_shedule_by_filtered(dct)
+
+    def reset_filters(self):
+        """Сброс всех фильтров"""
+        db = Mysql()
+        self.comboBox_event_status.setCurrentIndex(0)
+        self.dateEdit_begin_event.setDate(QtCore.QDate(2023, 1, 1))
+        self.dateEdit_finish_event.setDate(QtCore.QDate(2023, 12, 31))
+        self.lineEdit_find_event.setText('')
+
+        self.tree_event_shedule.clear()
+        self.all_events = db.select_all("events")
+        self.events_list()
 
     def show_message_in_progress(self):
         """Показываем окно - Данная функция в разработке"""
