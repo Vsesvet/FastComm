@@ -14,6 +14,7 @@ class Mysql:
                                               password=password,
                                               database=database,
                                               cursorclass=pymysql.cursors.DictCursor)
+            # print("Обращение к базе данных: Статус OK")
         except Exception as ex:
             journal.log("Error connection to db")
 
@@ -127,7 +128,7 @@ class Mysql:
             cursor.execute(select_query)
             find_dict = cursor.fetchall()
             self.connection.commit()
-        journal.log(f"Выборка из БД, функция select_by_range. Результат: {find_dict}")
+        journal.log(f"Select_by_range. Результат: {find_dict}")
         return find_dict
 
     def get_role_by_role_id(self, role_id):

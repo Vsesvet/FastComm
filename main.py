@@ -60,7 +60,7 @@ class Login(Ui_Login):
         login['password'] = self.lineEdit_password.text().strip()
         journal.log(f'Попытка входа с учетными данными: {login}')
         user_login = Mysql().select_one(login, table_name)
-        journal.log(f"Пользователь: {user_login['second_name']} {user_login['first_name']} вошел в систему")
+        # journal.log(f"Пользователь: {user_login['second_name']} {user_login['first_name']} вошел в систему")
 
 
 class Event_shedule(Ui_Event_shedule):
@@ -264,7 +264,7 @@ class Event_shedule(Ui_Event_shedule):
 
 
 class Event(Ui_Event):
-    """Работа с окном Мероприятие"""
+    """Работа с окном Мероприятием"""
     def __init__(self, dct_event):
         self.dct_event = dct_event
         self.table_name = 'events'
@@ -331,6 +331,7 @@ class Event(Ui_Event):
         self.pushButton_select_organization.clicked.connect(self.set_choose_organization)
         self.pushButton_load_xls.clicked.connect(lambda: Load_xls_participants(self.dct_event))
         self.pushButton_load_xls.clicked.connect(self.update_list_participants_events)
+        self.tree_event_participants_list.itemDoubleClicked.connect(self.edit_participant)
 
     def output_form(self):
         """Заполняем поля данных Мероприятия из полученного словаря dct_event"""
@@ -381,19 +382,37 @@ class Event(Ui_Event):
         self.label_total_participants.setText(f"Всего в списке {len(participants)} участников")
         self.dct_event['count'] = len(participants)
 
+    def edit_participant(self):
+        self.participant = {}
+        item = self.tree_event_participants_list.currentItem()
+        if item == None:
+            self.show_message_not_select()
+            return
+
+        self.participant['id'] = item.text(0)
+        participant = self.db.select_one(self.participant, 'participants')
+        Edit_participant(participant)
+        self.update_list_participants_events()
+
     def delete_participant_from_event(self):
         """Удаление участника из списка Мероприятия"""
         # Считываем выделенную строку, получаем из нее participant_id
-        # По event_id и participant_id удаляем строку в таблице events_participants
+        # По event_id и participant_id удаляем строку в таблице events_participants и participants_event_data
         # Обновляем список
         self.participant = {}
         item = self.tree_event_participants_list.currentItem()
         if item == None:
             self.show_message_not_select()
             return
+
         self.participant['id'] = item.text(0)
         full_relation = self.processing_relation()
         self.db.delete_row(full_relation, 'events_participants')
+        # Удаление из таблицы participants_event_data
+        del full_relation['id']
+        entries = self.db.select_one(full_relation, 'participants_event_data')
+        self.db.delete_row(entries, 'participants_event_data')
+        journal.log(f"Участник c ID {item.text(0)} {item.text(2)} {item.text(3)} {item.text(4)} удален(а) из Мероприятия c ID {full_relation['event_id']}")
         self.update_list_participants_events()
 
     def show_message_not_select(self):
@@ -1077,8 +1096,9 @@ class Accept_docs(Ui_Accept_docs):
         # Кнопки основных действий
         self.pushButton_Ok.clicked.connect(self.update_flags_participant_to_db)
         self.pushButton_Ok.clicked.connect(dialog.close)
-        self.pushButton_upload_docs.clicked.connect(lambda: Upload_docs(self.participant_data, self.participant_event_data))
         self.pushButton_upload_docs.clicked.connect(dialog.close)
+        self.pushButton_upload_docs.clicked.connect(lambda: Upload_docs(self.participant_data, self.participant_event_data))
+
         # Кнопки открытия личных документов для просмотра
         self.pushButton_open_passport.clicked.connect(lambda: self.view_participant_data_document(p_data, 'passport'))
         self.pushButton_open_registration.clicked.connect(lambda: self.view_participant_data_document(p_data, 'registration'))
@@ -1473,7 +1493,10 @@ class Load_xls_participants():
             participant, flag = self.add_new_participant(dct)
             # Если участник существует, flag = 'exist', если был создан, то flag = 'inserted'
             if flag == 'exist':
-                journal.log(f"Участник {participant['full_name']} уже существует, пропускаем")
+                journal.log(f"{participant['full_name']}"
+                            f" уже существует в таблице participants. Создания профиля участника не требуется.")
+                self.add_participant_to_event(participant)
+                print(f"Участник добавлен в мероприятие {participant}")
                 continue
             self.create_profile(participant)
             self.create_profile_to_db(participant)
@@ -2106,6 +2129,9 @@ class List_participants(Ui_List_participants):
         part_id = {} # id для таблицы participants_data
         part_id['participant_id'] = int(item.text(0))
         # Удаление профиля участника
+
+        # Здесь надо проверить, есть ли участник в таблицах: participants_event_data и events_participants?
+
         self.delete_profile_participant(part_id)
         # Удаление участника из таблицы participants
         self.db.delete_row(dct_id, 'participants')
@@ -2121,6 +2147,7 @@ class List_participants(Ui_List_participants):
         event.set_missing_host_key_policy(paramiko.AutoAddPolicy())
         event.connect(host, username=login, password=secret)
         stdin, stdout, stderr = event.exec_command(f"rm -rf {directory_path}")
+        self.db.delete_row(profile, 'participants_data')
         journal.log(f"Удален профиль участника {part_id['participant_id']} {profile['full_name']}")
         print(stdout.read().decode())
         stdin.close()
@@ -2177,8 +2204,10 @@ class Upload_docs(Ui_Upload_docs):
 
     def select_file(self, label, docs_name):
         """Функция выбора файла из окна проводника и присвоение словарю локальных путей откуда будут копироваться файлы"""
+        self.local_path = f"/home/efremov/Develop"
+        print(f"Сейчас локальный путь для открытия файла равен:  '{self.local_path}'")
         self.file_name = QFileDialog.getOpenFileName(
-            None, 'Выберите файл', r'/home/efremov/Develop/', 'file (*.pdf *.jpg *.jpeg *.png)')
+            None, 'Выберите файл', self.local_path, 'file (*.pdf *.jpg *.jpeg *.png)')
 
         # Сюда надо прописать обращение к БД, считывание полей exist, и установка в label 'Существует' если exist = '1'
         print(self.file_name)
@@ -2188,7 +2217,7 @@ class Upload_docs(Ui_Upload_docs):
 
         else:
             label.setText('Файл готов к загрузке')
-        local_path = self.file_name[0]
+        self.local_path = self.file_name[0]
 
         # Если выбрано несколько файлов.
         # if len(local_path) > 1:
@@ -2199,8 +2228,8 @@ class Upload_docs(Ui_Upload_docs):
         #         self.dict_local_path_all_docs[docs_name] = new_path
 
 
-        print(f"Выбран путь к файлу {docs_name}: {local_path}")
-        self.dict_local_path_all_docs[docs_name] = local_path
+        print(f"Выбран путь к файлу {docs_name}: {self.local_path}")
+        self.dict_local_path_all_docs[docs_name] = self.local_path
         print(f"Словарь хранения локальных путей выбранных файлов: {self.dict_local_path_all_docs}")
 
     def press_ok(self, dialog):
