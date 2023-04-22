@@ -1470,13 +1470,13 @@ class Load_xls_participants():
             dct['city'] = self.formating_text(dct['city'])
             dct['email'] = self.formating_text(dct['email'])
 
-            participant = self.add_new_participant(dct)
-            # participant = db.select_one(dct, "participants")
-            print(f"Участник выбран из базы данных {participant}")
+            participant, flag = self.add_new_participant(dct)
+            # Если участник существует, flag = 'exist', если был создан, то flag = 'inserted'
+            if flag == 'exist':
+                journal.log(f"Участник {participant['full_name']} уже существует, пропускаем")
+                continue
             self.create_profile(participant)
-            print(f"Создан профиль участника {participant}")
             self.create_profile_to_db(participant)
-            print(f"Записаны данные профиля в базу данных: {participant}")
             journal.log(f"Создан участник {participant['id']}_{participant['second_name']} {participant['first_name']}"
                         f" {participant['last_name']}")
             self.add_participant_to_event(participant)
@@ -1553,10 +1553,10 @@ class Load_xls_participants():
                 db.insert_row(dct, "participants")
                 print(f"Участник {dct['full_name']} добавлен в базу данных")
                 check = db.select_one(dct_check, "participants")
-                return check
+                return check, 'inserting'
             else:
-                print(f"Участник {check} уже присутствует в базе данных, пропускаем")
-                return check
+                print(f"Участник {check['full_name']} уже присутствует в таблице 'participants' пропускаем")
+                return check, 'exist'
 
         except Exception as ex:
             print(f"Ошибка создания Участника  {dct['second_name']}")
@@ -1564,7 +1564,6 @@ class Load_xls_participants():
 
     def create_profile(self, dct):
         """Создание профиля - директории для хранения файлов личных документов участника"""
-        print(dct)
         host, login, secret = ssh_config.host, ssh_config.login, ssh_config.secret
         profile_name = f"{dct['id']}_{dct['second_name']}_{dct['first_name']}_{dct['last_name']}"
         self.directory_path = f"/home/event/participants_data/{profile_name}"
@@ -1599,6 +1598,7 @@ class Load_xls_participants():
         dct1['sertificate_exist'] = False
 
         db.insert_row(dct1, table_name)
+        journal.log(f"Добавление в table 'participants_data' участника:  'ID {dct1['participant_id']} {dct1['full_name']}'")
         
     def add_participant_to_event(self, participant):
         """Добавление участника в мероприятие"""
@@ -1617,11 +1617,12 @@ class Load_xls_participants():
                 dct = self.add_entry_participants_event_data(dct)
 
                 db.insert_row(dct, 'participants_event_data')
-                print(f"В Мероприятие {self.dct_event['event_name']} добавлен участник {participant['second_name']} {participant['first_name']}")
                 journal.log(f"В Мероприятие {self.dct_event['event_name']} добавлен участник {participant['second_name']} {participant['first_name']}")
             else:
                 # Если участник присутствует в Мероприятии
-                pass
+                journal.log(
+                    f"В Мероприятии {self.dct_event['event_name']}"
+                    f" уже существует участник {check['second_name']} {check['first_name']}")
 
         except Exception as ex:\
             print("Не выделен ни один объект в дереве")
@@ -2176,7 +2177,7 @@ class Upload_docs(Ui_Upload_docs):
 
     def select_file(self, label, docs_name):
         """Функция выбора файла из окна проводника и присвоение словарю локальных путей откуда будут копироваться файлы"""
-        self.file_name = QFileDialog.getOpenFileNames(
+        self.file_name = QFileDialog.getOpenFileName(
             None, 'Выберите файл', r'/home/efremov/Develop/', 'file (*.pdf *.jpg *.jpeg *.png)')
 
         # Сюда надо прописать обращение к БД, считывание полей exist, и установка в label 'Существует' если exist = '1'
@@ -2190,12 +2191,12 @@ class Upload_docs(Ui_Upload_docs):
         local_path = self.file_name[0]
 
         # Если выбрано несколько файлов.
-        if len(local_path) > 1:
-            for path in local_path:
-                number = local_path.index(path)
-                lst = path.split('.')
-                new_path = f"{lst[0]}_{number}.{lst[1]}"
-                self.dict_local_path_all_docs[docs_name] = new_path
+        # if len(local_path) > 1:
+        #     for path in local_path:
+        #         number = local_path.index(path)
+        #         lst = path.split('.')
+        #         new_path = f"{lst[0]}_{number}.{lst[1]}"
+        #         self.dict_local_path_all_docs[docs_name] = new_path
 
 
         print(f"Выбран путь к файлу {docs_name}: {local_path}")

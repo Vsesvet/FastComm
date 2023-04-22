@@ -7,21 +7,23 @@ from datetime import datetime
 
 class Journal:
     """Логирование работы программы в файл журнала"""
-    def __init__(self):
-        """Получаем текущее время из datetime"""
-        self.dt_now = str(datetime.now())
-        self.dt_now.split('.')
-        self.dt_now = self.dt_now[:-7]
+
+
     def log(self, info):
         """Логирование событий"""
+        # Получаем текущее время из datetime
+        dt_now = str(datetime.now())
+        dt_now.split('.')
+        dt_now = dt_now[:-7]
+
         self.info = info
-        self.path_dir_journal = r'/home/logistics'
-        self.path_journal_log = r'/home/logistics/journal.log'
+        self.path_dir_journal = r'/home/vsesvet/Event'
+        self.path_journal_log = r'/home/vsesvet/Event/journal.log'
 
         # Стандартная запись лога события
         if os.path.isfile(self.path_journal_log):
             with open(self.path_journal_log, 'a') as file:
-                file.write(f"{self.dt_now} {info} \n")
+                file.write(f"{dt_now} {info} \n")
         elif not os.path.isdir(self.path_dir_journal):
             self.create_path_dir_journal()
 
@@ -37,13 +39,18 @@ class Journal:
 
     def create_file_journal(self, info):
         """Создание файла journal.log"""
+        # Получаем текущее время из datetime
+        dt_now = str(datetime.now())
+        dt_now.split('.')
+        dt_now = dt_now[:-7]
+
         print(f'Файл journal.log по пути {self.path_journal_log} не найден, поэтому был создан')
         with open(self.path_journal_log, 'w') as file:
-            file.write(f"{self.dt_now[:-7]} {info} \n")
+            file.write(f"{dt_now[:-7]} {info} \n")
             info_dir = (f'Journal.log() Создание структуры папок для размещения файла журнала: {self.path_dir_journal}')
             info_file = (f'Journal.log() Создан файл журнала: {self.path_journal_log}')
-            file.write(f"{self.dt_now[:-7]} {info_dir} \n")
-            file.write(f"{self.dt_now[:-7]} {info_file} \n")
+            file.write(f"{dt_now[:-7]} {info_dir} \n")
+            file.write(f"{dt_now[:-7]} {info_file} \n")
 
     def start_log(self):
         """Запись в лог строки о старте программы"""
@@ -56,6 +63,11 @@ class Journal:
 
     def finish_log(self, username_login):
         """Последние строки лога перед завершением программы"""
+        # Получаем текущее время из datetime
+        dt_now = str(datetime.now())
+        dt_now.split('.')
+        dt_now = dt_now[:-7]
+
         self.log(f'Выход пользователя {username_login} из системы')
         self.log(f'----------Program finished----------')
-        print(f'{self.dt_now} Программа завершена без ошибок')
+        print(f'{dt_now} Программа завершена без ошибок')

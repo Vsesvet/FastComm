@@ -14,9 +14,8 @@ class Mysql:
                                               password=password,
                                               database=database,
                                               cursorclass=pymysql.cursors.DictCursor)
-            # print("Обращение к базе данных: Статус OK")
         except Exception as ex:
-            print("Error connection to db")
+            journal.log("Error connection to db")
 
     def select_one(self, dct, table_name):
         """Находим строку по переданным параметрам в dct. На входе: {}, ''. На выходе {}"""
@@ -31,7 +30,7 @@ class Mysql:
             cursor.execute(select_query)
             find_dict = cursor.fetchone()
             self.connection.commit()
-        journal.log(f"Выборка из БД, функция select_one. Результат: {find_dict}")
+        # journal.log(f"Select_one. Результат: {find_dict}")
         return find_dict
 
     def select_every(self, dct, table_name):
@@ -43,12 +42,12 @@ class Mysql:
         content = content[:-4]
 
         select_query = f'SELECT * FROM {table_name} WHERE {content}'
-        print(select_query)
+        journal.log(f"{select_query}")
         with self.connection.cursor() as cursor:
             cursor.execute(select_query)
             find_dict = cursor.fetchall()
             self.connection.commit()
-        journal.log(f"Выборка из БД, функция select_every. Результат: {find_dict}")
+        # journal.log(f"Select_every. Результат: {find_dict}")
         return find_dict
 
     def select_all(self, table_name):
@@ -59,8 +58,9 @@ class Mysql:
             cursor.execute(select_all_rows)
             rows = cursor.fetchall()
 
-            return rows
-        journal.log(f"SELECT_ALL. Результат: {select_all_rows}")
+        # journal.log(f"SELECT_ALL. Результат: {select_all_rows}")
+        return rows
+
 
     def insert_row(self, dct, table_name):
         """Добавление row в таблицу. На входе: {}, ''. Выход без возврата"""
@@ -88,22 +88,21 @@ class Mysql:
         content = content[:-2] # срез последнего пробела и запятой
 
         request = f"UPDATE {table_name} SET {content} WHERE id = '{dct['id']}'"
-        print(request)
         with self.connection.cursor() as cursor:
             cursor.execute(request)
             self.connection.commit()
+        journal.log(f"UPDATE {table_name} SET {content} WHERE id = '{dct['id']}'")
 
     def delete_row(self, dct, table_name):
         """Функция удаления строки из таблицы. """
-        print(dct)
         for key, value in dct.items():
             ls = key
             rs = value
         request = f"DELETE FROM {table_name} WHERE {ls} = '{rs}'"
-        print(request)
         with self.connection.cursor() as cursor:
             cursor.execute(request)
             self.connection.commit()
+        journal.log(f'DELETE FROM {table_name} WHERE {ls} = {rs}')
 
     def find_partial_matching(self, dct, table_name):
         """Поиск по частичному совпадению параметров"""
@@ -113,12 +112,11 @@ class Mysql:
             dct_value = '%' + value + '%'
 
         select_query = f"SELECT * FROM {table_name} WHERE {dct_key} LIKE '{dct_value}'"
-        print(select_query)
         with self.connection.cursor() as cursor:
             cursor.execute(select_query)
             find_dict = cursor.fetchall()
             self.connection.commit()
-        journal.log(f"Выборка из БД, функция select_partial_matching. Результат: {find_dict}")
+        journal.log(f"Select_partial_matching: {find_dict}")
         return find_dict
 
     def select_by_range(self, dct, table_name):
@@ -131,33 +129,6 @@ class Mysql:
             self.connection.commit()
         journal.log(f"Выборка из БД, функция select_by_range. Результат: {find_dict}")
         return find_dict
-
-
-    # def create_user(self, new_user):
-    #     """Добавление нового пользователя в базу данных MySql"""
-    #     select_role_id = f"SELECT role_id FROM roles WHERE role_name = '{new_user['role']}'"
-    #     with self.connection.cursor() as cursor:
-    #         cursor.execute(select_role_id)
-    #         result = cursor.fetchone()
-    #         self.connection.commit()
-    #
-    #     insert_query = f"INSERT INTO users (phone_number, second_name, first_name, last_name, full_name, role_id, city, email, password, comment,disabled) \
-    #     VALUES(" \
-    #                    f"'{new_user['phone_number']}'," \
-    #                    f" '{new_user['second_name']}'," \
-    #                    f" '{new_user['first_name']}'," \
-    #                    f" '{new_user['last_name']}'," \
-    #                    f" '{new_user['full_name']}'," \
-    #                    f" '{new_user['role_id']},'" \
-    #                    f" '{new_user['city']}'," \
-    #                    f" '{new_user['email']}'," \
-    #                    f" '{new_user['password']}'," \
-    #                    f" '{new_user['comment']}'," \
-    #                    f" '{new_user['disabled']})"
-    #
-    #     with self.connection.cursor() as cursor:
-    #         cursor.execute(insert_query)
-    #         self.connection.commit()
 
     def get_role_by_role_id(self, role_id):
         """Получение Роли по id"""
@@ -190,6 +161,6 @@ class Mysql:
         try:
             self.connection.close()
         except Exception as ex:
-            print("Can not close connection due to absence openning connection")
+            journal.log(f"Can not close connection due to absence openning connection")
 
 journal = Journal()
