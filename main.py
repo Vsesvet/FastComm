@@ -26,6 +26,7 @@ from Ui_Create_user import *
 from Ui_List_organization import *
 from Ui_List_participants import *
 from Ui_Choose_organization import *
+from Ui_Send_email import *
 from Ui_Upload_docs import *
 
 
@@ -158,7 +159,7 @@ class Event_shedule(Ui_Event_shedule):
         dct = {}
         dct['start_date'] = self.dateEdit_begin_event.dateTime().toString("yyyy-MM-dd")
         dct['end_date'] = self.dateEdit_finish_event.dateTime().toString("yyyy-MM-dd")
-        print(dct)
+        # print(dct)
         db = Mysql()
         events_results = db.select_by_range(dct, 'events')
         self.all_events = events_results
@@ -220,7 +221,7 @@ class Event_shedule(Ui_Event_shedule):
         try:
             dct = {}
             item = self.tree_event_shedule.currentItem()
-            print(f'Выбрана строка для открытия {item}')
+            # print(f'Выбрана строка для открытия {item}')
             dct['id'] = item.text(0)
             dct_event = db.select_one(dct, self.table_name)
             Event(dct_event)
@@ -254,9 +255,9 @@ class Event_shedule(Ui_Event_shedule):
         db = Mysql()
         event_id = {}
         event_id['event_id'] = dct_event['id']
-        print(f"event_id = {event_id}")
+        # print(f"event_id = {event_id}")
         dct = db.select_one(event_id, 'organizations_events')
-        print(f"dct = {dct}")
+        # print(f"dct = {dct}")
         # Извлекаем организацию по полученному соответствию
         organization_id = {}
         organization_id['id'] = dct['organization_id']
@@ -290,7 +291,7 @@ class Event(Ui_Event):
         self.adjust_tree()
         self.output_form()
         self.participants_event_list = self.get_participants()
-        print(self.participants_event_list)
+        print(f"Участники в списке мероприятия {dct_event['event_name']}: {self.participants_event_list}")
         self.set_list_participants_events()
         self.clicked_connect(dialog)
         dialog.exec()
@@ -345,6 +346,7 @@ class Event(Ui_Event):
         self.pushButton_load_xls.clicked.connect(lambda: Load_xls_participants(self.dct_event))
         self.pushButton_load_xls.clicked.connect(self.update_list_participants_events)
         self.tree_event_participants_list.itemDoubleClicked.connect(self.edit_participant)
+        self.pushButton_email.clicked.connect(lambda: Send_email(self.participants_event_list, self.dct_event))
 
     def output_form(self):
         """Заполняем поля данных Мероприятия из полученного словаря dct_event"""
@@ -513,6 +515,60 @@ class Event(Ui_Event):
         # ui.comboBox.currentText() - получение значения из QComboBox. Возвращает строку
         # combo_box.currentIndex() - возвращает целое число, т.е. Индекс выбранного элемента
         # combo_box.setCurrentIndex(индекс) - он установит элемент с заданным индексом
+
+class Send_email(Ui_Send_email):
+    """Рассылка писем участникам"""
+    def __init__(self, dct_participants, dct_event):
+        import smtplib
+        dialog = QDialog()
+        super().setupUi(dialog)
+        self.db = Mysql()
+        self.dct_participants = dct_participants
+        self.dct_event = dct_event
+        self.clicked_connect(dialog)
+        dialog.exec()
+
+    def clicked_connect(self, dialog):
+        """Обрабтка нажатий кнопок"""
+        self.pushButton_send.clicked.connect(self.push_button_send)
+        self.pushButton_send.clicked.connect(dialog.close)
+
+    def push_button_send(self):
+        """Отправка писем по очереди, согласно списку участников Мероприятия"""
+        one_part_progress_bar = 100 / len(self.dct_participants)
+        increase_progress_bar = 0
+        theme = self.lineEdit_theme_email.text()
+        # Заполняем значение полей: Тема письма и Текст сообщения
+        for participant in self.dct_participants:
+            email = participant['email']
+            body = self.replace_body_email(participant)
+            # print(email)
+            # print(theme)
+            # print(body)
+            # self.send_message(email, theme, body)
+
+            # update_progress_bar(one_part_progress_bar)
+            increase_progress_bar += one_part_progress_bar
+            increase_progress_bar = round(increase_progress_bar, 2)
+
+    def send_message(self, email, theme, body):
+        """Отправка писма участнику"""
+        pass
+
+    def replace_body_email(self, participant):
+        """Заполнение тела сообщения email"""
+        body = self.plainTextEdit.toPlainText()
+        body = body.replace('{full_name}', participant['full_name'])
+        body = body.replace('{event_name}', self.dct_event['event_name'])
+        body = body.replace('{phone_number}', participant['phone_number'])
+        body = body.replace('{password}', participant['password'])
+        return body
+
+    def update_progress_bar(self):
+        """Обновление прогресс-бара"""
+        pass
+
+
 
 
 class Add_participant(Ui_Add_participant):
@@ -1028,7 +1084,7 @@ class Accept_docs(Ui_Accept_docs):
                     exec(set_reject)
                     exec(disable_checkbox_accept)
 
-                print(f"Данные из participants_data по выбранному участнику: {participant_data}")
+                # print(f"Данные из participants_data по выбранному участнику: {participant_data}")
 
         # Установка флагов для документов участников по Мероприятию
         participant_event_docs = ('agreement', 'survey', 'contract', 'act', 'report')
@@ -1055,7 +1111,7 @@ class Accept_docs(Ui_Accept_docs):
                 elif participant_event_data[flag] == 0:
                     exec(set_reject)
                     exec(disable_checkbox_accept)
-                print(f"Данные из participants_event_data по выбранному участнику: {participant_event_data}")
+                # print(f"Данные из participants_event_data по выбранному участнику: {participant_event_data}")
 
         return participant_data, participant_event_data
 
@@ -1139,7 +1195,7 @@ class Accept_docs(Ui_Accept_docs):
         self.pushButton_open_report.clicked.connect(lambda: self.view_participant_event_data_document(pe_data, 'report'))
 
 
-        # Кнопки Принятия / Отклонения
+        # Чек-боксы Принятия
         self.checkBox_accept_passport.clicked.connect(lambda: self.set_flags_participant(
             self.checkBox_accept_passport.checkState(), {'passport_accept': 1}))
         self.checkBox_accept_registration.clicked.connect(lambda: self.set_flags_participant(
@@ -1164,7 +1220,7 @@ class Accept_docs(Ui_Accept_docs):
         self.checkBox_accept_report.clicked.connect(lambda: self.set_flags_participant_event_data(
             self.checkBox_accept_report.checkState(), {'report_accept': 1}))
 
-
+        # Чек-боксы Отлонения
         self.checkBox_reject_passport.clicked.connect(lambda: self.set_flags_participant(
                     self.checkBox_reject_passport.checkState(), {'passport_accept': 0}))
         self.checkBox_reject_registration.clicked.connect(lambda: self.set_flags_participant(
@@ -1199,7 +1255,7 @@ class Accept_docs(Ui_Accept_docs):
                 self.participant_data.update(dct)
                 del self.participant_data[key]
 
-        print(f"Подготовленые данные для self.participant_data: {self.participant_data}")
+        # print(f"Подготовленые данные для self.participant_data: {self.participant_data}")
 
     def set_flags_participant_event_data(self, state, dct):
         """Считывание флагов состояния для записи в таблицу participants_event_data"""
@@ -1210,7 +1266,7 @@ class Accept_docs(Ui_Accept_docs):
                 self.participant_event_data.update(dct)
                 del self.participant_event_data[key]
 
-        print(f"Подготовлены данные для self.participants_event_data: {self.participant_event_data}")
+        # print(f"Подготовлены данные для self.participants_event_data: {self.participant_event_data}")
 
     def update_flags_participant_to_db(self):
         """Запись считанных флагов в таблицы participants_data & participants_event_data"""
@@ -1227,8 +1283,6 @@ class Accept_docs(Ui_Accept_docs):
         self.participant_event_data['act_comment'] = self.lineEdit_act_comment.text()
         self.participant_event_data['report_comment'] = self.lineEdit_report_comment.text()
 
-        print(self.participant_data)
-        print(self.participant_event_data)
         # в Базе данных есть только состояние passport_accept. reject - НЕТ!!!
         self.db.update_row(self.participant_data, 'participants_data')
         self.db.update_row(self.participant_event_data, 'participants_event_data')
@@ -1277,7 +1331,7 @@ class Create_Event(Ui_Create_event):
         # print(f"Вывод данных введенной организации: {self.dct_event}")
 
     def write_event_to_db(self):
-        print(self.dct_event)
+        # print(self.dct_event)
         self.db.insert_row(self.dct_event, 'events')
 
     def relation_to_db(self):
@@ -1287,7 +1341,7 @@ class Create_Event(Ui_Create_event):
         relation = {}
         relation['organization_id'] = organization_dct['id']
         relation['event_id'] = self.dct_event['id']
-        print(f'Запись в таблицу organizations_events: {relation}')
+        # print(f'Запись в таблицу organizations_events: {relation}')
         self.db.insert_row(relation, 'organizations_events')
 
     def event_templates_to_db(self):
@@ -1313,7 +1367,7 @@ class Create_Event(Ui_Create_event):
         event.connect(host, username=login, password=secret)
         stdin, stdout, stderr = event.exec_command(f"mkdir -p {templates_path}")
         journal.log(f"Создана директория для хранения шаблонов документов Мероприятия {templates_path}")
-        print(stdout.read().decode())
+        # print(stdout.read().decode())
         stdin.close()
         event.close()
 
@@ -1405,7 +1459,6 @@ class Create_participant(Ui_Create_participant):
             self.db.insert_row(dct, self.table_name)
             self.dialog.close()
         except Exception as ex:
-            print('Ошибка создания Участника')
             journal.log(f"Ошибка создания Участника: {dct['second_name']}")
 
         # Создание профиля участника
@@ -1453,7 +1506,7 @@ class Create_participant(Ui_Create_participant):
         event.connect(host, username=login, password=secret)
         stdin, stdout, stderr = event.exec_command(f"mkdir -p {self.directory_path}")
         journal.log(f"Создан профиль нового участника {self.directory_path}{profile_name}")
-        print(stdout.read().decode())
+        # print(stdout.read().decode())
         stdin.close()
         event.close()
 
@@ -1530,12 +1583,9 @@ class Load_xls_participants():
             self.add_participant_to_event(participant)
             print(f"Участник добавлен в мероприятие {participant}")
 
-        # print(lst_dct_participants)
-
     def select_xls_file(self):
         """Функция выбора файла из окна проводника"""
         self.file_name = QFileDialog.getOpenFileName(None, 'Выбор файла', '/home', "Files (*.xls, *.xlsx)")
-        print(self.file_name)
         file_path_xls = self.file_name[0]
         return file_path_xls
 
@@ -1544,7 +1594,7 @@ class Load_xls_participants():
         import pandas as pd
         excel_data = pd.read_excel(f"{file_path}")
         data = pd.DataFrame(excel_data, columns=['ФИО полностью', 'Город отправления', 'Телефон', 'e-mail'])
-        print(f"data (DataFrame) = {data}")
+        # print(f"data (DataFrame) = {data}")
         lst_dct = data.to_dict(orient="records")
         return lst_dct
 
@@ -1595,19 +1645,18 @@ class Load_xls_participants():
             dct_check['full_name'] = dct['full_name']
             dct_check['phone_number'] = dct['phone_number']
             check = db.select_one(dct_check, "participants")
-            print(f"Смотрим check {check} ")
+            # print(f"Смотрим check {check} ")
             # Если участника не существует:
             if check is None:
                 db.insert_row(dct, "participants")
-                print(f"Участник {dct['full_name']} добавлен в базу данных")
+                journal.log(f"Участник {dct['full_name']} добавлен в базу данных")
                 check = db.select_one(dct_check, "participants")
                 return check, 'inserting'
             else:
-                print(f"Участник {check['full_name']} уже присутствует в таблице 'participants' пропускаем")
+                journal.log(f"Участник {check['full_name']} уже присутствует в таблице 'participants' пропускаем")
                 return check, 'exist'
 
         except Exception as ex:
-            print(f"Ошибка создания Участника  {dct['second_name']}")
             journal.log(f"Ошибка создания Участника: {dct['second_name']}")
 
     def create_profile(self, dct):
@@ -1620,7 +1669,7 @@ class Load_xls_participants():
         event.connect(host, username=login, password=secret)
         stdin, stdout, stderr = event.exec_command(f"mkdir -p {self.directory_path}")
         journal.log(f"Создан профиль нового участника {self.directory_path}{profile_name}")
-        print(stdout.read().decode())
+        # print(stdout.read().decode())
         stdin.close()
         event.close()
 
@@ -1657,7 +1706,7 @@ class Load_xls_participants():
             dct = {}
             dct['participant_id'] = participant['id']
             dct['event_id'] = self.dct_event['id']
-            print(f'Составлен словарь соответствия: Участник в Мероприятие: {dct}')
+            journal.log(f'Составлен словарь соответствия: Участник в Мероприятие: {dct}')
             # Проверяем нет ли такого участника в этом Мероприятии. Если нет, то добавляем.
             check = db.select_one(dct, 'events_participants')
             if check == None:
@@ -1673,7 +1722,7 @@ class Load_xls_participants():
                     f" уже существует участник {check['second_name']} {check['first_name']}")
 
         except Exception as ex:\
-            print("Не выделен ни один объект в дереве")
+            journal.log("Не выделен ни один объект в дереве")
 
     def select_path_participants_event_data(self, dct):
         """Забираем profile_path из таблицы participants_data"""
@@ -1791,13 +1840,13 @@ class Edit_participant(Ui_Create_participant):
         event = paramiko.client.SSHClient()
         event.set_missing_host_key_policy(paramiko.AutoAddPolicy())
         event.connect(host, username=login, password=secret)
-        print(f"mv {self.directory_path}{old_profile_name} {self.directory_path}{actual_profile_name}")
+        # print(f"mv {self.directory_path}{old_profile_name} {self.directory_path}{actual_profile_name}")
         stdin, stdout, stderr = event.exec_command(f"mv {self.directory_path}{old_profile_name} {self.directory_path}{actual_profile_name}")
         journal.log(f"Переименован профиль участника {self.directory_path}{actual_profile_name}")
 
         self.new_profile_path = f"{self.directory_path}{actual_profile_name}"
 
-        print(stdout.read().decode())
+        # print(stdout.read().decode())
         stdin.close()
         event.close()
 
@@ -1984,7 +2033,7 @@ class List_organization(Ui_List_organization):
             organization = self.db.select_one(organization_id, 'organizations')
             Edit_organization(organization)
         except Exception as ex:
-            print("Error")
+            journal.log("Ошибка получения id выбранной Организации")
 
     def delete_organization(self):
         """Удаление выделенной организации"""
@@ -1994,7 +2043,6 @@ class List_organization(Ui_List_organization):
             organization_id['id'] = int(item.text(0))
             organization = self.db.select_one(organization_id, 'organizations')
             self.db.delete_row(organization_id, 'organizations')
-            print(f"Удалена организация {organization}")
             journal.log(f"Удалена организация {organization}")
         except Exception as ex:
             "Error Delete organization"
@@ -2024,7 +2072,7 @@ class List_participants(Ui_List_participants):
         # Инициализация функции вывода списка всех участников
         table_name = 'participants'
         participants = self.db.select_all(table_name)
-        print(participants)
+        # print(participants)
         self.output_form(participants)
         self.clicked_connect()
         dialog.exec()
@@ -2056,7 +2104,7 @@ class List_participants(Ui_List_participants):
             participant = self.db.select_one(dct, table_name)
             Edit_participant(participant)
         except Exception as ex:\
-            print("Не выделен ни один объект в дереве")
+            journal.log("Ошибка edit_participant. Не выделен ни один объект в дереве?")
 
     def update_tree(self):
         """Обновление общего списка участников (Аналогично функции output_form, но с небольшими отличиями)"""
@@ -2064,7 +2112,7 @@ class List_participants(Ui_List_participants):
         try:
             db = Mysql()
         except Exception as ex:
-            print("Error update list participants")
+            journal.log("Error update list participants")
 
         table_name = "participants"
         participants = db.select_all(table_name)
@@ -2111,7 +2159,6 @@ class List_participants(Ui_List_participants):
         else:
             find_result = self.db.select_every(dct, table_name)
         self.output_form(find_result)
-        print(find_result)
 
     def check_find_request(self, phone, second_name, email):
         """Проверка введенных пользователем данных для поиска"""
@@ -2174,7 +2221,7 @@ class List_participants(Ui_List_participants):
         stdin, stdout, stderr = event.exec_command(f"rm -rf {directory_path}")
         self.db.delete_row(profile, 'participants_data')
         journal.log(f"Удален профиль участника {part_id['participant_id']} {profile['full_name']}")
-        print(stdout.read().decode())
+        # print(stdout.read().decode())
         stdin.close()
         event.close()
 
@@ -2186,6 +2233,8 @@ class Upload_docs(Ui_Upload_docs):
         dialog = QDialog()
         super().setupUi(dialog)
         self.label_username_login_role.setText(f'{username_login_role}')
+        # локальный путь к последнему выбранному файлу пользователем для загрузки
+        self.last_selected_local_file_path = "/home/vsesvet/Develop"
         # Получение participant_data & participant_event_data по полученным id
         db = Mysql()
         self.participant_data = db.select_one(participant_data, 'participants_data')
@@ -2229,12 +2278,10 @@ class Upload_docs(Ui_Upload_docs):
 
     def select_file(self, label, docs_name):
         """Функция выбора файла из окна проводника и присвоение словарю локальных путей откуда будут копироваться файлы"""
-        self.local_path = f"/home/efremov/Develop"
-        print(f"Сейчас локальный путь для открытия файла равен:  '{self.local_path}'")
+        print(self.participant_data)
         self.file_name = QFileDialog.getOpenFileName(
-            None, 'Выберите файл', self.local_path, 'file (*.pdf *.jpg *.jpeg *.png)')
+            None, 'Выберите файл', 'home/vsesvet/Develop', 'Image files (*.pdf *.jpg *.jpeg *.png)')
 
-        # Сюда надо прописать обращение к БД, считывание полей exist, и установка в label 'Существует' если exist = '1'
         print(self.file_name)
         if self.file_name == ('', ''):  # Нажата кнопка Отмена
             label.setText('Выбор отменен')
@@ -2242,7 +2289,7 @@ class Upload_docs(Ui_Upload_docs):
 
         else:
             label.setText('Файл готов к загрузке')
-        self.local_path = self.file_name[0]
+        local_path = self.file_name[0]
 
         # Если выбрано несколько файлов.
         # if len(local_path) > 1:
@@ -2253,9 +2300,9 @@ class Upload_docs(Ui_Upload_docs):
         #         self.dict_local_path_all_docs[docs_name] = new_path
 
 
-        print(f"Выбран путь к файлу {docs_name}: {self.local_path}")
-        self.dict_local_path_all_docs[docs_name] = self.local_path
-        print(f"Словарь хранения локальных путей выбранных файлов: {self.dict_local_path_all_docs}")
+        # print(f"Выбран путь к файлу {docs_name}: {local_path}")
+        self.dict_local_path_all_docs[docs_name] = local_path
+        # print(f"Словарь хранения локальных путей выбранных файлов: {self.dict_local_path_all_docs}")
 
     def press_ok(self, dialog):
         """Копирование выбранных документов self.dict_local_path_all_docs в профиль (participants_data path/documents)"""

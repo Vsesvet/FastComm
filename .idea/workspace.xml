@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Реализован сброс всех фильтров в Event_Shedule">
+    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Закомментированы лишние принты">
+      <change afterPath="$PROJECT_DIR$/Ui_Send_email.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Ui_designer/Ui_Send_email.ui" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Class_Mysql.py" beforeDir="false" afterPath="$PROJECT_DIR$/Class_Mysql.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
@@ -129,7 +131,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="Ui_Event_shedule" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="Ui_Send_email" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Logistics_project" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -141,7 +143,7 @@
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Ui_Event_shedule.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Ui_Send_email.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -195,10 +197,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.main" />
-        <item itemvalue="Python.Class_Journal" />
         <item itemvalue="Python.Class_Mysql" />
+        <item itemvalue="Python.Ui_Send_email" />
+        <item itemvalue="Python.Class_Journal" />
         <item itemvalue="Python.db_config" />
-        <item itemvalue="Python.Ui_Event_shedule" />
       </list>
     </recent_temporary>
   </component>
@@ -210,13 +212,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1676999725137</updated>
-    </task>
-    <task id="LOCAL-00068" summary="удалены неиспользуемые функции">
-      <created>1679510824070</created>
-      <option name="number" value="00068" />
-      <option name="presentableId" value="LOCAL-00068" />
-      <option name="project" value="LOCAL" />
-      <updated>1679510824070</updated>
     </task>
     <task id="LOCAL-00069" summary="Реализовано обновление Мероприятия (Event + Events Shedule)">
       <created>1679518176837</created>
@@ -554,7 +549,14 @@
       <option name="project" value="LOCAL" />
       <updated>1682199696710</updated>
     </task>
-    <option name="localTasksCounter" value="117" />
+    <task id="LOCAL-00117" summary="Реализовано удаление скачанных файлов документов участников после их просмотра.">
+      <created>1682201543000</created>
+      <option name="number" value="00117" />
+      <option name="presentableId" value="LOCAL-00117" />
+      <option name="project" value="LOCAL" />
+      <updated>1682201543000</updated>
+    </task>
+    <option name="localTasksCounter" value="118" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -580,7 +582,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Добавлены окна сообщения при добавлении/удалении участника из Мероприятия." />
     <MESSAGE value="Реализовано добавление строки с именами файлов в таблицу participants_event_data при добавлении участника в Мероприятие." />
     <MESSAGE value="Начало разработки Анализа полученных документов. Установка логических флагов при создании участника." />
     <MESSAGE value="Реализован вывод данных в окне Анализ загруженных документов!" />
@@ -605,50 +606,31 @@
     <MESSAGE value="Принты заменены записью в journal.log. Исправлено self.now_time." />
     <MESSAGE value="Реализовано открытие на редактирование участника из Event" />
     <MESSAGE value="Реализован сброс всех фильтров в Event_Shedule" />
-    <option name="LAST_COMMIT_MESSAGE" value="Реализован сброс всех фильтров в Event_Shedule" />
+    <MESSAGE value="Реализовано удаление скачанных файлов документов участников после их просмотра." />
+    <option name="LAST_COMMIT_MESSAGE" value="Реализовано удаление скачанных файлов документов участников после их просмотра." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>2304</line>
-          <option name="timeStamp" value="51" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/main.py</url>
-          <line>1081</line>
-          <option name="timeStamp" value="59" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/main.py</url>
-          <line>2268</line>
-          <option name="timeStamp" value="62" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/main.py</url>
-          <line>1645</line>
+          <line>1693</line>
           <option name="timeStamp" value="75" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>53</line>
+          <line>54</line>
           <option name="timeStamp" value="84" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>922</line>
-          <option name="timeStamp" value="87" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/main.py</url>
-          <line>2165</line>
+          <line>2211</line>
           <option name="timeStamp" value="89" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>398</line>
-          <option name="timeStamp" value="92" />
+          <line>541</line>
+          <option name="timeStamp" value="101" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

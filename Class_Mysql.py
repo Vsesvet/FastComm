@@ -31,7 +31,7 @@ class Mysql:
             cursor.execute(select_query)
             find_dict = cursor.fetchone()
             self.connection.commit()
-        # journal.log(f"Select_one. Результат: {find_dict}")
+        journal.log(f"Select_one. Результат: {find_dict}")
         return find_dict
 
     def select_every(self, dct, table_name):
