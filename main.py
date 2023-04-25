@@ -525,6 +525,8 @@ class Send_email(Ui_Send_email):
         import smtplib
         dialog = QDialog()
         super().setupUi(dialog)
+        self.lineEdit_theme_email.setText("Для вас создан личный кабинет.")
+        self.progressBar.setHidden(True)
         self.db = Mysql()
         self.dct_participants = dct_participants
         self.dct_event = dct_event
@@ -538,6 +540,8 @@ class Send_email(Ui_Send_email):
 
     def push_button_send(self):
         """Отправка писем по очереди, согласно списку участников Мероприятия"""
+        self.progressBar.setEnabled(True)
+        self.progressBar.setHidden(False)
         one_part_progress_bar = 100 / len(self.dct_participants)
         self.increase_progress_bar = 0
         theme = self.lineEdit_theme_email.text()
@@ -545,20 +549,26 @@ class Send_email(Ui_Send_email):
         for participant in self.dct_participants:
             recipient = participant['email']
             message = self.replace_body_email(participant)
+
             # Отправка письма
-            self.send_message(recipient, theme, message)
-            # time.sleep(0.3)
+            # self.send_message(recipient, theme, message)
+
             # Обновление прогресс бара
             self.update_progress_bar(one_part_progress_bar)
+            time.sleep(0.2)
 
     def send_message(self, recipient, theme, message):
-        """Отправка письма участнику"""
+        """Отправка одного письма одному участнику"""
+        # import necessary packages
+        from email.mime.multipart import MIMEMultipart
+        from email.mime.text import MIMEText
+        import smtplib
         sender = 'mail@yandex.ru'
         password = 'password'
         # create message object instance
         msg = MIMEMultipart()
-        msg['From'] = send_address
-        msg['To'] = email
+        msg['From'] = sender
+        msg['To'] = recipient
         msg['Subject'] = theme
         msg.attach(MIMEText(message, 'plain'))
         server = smtplib.SMTP('smtp.yandex.ru', 587)

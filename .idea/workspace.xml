@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Добавление модуля Send_email">
+    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Доработка модуля Send_email. Обновление progress_bar.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Ui_Send_email.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_Send_email.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Ui_designer/Ui_Send_email.ui" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_designer/Ui_Send_email.ui" afterDir="false" />
@@ -211,13 +211,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1676999725137</updated>
-    </task>
-    <task id="LOCAL-00070" summary="Реализован выбор Организации в Мероприятии">
-      <created>1679518447632</created>
-      <option name="number" value="00070" />
-      <option name="presentableId" value="LOCAL-00070" />
-      <option name="project" value="LOCAL" />
-      <updated>1679518447632</updated>
     </task>
     <task id="LOCAL-00071" summary="Добавлены отражения состояния Открыт или закрыт доступ для организации к Мероприятию">
       <created>1679519428469</created>
@@ -555,7 +548,14 @@
       <option name="project" value="LOCAL" />
       <updated>1682372838047</updated>
     </task>
-    <option name="localTasksCounter" value="119" />
+    <task id="LOCAL-00119" summary="Доработка модуля Send_email. Обновление progress_bar.">
+      <created>1682453569996</created>
+      <option name="number" value="00119" />
+      <option name="presentableId" value="LOCAL-00119" />
+      <option name="project" value="LOCAL" />
+      <updated>1682453569997</updated>
+    </task>
+    <option name="localTasksCounter" value="120" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -581,7 +581,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Начало разработки Анализа полученных документов. Установка логических флагов при создании участника." />
     <MESSAGE value="Реализован вывод данных в окне Анализ загруженных документов!" />
     <MESSAGE value="Реализована загрузка xls файла с участниками в Мероприятие" />
     <MESSAGE value="Реализованы коннекты галочек триггеров Принято-Отклонено окна Принятия документов." />
@@ -606,14 +605,15 @@
     <MESSAGE value="Реализован сброс всех фильтров в Event_Shedule" />
     <MESSAGE value="Реализовано удаление скачанных файлов документов участников после их просмотра." />
     <MESSAGE value="Добавление модуля Send_email" />
-    <option name="LAST_COMMIT_MESSAGE" value="Добавление модуля Send_email" />
+    <MESSAGE value="Доработка модуля Send_email. Обновление progress_bar." />
+    <option name="LAST_COMMIT_MESSAGE" value="Доработка модуля Send_email. Обновление progress_bar." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>1711</line>
+          <line>1716</line>
           <option name="timeStamp" value="75" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -623,13 +623,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>2229</line>
+          <line>2234</line>
           <option name="timeStamp" value="89" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>544</line>
-          <option name="timeStamp" value="92" />
+          <line>562</line>
+          <option name="timeStamp" value="93" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
