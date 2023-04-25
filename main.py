@@ -519,6 +519,9 @@ class Event(Ui_Event):
 class Send_email(Ui_Send_email):
     """Рассылка писем участникам"""
     def __init__(self, dct_participants, dct_event):
+        # import necessary packages
+        from email.mime.multipart import MIMEMultipart
+        from email.mime.text import MIMEText
         import smtplib
         dialog = QDialog()
         super().setupUi(dialog)
@@ -536,24 +539,33 @@ class Send_email(Ui_Send_email):
     def push_button_send(self):
         """Отправка писем по очереди, согласно списку участников Мероприятия"""
         one_part_progress_bar = 100 / len(self.dct_participants)
-        increase_progress_bar = 0
+        self.increase_progress_bar = 0
         theme = self.lineEdit_theme_email.text()
         # Заполняем значение полей: Тема письма и Текст сообщения
         for participant in self.dct_participants:
-            email = participant['email']
-            body = self.replace_body_email(participant)
-            # print(email)
-            # print(theme)
-            # print(body)
-            # self.send_message(email, theme, body)
+            recipient = participant['email']
+            message = self.replace_body_email(participant)
+            # Отправка письма
+            self.send_message(recipient, theme, message)
+            # time.sleep(0.3)
+            # Обновление прогресс бара
+            self.update_progress_bar(one_part_progress_bar)
 
-            # update_progress_bar(one_part_progress_bar)
-            increase_progress_bar += one_part_progress_bar
-            increase_progress_bar = round(increase_progress_bar, 2)
-
-    def send_message(self, email, theme, body):
-        """Отправка писма участнику"""
-        pass
+    def send_message(self, recipient, theme, message):
+        """Отправка письма участнику"""
+        sender = 'mail@yandex.ru'
+        password = 'password'
+        # create message object instance
+        msg = MIMEMultipart()
+        msg['From'] = send_address
+        msg['To'] = email
+        msg['Subject'] = theme
+        msg.attach(MIMEText(message, 'plain'))
+        server = smtplib.SMTP('smtp.yandex.ru', 587)
+        server.starttls()
+        server.login(sender, password)
+        server.sendmail(msg['From'], msg['To'], msg.as_string())
+        server.quit()
 
     def replace_body_email(self, participant):
         """Заполнение тела сообщения email"""
@@ -564,11 +576,12 @@ class Send_email(Ui_Send_email):
         body = body.replace('{password}', participant['password'])
         return body
 
-    def update_progress_bar(self):
+    def update_progress_bar(self, one_part_progress_bar):
         """Обновление прогресс-бара"""
-        pass
-
-
+        self.label_send_go_on.setText("Идет отправка e-mail")
+        self.progressBar.setTextVisible(True)
+        self.increase_progress_bar += one_part_progress_bar
+        self.progressBar.setProperty("value", self.increase_progress_bar)
 
 
 class Add_participant(Ui_Add_participant):

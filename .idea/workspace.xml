@@ -4,11 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Закомментированы лишние принты">
-      <change afterPath="$PROJECT_DIR$/Ui_Send_email.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Ui_designer/Ui_Send_email.ui" afterDir="false" />
+    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Добавление модуля Send_email">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Class_Mysql.py" beforeDir="false" afterPath="$PROJECT_DIR$/Class_Mysql.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ui_Send_email.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_Send_email.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ui_designer/Ui_Send_email.ui" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_designer/Ui_Send_email.ui" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -212,13 +211,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1676999725137</updated>
-    </task>
-    <task id="LOCAL-00069" summary="Реализовано обновление Мероприятия (Event + Events Shedule)">
-      <created>1679518176837</created>
-      <option name="number" value="00069" />
-      <option name="presentableId" value="LOCAL-00069" />
-      <option name="project" value="LOCAL" />
-      <updated>1679518176837</updated>
     </task>
     <task id="LOCAL-00070" summary="Реализован выбор Организации в Мероприятии">
       <created>1679518447632</created>
@@ -556,7 +548,14 @@
       <option name="project" value="LOCAL" />
       <updated>1682201543000</updated>
     </task>
-    <option name="localTasksCounter" value="118" />
+    <task id="LOCAL-00118" summary="Добавление модуля Send_email">
+      <created>1682372838047</created>
+      <option name="number" value="00118" />
+      <option name="presentableId" value="LOCAL-00118" />
+      <option name="project" value="LOCAL" />
+      <updated>1682372838047</updated>
+    </task>
+    <option name="localTasksCounter" value="119" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -582,7 +581,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Реализовано добавление строки с именами файлов в таблицу participants_event_data при добавлении участника в Мероприятие." />
     <MESSAGE value="Начало разработки Анализа полученных документов. Установка логических флагов при создании участника." />
     <MESSAGE value="Реализован вывод данных в окне Анализ загруженных документов!" />
     <MESSAGE value="Реализована загрузка xls файла с участниками в Мероприятие" />
@@ -607,14 +605,15 @@
     <MESSAGE value="Реализовано открытие на редактирование участника из Event" />
     <MESSAGE value="Реализован сброс всех фильтров в Event_Shedule" />
     <MESSAGE value="Реализовано удаление скачанных файлов документов участников после их просмотра." />
-    <option name="LAST_COMMIT_MESSAGE" value="Реализовано удаление скачанных файлов документов участников после их просмотра." />
+    <MESSAGE value="Добавление модуля Send_email" />
+    <option name="LAST_COMMIT_MESSAGE" value="Добавление модуля Send_email" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>1693</line>
+          <line>1711</line>
           <option name="timeStamp" value="75" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -624,13 +623,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>2211</line>
+          <line>2229</line>
           <option name="timeStamp" value="89" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>541</line>
-          <option name="timeStamp" value="101" />
+          <line>544</line>
+          <option name="timeStamp" value="92" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

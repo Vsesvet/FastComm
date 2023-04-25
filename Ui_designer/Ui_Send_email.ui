@@ -14,23 +14,12 @@
    <string>Dialog</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="6" column="0" colspan="4">
-    <widget class="QPlainTextEdit" name="plainTextEdit">
-     <property name="plainText">
-      <string>Уважаемый {full_name}!
-Для участия в мероприятии {event_name} вам необходимо загрузить документы в личный кабинет участника.
-Личный кабинет доступен по адресу:
-lk.mgido.com
-Для входа используйте логин:
-{phone_number}
-
-Пароль:
-{password}</string>
+   <item row="9" column="3">
+    <widget class="QPushButton" name="pushButton_send">
+     <property name="text">
+      <string>Отправить</string>
      </property>
     </widget>
-   </item>
-   <item row="4" column="0" colspan="4">
-    <widget class="QLineEdit" name="lineEdit_theme_email"/>
    </item>
    <item row="0" column="0" colspan="4">
     <widget class="QLabel" name="label_sure_exist_email">
@@ -42,17 +31,30 @@ lk.mgido.com
      </property>
     </widget>
    </item>
-   <item row="8" column="2">
+   <item row="3" column="0">
+    <widget class="QLabel" name="label_email_theme">
+     <property name="text">
+      <string>Тема письма</string>
+     </property>
+    </widget>
+   </item>
+   <item row="9" column="2">
     <widget class="QPushButton" name="pushButton_cancel">
      <property name="text">
       <string>Отменить</string>
      </property>
     </widget>
    </item>
-   <item row="5" column="0" colspan="4">
-    <widget class="QLabel" name="label_email_body">
-     <property name="text">
-      <string>Текст сообщения</string>
+   <item row="7" column="1" colspan="2">
+    <widget class="QProgressBar" name="progressBar">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="value">
+      <number>0</number>
+     </property>
+     <property name="textVisible">
+      <bool>false</bool>
      </property>
     </widget>
    </item>
@@ -71,37 +73,44 @@ lk.mgido.com
      </property>
     </widget>
    </item>
-   <item row="8" column="3">
-    <widget class="QPushButton" name="pushButton_send">
-     <property name="text">
-      <string>Отправить</string>
+   <item row="6" column="0" colspan="4">
+    <widget class="QPlainTextEdit" name="plainTextEdit">
+     <property name="plainText">
+      <string>Уважаемый {full_name}!
+Для участия в мероприятии {event_name} вам необходимо загрузить документы в личный кабинет участника.
+Личный кабинет доступен по адресу:
+lk.mgido.com
+Для входа используйте логин:
+{phone_number}
+
+Пароль:
+{password}</string>
      </property>
     </widget>
    </item>
-   <item row="8" column="1">
-    <spacer name="horizontalSpacer">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>40</width>
-       <height>20</height>
-      </size>
-     </property>
-    </spacer>
+   <item row="4" column="0" colspan="4">
+    <widget class="QLineEdit" name="lineEdit_theme_email"/>
    </item>
-   <item row="3" column="0">
-    <widget class="QLabel" name="label_email_theme">
+   <item row="5" column="0" colspan="4">
+    <widget class="QLabel" name="label_email_body">
      <property name="text">
-      <string>Тема письма</string>
+      <string>Текст сообщения</string>
      </property>
     </widget>
    </item>
-   <item row="7" column="1" colspan="2">
-    <widget class="QProgressBar" name="progressBar">
-     <property name="value">
-      <number>24</number>
+   <item row="8" column="1" colspan="2">
+    <widget class="QLabel" name="label_send_go_on">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="autoFillBackground">
+      <bool>true</bool>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
      </property>
     </widget>
    </item>
