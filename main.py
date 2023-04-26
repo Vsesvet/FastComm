@@ -2301,31 +2301,70 @@ class Upload_docs(Ui_Upload_docs):
 
     def select_file(self, label, docs_name):
         """Функция выбора файла из окна проводника и присвоение словарю локальных путей откуда будут копироваться файлы"""
-        print(self.participant_data)
-        self.file_name = QFileDialog.getOpenFileName(
+        print(f"self.participant_data: {self.participant_data}")
+        self.file_name = QFileDialog.getOpenFileNames(
             None, 'Выберите файл', 'home/vsesvet/Develop', 'Image files (*.pdf *.jpg *.jpeg *.png)')
 
-        print(self.file_name)
         if self.file_name == ('', ''):  # Нажата кнопка Отмена
             label.setText('Выбор отменен')
             return
 
         else:
             label.setText('Файл готов к загрузке')
+
         local_path = self.file_name[0]
 
-        # Если выбрано несколько файлов.
-        # if len(local_path) > 1:
-        #     for path in local_path:
-        #         number = local_path.index(path)
-        #         lst = path.split('.')
-        #         new_path = f"{lst[0]}_{number}.{lst[1]}"
-        #         self.dict_local_path_all_docs[docs_name] = new_path
+        # Если выбран один файл
+        if len(local_path) == 1:
+            self.dict_local_path_all_docs[docs_name] = local_path[0]
 
+        # Определение типа файла, конвертирование если нужно и объединение в один pdf, когда выбрано несколько файлов
+        else:
+            for path in local_path:
+                lst = path.split('.')
+                new_path = f"{lst[0]}.{lst[1]}"
+                if lst[1] == 'pdf':
+                    print(f"Здесь файл pdf: {new_path}")
+
+                elif lst[1] == 'jpg' or 'jpeg':
+                    print(f"Здесь файл jpg {new_path}")
+                    # Проводим конвертацию
+
+                    new_pdf = self.convert_jpg_to_pdf(path)
+
+                    new_pdf = f"{lst[0]}.pdf"
+                    index_to_replace = local_path.index(path)
+                    local_path[index_to_replace] = new_pdf
+
+
+            self.merge_pdf(local_path)
+            # self.dict_local_path_all_docs[docs_name] = new_path
+            #
+            # self.dict_local_path_all_docs[docs_name] = local_path
+            # print(f"Словарь хранения локальных путей выбранных файлов: {self.dict_local_path_all_docs}")
 
         # print(f"Выбран путь к файлу {docs_name}: {local_path}")
-        self.dict_local_path_all_docs[docs_name] = local_path
-        # print(f"Словарь хранения локальных путей выбранных файлов: {self.dict_local_path_all_docs}")
+
+    def convert_jpg_to_pdf(self, path):
+        """Конвертирование одного или нескольких jpg в pdf"""
+        from PIL import Image
+        jpg = Image.open(path)
+        image_format = jpg.format
+        size = jpg.size
+        if size[0] > 1701 and size[1] > 2340:
+            jpg.thumbnail(size=(1700, 2340))
+            mode = jpg.mode
+        jpg.show()
+
+    def merge_pdf(self, local_path):
+        """Объединение нескольких pdf в один многостраничный pdf"""
+        print(local_path)
+        from PIL import Image
+        images = [Image.open(local_path)]
+
+        pdf_path = local_path[0]
+        images[0].save(pdf_path, resolution = 100.0, save_all=True, append_images=images[1:])
+
 
     def press_ok(self, dialog):
         """Копирование выбранных документов self.dict_local_path_all_docs в профиль (participants_data path/documents)"""
