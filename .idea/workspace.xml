@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Небольшие правки в Send_email">
+    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Начало разработки выбора нескольких файлов, конвертирование в pdf и объединение в один многостраничный pdf.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
@@ -45,14 +45,14 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/vsesvet/PycharmProjects/Event&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "/home/vsesvet/PycharmProjects/pythonProject9",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
@@ -209,13 +209,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1676999725137</updated>
-    </task>
-    <task id="LOCAL-00072" summary="Реализована установка Организацию в Event_shedule из таблицы соответствия organizations_events">
-      <created>1679753665148</created>
-      <option name="number" value="00072" />
-      <option name="presentableId" value="LOCAL-00072" />
-      <option name="project" value="LOCAL" />
-      <updated>1679753665148</updated>
     </task>
     <task id="LOCAL-00073" summary="Реализована отображение списка участников для добавления в Мероприятие">
       <created>1679767795510</created>
@@ -553,7 +546,14 @@
       <option name="project" value="LOCAL" />
       <updated>1682455897448</updated>
     </task>
-    <option name="localTasksCounter" value="121" />
+    <task id="LOCAL-00121" summary="Начало разработки выбора нескольких файлов, конвертирование в pdf и объединение в один многостраничный pdf.">
+      <created>1682546890315</created>
+      <option name="number" value="00121" />
+      <option name="presentableId" value="LOCAL-00121" />
+      <option name="project" value="LOCAL" />
+      <updated>1682546890316</updated>
+    </task>
+    <option name="localTasksCounter" value="122" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -579,7 +579,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Реализована загрузка xls файла с участниками в Мероприятие" />
     <MESSAGE value="Реализованы коннекты галочек триггеров Принято-Отклонено окна Принятия документов." />
     <MESSAGE value="Дописана Установка состояния для кнопок открытия документов (Disabled, если exist = False" />
     <MESSAGE value="Переименованы agree в agreement. Во всех местах для организации цикла For по именам переменных" />
@@ -604,7 +603,8 @@
     <MESSAGE value="Добавление модуля Send_email" />
     <MESSAGE value="Доработка модуля Send_email. Обновление progress_bar." />
     <MESSAGE value="Небольшие правки в Send_email" />
-    <option name="LAST_COMMIT_MESSAGE" value="Небольшие правки в Send_email" />
+    <MESSAGE value="Начало разработки выбора нескольких файлов, конвертирование в pdf и объединение в один многостраничный pdf." />
+    <option name="LAST_COMMIT_MESSAGE" value="Начало разработки выбора нескольких файлов, конвертирование в pdf и объединение в один многостраничный pdf." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -626,8 +626,8 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>2322</line>
-          <option name="timeStamp" value="102" />
+          <line>2323</line>
+          <option name="timeStamp" value="104" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

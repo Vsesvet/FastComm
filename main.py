@@ -2318,52 +2318,61 @@ class Upload_docs(Ui_Upload_docs):
         if len(local_path) == 1:
             self.dict_local_path_all_docs[docs_name] = local_path[0]
 
-        # Определение типа файла, конвертирование если нужно и объединение в один pdf, когда выбрано несколько файлов
+        # Если выбрано несколько файлов
         else:
-            for path in local_path:
-                lst = path.split('.')
-                new_path = f"{lst[0]}.{lst[1]}"
-                if lst[1] == 'pdf':
-                    print(f"Здесь файл pdf: {new_path}")
+            local_path = self.redefined_path(local_path) # определяем jpg or pdf
+            merge_pdf_path = self.merge_pdf(local_path) # Объединяем в один pdf
+            print(merge_pdf_path)
+            self.dict_local_path_all_docs[docs_name] = merge_pdf_path
 
-                elif lst[1] == 'jpg' or 'jpeg':
-                    print(f"Здесь файл jpg {new_path}")
-                    # Проводим конвертацию
-
-                    new_pdf = self.convert_jpg_to_pdf(path)
-
-                    new_pdf = f"{lst[0]}.pdf"
-                    index_to_replace = local_path.index(path)
-                    local_path[index_to_replace] = new_pdf
-
-
-            self.merge_pdf(local_path)
-            # self.dict_local_path_all_docs[docs_name] = new_path
-            #
-            # self.dict_local_path_all_docs[docs_name] = local_path
             # print(f"Словарь хранения локальных путей выбранных файлов: {self.dict_local_path_all_docs}")
 
-        # print(f"Выбран путь к файлу {docs_name}: {local_path}")
+    def redefined_path(self, local_path):
+        """Определение типа файла, конвертирование если нужно и объединение в один pdf, когда выбрано несколько файлов"""
+        for path in local_path:
+            lst = path.split('.')
+            new_path = f"{lst[0]}.{lst[1]}"
+            if lst[1] == 'pdf':
+                print(f"Здесь файл pdf: {new_path}")
+                continue
+
+            elif lst[1] == 'jpg' or 'jpeg':
+                print(f"Здесь файл jpg {new_path}")
+                # Проводим конвертацию
+                new_pdf = self.convert_jpg_to_pdf(path)
+                index_to_replace = local_path.index(path)
+                local_path[index_to_replace] = new_pdf
+        return local_path
 
     def convert_jpg_to_pdf(self, path):
-        """Конвертирование одного или нескольких jpg в pdf"""
+        """Конвертирование одного файла jpg в pdf c уменьшением разрешения изображения"""
         from PIL import Image
         jpg = Image.open(path)
-        image_format = jpg.format
-        size = jpg.size
-        if size[0] > 1701 and size[1] > 2340:
-            jpg.thumbnail(size=(1700, 2340))
-            mode = jpg.mode
-        jpg.show()
+        file_size = os.stat(path).st_size
+        split_path = path.split('.')
+        new_path = f'{split_path[0]}.pdf'
+
+        if file_size > 1024000:
+            jpg.save(f'{new_path}', format='PDF', quality=50)
+        else:
+            jpg.save(f'{new_path}', format='PDF', quality=75)
+
+        return new_path
+
 
     def merge_pdf(self, local_path):
         """Объединение нескольких pdf в один многостраничный pdf"""
         print(local_path)
-        from PIL import Image
-        images = [Image.open(local_path)]
+
+        from pypdf import PdfMerger
+        merger = PdfMerger()
+        for pdf in local_path:
+            merger.append(pdf)
 
         pdf_path = local_path[0]
-        images[0].save(pdf_path, resolution = 100.0, save_all=True, append_images=images[1:])
+        merger.write(pdf_path)
+        merger.close()
+        return pdf_path
 
 
     def press_ok(self, dialog):
