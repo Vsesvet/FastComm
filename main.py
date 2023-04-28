@@ -519,14 +519,9 @@ class Event(Ui_Event):
 class Send_email(Ui_Send_email):
     """Рассылка писем участникам"""
     def __init__(self, dct_participants, dct_event):
-        # import necessary packages
-        from email.mime.multipart import MIMEMultipart
-        from email.mime.text import MIMEText
         import smtplib
         dialog = QDialog()
         super().setupUi(dialog)
-        self.lineEdit_theme_email.setText("Для вас создан личный кабинет.")
-        self.progressBar.setHidden(True)
         self.db = Mysql()
         self.dct_participants = dct_participants
         self.dct_event = dct_event
@@ -1156,7 +1151,6 @@ class Accept_docs(Ui_Accept_docs):
         # Помещаем в список скачанные на локальную машину файлы для последующего их удаления
         self.list_for_file_remove.append(local_path)
 
-
     def view_participant_event_data_document(self, participant_event_data, doc_name):
         """Просмотр документов участника по Мероприятию при нажатии на кнопку с наименованием документа"""
         # Подключение и закачка файла по sftp, запуск на открытие с помощью webbroser
@@ -1200,6 +1194,8 @@ class Accept_docs(Ui_Accept_docs):
         self.pushButton_Ok.clicked.connect(self.update_flags_participant_to_db)
         self.pushButton_Ok.clicked.connect(self.remove_download_files) # удаляем закачанные файлы
         self.pushButton_Ok.clicked.connect(dialog.close)
+        self.pushButton_Cancel.clicked.connect(self.remove_download_files)
+        self.pushButton_Cancel.clicked.connect(dialog.close)
         self.pushButton_upload_docs.clicked.connect(dialog.close)
         self.pushButton_upload_docs.clicked.connect(lambda: Upload_docs(self.participant_data, self.participant_event_data))
 
@@ -2303,9 +2299,9 @@ class Upload_docs(Ui_Upload_docs):
         """Функция выбора файла из окна проводника и присвоение словарю локальных путей откуда будут копироваться файлы"""
         print(f"self.participant_data: {self.participant_data}")
         self.file_name = QFileDialog.getOpenFileNames(
-            None, 'Выберите файл', 'home/vsesvet/Develop', 'Image files (*.pdf *.jpg *.jpeg *.png)')
+            None, 'Выберите файл', 'home/vsesvet/Develop', 'Image files (*.pdf *.jpg *.jpeg *.png, *.txt, *.doc, *.docx)')
 
-        if self.file_name == ('', ''):  # Нажата кнопка Отмена
+        if self.file_name == ([], ''):  # Нажата кнопка Отмена
             label.setText('Выбор отменен')
             return
 
@@ -2313,7 +2309,8 @@ class Upload_docs(Ui_Upload_docs):
             label.setText('Файл готов к загрузке')
 
         local_path = self.file_name[0]
-
+        print(self.file_name)
+        print(local_path)
         # Если выбран один файл
         if len(local_path) == 1:
             self.dict_local_path_all_docs[docs_name] = local_path[0]
@@ -2336,7 +2333,7 @@ class Upload_docs(Ui_Upload_docs):
                 print(f"Здесь файл pdf: {new_path}")
                 continue
 
-            elif lst[1] == 'jpg' or 'jpeg':
+            elif lst[1] == 'jpg' or 'jpeg' or 'png':
                 print(f"Здесь файл jpg {new_path}")
                 # Проводим конвертацию
                 new_pdf = self.convert_jpg_to_pdf(path)
@@ -2345,7 +2342,7 @@ class Upload_docs(Ui_Upload_docs):
         return local_path
 
     def convert_jpg_to_pdf(self, path):
-        """Конвертирование одного файла jpg в pdf c уменьшением разрешения изображения"""
+        """Конвертирование одного файла jpg в pdf c уменьшением dpi изображения"""
         from PIL import Image
         jpg = Image.open(path)
         file_size = os.stat(path).st_size

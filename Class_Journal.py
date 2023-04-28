@@ -19,8 +19,8 @@ class Journal:
         dt_now = self.time_now()
 
         self.info = info
-        self.path_dir_journal = r'/home/vsesvet/Event'
-        self.path_journal_log = r'/home/vsesvet/Event/journal.log'
+        self.path_dir_journal = r'/home/efremov/Event'
+        self.path_journal_log = r'/home/efremov/Event/journal.log'
 
         # Стандартная запись лога события
         if os.path.isfile(self.path_journal_log):

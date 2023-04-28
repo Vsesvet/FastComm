@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Начало разработки выбора нескольких файлов, конвертирование в pdf и объединение в один многостраничный pdf.">
+    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Закомментированы лишние принты">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Class_Journal.py" beforeDir="false" afterPath="$PROJECT_DIR$/Class_Journal.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -45,14 +46,14 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "/home/vsesvet/PycharmProjects/pythonProject9",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/vsesvet/PycharmProjects/Event&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
@@ -209,6 +210,34 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1676999725137</updated>
+    </task>
+    <task id="LOCAL-00069" summary="Реализовано обновление Мероприятия (Event + Events Shedule)">
+      <created>1679518176837</created>
+      <option name="number" value="00069" />
+      <option name="presentableId" value="LOCAL-00069" />
+      <option name="project" value="LOCAL" />
+      <updated>1679518176837</updated>
+    </task>
+    <task id="LOCAL-00070" summary="Реализован выбор Организации в Мероприятии">
+      <created>1679518447632</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1679518447632</updated>
+    </task>
+    <task id="LOCAL-00071" summary="Добавлены отражения состояния Открыт или закрыт доступ для организации к Мероприятию">
+      <created>1679519428469</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1679519428469</updated>
+    </task>
+    <task id="LOCAL-00072" summary="Реализована установка Организацию в Event_shedule из таблицы соответствия organizations_events">
+      <created>1679753665148</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1679753665148</updated>
     </task>
     <task id="LOCAL-00073" summary="Реализована отображение списка участников для добавления в Мероприятие">
       <created>1679767795510</created>
@@ -525,35 +554,7 @@
       <option name="project" value="LOCAL" />
       <updated>1682201543000</updated>
     </task>
-    <task id="LOCAL-00118" summary="Добавление модуля Send_email">
-      <created>1682372838047</created>
-      <option name="number" value="00118" />
-      <option name="presentableId" value="LOCAL-00118" />
-      <option name="project" value="LOCAL" />
-      <updated>1682372838047</updated>
-    </task>
-    <task id="LOCAL-00119" summary="Доработка модуля Send_email. Обновление progress_bar.">
-      <created>1682453569996</created>
-      <option name="number" value="00119" />
-      <option name="presentableId" value="LOCAL-00119" />
-      <option name="project" value="LOCAL" />
-      <updated>1682453569997</updated>
-    </task>
-    <task id="LOCAL-00120" summary="Небольшие правки в Send_email">
-      <created>1682455897448</created>
-      <option name="number" value="00120" />
-      <option name="presentableId" value="LOCAL-00120" />
-      <option name="project" value="LOCAL" />
-      <updated>1682455897448</updated>
-    </task>
-    <task id="LOCAL-00121" summary="Начало разработки выбора нескольких файлов, конвертирование в pdf и объединение в один многостраничный pdf.">
-      <created>1682546890315</created>
-      <option name="number" value="00121" />
-      <option name="presentableId" value="LOCAL-00121" />
-      <option name="project" value="LOCAL" />
-      <updated>1682546890316</updated>
-    </task>
-    <option name="localTasksCounter" value="122" />
+    <option name="localTasksCounter" value="118" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -579,6 +580,10 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <MESSAGE value="Реализовано добавление строки с именами файлов в таблицу participants_event_data при добавлении участника в Мероприятие." />
+    <MESSAGE value="Начало разработки Анализа полученных документов. Установка логических флагов при создании участника." />
+    <MESSAGE value="Реализован вывод данных в окне Анализ загруженных документов!" />
+    <MESSAGE value="Реализована загрузка xls файла с участниками в Мероприятие" />
     <MESSAGE value="Реализованы коннекты галочек триггеров Принято-Отклонено окна Принятия документов." />
     <MESSAGE value="Дописана Установка состояния для кнопок открытия документов (Disabled, если exist = False" />
     <MESSAGE value="Переименованы agree в agreement. Во всех местах для организации цикла For по именам переменных" />
@@ -600,34 +605,30 @@
     <MESSAGE value="Реализовано открытие на редактирование участника из Event" />
     <MESSAGE value="Реализован сброс всех фильтров в Event_Shedule" />
     <MESSAGE value="Реализовано удаление скачанных файлов документов участников после их просмотра." />
-    <MESSAGE value="Добавление модуля Send_email" />
-    <MESSAGE value="Доработка модуля Send_email. Обновление progress_bar." />
-    <MESSAGE value="Небольшие правки в Send_email" />
-    <MESSAGE value="Начало разработки выбора нескольких файлов, конвертирование в pdf и объединение в один многостраничный pdf." />
-    <option name="LAST_COMMIT_MESSAGE" value="Начало разработки выбора нескольких файлов, конвертирование в pdf и объединение в один многостраничный pdf." />
+    <option name="LAST_COMMIT_MESSAGE" value="Реализовано удаление скачанных файлов документов участников после их просмотра." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>1719</line>
+          <line>1712</line>
           <option name="timeStamp" value="75" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>54</line>
-          <option name="timeStamp" value="84" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/main.py</url>
-          <line>2237</line>
+          <line>2230</line>
           <option name="timeStamp" value="89" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>2323</line>
-          <option name="timeStamp" value="104" />
+          <line>543</line>
+          <option name="timeStamp" value="101" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>2310</line>
+          <option name="timeStamp" value="102" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
