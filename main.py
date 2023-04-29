@@ -335,6 +335,7 @@ class Event(Ui_Event):
         """Обработка нажатий кнопок"""
         self.pushButton_ok.clicked.connect(self.update_event)
         self.pushButton_ok.clicked.connect(dialog.close)
+        self.pushButton_cancel.clicked.connect(dialog.close)
         self.pushButton_del_event_participant.clicked.connect(self.delete_participant_from_event)
         self.pushButton_add_event_participant.clicked.connect(lambda: Add_participant(self.dct_event))
         self.pushButton_add_event_participant.clicked.connect(self.update_list_participants_events)
@@ -347,6 +348,20 @@ class Event(Ui_Event):
         self.pushButton_load_xls.clicked.connect(self.update_list_participants_events)
         self.tree_event_participants_list.itemDoubleClicked.connect(self.edit_participant)
         self.pushButton_email.clicked.connect(lambda: Send_email(self.participants_event_list, self.dct_event))
+        self.pushButton_one_email.clicked.connect(self.send_one_email)
+
+    def send_one_email(self):
+        """Отправка письма одному выделенному участнику"""
+        participant = {}
+        item = self.tree_event_participants_list.currentItem()
+        if item is None:
+            self.show_message_not_select()
+            return
+        else:
+            participant['id'] = item.text(0)
+            participant = self.db.select_one(participant, 'participants')
+            lst_participant = [participant]
+            Send_email(lst_participant, self.dct_event)
 
     def output_form(self):
         """Заполняем поля данных Мероприятия из полученного словаря dct_event"""
@@ -406,8 +421,8 @@ class Event(Ui_Event):
 
         self.participant['id'] = item.text(0)
         participant = self.db.select_one(self.participant, 'participants')
-        # Если форма редактирования участника открыта из Event, то hidden_email = False (send_email доступна)
-        Edit_participant(participant, False)
+        # Если форма редактирования участника открыта из Event, можно передать вторым параметров hidden_email = False
+        Edit_participant(participant)
         self.update_list_participants_events()
 
     def delete_participant_from_event(self):
@@ -417,7 +432,7 @@ class Event(Ui_Event):
         # Обновляем список
         self.participant = {}
         item = self.tree_event_participants_list.currentItem()
-        if item == None:
+        if item is None:
             self.show_message_not_select()
             return
 
@@ -483,9 +498,9 @@ class Event(Ui_Event):
         self.dct_event['comment'] = self.lineEdit_event_comment.text()
         self.dct_event['status'] = self.comboBox_event_status.currentText()
         # self.dct_event['count'] = 0
-        self.update_in_db()
+        self.update_to_db()
 
-    def update_in_db(self):
+    def update_to_db(self):
         """Запись изменений текстовых полей в базу данных"""
         db = Mysql()
         db.update_row(self.dct_event, self.table_name)
@@ -524,6 +539,8 @@ class Send_email(Ui_Send_email):
         import smtplib
         dialog = QDialog()
         super().setupUi(dialog)
+        if len(dct_participants) == 1:
+            self.label_send_email.setText(f"Отправка email участнику: {dct_participants[0]['full_name']}")
         self.db = Mysql()
         self.dct_participants = dct_participants
         self.dct_event = dct_event
