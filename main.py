@@ -1126,8 +1126,6 @@ class Accept_docs(Ui_Accept_docs):
                     exec(set_reject)
                     exec(disable_checkbox_accept)
 
-                # print(f"Данные из participants_data по выбранному участнику: {participant_data}")
-
         # Установка флагов для документов участников по Мероприятию
         participant_event_docs = ('agreement', 'survey', 'contract', 'act', 'report')
         for doc2 in participant_event_docs:
@@ -1502,7 +1500,8 @@ class Create_participant(Ui_Create_participant):
         dct['city'] = self.lineEdit_city.text().strip()
         dct['password'] = self.lineEdit_password.text().strip()
         dct['comment'] = self.lineEdit_comment.text().strip()
-        dct['disabled'] = self.checkBox_disabled_participant.isChecked()
+        status_disabled = self.checkBox_disabled_participant.isChecked()
+        dct['disabled'] = status_disabled
 
 
         # Запись в БД
@@ -1811,7 +1810,8 @@ class Edit_participant(Ui_Create_participant):
         super().setupUi(self.dialog)
         self.label_create_participant.setText("Редактирование участника")
         self.label_username_login_role.setText(f'{username_login_role}')
-        self.hidden_email = hidden_email
+        self.pushButton_send_one_email.setHidden(hidden_email)
+        # self.hidden_email = hidden_email
         self.output_form()
         self.clicked_connect(self.dialog)
         self.dialog.exec()
@@ -1827,10 +1827,10 @@ class Edit_participant(Ui_Create_participant):
         self.lineEdit_city.setText(self.participant['city'])
         self.lineEdit_password.setText(self.participant['password'])
         self.lineEdit_comment.setText(self.participant['comment'])
-        if self.hidden_email is False:
-            self.pushButton_send_one_email.setHidden(False)
+        if self.participant['disabled'] == 1:
+            self.checkBox_disabled_participant.setChecked(True)
         else:
-            self.pushButton_send_one_email.setHidden(True)
+            self.checkBox_disabled_participant.setChecked(False)
 
 
     def generate_password(self):
@@ -1874,7 +1874,11 @@ class Edit_participant(Ui_Create_participant):
         dct['city'] = self.lineEdit_city.text().strip()
         dct['password'] = self.lineEdit_password.text().strip()
         dct['comment'] = self.lineEdit_comment.text().strip()
-        # dct['disabled'] = self.checkBox_disabled_participant.isChecked()
+        disabled = self.checkBox_disabled_participant.isChecked()
+        if disabled is True:
+            dct['disabled'] = 1
+        else:
+            dct['disabled'] = 0
 
         # Update профильной папки
         self.update_profile(dct)

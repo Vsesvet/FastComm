@@ -80,10 +80,10 @@ class Ui_Create_participant(object):
         self.gridLayout.addWidget(self.pushButton_send_one_email, 10, 3, 1, 2)
 
         self.retranslateUi(Create_participant)
-        self.pushButton_generate.clicked.connect(self.lineEdit_password.selectAll) # type: ignore
-        self.pushButton_save.clicked.connect(Create_participant.show) # type: ignore
+        # self.pushButton_generate.clicked.connect(self.lineEdit_password.selectAll) # type: ignore
+        # self.pushButton_save.clicked.connect(Create_participant.show) # type: ignore
         self.pushButton_cancel.clicked.connect(Create_participant.close) # type: ignore
-        self.checkBox_disabled_participant.stateChanged['int'].connect(Create_participant.show) # type: ignore
+        # self.checkBox_disabled_participant.stateChanged['int'].connect(Create_participant.show) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(Create_participant)
         Create_participant.setTabOrder(self.lineEdit_second_name, self.lineEdit_first_name)
         Create_participant.setTabOrder(self.lineEdit_first_name, self.lineEdit_last_name)
