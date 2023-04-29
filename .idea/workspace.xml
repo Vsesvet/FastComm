@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Дописана функция отправки письма одному участнику.">
+    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Реализован чек-бокс pariticpant['disabled']">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Ui_Create_participant.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_Create_participant.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
@@ -210,13 +210,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1676999725137</updated>
-    </task>
-    <task id="LOCAL-00075" summary="Реализована отображение списка участников Events">
-      <created>1679790797117</created>
-      <option name="number" value="00075" />
-      <option name="presentableId" value="LOCAL-00075" />
-      <option name="project" value="LOCAL" />
-      <updated>1679790797118</updated>
     </task>
     <task id="LOCAL-00076" summary="Реализовано добавление участников в Events">
       <created>1679796701462</created>
@@ -554,7 +547,14 @@
       <option name="project" value="LOCAL" />
       <updated>1682801309249</updated>
     </task>
-    <option name="localTasksCounter" value="124" />
+    <task id="LOCAL-00124" summary="Реализован чек-бокс pariticpant['disabled']">
+      <created>1682804500114</created>
+      <option name="number" value="00124" />
+      <option name="presentableId" value="LOCAL-00124" />
+      <option name="project" value="LOCAL" />
+      <updated>1682804500114</updated>
+    </task>
+    <option name="localTasksCounter" value="125" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -580,7 +580,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Переименованы agree в agreement. Во всех местах для организации цикла For по именам переменных" />
     <MESSAGE value="Реализовано:&#10;1. Добавление и обновление Приема документов в базе данных&#10;2. Обновление Загруженных документов после установки статусов Приема документов" />
     <MESSAGE value="Реализованы функции на кнопки Обновление и Открытие док-та в окне Анализ загрузки док-ов." />
     <MESSAGE value="Устранение ошибок: 1. Вылет при сохранении первого Мероприятия (self.db на db)&#10;2. Не обновлялся список участников после загрузки xls." />
@@ -605,7 +604,8 @@
     <MESSAGE value="Начало разработки выбора нескольких файлов, конвертирование в pdf и объединение в один многостраничный pdf." />
     <MESSAGE value="1. Добавлены поля: Реквизиты ФЛ. (details, details_exist, details_accept, details_comment)&#10;2. Добавлена кнопка Email для отсылки письма одному участнику из Event. (иначе скрыта)" />
     <MESSAGE value="Дописана функция отправки письма одному участнику." />
-    <option name="LAST_COMMIT_MESSAGE" value="Дописана функция отправки письма одному участнику." />
+    <MESSAGE value="Реализован чек-бокс pariticpant['disabled']" />
+    <option name="LAST_COMMIT_MESSAGE" value="Реализован чек-бокс pariticpant['disabled']" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
