@@ -85,7 +85,7 @@ class Event_shedule(Ui_Event_shedule):
         self.events_list()
         # self.find_event() # Если надо фильтровать сразу по статусу comboBox
         self.clicked_connect(window)
-        window.showMaximized()
+        # window.showMaximized()
         window.show()
         sys.exit(app.exec())
 
