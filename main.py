@@ -406,7 +406,8 @@ class Event(Ui_Event):
 
         self.participant['id'] = item.text(0)
         participant = self.db.select_one(self.participant, 'participants')
-        Edit_participant(participant)
+        # Если форма редактирования участника открыта из Event, то hidden_email = False (send_email доступна)
+        Edit_participant(participant, False)
         self.update_list_participants_events()
 
     def delete_participant_from_event(self):
@@ -515,6 +516,7 @@ class Event(Ui_Event):
         # ui.comboBox.currentText() - получение значения из QComboBox. Возвращает строку
         # combo_box.currentIndex() - возвращает целое число, т.е. Индекс выбранного элемента
         # combo_box.setCurrentIndex(индекс) - он установит элемент с заданным индексом
+
 
 class Send_email(Ui_Send_email):
     """Рассылка писем участникам"""
@@ -844,7 +846,9 @@ class Analisis_list(Ui_Analisis_docs):
         """Установка наименований для колонок Tree"""
         self.treeWidget_analysis.header().setStretchLastSection(False)
         self.treeWidget_analysis.header().setSectionResizeMode(QHeaderView.ResizeToContents)
-        columns_names = ['participant_id', '№', 'Фамилия Имя Отчество', 'Паспорт', 'Прописка', 'ИНН', 'СНИЛС', 'Диплом', 'Сертификат', 'Согласие', 'Анкета', 'Договор', 'Акт', 'Отчет']
+        columns_names = [
+            'participant_id', '№', 'Фамилия Имя Отчество', 'Паспорт', 'Прописка', 'ИНН', 'СНИЛС', 'Диплом',
+            'Сертификат', 'Реквизиты', 'Согласие', 'Анкета', 'Договор', 'Акт', 'Отчет']
         for name in columns_names:
             tree.headerItem().setText(columns_names.index(name), name)
             tree.setColumnHidden(0, True)
@@ -882,6 +886,8 @@ class Analisis_list(Ui_Analisis_docs):
             one_string.append(status_diploma)
             status_sertificate = self.check_status_by_exist_accept_value(dct['sertificate_exist'], dct['sertificate_accept'])
             one_string.append(status_sertificate)
+            status_details = self.check_status_by_exist_accept_value(dct['details_exist'], dct['details_accept'])
+            one_string.append(status_details)
 
 
             status_agreement = self.check_status_by_exist_accept_value(dct['agreement_exist'], dct['agreement_accept'])
@@ -1054,6 +1060,7 @@ class Accept_docs(Ui_Accept_docs):
         self.lineEdit_snils_comment.setText(participant_data['snils_comment'])
         self.lineEdit_diploma_comment.setText(participant_data['diploma_comment'])
         self.lineEdit_sertificate_comment.setText(participant_data['sertificate_comment'])
+        self.lineEdit_details_comment.setText(participant_data['details_comment'])
 
         self.participant_data['id'] = participant_data['id']
         participant_event_data = {}
@@ -1070,7 +1077,7 @@ class Accept_docs(Ui_Accept_docs):
         self.lineEdit_report_comment.setText(participant_event_data['report_comment'])
 
         # Установка флагов для личных документов участников
-        participant_docs = ('passport', 'registration', 'inn', 'snils', 'diploma', 'sertificate')
+        participant_docs = ('passport', 'registration', 'inn', 'snils', 'diploma', 'sertificate', 'details')
         for doc in participant_docs:
             # Если документ не был загружен
             exist = f'{doc}_exist'
@@ -1130,6 +1137,7 @@ class Accept_docs(Ui_Accept_docs):
                     exec(set_reject)
                     exec(disable_checkbox_accept)
                 # print(f"Данные из participants_event_data по выбранному участнику: {participant_event_data}")
+                print(participant_data)
 
         return participant_data, participant_event_data
 
@@ -1206,6 +1214,7 @@ class Accept_docs(Ui_Accept_docs):
         self.pushButton_open_snils.clicked.connect(lambda: self.view_participant_data_document(p_data, 'snils'))
         self.pushButton_open_diploma.clicked.connect(lambda: self.view_participant_data_document(p_data, 'diploma'))
         self.pushButton_open_sertificate.clicked.connect(lambda: self.view_participant_data_document(p_data, 'sertificate'))
+        self.pushButton_open_details.clicked.connect(lambda: self.view_participant_data_document(p_data, 'details'))
         # Кнопки открытия документов участника по Мероприятию для просмотра
         self.pushButton_open_agreement.clicked.connect(lambda: self.view_participant_event_data_document(pe_data, 'agreement'))
         self.pushButton_open_survey.clicked.connect(lambda: self.view_participant_event_data_document(pe_data, 'survey'))
@@ -1227,6 +1236,8 @@ class Accept_docs(Ui_Accept_docs):
             self.checkBox_accept_diploma.checkState(), {'diploma_accept': 1}))
         self.checkBox_accept_sertificate.clicked.connect(lambda: self.set_flags_participant(
             self.checkBox_accept_sertificate.checkState(), {'sertificate_accept': 1}))
+        self.checkBox_accept_details.clicked.connect(lambda: self.set_flags_participant(
+            self.checkBox_accept_details.checkState(), {'details_accept': 1}))
 
         self.checkBox_accept_agreement.clicked.connect(lambda: self.set_flags_participant_event_data(
             self.checkBox_accept_agreement.checkState(), {'agreement_accept': 1}))
@@ -1239,7 +1250,7 @@ class Accept_docs(Ui_Accept_docs):
         self.checkBox_accept_report.clicked.connect(lambda: self.set_flags_participant_event_data(
             self.checkBox_accept_report.checkState(), {'report_accept': 1}))
 
-        # Чек-боксы Отлонения
+        # Чек-боксы Отклонения
         self.checkBox_reject_passport.clicked.connect(lambda: self.set_flags_participant(
                     self.checkBox_reject_passport.checkState(), {'passport_accept': 0}))
         self.checkBox_reject_registration.clicked.connect(lambda: self.set_flags_participant(
@@ -1252,6 +1263,8 @@ class Accept_docs(Ui_Accept_docs):
             self.checkBox_reject_diploma.checkState(), {'diploma_accept': 0}))
         self.checkBox_reject_sertificate.clicked.connect(lambda: self.set_flags_participant(
             self.checkBox_reject_sertificate.checkState(), {'sertificate_accept': 0}))
+        self.checkBox_reject_details.clicked.connect(lambda: self.set_flags_participant(
+            self.checkBox_reject_details.checkState(), {'details_accept': 0}))
 
         self.checkBox_reject_agreement.clicked.connect(lambda: self.set_flags_participant_event_data(
             self.checkBox_reject_agreement.checkState(), {'agreement_accept': 0}))
@@ -1295,6 +1308,7 @@ class Accept_docs(Ui_Accept_docs):
         self.participant_data['snils_comment'] = self.lineEdit_snils_comment.text()
         self.participant_data['diploma_comment'] = self.lineEdit_diploma_comment.text()
         self.participant_data['sertificate_comment'] = self.lineEdit_sertificate_comment.text()
+        self.participant_data['details_comment'] = self.lineEdit_details_comment.text()
 
         self.participant_event_data['agreement_comment'] = self.lineEdit_agreement_comment.text()
         self.participant_event_data['survey_comment'] = self.lineEdit_survey_comment.text()
@@ -1440,6 +1454,7 @@ class Create_participant(Ui_Create_participant):
         username_login_role = access.get_username_and_role(user_login)
         self.dialog = QDialog()
         super().setupUi(self.dialog)
+        self.pushButton_send_one_email.setHidden(True)
         self.label_username_login_role.setText(f'{username_login_role}')
         self.table_name = 'participants'
 
@@ -1542,18 +1557,14 @@ class Create_participant(Ui_Create_participant):
         dct1['snils'] = f"{dct['id']}_snils"
         dct1['diploma'] = f"{dct['id']}_diploma"
         dct1['sertificate'] = f"{dct['id']}_sertificate"
+        dct1['details'] = f"{dct['id']}_details"
         dct1['passport_exist'] = False
-        # dct1['passport_accept'] = NULL
         dct1['registration_exist'] = False
-        # dct1['registration_accept'] = NULL
         dct1['inn_exist'] = False
-        # dct1['inn_accept'] = NULL
         dct1['snils_exist'] = False
-        # dct1['snils_accept'] = NULL
         dct1['diploma_exist'] = False
-        # dct1['diploma_accept'] = NULL
         dct1['sertificate_exist'] = False
-        # dct1['sertificate_accept'] = NULL
+        dct1['details_exist'] = False
 
         self.db.insert_row(dct1, table_name)
         
@@ -1613,7 +1624,6 @@ class Load_xls_participants():
         import pandas as pd
         excel_data = pd.read_excel(f"{file_path}")
         data = pd.DataFrame(excel_data, columns=['ФИО полностью', 'Город отправления', 'Телефон', 'e-mail'])
-        # print(f"data (DataFrame) = {data}")
         lst_dct = data.to_dict(orient="records")
         return lst_dct
 
@@ -1706,12 +1716,15 @@ class Load_xls_participants():
         dct1['snils'] = f"{dct['id']}_snils"
         dct1['diploma'] = f"{dct['id']}_diploma"
         dct1['sertificate'] = f"{dct['id']}_sertificate"
+        dct1['details'] = f"{dct['id']}_details"
+        # колонка docs_exist должна заполняться автоматически статусом 0 (False)
         dct1['passport_exist'] = False
         dct1['registration_exist'] = False
         dct1['inn_exist'] = False
         dct1['snils_exist'] = False
         dct1['diploma_exist'] = False
         dct1['sertificate_exist'] = False
+        # dct1['details_exist'] = False
 
         db.insert_row(dct1, table_name)
         journal.log(f"Добавление в table 'participants_data' участника:  'ID {dct1['participant_id']} {dct1['full_name']}'")
@@ -1772,7 +1785,7 @@ class Load_xls_participants():
 
 class Edit_participant(Ui_Create_participant):
     """Окно редактирования Участника"""
-    def __init__(self, participant):
+    def __init__(self, participant, hidden_email=True):
         self.participant = participant
         self.table_name = 'participants'
         self.db = Mysql()
@@ -1781,6 +1794,7 @@ class Edit_participant(Ui_Create_participant):
         super().setupUi(self.dialog)
         self.label_create_participant.setText("Редактирование участника")
         self.label_username_login_role.setText(f'{username_login_role}')
+        self.hidden_email = hidden_email
         self.output_form()
         self.clicked_connect(self.dialog)
         self.dialog.exec()
@@ -1796,6 +1810,11 @@ class Edit_participant(Ui_Create_participant):
         self.lineEdit_city.setText(self.participant['city'])
         self.lineEdit_password.setText(self.participant['password'])
         self.lineEdit_comment.setText(self.participant['comment'])
+        if self.hidden_email is False:
+            self.pushButton_send_one_email.setHidden(False)
+        else:
+            self.pushButton_send_one_email.setHidden(True)
+
 
     def generate_password(self):
         """Генерация пароля в окне Редактирования Участника"""
@@ -2280,6 +2299,8 @@ class Upload_docs(Ui_Upload_docs):
             lambda: self.select_file(self.label_diploma_upload, 'diploma'))
         self.pushButton_upload_sertificate.clicked.connect(
             lambda: self.select_file(self.label_sertificate_upload, 'sertificate'))
+        self.pushButton_upload_details.clicked.connect(
+            lambda: self.select_file(self.label_details_upload, 'details'))
 
         # Документы участника для Мероприятия
         self.pushButton_upload_survey.clicked.connect(
@@ -2380,7 +2401,7 @@ class Upload_docs(Ui_Upload_docs):
         transport.connect(username=login, password=secret)
         sftp = paramiko.SFTPClient.from_transport(transport)
         # print(self.dict_local_path_all_docs)
-        lst_participants_data = ['passport', 'registration', 'inn', 'snils', 'diploma', 'sertificate']
+        lst_participants_data = ['passport', 'registration', 'inn', 'snils', 'diploma', 'sertificate', 'details']
         lst_participants_event_data = ['survey', 'agreement', 'contract', 'act', 'report']
         # Разбираем каждый ключ участника
         for doc_name, local_path in self.dict_local_path_all_docs.items():

@@ -75,6 +75,9 @@ class Ui_Create_participant(object):
         self.lineEdit_password = QtWidgets.QLineEdit(Create_participant)
         self.lineEdit_password.setObjectName("lineEdit_password")
         self.gridLayout.addWidget(self.lineEdit_password, 10, 0, 1, 1)
+        self.pushButton_send_one_email = QtWidgets.QPushButton(Create_participant)
+        self.pushButton_send_one_email.setObjectName("pushButton_send_one_email")
+        self.gridLayout.addWidget(self.pushButton_send_one_email, 10, 3, 1, 2)
 
         self.retranslateUi(Create_participant)
         self.pushButton_generate.clicked.connect(self.lineEdit_password.selectAll) # type: ignore
@@ -112,3 +115,4 @@ class Ui_Create_participant(object):
         self.lineEdit_phone_number.setPlaceholderText(_translate("Create_participant", "89265001020"))
         self.pushButton_cancel.setText(_translate("Create_participant", "Отмена"))
         self.lineEdit_password.setPlaceholderText(_translate("Create_participant", "Пароль..."))
+        self.pushButton_send_one_email.setText(_translate("Create_participant", "Отправить  email"))
