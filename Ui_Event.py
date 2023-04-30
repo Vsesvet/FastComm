@@ -140,9 +140,14 @@ class Ui_Event(object):
         self.pushButton_one_email = QtWidgets.QPushButton(Event)
         self.pushButton_one_email.setObjectName("pushButton_one_email")
         self.gridLayout.addWidget(self.pushButton_one_email, 17, 6, 1, 1)
+        self.progressBar_load_from_xls = QtWidgets.QProgressBar(Event)
+        self.progressBar_load_from_xls.setEnabled(True)
+        self.progressBar_load_from_xls.setProperty("value", 0)
+        self.progressBar_load_from_xls.setObjectName("progressBar_load_from_xls")
+        self.gridLayout.addWidget(self.progressBar_load_from_xls, 23, 2, 1, 4)
 
         self.retranslateUi(Event)
-        # self.pushButton_cancel.clicked.connect(Event.close)
+        self.pushButton_cancel.clicked.connect(Event.close) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(Event)
         Event.setTabOrder(self.lineEdit_event_name, self.lineEdit_event_theme)
         Event.setTabOrder(self.lineEdit_event_theme, self.pushButton_select_organization)

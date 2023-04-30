@@ -288,6 +288,7 @@ class Event(Ui_Event):
         dialog = QDialog()
         super().setupUi(dialog)
         self.label_username_login_role.setText(f'{username_login_role}')
+        self.progressBar_load_from_xls.setHidden(True)
         self.adjust_tree()
         self.output_form()
         self.participants_event_list = self.get_participants()
@@ -1597,6 +1598,9 @@ class Load_xls_participants():
             print(f"Файл не выбран, возврат к Event")
             return
         lst_dct_participants = self.load_xls(file_path_xls)
+        self.increase_progress_bar = 0
+        one_part_progress_bar = 100 / len(lst_dct_participants)
+
         print(lst_dct_participants)
         # Заменяем имена ключей в словарях
         for dct in lst_dct_participants:
@@ -1627,6 +1631,9 @@ class Load_xls_participants():
             journal.log(f"Создан участник {participant['id']}_{participant['second_name']} {participant['first_name']}"
                         f" {participant['last_name']}")
             self.add_participant_to_event(participant)
+            # Обновление прогресс-бара
+            self.update_progress_bar(one_part_progress_bar)
+            # time.sleep(0.2)
             print(f"Участник добавлен в мероприятие {participant}")
 
     def select_xls_file(self):
@@ -1642,6 +1649,13 @@ class Load_xls_participants():
         data = pd.DataFrame(excel_data, columns=['ФИО полностью', 'Город отправления', 'Телефон', 'e-mail'])
         lst_dct = data.to_dict(orient="records")
         return lst_dct
+
+    def update_progress_bar(self, one_part_progress_bar):
+        """Обновление шкалы отображения прогресса загрузки в процентах"""
+        # self.label_send_go_on.setText("Идет загрузка списка участников")
+        self.progressBar_load_from_xls.setHidden(False)
+        self.increase_progress_bar += one_part_progress_bar
+        self.progressBar.setProperty("value", self.increase_progress_bar)
 
     def split_full_name(self, dct):
         """Разделение full_name и запись ФИО в second, first, last name"""
@@ -2251,18 +2265,26 @@ class List_participants(Ui_List_participants):
         self.lineEdit_find_by_email.setText('')
         self.update_tree()
 
+    def show_message_not_select(self):
+        msg_box = QMessageBox()
+        msg_box.setIcon(QMessageBox.Warning)
+        msg_box.setWindowTitle("Внимание")
+        msg_box.setText('Не выделен ни один участник')
+        msg_box.setStandardButtons(QMessageBox.Ok)
+        msg_box.exec()
+
     def delete_participant(self):
         """Полное Удаление выделенного участника вместе с профильной папкой"""
         item = self.tree_participants_list.currentItem()
+        if item is None:
+            self.show_message_not_select()
+            return
 
         dct_id = {} # id для таблицы participants
         dct_id['id'] = int(item.text(0))
         part_id = {} # id для таблицы participants_data
         part_id['participant_id'] = int(item.text(0))
         # Удаление профиля участника
-
-        # Здесь надо проверить, есть ли участник в таблицах: participants_event_data и events_participants?
-
         self.delete_profile_participant(part_id)
         # Удаление участника из таблицы participants
         self.db.delete_row(dct_id, 'participants')
