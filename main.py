@@ -27,6 +27,7 @@ from Ui_List_organization import *
 from Ui_List_participants import *
 from Ui_Choose_organization import *
 from Ui_Send_email import *
+from Ui_Load_progress import *
 from Ui_Upload_docs import *
 
 
@@ -288,7 +289,7 @@ class Event(Ui_Event):
         dialog = QDialog()
         super().setupUi(dialog)
         self.label_username_login_role.setText(f'{username_login_role}')
-        self.progressBar_load_from_xls.setHidden(True)
+        self.label_wait_load_xls.setHidden(True)
         self.adjust_tree()
         self.output_form()
         self.participants_event_list = self.get_participants()
@@ -350,6 +351,7 @@ class Event(Ui_Event):
         self.tree_event_participants_list.itemDoubleClicked.connect(self.edit_participant)
         self.pushButton_email.clicked.connect(lambda: Send_email(self.participants_event_list, self.dct_event))
         self.pushButton_one_email.clicked.connect(self.send_one_email)
+        self.pushButton_download_xls.clicked.connect(self.show_message_in_progress)
 
     def send_one_email(self):
         """Отправка письма одному выделенному участнику"""
@@ -452,6 +454,15 @@ class Event(Ui_Event):
         msg_box.setIcon(QMessageBox.Warning)
         msg_box.setWindowTitle("Внимание")
         msg_box.setText('Не выделен ни один участник')
+        msg_box.setStandardButtons(QMessageBox.Ok)
+        msg_box.exec()
+
+    def show_message_in_progress(self):
+        """Показываем окно - Данная функция в разработке"""
+        msg_box = QMessageBox()
+        msg_box.setIcon(QMessageBox.Information)
+        msg_box.setWindowTitle("Оповещение")
+        msg_box.setText(f"Данная функция в разработке")
         msg_box.setStandardButtons(QMessageBox.Ok)
         msg_box.exec()
 
@@ -1586,12 +1597,14 @@ class Create_participant(Ui_Create_participant):
         self.db.insert_row(dct1, table_name)
         
 
-class Load_xls_participants():
+class Load_xls_participants(Ui_Load_progress):
     """Загрузка участников Мероприятия из файла xls"""
     def __init__(self, dct_event):
+        self.dialog = QDialog()
+        super().setupUi(self.dialog)
         self.dct_event = dct_event
         self.table_name = "participants"
-        db = Mysql()
+        self.progressBar.setHidden(True)
         file_path_xls = self.select_xls_file()
         # Если нажата кнопка Отмена, self.file_name[0] возвращает '')
         if file_path_xls == '':
@@ -1599,9 +1612,23 @@ class Load_xls_participants():
             return
         lst_dct_participants = self.load_xls(file_path_xls)
         self.increase_progress_bar = 0
-        one_part_progress_bar = 100 / len(lst_dct_participants)
+        self.clicked_connect(lst_dct_participants)
+        self.dialog.exec()
 
-        print(lst_dct_participants)
+    def clicked_connect(self, lst_dct_participants):
+        """Обработка нажатий клавиш в окне диалога загрузки файла XLS"""
+        self.pushButton_ok.clicked.connect(lambda: self.processing_load(lst_dct_participants))
+        self.pushButton_ok.clicked.connect(self.dialog.close)
+
+    def select_xls_file(self):
+        """Функция выбора файла из окна проводника"""
+        self.file_name = QFileDialog.getOpenFileName(None, 'Выбор файла', '/home', "Files (*.xls, *.xlsx)")
+        file_path_xls = self.file_name[0]
+        return file_path_xls
+
+    def processing_load(self, lst_dct_participants):
+        one_part_progress_bar = 100 / len(lst_dct_participants)
+        self.progressBar.setHidden(False)
         # Заменяем имена ключей в словарях
         for dct in lst_dct_participants:
             dct['full_name'] = dct.pop('ФИО полностью')
@@ -1633,14 +1660,14 @@ class Load_xls_participants():
             self.add_participant_to_event(participant)
             # Обновление прогресс-бара
             self.update_progress_bar(one_part_progress_bar)
-            # time.sleep(0.2)
-            print(f"Участник добавлен в мероприятие {participant}")
+            # print(f"Участник добавлен в мероприятие {participant}")
 
-    def select_xls_file(self):
-        """Функция выбора файла из окна проводника"""
-        self.file_name = QFileDialog.getOpenFileName(None, 'Выбор файла', '/home', "Files (*.xls, *.xlsx)")
-        file_path_xls = self.file_name[0]
-        return file_path_xls
+    def update_progress_bar(self, one_part_progress_bar):
+        """Обновление прогресс-бара"""
+        self.label_dialog.setText("Подождите, идет загрузка, обработка данных,")
+        self.label_dialog_1.setText("создание профилей, генерация паролей, добавление в БД")
+        self.increase_progress_bar += one_part_progress_bar
+        self.progressBar.setProperty("value", self.increase_progress_bar)
 
     def load_xls(self, file_path):
         """Загрузка файла XLS в DataFrame, получение списка словарей участников"""
@@ -1649,13 +1676,6 @@ class Load_xls_participants():
         data = pd.DataFrame(excel_data, columns=['ФИО полностью', 'Город отправления', 'Телефон', 'e-mail'])
         lst_dct = data.to_dict(orient="records")
         return lst_dct
-
-    def update_progress_bar(self, one_part_progress_bar):
-        """Обновление шкалы отображения прогресса загрузки в процентах"""
-        # self.label_send_go_on.setText("Идет загрузка списка участников")
-        self.progressBar_load_from_xls.setHidden(False)
-        self.increase_progress_bar += one_part_progress_bar
-        self.progressBar.setProperty("value", self.increase_progress_bar)
 
     def split_full_name(self, dct):
         """Разделение full_name и запись ФИО в second, first, last name"""
@@ -2302,7 +2322,6 @@ class List_participants(Ui_List_participants):
         stdin, stdout, stderr = event.exec_command(f"rm -rf {directory_path}")
         self.db.delete_row(profile, 'participants_data')
         journal.log(f"Удален профиль участника {part_id['participant_id']} {profile['full_name']}")
-        # print(stdout.read().decode())
         stdin.close()
         event.close()
 

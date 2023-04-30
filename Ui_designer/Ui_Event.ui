@@ -338,12 +338,21 @@
     </widget>
    </item>
    <item row="23" column="2" colspan="4">
-    <widget class="QProgressBar" name="progressBar_load_from_xls">
-     <property name="enabled">
+    <widget class="QLabel" name="label_wait_load_xls">
+     <property name="font">
+      <font>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="autoFillBackground">
       <bool>true</bool>
      </property>
-     <property name="value">
-      <number>0</number>
+     <property name="text">
+      <string>Подождите, идет загрузка файла и создание профилей участников</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
      </property>
     </widget>
    </item>
