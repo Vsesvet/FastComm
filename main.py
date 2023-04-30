@@ -2299,7 +2299,6 @@ class List_participants(Ui_List_participants):
         if item is None:
             self.show_message_not_select()
             return
-
         dct_id = {} # id для таблицы participants
         dct_id['id'] = int(item.text(0))
         part_id = {} # id для таблицы participants_data
@@ -2320,7 +2319,7 @@ class List_participants(Ui_List_participants):
         event.set_missing_host_key_policy(paramiko.AutoAddPolicy())
         event.connect(host, username=login, password=secret)
         stdin, stdout, stderr = event.exec_command(f"rm -rf {directory_path}")
-        self.db.delete_row(profile, 'participants_data')
+        # self.db.delete_row(profile, 'participants_data')
         journal.log(f"Удален профиль участника {part_id['participant_id']} {profile['full_name']}")
         stdin.close()
         event.close()
