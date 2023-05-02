@@ -4,11 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Исправлен вылет программы при удалении участника из Общего списка, если не выделен ни один.">
+    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Доработан прогресс-бар при загрузке xls файла с участниками">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ui_Event.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_Event.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ui_designer/Ui_Event.ui" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_designer/Ui_Event.ui" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,14 +44,14 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/vsesvet/PycharmProjects/Event&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "/home/vsesvet/PycharmProjects/Event",
+    "settings.editor.selected.configurable": "project.propVCSSupport.ChangelistConflict"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
@@ -211,27 +208,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1676999725137</updated>
-    </task>
-    <task id="LOCAL-00079" summary="в Поиск по участникам при запросе по пустым значениям - выводит полный список">
-      <created>1679799342301</created>
-      <option name="number" value="00079" />
-      <option name="presentableId" value="LOCAL-00079" />
-      <option name="project" value="LOCAL" />
-      <updated>1679799342301</updated>
-    </task>
-    <task id="LOCAL-00080" summary="в Поиск по участникам при запросе по пустым значениям - выводит полный список">
-      <created>1679800607591</created>
-      <option name="number" value="00080" />
-      <option name="presentableId" value="LOCAL-00080" />
-      <option name="project" value="LOCAL" />
-      <updated>1679800607591</updated>
-    </task>
-    <task id="LOCAL-00081" summary="в Поиск по участникам при запросе по пустым значениям - выводит полный список">
-      <created>1679800640090</created>
-      <option name="number" value="00081" />
-      <option name="presentableId" value="LOCAL-00081" />
-      <option name="project" value="LOCAL" />
-      <updated>1679800640090</updated>
     </task>
     <task id="LOCAL-00082" summary="косметические правки">
       <created>1679801335800</created>
@@ -555,7 +531,28 @@
       <option name="project" value="LOCAL" />
       <updated>1682870170607</updated>
     </task>
-    <option name="localTasksCounter" value="128" />
+    <task id="LOCAL-00128" summary="Доработан прогресс-бар при загрузке xls файла с участниками">
+      <created>1682883757605</created>
+      <option name="number" value="00128" />
+      <option name="presentableId" value="LOCAL-00128" />
+      <option name="project" value="LOCAL" />
+      <updated>1682883757606</updated>
+    </task>
+    <task id="LOCAL-00129" summary="Доработан прогресс-бар при загрузке xls файла с участниками">
+      <created>1682884035721</created>
+      <option name="number" value="00129" />
+      <option name="presentableId" value="LOCAL-00129" />
+      <option name="project" value="LOCAL" />
+      <updated>1682884035721</updated>
+    </task>
+    <task id="LOCAL-00130" summary="Доработан прогресс-бар при загрузке xls файла с участниками">
+      <created>1683051140973</created>
+      <option name="number" value="00130" />
+      <option name="presentableId" value="LOCAL-00130" />
+      <option name="project" value="LOCAL" />
+      <updated>1683051140974</updated>
+    </task>
+    <option name="localTasksCounter" value="131" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -581,7 +578,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Реализованы функции на кнопки Обновление и Открытие док-та в окне Анализ загрузки док-ов." />
     <MESSAGE value="Устранение ошибок: 1. Вылет при сохранении первого Мероприятия (self.db на db)&#10;2. Не обновлялся список участников после загрузки xls." />
     <MESSAGE value="Устраненены ошибки вылета при загрузке xlsx файла с участниками." />
     <MESSAGE value="Частично написан код для sftp закачки файла с сервера и просмотра." />
@@ -606,7 +602,8 @@
     <MESSAGE value="Дописана функция отправки письма одному участнику." />
     <MESSAGE value="Реализован чек-бокс pariticpant['disabled']" />
     <MESSAGE value="Исправлен вылет программы при удалении участника из Общего списка, если не выделен ни один." />
-    <option name="LAST_COMMIT_MESSAGE" value="Исправлен вылет программы при удалении участника из Общего списка, если не выделен ни один." />
+    <MESSAGE value="Доработан прогресс-бар при загрузке xls файла с участниками" />
+    <option name="LAST_COMMIT_MESSAGE" value="Доработан прогресс-бар при загрузке xls файла с участниками" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -623,7 +620,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>2406</line>
+          <line>2405</line>
           <option name="timeStamp" value="104" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
