@@ -6,16 +6,128 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1080</width>
-    <height>620</height>
+    <width>1284</width>
+    <height>651</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Event</string>
   </property>
+  <property name="windowIcon">
+   <iconset>
+    <activeoff>:/newPrefix/event_logo.ico</activeoff>
+   </iconset>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout_2">
-    <item row="4" column="0" colspan="6">
+    <item row="3" column="7">
+     <widget class="QPushButton" name="pushButton_list_of_all_participants">
+      <property name="text">
+       <string>Список всех участников</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="5" colspan="3">
+     <widget class="QLabel" name="label_total_completed_events">
+      <property name="text">
+       <string>Всего проведено ___ мероприятия</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="0" colspan="8">
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="0" column="6">
+       <spacer name="horizontalSpacer_4">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="0" column="4">
+       <widget class="QLabel" name="label_status_event">
+        <property name="text">
+         <string>  Статус мероприятия</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QDateEdit" name="dateEdit_begin_event">
+        <property name="date">
+         <date>
+          <year>2023</year>
+          <month>1</month>
+          <day>1</day>
+         </date>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="3">
+       <spacer name="horizontalSpacer_3">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="0" column="5">
+       <widget class="QComboBox" name="comboBox_event_status">
+        <item>
+         <property name="text">
+          <string>Все</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Запланировано</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Проведено</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Отменено</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QDateEdit" name="dateEdit_finish_event">
+        <property name="date">
+         <date>
+          <year>2023</year>
+          <month>12</month>
+          <day>31</day>
+         </date>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLineEdit" name="lineEdit_find_event">
+        <property name="placeholderText">
+         <string>Наименование мероприятия...</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="4" column="0" colspan="8">
      <widget class="QTreeWidget" name="tree_event_shedule">
       <property name="sizeAdjustPolicy">
        <enum>QAbstractScrollArea::AdjustToContents</enum>
@@ -74,6 +186,46 @@
       </column>
      </widget>
     </item>
+    <item row="2" column="3">
+     <spacer name="horizontalSpacer">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="6" column="0">
+     <widget class="QLabel" name="label_find_event">
+      <property name="text">
+       <string>Фильтры поиска мероприятия:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QPushButton" name="pushButton_create_event">
+      <property name="text">
+       <string>Создать мероприятие</string>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="1">
+     <spacer name="horizontalSpacer_5">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
     <item row="3" column="0">
      <widget class="QPushButton" name="pushButton_create_participant">
       <property name="text">
@@ -81,13 +233,31 @@
       </property>
      </widget>
     </item>
-    <item row="5" column="3" colspan="3">
-     <widget class="QLabel" name="label_total_completed_events">
+    <item row="3" column="6">
+     <widget class="QPushButton" name="pushButton_list_organization">
       <property name="text">
-       <string>Всего проведено ___ мероприятия</string>
+       <string>Список организаций</string>
       </property>
-      <property name="alignment">
-       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </widget>
+    </item>
+    <item row="2" column="6">
+     <widget class="QPushButton" name="pushButton_print">
+      <property name="text">
+       <string>Печать</string>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="3">
+     <widget class="QPushButton" name="pushButton_reset_find">
+      <property name="text">
+       <string>Сброс всех фильтров</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1">
+     <widget class="QPushButton" name="pushButton_create_organization">
+      <property name="text">
+       <string>Создать организацию</string>
       </property>
      </widget>
     </item>
@@ -98,17 +268,14 @@
       </property>
      </widget>
     </item>
-    <item row="0" column="3" colspan="3">
-     <widget class="QLabel" name="label_username_login_role">
+    <item row="2" column="7">
+     <widget class="QPushButton" name="pushButton_exit">
       <property name="text">
-       <string>username_login_role</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       <string>Выход</string>
       </property>
      </widget>
     </item>
-    <item row="1" column="0" colspan="6">
+    <item row="1" column="0" colspan="8">
      <widget class="QLabel" name="label_event_shedule">
       <property name="font">
        <font>
@@ -125,153 +292,15 @@
       </property>
      </widget>
     </item>
-    <item row="2" column="1">
-     <widget class="QPushButton" name="pushButton_create_organization">
-      <property name="text">
-       <string>Создать организацию</string>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="3">
+    <item row="2" column="5">
      <widget class="QPushButton" name="pushButton_export_xls">
       <property name="text">
        <string>Export xls</string>
       </property>
      </widget>
     </item>
-    <item row="2" column="4">
-     <widget class="QPushButton" name="pushButton_print">
-      <property name="text">
-       <string>Печать</string>
-      </property>
-     </widget>
-    </item>
-    <item row="7" column="0" colspan="6">
-     <layout class="QGridLayout" name="gridLayout">
-      <item row="0" column="1">
-       <spacer name="horizontalSpacer_2">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="0" column="2">
-       <widget class="QDateEdit" name="dateEdit_begin_event">
-        <property name="date">
-         <date>
-          <year>2023</year>
-          <month>1</month>
-          <day>1</day>
-         </date>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="4">
-       <spacer name="horizontalSpacer_3">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="0" column="3">
-       <widget class="QDateEdit" name="dateEdit_finish_event">
-        <property name="date">
-         <date>
-          <year>2023</year>
-          <month>12</month>
-          <day>31</day>
-         </date>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="6">
-       <widget class="QComboBox" name="comboBox_event_status">
-        <item>
-         <property name="text">
-          <string>Все</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Запланировано</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Проведено</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Отменено</string>
-         </property>
-        </item>
-       </widget>
-      </item>
-      <item row="0" column="5">
-       <widget class="QLabel" name="label_status_event">
-        <property name="text">
-         <string>  Статус мероприятия</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="0">
-       <widget class="QLineEdit" name="lineEdit_find_event">
-        <property name="placeholderText">
-         <string>Наименование мероприятия...</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="7">
-       <spacer name="horizontalSpacer_4">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-     </layout>
-    </item>
-    <item row="3" column="4">
-     <widget class="QPushButton" name="pushButton_list_organization">
-      <property name="text">
-       <string>Список организаций</string>
-      </property>
-     </widget>
-    </item>
-    <item row="3" column="5">
-     <widget class="QPushButton" name="pushButton_list_of_all_participants">
-      <property name="text">
-       <string>Список всех участников</string>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="0">
-     <widget class="QPushButton" name="pushButton_create_event">
-      <property name="text">
-       <string>Создать мероприятие</string>
-      </property>
-     </widget>
-    </item>
     <item row="2" column="2">
-     <spacer name="horizontalSpacer">
+     <spacer name="horizontalSpacer_6">
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
       </property>
@@ -283,29 +312,18 @@
       </property>
      </spacer>
     </item>
-    <item row="2" column="5">
-     <widget class="QPushButton" name="pushButton_exit">
+    <item row="0" column="5" colspan="3">
+     <widget class="QLabel" name="label_username_login_role">
       <property name="text">
-       <string>Выход</string>
+       <string>username_login_role</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
       </property>
      </widget>
     </item>
-    <item row="6" column="2">
-     <widget class="QPushButton" name="pushButton_reset_find">
-      <property name="text">
-       <string>Сброс всех фильтров</string>
-      </property>
-     </widget>
-    </item>
-    <item row="6" column="0">
-     <widget class="QLabel" name="label_find_event">
-      <property name="text">
-       <string>Фильтры поиска мероприятия:</string>
-      </property>
-     </widget>
-    </item>
-    <item row="6" column="1">
-     <spacer name="horizontalSpacer_5">
+    <item row="2" column="4">
+     <spacer name="horizontalSpacer_7">
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
       </property>
@@ -324,7 +342,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1080</width>
+     <width>1284</width>
      <height>22</height>
     </rect>
    </property>
@@ -347,7 +365,9 @@
   <tabstop>pushButton_exit</tabstop>
   <tabstop>pushButton_list_of_all_participants</tabstop>
  </tabstops>
- <resources/>
+ <resources>
+  <include location="../resourse1.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>pushButton_exit</sender>

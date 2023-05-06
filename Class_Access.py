@@ -35,7 +35,7 @@ class Access:
 
     def get_username_and_role(self, user_login):
         username = f"{user_login['second_name']} {user_login['first_name']}"
-        role_name = self.mysql.get_role_by_role_id(user_login['id'])
+        role_name = self.mysql.get_role_by_role_id(user_login['role_id'])
         username_login_role = f'{username} ({role_name})'
         return username_login_role
 

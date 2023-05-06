@@ -62,6 +62,7 @@ class Login(Ui_Login):
         login['password'] = self.lineEdit_password.text().strip()
         journal.log(f'Попытка входа с учетными данными: {login}')
         user_login = Mysql().select_one(login, table_name)
+        print(user_login)
         # journal.log(f"Пользователь: {user_login['second_name']} {user_login['first_name']} вошел в систему")
 
 
@@ -1115,11 +1116,11 @@ class Accept_docs(Ui_Accept_docs):
                 disable_button1 = f"self.pushButton_open_{doc}.setEnabled(False)"
                 disable_checkbox_accept = f"self.checkBox_accept_{doc}.setDisabled(True)"
                 disable_checkbox_reject = f"self.checkBox_reject_{doc}.setDisabled(True)"
-                # comment_field = f"self.lineEdit_{comment}.setEnabled(False)"
+                comment_field = f"self.lineEdit_{comment}.setDisabled(True)"
                 exec(disable_button1)
                 exec(disable_checkbox_accept)
                 exec(disable_checkbox_reject)
-                # exec(comment_field)
+                exec(comment_field)
 
             # Если документ Загружен, активируем флаги Принять/Отклонить для установки состояния
             elif participant_data[exist] == 1:
@@ -1146,11 +1147,11 @@ class Accept_docs(Ui_Accept_docs):
                 disable_button2 = f"self.pushButton_open_{doc2}.setEnabled(False)"
                 disable_checkbox_accept = f"self.checkBox_accept_{doc2}.setDisabled(True)"
                 disable_checkbox_reject = f"self.checkBox_reject_{doc2}.setDisabled(True)"
-                # view_comment = f"self.lineEdit_{doc2}_comment.text()"
+                view_comment = f"self.lineEdit_{doc2}_comment.setDisabled(True)"
                 exec(disable_button2)
                 exec(disable_checkbox_accept)
                 exec(disable_checkbox_reject)
-                # exec(view_comment)
+                exec(view_comment)
             elif participant_event_data[exist] == 1:
                 flag = f"{doc2}_accept"
                 set_accept = f"self.checkBox_accept_{doc2}.setChecked(True)"
