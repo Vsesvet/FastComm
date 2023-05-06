@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Доработано скрытие комментарии в Accept_docs при отсутствии загруженного документа">
+    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Добавлено отображение статуса загрузки документов в Upload_docs.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Class_Journal.py" beforeDir="false" afterPath="$PROJECT_DIR$/Class_Journal.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -212,13 +213,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1676999725137</updated>
-    </task>
-    <task id="LOCAL-00084" summary="Поправлены на словарь функции работы со списком Организаций">
-      <created>1679948435543</created>
-      <option name="number" value="00084" />
-      <option name="presentableId" value="LOCAL-00084" />
-      <option name="project" value="LOCAL" />
-      <updated>1679948435544</updated>
     </task>
     <task id="LOCAL-00085" summary="Добавлены окна сообщения при добавлении/удалении участника из Мероприятия.">
       <created>1680063084469</created>
@@ -556,7 +550,14 @@
       <option name="project" value="LOCAL" />
       <updated>1683394875206</updated>
     </task>
-    <option name="localTasksCounter" value="133" />
+    <task id="LOCAL-00133" summary="Добавлено отображение статуса загрузки документов в Upload_docs.">
+      <created>1683397893776</created>
+      <option name="number" value="00133" />
+      <option name="presentableId" value="LOCAL-00133" />
+      <option name="project" value="LOCAL" />
+      <updated>1683397893776</updated>
+    </task>
+    <option name="localTasksCounter" value="134" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -582,7 +583,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Устраненены ошибки вылета при загрузке xlsx файла с участниками." />
     <MESSAGE value="Частично написан код для sftp закачки файла с сервера и просмотра." />
     <MESSAGE value="Реализована загрузка личных документов участника на сервер, с установкой флага doc_exist и обновлением именований файлов" />
     <MESSAGE value="Реализована загрузка шаблонов документов по мероприятию" />
@@ -607,30 +607,26 @@
     <MESSAGE value="Исправлен вылет программы при удалении участника из Общего списка, если не выделен ни один." />
     <MESSAGE value="Доработан прогресс-бар при загрузке xls файла с участниками" />
     <MESSAGE value="Доработано скрытие комментарии в Accept_docs при отсутствии загруженного документа" />
-    <option name="LAST_COMMIT_MESSAGE" value="Доработано скрытие комментарии в Accept_docs при отсутствии загруженного документа" />
+    <MESSAGE value="Добавлено отображение статуса загрузки документов в Upload_docs." />
+    <option name="LAST_COMMIT_MESSAGE" value="Добавлено отображение статуса загрузки документов в Upload_docs." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>1790</line>
+          <line>1852</line>
           <option name="timeStamp" value="75" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>2430</line>
+          <line>2521</line>
           <option name="timeStamp" value="104" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>1522</line>
+          <line>1584</line>
           <option name="timeStamp" value="115" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/main.py</url>
-          <line>893</line>
-          <option name="timeStamp" value="131" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

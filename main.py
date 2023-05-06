@@ -1,7 +1,9 @@
 import copy
 import os
+import platform
 
 from PyQt5.QtWidgets import QApplication, QMainWindow, QDialog, QTreeWidgetItem, QHeaderView, QFileDialog, QMessageBox
+from PyQt5 import QtGui
 import time
 import datetime
 import pymysql
@@ -30,6 +32,7 @@ from Ui_Send_email import *
 from Ui_Load_progress import *
 from Ui_Upload_docs import *
 
+# pyinstaller -w -F -i "C:\Dir\ikona.ico" my_project.py
 
 class Login(Ui_Login):
     """Класс работы с окном Вход в программу"""
@@ -62,8 +65,7 @@ class Login(Ui_Login):
         login['password'] = self.lineEdit_password.text().strip()
         journal.log(f'Попытка входа с учетными данными: {login}')
         user_login = Mysql().select_one(login, table_name)
-        print(user_login)
-        # journal.log(f"Пользователь: {user_login['second_name']} {user_login['first_name']} вошел в систему")
+        journal.log(f"Пользователь: {user_login['second_name']} {user_login['first_name']} вошел в систему")
 
 
 class Event_shedule(Ui_Event_shedule):
@@ -71,6 +73,11 @@ class Event_shedule(Ui_Event_shedule):
     def __init__(self):
         window = QMainWindow()
         super().setupUi(window)
+        # icon = QtGui.QIcon()
+        # icon.addPixmap(QtGui.QPixmap("event_logo.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
+        # window.setWindowIcon(icon)
+
+        # self.setWindowIcon(QtGui.QIcon("event_logo.png"))
         self.username_login_role = access.get_username_and_role(user_login)
         self.label_username_login_role.setText(f'{self.username_login_role}')
         # Установка ResizeToContents для tree_event
@@ -121,7 +128,7 @@ class Event_shedule(Ui_Event_shedule):
         self.pushButton_create_inspector.clicked.connect(Create_inspector)
         self.pushButton_list_organization.clicked.connect(List_organization)
         self.pushButton_list_of_all_participants.clicked.connect(List_participants)
-        self.pushButton_export_xls.clicked.connect(self.show_message_in_progress)
+        self.pushButton_export_xls.clicked.connect(self.export_xls)
         self.pushButton_print.clicked.connect(self.show_message_in_progress)
         self.lineEdit_find_event.returnPressed.connect(self.find_by_name)
         self.pushButton_reset_find.clicked.connect(self.reset_filters)
@@ -192,12 +199,40 @@ class Event_shedule(Ui_Event_shedule):
         self.all_events = db.select_all("events")
         self.events_list()
 
+    def export_xls(self):
+        """Экспорт данных в xls"""
+        import pandas as pd
+        file = 'export_shedule.xlsx'
+        # Обращаемся к глобальным переменным (версия ОС и пользователь ОС)
+        global os_username, os_version
+        if os_version == 'Linux':
+            local_path = f"/home/{os_username}/Загрузки/{file}"
+            data_file = pd.DataFrame(self.all_events)
+            data_file.to_excel(local_path)
+
+        elif os_version == 'Windows':
+            local_path = f"C:\\Users\\{os_username}\\Downloads\\{file}"
+            data_file = pd.DataFrame(self.all_events)
+            data_file.to_excel(local_path)
+            # os.startfile(local_path)
+
+        self.show_message_file_exported(local_path)
+
     def show_message_in_progress(self):
-        """Показываем окно - Данная функция в разработке"""
+        """Показываем окно - Функция в разработке"""
         msg_box = QMessageBox()
         msg_box.setIcon(QMessageBox.Information)
         msg_box.setWindowTitle("Оповещение")
-        msg_box.setText(f"Данная функция в разработке")
+        msg_box.setText(f"Функция в разработке")
+        msg_box.setStandardButtons(QMessageBox.Ok)
+        msg_box.exec()
+
+    def show_message_file_exported(self, local_path):
+        """Показываем окно - Данные выгружены в файл"""
+        msg_box = QMessageBox()
+        msg_box.setIcon(QMessageBox.Information)
+        msg_box.setWindowTitle("Оповещение")
+        msg_box.setText(f"Данные выгружены в файл {local_path}")
         msg_box.setStandardButtons(QMessageBox.Ok)
         msg_box.exec()
 
@@ -283,6 +318,7 @@ class Event(Ui_Event):
     """Работа с окном Мероприятием"""
     def __init__(self, dct_event):
         self.dct_event = dct_event
+        print(dct_event)
         self.table_name = 'events'
         self.db = Mysql()
 
@@ -294,7 +330,7 @@ class Event(Ui_Event):
         self.adjust_tree()
         self.output_form()
         self.participants_event_list = self.get_participants()
-        print(f"Участники в списке мероприятия {dct_event['event_name']}: {self.participants_event_list}")
+        journal.log(f"Участники в списке мероприятия {dct_event['event_name']}: {self.participants_event_list}")
         self.set_list_participants_events()
         self.clicked_connect(dialog)
         dialog.exec()
@@ -352,7 +388,27 @@ class Event(Ui_Event):
         self.tree_event_participants_list.itemDoubleClicked.connect(self.edit_participant)
         self.pushButton_email.clicked.connect(lambda: Send_email(self.participants_event_list, self.dct_event))
         self.pushButton_one_email.clicked.connect(self.send_one_email)
-        self.pushButton_download_xls.clicked.connect(self.show_message_in_progress)
+        self.pushButton_download_xls.clicked.connect(self.export_xls)
+
+    def export_xls(self):
+        """Экспорт данных в xls"""
+        import pandas as pd
+
+        file = f"export_{self.dct_event['event_name']}.xlsx"
+        # Обращаемся к глобальным переменным (версия ОС и пользователь ОС)
+        global os_username, os_version
+        if os_version == 'Linux':
+            local_path = f"/home/{os_username}/Загрузки/{file}"
+            data_file = pd.DataFrame(self.participants_event_list)
+            data_file.to_excel(local_path)
+
+        elif os_version == 'Windows':
+            local_path = f"C:\\Users\\{os_username}\\Downloads\\{file}"
+            data_file = pd.DataFrame(self.participants_event_list)
+            data_file.to_excel(local_path)
+            # os.startfile(local_path)
+
+        self.show_message_file_exported(local_path)
 
     def send_one_email(self):
         """Отправка письма одному выделенному участнику"""
@@ -458,12 +514,12 @@ class Event(Ui_Event):
         msg_box.setStandardButtons(QMessageBox.Ok)
         msg_box.exec()
 
-    def show_message_in_progress(self):
-        """Показываем окно - Данная функция в разработке"""
+    def show_message_file_exported(self, local_path):
+        """Показываем окно - Данные выгружены в файл"""
         msg_box = QMessageBox()
         msg_box.setIcon(QMessageBox.Information)
         msg_box.setWindowTitle("Оповещение")
-        msg_box.setText(f"Данная функция в разработке")
+        msg_box.setText(f"Данные выгружены в файл {local_path}")
         msg_box.setStandardButtons(QMessageBox.Ok)
         msg_box.exec()
 
@@ -888,13 +944,11 @@ class Analisis_list(Ui_Analisis_docs):
             dct = {}
             table_name = 'participants'
             item = self.treeWidget_analysis.currentItem()
-
             # Упаковываем в список статусы документов для передачи далее в окно отображения документов (Upload_docs)
             status_lst = []
             for status in range(3, 15):
                 status_lst.append(item.text(status))
             print(status_lst)
-
             dct['id'] = item.text(0)
             participant = self.db.select_one(dct, table_name)
             Accept_docs(participant, self.dct_event, status_lst)
@@ -1182,15 +1236,20 @@ class Accept_docs(Ui_Accept_docs):
         profile = participant_data['profile_path']
         file = participant_data[doc_name]
         remote_path = f"{profile}/{file}"
-        linux_username = os.getlogin()
-        local_path = f"/home/{linux_username}/Загрузки/{file}"
-        self.get_document_by_sftp(remote_path, local_path)
+        # Обращаемся к глобальным переменным (версия ОС и пользователь ОС)
+        global os_username, os_version
 
-        # # Открытие изображения для windows
-        # os.startfile(local_path)
+        if os_version == 'Linux':
+            local_path = f"/home/{os_username}/Загрузки/{file}"
+            self.get_document_by_sftp(remote_path, local_path)
+            import webbrowser  # open file in Linux
+            webbrowser.open(local_path)
 
-        import webbrowser  # open file in Linux
-        webbrowser.open(local_path)
+        elif os_version == 'Windows':
+            local_path = f"C:\\Users\\{os_username}\\Downloads\\{file}"
+            self.get_document_by_sftp(remote_path, local_path)
+            os.startfile(local_path)
+
         # Помещаем в список скачанные на локальную машину файлы для последующего их удаления
         self.list_for_file_remove.append(local_path)
 
@@ -1200,15 +1259,18 @@ class Accept_docs(Ui_Accept_docs):
         profile = participant_event_data['path']
         file = participant_event_data[doc_name]
         remote_path = f"{profile}/{file}"
-        linux_username = os.getlogin()
-        local_path = f"/home/{linux_username}/Загрузки/{file}"
-        self.get_document_by_sftp(remote_path, local_path)
+        # Обращаемся к глобальным переменным (версия ОС и пользователь ОС)
+        global os_username, os_version
+        if os_version == 'Linux':
+            local_path = f"/home/{os_username}/Загрузки/{file}"
+            self.get_document_by_sftp(remote_path, local_path)
+            import webbrowser  # open file Linux
+            webbrowser.open(local_path)
+        elif os_version == 'Windows':
+            local_path = f"C:\\Users\\{os_username}\\Downloads\\{file}"
+            self.get_document_by_sftp(remote_path, local_path)
+            os.startfile(local_path) # open file Windows
 
-        # # Открытие изображения для windows
-        # os.startfile(local_path)
-
-        import webbrowser  # open file in Linux
-        webbrowser.open(local_path)
         # Помещаем в список скачанные на локальную машину файлы для последующего их удаления
         self.list_for_file_remove.append(local_path)
 
@@ -2173,7 +2235,7 @@ class List_participants(Ui_List_participants):
         # Инициализация функции вывода списка всех участников
         table_name = 'participants'
         participants = self.db.select_all(table_name)
-        # print(participants)
+        self.participants = participants
         self.output_form(participants)
         self.clicked_connect()
         dialog.exec()
@@ -2194,6 +2256,35 @@ class List_participants(Ui_List_participants):
         self.pushButton_delete_participant.clicked.connect(self.delete_participant)
         self.pushButton_find.clicked.connect(self.find_participant)
         self.pushButton_reset_search.clicked.connect(self.reset_search)
+        self.pushButton_export_xls.clicked.connect(self.export_xls)
+
+    def export_xls(self):
+        """Экспорт данных в xls"""
+        import pandas as pd
+        file = 'export_Всех_Участников.xlsx'
+        # Обращаемся к глобальным переменным (версия ОС и пользователь ОС)
+        global os_username, os_version
+        if os_version == 'Linux':
+            local_path = f"/home/{os_username}/Загрузки/{file}"
+            data_file = pd.DataFrame(self.participants)
+            data_file.to_excel(local_path)
+
+        elif os_version == 'Windows':
+            local_path = f"C:\\Users\\{os_username}\\Downloads\\{file}"
+            data_file = pd.DataFrame(self.participants)
+            data_file.to_excel(local_path)
+            # os.startfile(local_path)
+
+        self.show_message_file_exported(local_path)
+
+    def show_message_file_exported(self, local_path):
+        """Показываем окно - Данные выгружены в файл"""
+        msg_box = QMessageBox()
+        msg_box.setIcon(QMessageBox.Information)
+        msg_box.setWindowTitle("Оповещение")
+        msg_box.setText(f"Завершена выгрузка в файл: '{local_path}'")
+        msg_box.setStandardButtons(QMessageBox.Ok)
+        msg_box.exec()
 
     def edit_participant(self):
         """Открытие окна редактирования пользователя + получение данных по выбранному в QTreeWidget пользователю в виде списка"""
@@ -2386,7 +2477,7 @@ class Upload_docs(Ui_Upload_docs):
         self.pushButton_ok.clicked.connect(lambda: self.press_ok(dialog))
 
     def set_docs_status_view(self, status_lst):
-        """Отображение статуса документа (Загружен, Принят, Отклонен) переменная переданная из Analisys_docs"""
+        """Установка начальных статусов документов (Загружен, Принят, Отклонен). Список из Analisys_docs"""
         # Личные документы участника
         self.label_passport_upload.setText(status_lst[0])
         self.label_registration_upload.setText(status_lst[1])
@@ -2553,6 +2644,8 @@ class Upload_docs(Ui_Upload_docs):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
+    os_version = platform.system()  # Узнаем под какой ОС запущено('Linux', 'Windows')
+    os_username = os.getlogin() # Берем имя пользователя ОС
     journal = Journal()
     journal.start_log()
     user_login = {}

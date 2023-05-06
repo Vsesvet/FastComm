@@ -2,6 +2,7 @@
 """"////////------IMPORT LIBRARIES-------////////"""
 """//////////////////////////////////////////////"""
 import os
+import platform
 from datetime import datetime
 
 
@@ -15,12 +16,16 @@ class Journal:
 
     def log(self, info):
         """Логирование событий"""
-        # Получаем текущее время из datetime
-        dt_now = self.time_now()
-
         self.info = info
-        self.path_dir_journal = r'/home/vsesvet/Event'
-        self.path_journal_log = r'/home/vsesvet/Event/journal.log'
+        dt_now = self.time_now()
+        os_version = platform.system()  # Определяем версию ОС ('Linux', 'Windows')
+        username = os.getlogin() # Получаем имя пользователя системы
+        if os_version == 'Linux':
+            self.path_dir_journal = f'/home/{username}/Event'
+            self.path_journal_log = f'/home/{username}/Event/journal.log'
+        elif os_version == 'Windows':
+            self.path_dir_journal = r'/Event/log'
+            self.path_journal_log = r'/Event/log/journal.log'
 
         # Стандартная запись лога события
         if os.path.isfile(self.path_journal_log):
