@@ -4,11 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Доработан прогресс-бар при загрузке xls файла с участниками">
+    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Доработано скрытие комментарии в Accept_docs при отсутствии загруженного документа">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Class_Access.py" beforeDir="false" afterPath="$PROJECT_DIR$/Class_Access.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ui_Event_shedule.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_Event_shedule.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ui_designer/Ui_Event_shedule.ui" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_designer/Ui_Event_shedule.ui" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -215,13 +212,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1676999725137</updated>
-    </task>
-    <task id="LOCAL-00083" summary="Реализовано удаление участника из списка окна Мероприятие">
-      <created>1679868537498</created>
-      <option name="number" value="00083" />
-      <option name="presentableId" value="LOCAL-00083" />
-      <option name="project" value="LOCAL" />
-      <updated>1679868537499</updated>
     </task>
     <task id="LOCAL-00084" summary="Поправлены на словарь функции работы со списком Организаций">
       <created>1679948435543</created>
@@ -559,7 +549,14 @@
       <option name="project" value="LOCAL" />
       <updated>1683051220211</updated>
     </task>
-    <option name="localTasksCounter" value="132" />
+    <task id="LOCAL-00132" summary="Доработано скрытие комментарии в Accept_docs при отсутствии загруженного документа">
+      <created>1683394875205</created>
+      <option name="number" value="00132" />
+      <option name="presentableId" value="LOCAL-00132" />
+      <option name="project" value="LOCAL" />
+      <updated>1683394875206</updated>
+    </task>
+    <option name="localTasksCounter" value="133" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -585,7 +582,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Устранение ошибок: 1. Вылет при сохранении первого Мероприятия (self.db на db)&#10;2. Не обновлялся список участников после загрузки xls." />
     <MESSAGE value="Устраненены ошибки вылета при загрузке xlsx файла с участниками." />
     <MESSAGE value="Частично написан код для sftp закачки файла с сервера и просмотра." />
     <MESSAGE value="Реализована загрузка личных документов участника на сервер, с установкой флага doc_exist и обновлением именований файлов" />
@@ -610,30 +606,31 @@
     <MESSAGE value="Реализован чек-бокс pariticpant['disabled']" />
     <MESSAGE value="Исправлен вылет программы при удалении участника из Общего списка, если не выделен ни один." />
     <MESSAGE value="Доработан прогресс-бар при загрузке xls файла с участниками" />
-    <option name="LAST_COMMIT_MESSAGE" value="Доработан прогресс-бар при загрузке xls файла с участниками" />
+    <MESSAGE value="Доработано скрытие комментарии в Accept_docs при отсутствии загруженного документа" />
+    <option name="LAST_COMMIT_MESSAGE" value="Доработано скрытие комментарии в Accept_docs при отсутствии загруженного документа" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>1783</line>
+          <line>1790</line>
           <option name="timeStamp" value="75" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>2406</line>
+          <line>2430</line>
           <option name="timeStamp" value="104" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>1515</line>
+          <line>1522</line>
           <option name="timeStamp" value="115" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>1116</line>
-          <option name="timeStamp" value="123" />
+          <line>893</line>
+          <option name="timeStamp" value="131" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

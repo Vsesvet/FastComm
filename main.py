@@ -888,9 +888,16 @@ class Analisis_list(Ui_Analisis_docs):
             dct = {}
             table_name = 'participants'
             item = self.treeWidget_analysis.currentItem()
+
+            # Упаковываем в список статусы документов для передачи далее в окно отображения документов (Upload_docs)
+            status_lst = []
+            for status in range(3, 15):
+                status_lst.append(item.text(status))
+            print(status_lst)
+
             dct['id'] = item.text(0)
             participant = self.db.select_one(dct, table_name)
-            Accept_docs(participant, self.dct_event)
+            Accept_docs(participant, self.dct_event, status_lst)
         except Exception as ex:
 
             print("Не выделен ни один объект в списке Analisis_list")
@@ -1058,7 +1065,7 @@ class Analisis_list(Ui_Analisis_docs):
 
 class Accept_docs(Ui_Accept_docs):
     """Окно Принятия или отклонения документов"""
-    def __init__(self, participant, event):
+    def __init__(self, participant, event, status_lst):
         username_login_role = access.get_username_and_role(user_login)
         dialog = QDialog()
         super().setupUi(dialog)
@@ -1073,7 +1080,7 @@ class Accept_docs(Ui_Accept_docs):
         self.label_username_login_role.setText(f'{username_login_role}')
         participant_data, participant_event_data = self.adjust_view()
         self.participant_event_data['id'] = participant_event_data['id']
-        self.clicked_connect(dialog, participant_data, participant_event_data)
+        self.clicked_connect(dialog, participant_data, participant_event_data, status_lst)
         dialog.exec()
 
     def adjust_view(self):
@@ -1224,7 +1231,7 @@ class Accept_docs(Ui_Accept_docs):
         for local_path in self.list_for_file_remove:
             os.remove(local_path)
 
-    def clicked_connect(self, dialog, p_data, pe_data):
+    def clicked_connect(self, dialog, p_data, pe_data, status_lst):
         """Обработка нажатий на кнопки в окне Принятия или отклонения документов"""
         # Кнопки основных действий
         self.pushButton_Ok.clicked.connect(self.update_flags_participant_to_db)
@@ -1233,7 +1240,7 @@ class Accept_docs(Ui_Accept_docs):
         self.pushButton_Cancel.clicked.connect(self.remove_download_files)
         self.pushButton_Cancel.clicked.connect(dialog.close)
         self.pushButton_upload_docs.clicked.connect(dialog.close)
-        self.pushButton_upload_docs.clicked.connect(lambda: Upload_docs(self.participant_data, self.participant_event_data))
+        self.pushButton_upload_docs.clicked.connect(lambda: Upload_docs(self.participant_data, self.participant_event_data, status_lst))
 
         # Кнопки открытия личных документов для просмотра
         self.pushButton_open_passport.clicked.connect(lambda: self.view_participant_data_document(p_data, 'passport'))
@@ -2328,7 +2335,7 @@ class List_participants(Ui_List_participants):
 
 class Upload_docs(Ui_Upload_docs):
     """Класс загрузки выбранных документов на сервер по sftp"""
-    def __init__(self, participant_data, participant_event_data):
+    def __init__(self, participant_data, participant_event_data, status_lst):
         username_login_role = access.get_username_and_role(user_login)
         dialog = QDialog()
         super().setupUi(dialog)
@@ -2342,8 +2349,8 @@ class Upload_docs(Ui_Upload_docs):
         self.label_participant_full_name.setText(f"{self.participant_data['full_name']}")
         # Словарь для хранения путей всех выбранных пользователем документов для загрузки
         self.dict_local_path_all_docs = {}
+        self.set_docs_status_view(status_lst)
         self.clicked_connect(dialog)
-
         dialog.exec()
 
     def clicked_connect(self, dialog):
@@ -2377,6 +2384,23 @@ class Upload_docs(Ui_Upload_docs):
             lambda: self.select_file(self.label_report_upload, 'report'))
 
         self.pushButton_ok.clicked.connect(lambda: self.press_ok(dialog))
+
+    def set_docs_status_view(self, status_lst):
+        """Отображение статуса документа (Загружен, Принят, Отклонен) переменная переданная из Analisys_docs"""
+        # Личные документы участника
+        self.label_passport_upload.setText(status_lst[0])
+        self.label_registration_upload.setText(status_lst[1])
+        self.label_inn_upload.setText(status_lst[2])
+        self.label_snils_upload.setText(status_lst[3])
+        self.label_diploma_upload.setText(status_lst[4])
+        self.label_sertificate_upload.setText(status_lst[5])
+        self.label_details_upload.setText(status_lst[6])
+        # Документы участника по мероприятию
+        self.label_agreement_upload.setText(status_lst[7])
+        self.label_survey_upload.setText(status_lst[8])
+        self.label_contract_upload.setText(status_lst[9])
+        self.label_act_upload.setText(status_lst[10])
+        self.label_report_upload.setText(status_lst[11])
 
     def select_file(self, label, docs_name):
         """Функция выбора файла из окна проводника и присвоение словарю локальных путей откуда будут копироваться файлы"""
