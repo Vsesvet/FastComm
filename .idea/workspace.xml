@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Добавлено отображение статуса загрузки документов в Upload_docs.">
+    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Реализована функция выгрузки в XLS в зависимости от версии ОС и пользователя.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Class_Journal.py" beforeDir="false" afterPath="$PROJECT_DIR$/Class_Journal.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -213,13 +212,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1676999725137</updated>
-    </task>
-    <task id="LOCAL-00085" summary="Добавлены окна сообщения при добавлении/удалении участника из Мероприятия.">
-      <created>1680063084469</created>
-      <option name="number" value="00085" />
-      <option name="presentableId" value="LOCAL-00085" />
-      <option name="project" value="LOCAL" />
-      <updated>1680063084470</updated>
     </task>
     <task id="LOCAL-00086" summary="Реализовано добавление строки с именами файлов в таблицу participants_event_data при добавлении участника в Мероприятие.">
       <created>1680209648732</created>
@@ -557,7 +549,14 @@
       <option name="project" value="LOCAL" />
       <updated>1683397893776</updated>
     </task>
-    <option name="localTasksCounter" value="134" />
+    <task id="LOCAL-00134" summary="Реализована функция выгрузки в XLS в зависимости от версии ОС и пользователя.">
+      <created>1683413706562</created>
+      <option name="number" value="00134" />
+      <option name="presentableId" value="LOCAL-00134" />
+      <option name="project" value="LOCAL" />
+      <updated>1683413706562</updated>
+    </task>
+    <option name="localTasksCounter" value="135" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -583,7 +582,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Частично написан код для sftp закачки файла с сервера и просмотра." />
     <MESSAGE value="Реализована загрузка личных документов участника на сервер, с установкой флага doc_exist и обновлением именований файлов" />
     <MESSAGE value="Реализована загрузка шаблонов документов по мероприятию" />
     <MESSAGE value="Исправление: добавлен упущенный шаблон для мероприятия - Отчет" />
@@ -608,7 +606,8 @@
     <MESSAGE value="Доработан прогресс-бар при загрузке xls файла с участниками" />
     <MESSAGE value="Доработано скрытие комментарии в Accept_docs при отсутствии загруженного документа" />
     <MESSAGE value="Добавлено отображение статуса загрузки документов в Upload_docs." />
-    <option name="LAST_COMMIT_MESSAGE" value="Добавлено отображение статуса загрузки документов в Upload_docs." />
+    <MESSAGE value="Реализована функция выгрузки в XLS в зависимости от версии ОС и пользователя." />
+    <option name="LAST_COMMIT_MESSAGE" value="Реализована функция выгрузки в XLS в зависимости от версии ОС и пользователя." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
