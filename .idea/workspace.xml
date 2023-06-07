@@ -560,7 +560,21 @@
       <option name="project" value="LOCAL" />
       <updated>1683051140974</updated>
     </task>
-    <option name="localTasksCounter" value="131" />
+    <task id="LOCAL-00131" summary="Добавлен статус В работе.&#10;Изменен период event_DataTime_start (end)">
+      <created>1686145734817</created>
+      <option name="number" value="00131" />
+      <option name="presentableId" value="LOCAL-00131" />
+      <option name="project" value="LOCAL" />
+      <updated>1686145734819</updated>
+    </task>
+    <task id="LOCAL-00132" summary="Добавлено автоопределение версии под которой запущена программа. (Linux /Windows)">
+      <created>1686145860071</created>
+      <option name="number" value="00132" />
+      <option name="presentableId" value="LOCAL-00132" />
+      <option name="project" value="LOCAL" />
+      <updated>1686145860071</updated>
+    </task>
+    <option name="localTasksCounter" value="133" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -586,8 +600,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Устранение ошибок: 1. Вылет при сохранении первого Мероприятия (self.db на db)&#10;2. Не обновлялся список участников после загрузки xls." />
-    <MESSAGE value="Устраненены ошибки вылета при загрузке xlsx файла с участниками." />
     <MESSAGE value="Частично написан код для sftp закачки файла с сервера и просмотра." />
     <MESSAGE value="Реализована загрузка личных документов участника на сервер, с установкой флага doc_exist и обновлением именований файлов" />
     <MESSAGE value="Реализована загрузка шаблонов документов по мероприятию" />
@@ -611,7 +623,9 @@
     <MESSAGE value="Реализован чек-бокс pariticpant['disabled']" />
     <MESSAGE value="Исправлен вылет программы при удалении участника из Общего списка, если не выделен ни один." />
     <MESSAGE value="Доработан прогресс-бар при загрузке xls файла с участниками" />
-    <option name="LAST_COMMIT_MESSAGE" value="Доработан прогресс-бар при загрузке xls файла с участниками" />
+    <MESSAGE value="Добавлен статус В работе.&#10;Изменен период event_DataTime_start (end)" />
+    <MESSAGE value="Добавлено автоопределение версии под которой запущена программа. (Linux /Windows)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Добавлено автоопределение версии под которой запущена программа. (Linux /Windows)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
