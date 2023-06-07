@@ -108,7 +108,7 @@ class Event_shedule(Ui_Event_shedule):
 
     def adjust_tree(self, tree):
         """Установка наименований для колонок Tree"""
-        columns_names = ['id', '№_', 'Мероприятие', 'Дата и время', 'Страна', 'Город', 'Участников', 'Организация', 'Статус']
+        columns_names = ['id', '№_', 'Мероприятие', 'Начало', 'Окончание', 'Страна', 'Город', 'Участников', 'Организация', 'Статус']
         for i in columns_names:
             tree.headerItem().setText(columns_names.index(i), i)
         self.tree_event_shedule.setColumnHidden(0, True)
@@ -139,7 +139,6 @@ class Event_shedule(Ui_Event_shedule):
 
     def find_by_name(self):
         """Поиск Мероприятия по части введенного в поиск имени"""
-
         db = Mysql()
         find_by_name = self.lineEdit_find_event.text()
         dct = self.check_find_request(find_by_name)
@@ -258,7 +257,7 @@ class Event_shedule(Ui_Event_shedule):
         try:
             dct = {}
             item = self.tree_event_shedule.currentItem()
-            # print(f'Выбрана строка для открытия {item}')
+            print(f'Выбрана строка для открытия {item}')
             dct['id'] = item.text(0)
             dct_event = db.select_one(dct, self.table_name)
             Event(dct_event)
@@ -273,7 +272,8 @@ class Event_shedule(Ui_Event_shedule):
             event_string.append(str(dct['id']))
             event_string.append(str(number))
             event_string.append(dct['event_name'])
-            event_string.append(dct['date_time'].strftime('%d-%m-%Y %H:%M'))
+            event_string.append(dct['date_time_start'].strftime('%d-%m-%Y %H:%M'))
+            event_string.append(dct['date_time_end'].strftime('%d-%m-%Y %H:%M'))
             event_string.append(dct['country'])
             event_string.append(dct['city'])
             event_string.append(str(dct['count']))
@@ -317,6 +317,7 @@ class Event_shedule(Ui_Event_shedule):
 class Event(Ui_Event):
     """Работа с окном Мероприятием"""
     def __init__(self, dct_event):
+        journal.log(f"Открытие окна мероприятия '{dct_event['event_name']}'")
         self.dct_event = dct_event
         print(dct_event)
         self.table_name = 'events'
@@ -330,7 +331,7 @@ class Event(Ui_Event):
         self.adjust_tree()
         self.output_form()
         self.participants_event_list = self.get_participants()
-        journal.log(f"Участники в списке мероприятия {dct_event['event_name']}: {self.participants_event_list}")
+        # journal.log(f"Участники в списке мероприятия {dct_event['event_name']}: {self.participants_event_list}")
         self.set_list_participants_events()
         self.clicked_connect(dialog)
         dialog.exec()
@@ -373,6 +374,7 @@ class Event(Ui_Event):
     def clicked_connect(self, dialog):
         """Обработка нажатий кнопок"""
         self.pushButton_ok.clicked.connect(self.update_event)
+        self.pushButton_ok.clicked.connect(self.log_close_event_window)
         self.pushButton_ok.clicked.connect(dialog.close)
         self.pushButton_cancel.clicked.connect(dialog.close)
         self.pushButton_del_event_participant.clicked.connect(self.delete_participant_from_event)
@@ -430,7 +432,8 @@ class Event(Ui_Event):
         self.lineEdit_event_theme.setText(self.dct_event['event_theme'])
         self.organization = self.set_organization()
         self.lineEdit_selected_organization.setText(self.organization['organization_name'])
-        self.event_dateTime.setDateTime(self.dct_event['date_time'])
+        self.event_DateTime_start.setDateTime(self.dct_event['date_time_start'])
+        self.event_DateTime_end.setDateTime(self.dct_event['date_time_end'])
         self.lineEdit_event_country.setText(self.dct_event['country'])
         self.lineEdit_event_city.setText(self.dct_event['city'])
         self.lineEdit_type_event.setText(self.dct_event['type'])
@@ -560,7 +563,8 @@ class Event(Ui_Event):
         """Обновление текстовых полей"""
         self.dct_event['event_name'] = self.lineEdit_event_name.text()
         self.dct_event['event_theme'] = self.lineEdit_event_theme.text()
-        self.dct_event['date_time'] = self.event_dateTime.dateTime().toString("yyyy-MM-dd hh:mm")
+        self.dct_event['date_time_start'] = self.event_DateTime_start.dateTime().toString("yyyy-MM-dd hh:mm")
+        self.dct_event['date_time_end'] = self.event_DateTime_end.dateTime().toString("yyyy-MM-dd hh:mm")
         self.dct_event['country'] = self.lineEdit_event_country.text()
         self.dct_event['city'] = self.lineEdit_event_city.text()
         self.dct_event['type'] = self.lineEdit_type_event.text()
@@ -600,6 +604,10 @@ class Event(Ui_Event):
         # ui.comboBox.currentText() - получение значения из QComboBox. Возвращает строку
         # combo_box.currentIndex() - возвращает целое число, т.е. Индекс выбранного элемента
         # combo_box.setCurrentIndex(индекс) - он установит элемент с заданным индексом
+
+    def log_close_event_window(self):
+        """Запись лога о закрытии окна Мероприятия"""
+        journal.log(f"Закрытие окна мероприятия '{self.dct_event['event_name']}'")
 
 
 class Send_email(Ui_Send_email):
@@ -1056,7 +1064,7 @@ class Analisis_list(Ui_Analisis_docs):
     def select_file(self, docs_name):
         """Функция выбора файла из окна проводника. Возвращает локальный путь хранения файла"""
         self.file_name = QFileDialog.getOpenFileName(
-            None, 'Выберите файл', '/home', "Files (*.doc, *.docx, *.xls, *.xlsx, *.pdf)")
+            None, 'Выберите файл', '/home', "Files (*.*)")
 
         # Сюда надо прописать обращение к БД, считывание полей exist, и установка в label 'Существует' если exist = '1'
 
@@ -1450,7 +1458,8 @@ class Create_Event(Ui_Create_event):
         self.dct_event = {}
         self.dct_event['event_name'] = self.lineEdit_event_name.text()
         self.dct_event['event_theme'] = self.lineEdit_event_theme.text()
-        self.dct_event['date_time'] = self.event_dateTime.dateTime().toString("yyyy-MM-dd hh:mm")
+        self.dct_event['date_time_start'] = self.event_DateTime_start.dateTime().toString("yyyy-MM-dd hh:mm")
+        self.dct_event['date_time_end'] = self.event_DateTime_end.dateTime().toString("yyyy-MM-dd hh:mm")
         self.dct_event['country'] = self.lineEdit_event_country.text()
         self.dct_event['city'] = self.lineEdit_event_city.text()
         self.dct_event['type'] = self.lineEdit_type_event.text()
@@ -1774,6 +1783,7 @@ class Load_xls_participants(Ui_Load_progress):
         phone_number = str(phone_number)
         phone_number = phone_number.replace('+7', '8').strip()
         if phone_number.isdigit():
+            phone_number.replace(' ', '')
             return phone_number
         else:
             symbols = ["-", "(", ")", " "]
@@ -2304,7 +2314,7 @@ class List_participants(Ui_List_participants):
         try:
             db = Mysql()
         except Exception as ex:
-            journal.log("Error update list participants")
+            journal.log("Error update List participants. Code 05")
 
         table_name = "participants"
         participants = db.select_all(table_name)

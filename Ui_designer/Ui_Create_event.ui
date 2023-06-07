@@ -42,13 +42,6 @@
      </property>
     </widget>
    </item>
-   <item row="8" column="0">
-    <widget class="QLineEdit" name="lineEdit_type_event">
-     <property name="placeholderText">
-      <string>НИР</string>
-     </property>
-    </widget>
-   </item>
    <item row="3" column="0" colspan="4">
     <widget class="QLineEdit" name="lineEdit_event_name">
      <property name="placeholderText">
@@ -71,22 +64,22 @@
     </widget>
    </item>
    <item row="6" column="0">
-    <widget class="QDateTimeEdit" name="event_dateTime">
+    <widget class="QDateTimeEdit" name="event_DateTime_start">
      <property name="dateTime">
       <datetime>
        <hour>9</hour>
-       <minute>30</minute>
+       <minute>0</minute>
        <second>0</second>
        <year>2023</year>
-       <month>3</month>
-       <day>20</day>
+       <month>6</month>
+       <day>1</day>
       </datetime>
      </property>
      <property name="date">
       <date>
        <year>2023</year>
-       <month>3</month>
-       <day>20</day>
+       <month>6</month>
+       <day>1</day>
       </date>
      </property>
     </widget>
@@ -145,13 +138,6 @@
      </property>
     </widget>
    </item>
-   <item row="8" column="3">
-    <widget class="QLineEdit" name="lineEdit_event_city">
-     <property name="placeholderText">
-      <string>Город...</string>
-     </property>
-    </widget>
-   </item>
    <item row="10" column="0" colspan="4">
     <widget class="QLineEdit" name="lineEdit_event_comment">
      <property name="placeholderText">
@@ -172,13 +158,52 @@
      </property>
     </spacer>
    </item>
+   <item row="7" column="0">
+    <widget class="QDateTimeEdit" name="event_DateTime_end">
+     <property name="dateTime">
+      <datetime>
+       <hour>14</hour>
+       <minute>0</minute>
+       <second>0</second>
+       <year>2023</year>
+       <month>6</month>
+       <day>1</day>
+      </datetime>
+     </property>
+     <property name="date">
+      <date>
+       <year>2023</year>
+       <month>6</month>
+       <day>1</day>
+      </date>
+     </property>
+    </widget>
+   </item>
+   <item row="7" column="3">
+    <widget class="QLineEdit" name="lineEdit_event_city">
+     <property name="placeholderText">
+      <string>Город...</string>
+     </property>
+    </widget>
+   </item>
+   <item row="7" column="2">
+    <widget class="QLineEdit" name="lineEdit_type_event">
+     <property name="text">
+      <string>НИР</string>
+     </property>
+     <property name="placeholderText">
+      <string>Тип мероприятия...</string>
+     </property>
+    </widget>
+   </item>
   </layout>
  </widget>
  <tabstops>
   <tabstop>lineEdit_event_name</tabstop>
   <tabstop>lineEdit_event_theme</tabstop>
   <tabstop>pushButton_select_organization</tabstop>
-  <tabstop>event_dateTime</tabstop>
+  <tabstop>event_DateTime_start</tabstop>
+  <tabstop>event_DateTime_end</tabstop>
   <tabstop>lineEdit_type_event</tabstop>
   <tabstop>lineEdit_event_country</tabstop>
   <tabstop>lineEdit_event_city</tabstop>
