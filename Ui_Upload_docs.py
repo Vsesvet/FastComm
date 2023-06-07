@@ -144,7 +144,7 @@ class Ui_Upload_docs(object):
 
     def retranslateUi(self, Upload_docs):
         _translate = QtCore.QCoreApplication.translate
-        Upload_docs.setWindowTitle(_translate("Upload_docs", "Event"))
+        Upload_docs.setWindowTitle(_translate("Upload_docs", "Fast Community"))
         self.label_passport_upload.setText(_translate("Upload_docs", "не указан"))
         self.pushButton_upload_snils.setText(_translate("Upload_docs", "СНИЛС"))
         self.label_contract_upload.setText(_translate("Upload_docs", "не указан"))

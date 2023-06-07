@@ -147,7 +147,7 @@ class Ui_Event_shedule(object):
 
     def retranslateUi(self, Event_shedule):
         _translate = QtCore.QCoreApplication.translate
-        Event_shedule.setWindowTitle(_translate("Event_shedule", "Event"))
+        Event_shedule.setWindowTitle(_translate("Event_shedule", "Fast Community"))
         self.pushButton_list_of_all_participants.setText(_translate("Event_shedule", "Список всех участников"))
         self.label_total_completed_events.setText(_translate("Event_shedule", "Всего проведено ___ мероприятия"))
         self.label_status_event.setText(_translate("Event_shedule", "  Статус мероприятия"))

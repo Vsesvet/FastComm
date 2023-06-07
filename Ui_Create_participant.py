@@ -99,7 +99,7 @@ class Ui_Create_participant(object):
 
     def retranslateUi(self, Create_participant):
         _translate = QtCore.QCoreApplication.translate
-        Create_participant.setWindowTitle(_translate("Create_participant", "Event"))
+        Create_participant.setWindowTitle(_translate("Create_participant", "Fast Community"))
         self.lineEdit_last_name.setPlaceholderText(_translate("Create_participant", "Отчество..."))
         self.lineEdit_city.setPlaceholderText(_translate("Create_participant", "Город..."))
         self.checkBox_disabled_participant.setText(_translate("Create_participant", "Отключить учетную запись"))

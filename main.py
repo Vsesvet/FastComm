@@ -32,13 +32,16 @@ from Ui_Send_email import *
 from Ui_Load_progress import *
 from Ui_Upload_docs import *
 
-# pyinstaller -w -F -i "C:\Dir\ikona.ico" my_project.py
+# pyinstaller -w -F -i "C:\Dir\event_logo.ico" main.pyw
 
 class Login(Ui_Login):
     """Класс работы с окном Вход в программу"""
     def __init__(self):
         dialog = QDialog()
         super().setupUi(dialog)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("event_logo.ico"), QtGui.QIcon.Selected, QtGui.QIcon.On)
+        dialog.setWindowIcon(icon)
         self.label_bad_password.setText('')
         self.label_user_not_found.setText('')
 
@@ -210,7 +213,7 @@ class Event_shedule(Ui_Event_shedule):
             data_file.to_excel(local_path)
 
         elif os_version == 'Windows':
-            local_path = f"C:\\Users\\{os_username}\\Downloads\\{file}"
+            local_path = f"C:/Users/{os_username}/Downloads/{file}"
             data_file = pd.DataFrame(self.all_events)
             data_file.to_excel(local_path)
             # os.startfile(local_path)
@@ -358,7 +361,7 @@ class Event(Ui_Event):
                 participants.append(dct)
             # print(participants)
             return participants
-        except Exeption as ex:
+        except Exception as ex:
             print(f"Ошибка!")
 
     def adjust_tree(self):
@@ -395,7 +398,6 @@ class Event(Ui_Event):
     def export_xls(self):
         """Экспорт данных в xls"""
         import pandas as pd
-
         file = f"export_{self.dct_event['event_name']}.xlsx"
         # Обращаемся к глобальным переменным (версия ОС и пользователь ОС)
         global os_username, os_version
@@ -405,7 +407,7 @@ class Event(Ui_Event):
             data_file.to_excel(local_path)
 
         elif os_version == 'Windows':
-            local_path = f"C:\\Users\\{os_username}\\Downloads\\{file}"
+            local_path = f"C:/Users/{os_username}/Downloads/{file}"
             data_file = pd.DataFrame(self.participants_event_list)
             data_file.to_excel(local_path)
             # os.startfile(local_path)
@@ -1254,7 +1256,7 @@ class Accept_docs(Ui_Accept_docs):
             webbrowser.open(local_path)
 
         elif os_version == 'Windows':
-            local_path = f"C:\\Users\\{os_username}\\Downloads\\{file}"
+            local_path = f"C:/Users/{os_username}/Downloads/{file}"
             self.get_document_by_sftp(remote_path, local_path)
             os.startfile(local_path)
 
@@ -1275,7 +1277,7 @@ class Accept_docs(Ui_Accept_docs):
             import webbrowser  # open file Linux
             webbrowser.open(local_path)
         elif os_version == 'Windows':
-            local_path = f"C:\\Users\\{os_username}\\Downloads\\{file}"
+            local_path = f"C:/Users/{os_username}/Downloads/{file}"
             self.get_document_by_sftp(remote_path, local_path)
             os.startfile(local_path) # open file Windows
 
@@ -2280,7 +2282,7 @@ class List_participants(Ui_List_participants):
             data_file.to_excel(local_path)
 
         elif os_version == 'Windows':
-            local_path = f"C:\\Users\\{os_username}\\Downloads\\{file}"
+            local_path = f"C:/Users/{os_username}/Downloads/{file}"
             data_file = pd.DataFrame(self.participants)
             data_file.to_excel(local_path)
             # os.startfile(local_path)

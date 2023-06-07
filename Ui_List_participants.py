@@ -94,7 +94,7 @@ class Ui_List_participants(object):
 
     def retranslateUi(self, List_participants):
         _translate = QtCore.QCoreApplication.translate
-        List_participants.setWindowTitle(_translate("List_participants", "Event"))
+        List_participants.setWindowTitle(_translate("List_participants", "Fast Community"))
         self.pushButton_delete_participant.setText(_translate("List_participants", "Удалить участника"))
         self.pushButton_create_participant.setText(_translate("List_participants", "Создать участника"))
         self.pushButton_export_xls.setText(_translate("List_participants", "Export xls"))

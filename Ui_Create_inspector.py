@@ -103,7 +103,7 @@ class Ui_Create_inspector(object):
 
     def retranslateUi(self, Create_inspector):
         _translate = QtCore.QCoreApplication.translate
-        Create_inspector.setWindowTitle(_translate("Create_inspector", "Event"))
+        Create_inspector.setWindowTitle(_translate("Create_inspector", "Fast Community"))
         self.label_create_inspector.setText(_translate("Create_inspector", "Создание нового инспектора"))
         self.lineEdit_second_name.setPlaceholderText(_translate("Create_inspector", "Фамилия..."))
         self.lineEdit_organization_name.setPlaceholderText(_translate("Create_inspector", "Организация..."))

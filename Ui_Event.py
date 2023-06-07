@@ -174,7 +174,7 @@ class Ui_Event(object):
 
     def retranslateUi(self, Event):
         _translate = QtCore.QCoreApplication.translate
-        Event.setWindowTitle(_translate("Event", "Event"))
+        Event.setWindowTitle(_translate("Event", "Fast Community"))
         self.pushButton_close_access.setText(_translate("Event", "Закрыть доступ для организации"))
         self.tree_event_participants_list.headerItem().setText(0, _translate("Event", "id"))
         self.tree_event_participants_list.headerItem().setText(7, _translate("Event", "e-mail"))

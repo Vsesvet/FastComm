@@ -122,7 +122,7 @@ class Mysql:
     def select_by_range(self, dct, table_name):
         """Выбор данных между диапазоном дат"""
         # SELECT * from event_db.events where date_time >= '2023-03-25' and date_time < '2023-05-10'
-        select_query = f"SELECT * FROM {table_name} WHERE date_time >= '{dct['start_date']}' AND date_time < '{dct['end_date']}'"
+        select_query = f"SELECT * FROM {table_name} WHERE date_time_start >= '{dct['start_date']}' AND date_time_start < '{dct['end_date']}'"
         with self.connection.cursor() as cursor:
             cursor.execute(select_query)
             find_dict = cursor.fetchall()

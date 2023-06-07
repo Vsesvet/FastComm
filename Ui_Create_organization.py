@@ -66,7 +66,7 @@ class Ui_Create_organization(object):
 
     def retranslateUi(self, Create_organization):
         _translate = QtCore.QCoreApplication.translate
-        Create_organization.setWindowTitle(_translate("Create_organization", "Event"))
+        Create_organization.setWindowTitle(_translate("Create_organization", "Fast Community"))
         self.label_username_login_role.setText(_translate("Create_organization", "username_login_role"))
         self.label_create_organization.setText(_translate("Create_organization", "Создание новой организации"))
         self.lineEdit_organization_inn.setPlaceholderText(_translate("Create_organization", "ИНН"))

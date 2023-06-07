@@ -4,15 +4,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Доработан прогресс-бар при загрузке xls файла с участниками">
+    <list default="true" id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="Реализована функция выгрузки в XLS в зависимости от версии ОС и пользователя.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Class_Journal.py" beforeDir="false" afterPath="$PROJECT_DIR$/Class_Journal.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Class_Mysql.py" beforeDir="false" afterPath="$PROJECT_DIR$/Class_Mysql.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ui_Accept_docs.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_Accept_docs.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ui_Add_participant.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_Add_participant.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ui_Analisis_list.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_Analisis_list.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ui_Choose_organization.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_Choose_organization.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Ui_Create_event.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_Create_event.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ui_Create_inspector.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_Create_inspector.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ui_Create_organization.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_Create_organization.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ui_Create_participant.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_Create_participant.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ui_Create_user.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_Create_user.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Ui_Event.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_Event.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Ui_Event_shedule.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_Event_shedule.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ui_designer/Ui_Create_event.ui" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_designer/Ui_Create_event.ui" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ui_designer/Ui_Event.ui" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_designer/Ui_Event.ui" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ui_List_organization.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_List_organization.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ui_List_participants.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_List_participants.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ui_Login.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_Login.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ui_Login_F.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ui_Send_email.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_Send_email.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ui_Upload_docs.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_Upload_docs.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -52,14 +63,14 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "/home/efremov/PycharmProjects/Event",
-    "settings.editor.selected.configurable": "project.propVCSSupport.ChangelistConflict"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/vsesvet/PycharmProjects/Event&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
@@ -72,7 +83,7 @@
     </key>
   </component>
   <component name="RunManager" selected="Python.main">
-    <configuration name="Class_Journal" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="Class_Access" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Logistics_project" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -84,7 +95,7 @@
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Class_Journal.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Class_Access.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -135,7 +146,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="Ui_Send_email" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="Ui_Event" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Logistics_project" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -147,7 +158,7 @@
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Ui_Send_email.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Ui_Event.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -201,14 +212,17 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.main" />
-        <item itemvalue="Python.Class_Journal" />
-        <item itemvalue="Python.Class_Mysql" />
-        <item itemvalue="Python.Ui_Send_email" />
+        <item itemvalue="Python.Ui_Event" />
+        <item itemvalue="Python.Class_Access" />
         <item itemvalue="Python.db_config" />
+        <item itemvalue="Python.Class_Mysql" />
       </list>
     </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SvnConfiguration">
+    <configuration>$USER_HOME$/.subversion</configuration>
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="4ab832d3-a82a-49a4-8468-2293b5288e24" name="Changes" comment="" />
@@ -216,34 +230,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1676999725137</updated>
-    </task>
-    <task id="LOCAL-00082" summary="косметические правки">
-      <created>1679801335800</created>
-      <option name="number" value="00082" />
-      <option name="presentableId" value="LOCAL-00082" />
-      <option name="project" value="LOCAL" />
-      <updated>1679801335800</updated>
-    </task>
-    <task id="LOCAL-00083" summary="Реализовано удаление участника из списка окна Мероприятие">
-      <created>1679868537498</created>
-      <option name="number" value="00083" />
-      <option name="presentableId" value="LOCAL-00083" />
-      <option name="project" value="LOCAL" />
-      <updated>1679868537499</updated>
-    </task>
-    <task id="LOCAL-00084" summary="Поправлены на словарь функции работы со списком Организаций">
-      <created>1679948435543</created>
-      <option name="number" value="00084" />
-      <option name="presentableId" value="LOCAL-00084" />
-      <option name="project" value="LOCAL" />
-      <updated>1679948435544</updated>
-    </task>
-    <task id="LOCAL-00085" summary="Добавлены окна сообщения при добавлении/удалении участника из Мероприятия.">
-      <created>1680063084469</created>
-      <option name="number" value="00085" />
-      <option name="presentableId" value="LOCAL-00085" />
-      <option name="project" value="LOCAL" />
-      <updated>1680063084470</updated>
     </task>
     <task id="LOCAL-00086" summary="Реализовано добавление строки с именами файлов в таблицу participants_event_data при добавлении участника в Мероприятие.">
       <created>1680209648732</created>
@@ -560,21 +546,35 @@
       <option name="project" value="LOCAL" />
       <updated>1683051140974</updated>
     </task>
-    <task id="LOCAL-00131" summary="Добавлен статус В работе.&#10;Изменен период event_DataTime_start (end)">
-      <created>1686145734817</created>
+    <task id="LOCAL-00131" summary="Доработан прогресс-бар при загрузке xls файла с участниками">
+      <created>1683051220211</created>
       <option name="number" value="00131" />
       <option name="presentableId" value="LOCAL-00131" />
       <option name="project" value="LOCAL" />
-      <updated>1686145734819</updated>
+      <updated>1683051220211</updated>
     </task>
-    <task id="LOCAL-00132" summary="Добавлено автоопределение версии под которой запущена программа. (Linux /Windows)">
-      <created>1686145860071</created>
+    <task id="LOCAL-00132" summary="Доработано скрытие комментарии в Accept_docs при отсутствии загруженного документа">
+      <created>1683394875205</created>
       <option name="number" value="00132" />
       <option name="presentableId" value="LOCAL-00132" />
       <option name="project" value="LOCAL" />
-      <updated>1686145860071</updated>
+      <updated>1683394875206</updated>
     </task>
-    <option name="localTasksCounter" value="133" />
+    <task id="LOCAL-00133" summary="Добавлено отображение статуса загрузки документов в Upload_docs.">
+      <created>1683397893776</created>
+      <option name="number" value="00133" />
+      <option name="presentableId" value="LOCAL-00133" />
+      <option name="project" value="LOCAL" />
+      <updated>1683397893776</updated>
+    </task>
+    <task id="LOCAL-00134" summary="Реализована функция выгрузки в XLS в зависимости от версии ОС и пользователя.">
+      <created>1683413706562</created>
+      <option name="number" value="00134" />
+      <option name="presentableId" value="LOCAL-00134" />
+      <option name="project" value="LOCAL" />
+      <updated>1683413706562</updated>
+    </task>
+    <option name="localTasksCounter" value="135" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -600,7 +600,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Частично написан код для sftp закачки файла с сервера и просмотра." />
     <MESSAGE value="Реализована загрузка личных документов участника на сервер, с установкой флага doc_exist и обновлением именований файлов" />
     <MESSAGE value="Реализована загрузка шаблонов документов по мероприятию" />
     <MESSAGE value="Исправление: добавлен упущенный шаблон для мероприятия - Отчет" />
@@ -623,22 +622,28 @@
     <MESSAGE value="Реализован чек-бокс pariticpant['disabled']" />
     <MESSAGE value="Исправлен вылет программы при удалении участника из Общего списка, если не выделен ни один." />
     <MESSAGE value="Доработан прогресс-бар при загрузке xls файла с участниками" />
-    <MESSAGE value="Добавлен статус В работе.&#10;Изменен период event_DataTime_start (end)" />
-    <MESSAGE value="Добавлено автоопределение версии под которой запущена программа. (Linux /Windows)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Добавлено автоопределение версии под которой запущена программа. (Linux /Windows)" />
+    <MESSAGE value="Доработано скрытие комментарии в Accept_docs при отсутствии загруженного документа" />
+    <MESSAGE value="Добавлено отображение статуса загрузки документов в Upload_docs." />
+    <MESSAGE value="Реализована функция выгрузки в XLS в зависимости от версии ОС и пользователя." />
+    <option name="LAST_COMMIT_MESSAGE" value="Реализована функция выгрузки в XLS в зависимости от версии ОС и пользователя." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>2415</line>
+          <line>1852</line>
+          <option name="timeStamp" value="75" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>2521</line>
           <option name="timeStamp" value="104" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>1035</line>
-          <option name="timeStamp" value="116" />
+          <line>1584</line>
+          <option name="timeStamp" value="115" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

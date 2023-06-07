@@ -67,7 +67,7 @@ class Ui_Send_email(object):
 
     def retranslateUi(self, Send_email):
         _translate = QtCore.QCoreApplication.translate
-        Send_email.setWindowTitle(_translate("Send_email", "Dialog"))
+        Send_email.setWindowTitle(_translate("Send_email", "Fast Community"))
         self.pushButton_cancel.setText(_translate("Send_email", "Отменить"))
         self.pushButton_send.setText(_translate("Send_email", "Отправить"))
         self.label_email_theme.setText(_translate("Send_email", "Тема письма"))

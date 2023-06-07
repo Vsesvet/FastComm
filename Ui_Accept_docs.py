@@ -290,7 +290,7 @@ class Ui_Accept_docs(object):
 
     def retranslateUi(self, Accept_docs):
         _translate = QtCore.QCoreApplication.translate
-        Accept_docs.setWindowTitle(_translate("Accept_docs", "Event"))
+        Accept_docs.setWindowTitle(_translate("Accept_docs", "Fast Community"))
         self.pushButton_open_registration.setText(_translate("Accept_docs", "Регистрация"))
         self.pushButton_open_act.setText(_translate("Accept_docs", "Акт"))
         self.checkBox_reject_act.setText(_translate("Accept_docs", "Отклонено"))

@@ -61,7 +61,7 @@ class Ui_List_organization(object):
 
     def retranslateUi(self, List_organization):
         _translate = QtCore.QCoreApplication.translate
-        List_organization.setWindowTitle(_translate("List_organization", "Event"))
+        List_organization.setWindowTitle(_translate("List_organization", "Fast Community"))
         self.pushButton_edit_organization.setText(_translate("List_organization", "Редактировать"))
         self.pushButton_add_organization.setText(_translate("List_organization", "Добавить"))
         self.pushButton_delete_organization.setText(_translate("List_organization", "Удалить"))

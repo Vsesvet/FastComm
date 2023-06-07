@@ -64,7 +64,7 @@ class Ui_Add_participant(object):
 
     def retranslateUi(self, Add_participant):
         _translate = QtCore.QCoreApplication.translate
-        Add_participant.setWindowTitle(_translate("Add_participant", "Event"))
+        Add_participant.setWindowTitle(_translate("Add_participant", "Fast Community"))
         self.label_add_participant_event.setText(_translate("Add_participant", "Добавить участника в мероприятие"))
         self.lineEdit_find_by_second_name.setPlaceholderText(_translate("Add_participant", "Фамилия..."))
         self.pushButton_find.setText(_translate("Add_participant", "Найти"))

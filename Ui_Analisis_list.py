@@ -101,7 +101,7 @@ class Ui_Analisis_docs(object):
 
     def retranslateUi(self, Analisis_docs):
         _translate = QtCore.QCoreApplication.translate
-        Analisis_docs.setWindowTitle(_translate("Analisis_docs", "Event"))
+        Analisis_docs.setWindowTitle(_translate("Analisis_docs", "Fast Community"))
         self.pushButton_template_report.setText(_translate("Analisis_docs", "Отчет"))
         self.pushButton_template_act.setText(_translate("Analisis_docs", "Акт"))
         self.pushButton_update_table.setText(_translate("Analisis_docs", "Обновить данные"))

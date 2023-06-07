@@ -100,7 +100,7 @@ class Ui_Create_event(object):
 
     def retranslateUi(self, Create_event):
         _translate = QtCore.QCoreApplication.translate
-        Create_event.setWindowTitle(_translate("Create_event", "Event"))
+        Create_event.setWindowTitle(_translate("Create_event", "Fast Community"))
         self.lineEdit_event_theme.setPlaceholderText(_translate("Create_event", "Тема мероприятия..."))
         self.lineEdit_event_name.setPlaceholderText(_translate("Create_event", "Наименование мероприятия..."))
         self.pushButton_select_organization.setText(_translate("Create_event", "Выбрать организацию"))

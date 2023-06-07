@@ -103,7 +103,7 @@ class Ui_Create_user(object):
 
     def retranslateUi(self, Create_user):
         _translate = QtCore.QCoreApplication.translate
-        Create_user.setWindowTitle(_translate("Create_user", "Event"))
+        Create_user.setWindowTitle(_translate("Create_user", "Fast Community"))
         self.checkBox_disabled_user.setText(_translate("Create_user", "Отключить учетную запись"))
         self.lineEdit_phone_number.setPlaceholderText(_translate("Create_user", "79265001020"))
         self.comboBox_select_role.setItemText(0, _translate("Create_user", "1_sysadmin"))
