@@ -55,5 +55,6 @@ class Ui_Load_progress(object):
         Load_progress.setWindowTitle(_translate("Load_progress", "Загрузка файла xls"))
         self.pushButton_ok.setText(_translate("Load_progress", "OK"))
         self.pushButton_cancel.setText(_translate("Load_progress", "Отмена"))
-        self.label_dialog.setText(_translate("Load_progress", "Файл готов к загрузке. "))
-        self.label_dialog_1.setText(_translate("Load_progress", "Загрузить?"))
+        self.label_dialog.setText(_translate("Load_progress", "XLS должен иметь наименования столбцов: "))
+        self.label_dialog_1.setText(_translate("Load_progress", "'ФИО полностью', 'Город отправления', 'Телефон', 'e-mail' "))
+        # self.label_dialog_2.setText(_translate("Load_progress", "Загрузить?"))
