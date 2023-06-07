@@ -1,6 +1,3 @@
-"""//////////////////////////////////////////////"""
-""""////////------IMPORT LIBRARIES-------////////"""
-"""//////////////////////////////////////////////"""
 import os
 import platform
 from datetime import datetime
@@ -16,16 +13,18 @@ class Journal:
 
     def log(self, info):
         """Логирование событий"""
-        self.info = info
+        global os_username, os_version
+        # Получаем текущее время из datetime
         dt_now = self.time_now()
-        os_version = platform.system()  # Определяем версию ОС ('Linux', 'Windows')
-        username = os.getlogin() # Получаем имя пользователя системы
-        if os_version == 'Linux':
-            self.path_dir_journal = f'/home/{username}/Event'
-            self.path_journal_log = f'/home/{username}/Event/journal.log'
+
+        self.info = info
+        if os_version == "Linux":
+            self.path_dir_journal = f'/home/{os_username}/Event'
+            self.path_journal_log = f'/home/{os_username}/Event/journal.log'
+
         elif os_version == 'Windows':
-            self.path_dir_journal = r'/Event/log'
-            self.path_journal_log = r'/Event/log/journal.log'
+            self.path_dir_journal = f"C:\\Users\\{os_username}\\Event\\"
+            self.path_journal_log = f"C:\\Users\\{os_username}\\Event\\journal.log"
 
         # Стандартная запись лога события
         if os.path.isfile(self.path_journal_log):
@@ -71,3 +70,7 @@ class Journal:
         """Последние строки лога перед завершением программы"""
         self.log(f'Выход пользователя {username_login} из системы')
         self.log(f'----------Program finished----------')
+
+
+os_version = platform.system()  # Узнаем под какой ОС запущено('Linux', 'Windows')
+os_username = os.getlogin()  # Берем имя пользователя ОС
